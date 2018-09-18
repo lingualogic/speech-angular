@@ -1,0 +1,9 @@
+DIALOG main
+
+  STATE home
+    SPEAK 7, Wenn du willst, dass ich das mache, musst du den richtigen State setzten.
+
+  STATE bot
+    SPEAK 3, Hallo - Jetzt übernehme ich!
+    ACTION incrementCounter, field, counter
+    SPEAK 4, Und erhöhe den Zähler um eins.
