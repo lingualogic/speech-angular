@@ -14,7 +14,7 @@ beinhaltet:
 
 ## Geplante Versionen
 
-** Oktober:** Version 0.5.1
+**Oktober:** Version 0.5.1
 
 beinhaltet:
 

@@ -14,7 +14,9 @@
         "build:app": "ng build",
         "lint": "ng lint",
         "test": "ng test",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "speak": "npm run build && cd ./examples/my-speech-speak && npm install && npm start",
+        "bot": "npm run build && cd ./examples/my-speech-bot && npm install && npm start"
     },
     "dependencies": {
         "@angular/animations": "^6.1.7",

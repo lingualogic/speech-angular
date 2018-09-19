@@ -31,7 +31,17 @@ Das im Dist-Ordner erzeugte NPM-Paket 'speech-angular-0.5.0.tgz' kann in den eig
 
 ## Schnelleinstieg
 
-In unserem Schnelleinstieg wollen wir eine Angluar App erstellen und sie um Sprachdienste erweitern. Den Code findet ihre im [Example-Ordner](./examples). Im Folgenden erklären wir den Entwicklungprozess Schritt für Schritt.
+In unserem Schnelleinstieg wollen wir eine Angluar App erstellen und sie um Sprachdienste erweitern. Den Code findet ihre im [Example-Ordner](./examples).
+
+Die Beispiele könnt Ihr direkt ausführen:
+
+    $ npm run speak
+
+oder
+
+    $ npm run bot
+
+Im Folgenden erklären wir den Entwicklungprozess Schritt für Schritt.
 
 Wir haben die [Angular CLI](https://github.com/angular/angular-cli/wiki) verwendet, bitte installiert sie, falls ihr sie nicht habt.
 
