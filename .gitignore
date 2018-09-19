@@ -38,3 +38,4 @@ typings
 .DS_Store
 Thumbs.db
 package-lock.json
+.angulardoc.json

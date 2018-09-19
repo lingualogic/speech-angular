@@ -2,7 +2,7 @@
 
 Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versionen und deren Features.
 
-##Veröffendliche Versionen
+## Veröffendliche Versionen
 
 **September:** Version 0.5.0
 
@@ -12,10 +12,9 @@ beinhaltet:
     * ActionService, erlaubt das Ausführen von einzelnen Aktionen
     * SpeakService, erlaubt die Sprachausgabe einzelner Sätze
 
-    
-##Geplante Versionen
+## Geplante Versionen
 
-**Oktober:** Version 0.5.1
+** Oktober:** Version 0.5.1
 
 beinhaltet:
 

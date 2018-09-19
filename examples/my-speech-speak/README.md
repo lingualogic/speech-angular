@@ -2,11 +2,12 @@
 
 Schnelleinstieg Beispiel zur Nutzung des Speech-Angular SpeakService.
 
-# Installation
+## Installation
+
+Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-angular-0.5.0.tgz erzeugt werden.
 
     $ npm install
 
-# Start
+## Start
 
     $ npm start
-
