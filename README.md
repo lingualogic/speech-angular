@@ -15,7 +15,7 @@ NodeJS muss in Version 8.9 oder neuer installiert sein.
 
 Klonen des Github-Repsitories unter github.com/lingualogic/speech-angular:
 
-    $ git clone speech-angular
+    $ git clone https://github.com/lingualogic/speech-angular
     $ cd speech-angular
 
 Installieren der NPM-Pakete von Speech-Angular:
