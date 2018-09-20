@@ -1,7 +1,7 @@
 /**
  * Unit-Test von SpeakService
  *
- * Letzte Aenderung: 15.09.2018
+ * Letzte Aenderung: 20.09.2018
  *
  * @module speech/speak
  * @author SB
@@ -245,9 +245,9 @@ describe('SpeakService', () => {
 
     // init
 
-    describe('call init', () => {
+    describe('Funktion init', () => {
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.isErrorOutput()).toBe( false );
             expect(speakService.isActive()).toBe( true );
@@ -259,27 +259,27 @@ describe('SpeakService', () => {
             expect(speakService.getText()).toBe('');
         });
 
-        it('should return 0, if init and option speakLanguage', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option speakLanguage gesetzt ist', () => {
             expect(speakService.init({ speakLanguage: SPEAK_EN_LANGUAGE })).toBe(0);
             expect(speakService.getLanguage()).toEqual( SPEAK_EN_LANGUAGE );
         });
 
-        it('should return 0, if init and option audioFormat', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option audioFormat gesetzt ist', () => {
             expect(speakService.init({ audioFormat: SPEAK_WAV_AUDIOFORMAT })).toBe(0);
             expect(speakService.getAudioFormat()).toEqual( SPEAK_WAV_AUDIOFORMAT );
         });
 
-        it('should return 0, if init and option audioFilePath', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option audioFilePath gesetzt ist', () => {
             expect(speakService.init({ audioFilePath: 'assets/speech/' })).toBe(0);
             expect(speakService.getAudioFilePath()).toEqual( 'assets/speech/' );
         });
 
-        it('should return 0, if init and option audioFlag', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option audioFlag gesetzt ist', () => {
             expect(speakService.init({ audioFlag: true })).toBe(0);
             expect(speakService.isAudio()).toBe( true );
         });
 
-        it('should return 0, if init and option audioFlag', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option errorOutputFlag gesetzt ist', () => {
             expect(speakService.init({ errorOutputFlag: true })).toBe(0);
             expect(speakService.isErrorOutput()).toBe( true );
         });
@@ -288,9 +288,9 @@ describe('SpeakService', () => {
 
     // reset
 
-    describe('call reset', () => {
+    describe('Funktion reset', () => {
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.reset()).toBe(0);
             expect(speakService.isErrorOutput()).toBe( false );
@@ -303,32 +303,32 @@ describe('SpeakService', () => {
             expect(speakService.getText()).toBe('');
         });
 
-        it('should return 0, if init and option speakLanguage', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option speakLanguage gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.reset({ speakLanguage: SPEAK_EN_LANGUAGE })).toBe(0);
             expect(speakService.getLanguage()).toEqual( SPEAK_EN_LANGUAGE );
         });
 
-        it('should return 0, if init and option audioFormat', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option audioFormat gesetzt ist', () => {
             pending('AudioFormat wird an AudioPlayer nicht weitergereicht');
             expect(speakService.init()).toBe(0);
             expect(speakService.reset({ audioFormat: SPEAK_WAV_AUDIOFORMAT })).toBe(0);
             expect(speakService.getAudioFormat()).toEqual( SPEAK_WAV_AUDIOFORMAT );
         });
 
-        it('should return 0, if init and option audioFilePath', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option audioFilePath gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.reset({ audioFilePath: 'assets/speech/' })).toBe(0);
             expect(speakService.getAudioFilePath()).toEqual( 'assets/speech/' );
         });
 
-        it('should return 0, if init and option audioFlag', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option audioFlag gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.reset({ audioFlag: true })).toBe(0);
             expect(speakService.isAudio()).toBe( true );
         });
 
-        it('should return 0, if init and option audioFlag', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option errorOutputFlag gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.reset({ errorOutputFlag: true })).toBe(0);
             expect(speakService.isErrorOutput()).toBe( true );
@@ -365,24 +365,24 @@ describe('SpeakService', () => {
 
     // isActive
 
-    describe('call istActive', () => {
+    describe('Funktion istActive', () => {
 
         it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
             expect(speakService.isActive()).toBe( false );
         });
 
-        it('should return true, if init', () => {
+        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.isActive()).toBe( true );
         });
 
-        it('should return false, if init and active off', () => {
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde und active aus gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setActiveOff()).toBe(0);
             expect(speakService.isActive()).toBe( false );
         });
 
-        it('should return true, if init and active on', () => {
+        it('sollte true zurueckgeben, wenn init aufgerufen wurde und active ein gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setActiveOff()).toBe(0);
             expect(speakService.setActiveOn()).toBe(0);
@@ -393,14 +393,14 @@ describe('SpeakService', () => {
 
     // setActiveOn
 
-    describe('call setActiveOn', () => {
+    describe('Funktion setActiveOn', () => {
 
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
             expect(speakService.setActiveOn()).toBe(-1);
             expect(speakService.isActive()).toBe( false );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setActiveOn()).toBe(0);
             expect(speakService.isActive()).toBe( true );
@@ -410,14 +410,14 @@ describe('SpeakService', () => {
 
     // setActiveOff
 
-    describe('call setActiveOff', () => {
+    describe('Funktion setActiveOff', () => {
 
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
             expect(speakService.setActiveOff()).toBe(-1);
             expect(speakService.isActive()).toBe( false );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setActiveOff()).toBe(0);
             expect(speakService.isActive()).toBe( false );
@@ -450,24 +450,24 @@ describe('SpeakService', () => {
 
     // isErrorOutput
 
-    describe('call isErrorOutput', () => {
+    describe('Funktion isErrorOutput', () => {
 
         it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
             expect(speakService.isErrorOutput()).toBe( false );
         });
 
-        it('should return false, if init', () => {
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.isErrorOutput()).toBe( false );
         });
 
-        it('should return true, if init and error output on', () => {
+        it('sollte true zurueckgeben, wenn init aufgerufen wurde und errorOutput ein gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             speakService.setErrorOutputOn();
             expect(speakService.isErrorOutput()).toBe( true );
         });
 
-        it('should return false, if init and error output off', () => {
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde und errorOutput aus gesetzt ist', () => {
             expect(speakService.init()).toBe(0);
             speakService.setErrorOutputOn();
             speakService.setErrorOutputOff();
@@ -478,14 +478,14 @@ describe('SpeakService', () => {
 
     // setErrorOutputOn
 
-    describe('call setErrorOutputOn', () => {
+    describe('Funktion setErrorOutputOn', () => {
 
         it('sollte true zurueckgeben, wenn init nicht aufgerufen wurde', () => {
             speakService.setErrorOutputOn();
             expect(speakService.isErrorOutput()).toBe( true );
         });
 
-        it('should return true, if init', () => {
+        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             speakService.setErrorOutputOn();
             expect(speakService.isErrorOutput()).toBe( true );
@@ -495,14 +495,14 @@ describe('SpeakService', () => {
 
     // setErrorOutputOff
 
-    describe('call setErrorOutputOff', () => {
+    describe('Funktion setErrorOutputOff', () => {
 
         it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
             speakService.setErrorOutputOff();
             expect(speakService.isErrorOutput()).toBe( false );
         });
 
-        it('should return false, if init', () => {
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             speakService.setErrorOutputOff();
             expect(speakService.isErrorOutput()).toBe( false );
@@ -564,9 +564,9 @@ describe('SpeakService', () => {
 
     // xxxEvent
 
-    describe('call xxxEvent', () => {
+    describe('Funktion xxxEvent', () => {
 
-        it('should return event', () => {
+        it('sollte event zurueckgeben', () => {
             expect(speakService.startEvent).toBeTruthy();
             expect(speakService.stopEvent).toBeTruthy();
             expect(speakService.errorEvent).toBeTruthy();
@@ -576,7 +576,7 @@ describe('SpeakService', () => {
 
     // isAudio
 
-    describe('call isAudio', () => {
+    describe('Funktion isAudio', () => {
 
         it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -588,7 +588,7 @@ describe('SpeakService', () => {
             expect(speakService.isAudio()).toBe( false );
         });
 
-        it('should return false, if init', () => {
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 fail('Test Error: ' + aError.message);
@@ -600,7 +600,7 @@ describe('SpeakService', () => {
             errorEvent.unsubscribe();
         });
 
-        it('should return true, if init and audio on', () => {
+        it('sollte true zurueckgeben, wenn init aufgerufen wurde und audio ein gesetzt ist', () => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 fail('Test Error: ' + aError.message);
@@ -616,9 +616,9 @@ describe('SpeakService', () => {
 
     // setAudioOn
 
-    describe('call setAudioOn', () => {
+    describe('Funktion setAudioOn', () => {
 
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 expect(aError.message).toEqual('SpeakService.setAudioOn: keine Speak-Komponente vorhanden');
@@ -628,7 +628,7 @@ describe('SpeakService', () => {
             expect(speakService.setAudioOn()).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setAudioOn()).toBe(0);
         });
@@ -637,9 +637,9 @@ describe('SpeakService', () => {
 
     // setAudioOff
 
-    describe('call setAudioOff', () => {
+    describe('Funktion setAudioOff', () => {
 
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 expect(aError.message).toEqual('SpeakService.setAudioOff: keine Speak-Komponente vorhanden');
@@ -649,7 +649,7 @@ describe('SpeakService', () => {
             expect(speakService.setAudioOff()).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setAudioOff()).toBe(0);
         });
@@ -696,9 +696,9 @@ describe('SpeakService', () => {
 
     // setAudioFormat
 
-    describe('call setAudioFormat', () => {
+    describe('Funktion setAudioFormat', () => {
 
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 expect(aError.message).toEqual('SpeakService.setAudioFormat: keine Speak-Komponente vorhanden');
@@ -708,7 +708,7 @@ describe('SpeakService', () => {
             expect(speakService.setAudioFormat('')).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setAudioFormat( SPEAK_WAV_AUDIOFORMAT )).toBe(0);
             expect(speakService.getAudioFormat()).toEqual( SPEAK_WAV_AUDIOFORMAT );
@@ -718,9 +718,9 @@ describe('SpeakService', () => {
 
     // getAudioFormat
 
-    describe('call getAudioFormat', () => {
+    describe('Funktion getAudioFormat', () => {
 
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+        it('sollte leeren String zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 expect(aError.message).toEqual('SpeakService.getAudioFormat: keine Speak-Komponente vorhanden');
@@ -730,7 +730,7 @@ describe('SpeakService', () => {
             expect(speakService.getAudioFormat()).toBe( '' );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte mp3 String zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.getAudioFormat()).toEqual( SPEAK_MP3_AUDIOFORMAT );
         });
@@ -771,9 +771,9 @@ describe('SpeakService', () => {
 
     // setAudioFilePath
 
-    describe('call setAudioFilePath', () => {
+    describe('Funktion setAudioFilePath', () => {
 
-        it('sollte path nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
+        it('sollte Audiopfad nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 expect(aError.message).toEqual('SpeakService.setAudioFilePath: keine Speak-Komponente vorhanden');
@@ -783,7 +783,7 @@ describe('SpeakService', () => {
             expect(speakService.setAudioFilePath('')).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte Audiopfad setzen, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setAudioFilePath( 'TestPath' )).toBe(0);
             expect(speakService.getAudioFilePath()).toEqual( 'TestPath' );
@@ -793,7 +793,7 @@ describe('SpeakService', () => {
 
     // getAudioFilePath
 
-    describe('call getAudioFilePath', () => {
+    describe('Funktion getAudioFilePath', () => {
 
         it('sollte leeren path zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -805,7 +805,7 @@ describe('SpeakService', () => {
             expect(speakService.getAudioFilePath()).toBe( '' );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte assets Defaultpfad zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.getAudioFilePath()).toEqual( 'assets/' );
         });
@@ -846,7 +846,7 @@ describe('SpeakService', () => {
 
     // setAudioFileName
 
-    describe('call setAudioFileName', () => {
+    describe('Funktion setAudioFileName', () => {
 
         it('sollte file nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -858,7 +858,7 @@ describe('SpeakService', () => {
             expect(speakService.setAudioFileName('')).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte FileName setzen, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setAudioFileName( 'TestFile' )).toBe(0);
             expect(speakService.getAudioFileName()).toEqual( 'TestFile' );
@@ -868,7 +868,7 @@ describe('SpeakService', () => {
 
     // getAudioFileName
 
-    describe('call getAudioFileName', () => {
+    describe('Funktion getAudioFileName', () => {
 
         it('sollte leeres file zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -880,7 +880,7 @@ describe('SpeakService', () => {
             expect(speakService.getAudioFileName()).toBe( '' );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte leeres file zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.getAudioFileName()).toEqual( '' );
         });
@@ -921,7 +921,7 @@ describe('SpeakService', () => {
 
     // setLanguage
 
-    describe('call setLanguage', () => {
+    describe('Funktion setLanguage', () => {
 
         it('sollte language nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -933,7 +933,7 @@ describe('SpeakService', () => {
             expect(speakService.setLanguage('')).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte language setzen, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setLanguage( SPEAK_EN_LANGUAGE )).toBe(0);
             expect(speakService.getLanguage()).toEqual( SPEAK_EN_LANGUAGE );
@@ -943,7 +943,7 @@ describe('SpeakService', () => {
 
     // getLanguage
 
-    describe('call getLanguage', () => {
+    describe('Funktion getLanguage', () => {
 
         it('sollte leere language zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -955,7 +955,7 @@ describe('SpeakService', () => {
             expect(speakService.getLanguage()).toBe( '' );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte language de zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.getLanguage()).toEqual( SPEAK_DE_LANGUAGE );
         });
@@ -996,7 +996,7 @@ describe('SpeakService', () => {
 
     // setText
 
-    describe('call setText', () => {
+    describe('Funktion setText', () => {
 
         it('sollte text nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
@@ -1008,7 +1008,7 @@ describe('SpeakService', () => {
             expect(speakService.setText('')).toBe( -1 );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte text setzen, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.setText( 'TestText' )).toBe(0);
             expect(speakService.getText()).toEqual( 'TestText' );
@@ -1018,9 +1018,9 @@ describe('SpeakService', () => {
 
     // getText
 
-    describe('call getText', () => {
+    describe('Funktion getText', () => {
 
-        it('sollte leere text zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+        it('sollte leeren text zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 expect(aError.message).toEqual('SpeakService.getText: keine Speak-Komponente vorhanden');
@@ -1030,9 +1030,9 @@ describe('SpeakService', () => {
             expect(speakService.getText()).toBe( '' );
         });
 
-        it('should return 0, if init', () => {
+        it('sollte leeren text zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
-            expect(speakService.getLanguage()).toEqual( SPEAK_DE_LANGUAGE );
+            expect(speakService.getText()).toEqual( '' );
         });
 
     });
@@ -1071,10 +1071,19 @@ describe('SpeakService', () => {
 
     // isRunning
 
-    describe('call istRunning', () => {
+    describe('Funktion istRunning', () => {
 
+        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect(aError.message).toEqual('SpeakService.isRunning: keine Speak-Komponente vorhanden');
+                done();
+                return 0;
+            });
+            expect(speakService.isRunning()).toBe( false );
+        });
 
-        it('should return false, if init', () => {
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
             expect(speakService.init()).toBe(0);
             expect(speakService.isRunning()).toBe( false );
         });
@@ -1083,9 +1092,20 @@ describe('SpeakService', () => {
 
     // start TTS
 
-    describe('call start TTS', () => {
+    describe('Funktion start TTS', () => {
 
-        it('should return 0, if init', (done) => {
+        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                // tslint:disable-next-line
+                expect(aError.message).toEqual( "EXCEPTION SpeakService.start: Cannot read property 'startSpeak' of null" );
+                done();
+                return 0;
+            });
+            expect(speakService.start()).toBe( -1 );
+        });
+
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 done.fail('Test Error: ' + aError.message);
@@ -1114,10 +1134,20 @@ describe('SpeakService', () => {
 
     // stop TTS
 
-    describe('call stop TTS', () => {
+    describe('Funktion stop TTS', () => {
 
+        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                // tslint:disable-next-line
+                expect(aError.message).toEqual( "EXCEPTION SpeakService.stop: Cannot read property 'stopSpeak' of null" );
+                done();
+                return 0;
+            });
+            expect(speakService.stop()).toBe( -1 );
+        });
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 fail('Test Error: ' + aError.message);
@@ -1128,7 +1158,7 @@ describe('SpeakService', () => {
             errorEvent.unsubscribe();
         });
 
-        it('should return 0, if init and start', (done) => {
+        it('sollte 0 zurueckgeben, wenn init und start aufgerufen wurden', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 // done.fail('Test Error: ' + aError.message);
@@ -1160,9 +1190,9 @@ describe('SpeakService', () => {
 
     // start Audio
 
-    describe('call start Audio', () => {
+    describe('Funktion start Audio', () => {
 
-        it('should return 0, if init', (done) => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 done.fail('Test Error: ' + aError.message);
@@ -1193,10 +1223,10 @@ describe('SpeakService', () => {
 
     // stop Audio
 
-    describe('call stop Audio', () => {
+    describe('Funktion stop Audio', () => {
 
 
-        it('should return 0, if init', () => {
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 fail('Test Error: ' + aError.message);
@@ -1208,7 +1238,7 @@ describe('SpeakService', () => {
             errorEvent.unsubscribe();
         });
 
-        it('should return 0, if init and start', (done) => {
+        it('sollte 0 zurueckgeben, wenn init und start aufgerufen wurden', (done) => {
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 done.fail('Test Error: ' + aError.message);
@@ -1239,5 +1269,3 @@ describe('SpeakService', () => {
     });
 
 });
-
-

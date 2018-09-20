@@ -903,12 +903,11 @@ export class SpeakService {
      */
 
     isRunning(): boolean {
-        try {
-            return this.mSpeak.isSpeakRunning();
-        } catch ( aException ) {
-            this._exception( 'isRunning', aException );
+        if ( !this.mSpeak ) {
+            this._error('isRunning', 'keine Speak-Komponente vorhanden');
             return false;
         }
+        return this.mSpeak.isSpeakRunning();
     }
 
 

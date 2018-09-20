@@ -22,12 +22,19 @@ Installieren der NPM-Pakete von Speech-Angular:
 
     $ npm install
 
+Testen von Speech-Angular:
+
+    $ npm run test
+
 Erzeugen des Speech-Angular NPM-Pakets in Dist-Ordner:
 
     $ npm run build
     $ cd dist
 
 Das im Dist-Ordner erzeugte NPM-Paket 'speech-angular-0.5.0.tgz' kann in den eigenen Angular Projektordner kopiert werden. Probiert es einfach aus mit unserem Schnelleinstieg.
+
+Die API-Deferenzdokumentation findet Ihr [hier](http://lingualogic.de/speech-angular/docs/latest/api).
+
 
 ## Schnelleinstieg
 
@@ -261,9 +268,9 @@ Die 'addFunction()' des [ActionServices](http://lingualogic.de/speech-angular/do
 
 ### Bot - unser Chatbot
 
-Das ausführen von Speaks und Actions übernimmt unser Bot. Die ähnlich eines [Chatbots](https://de.wikipedia.org/wiki/Chatbot) mit besonder Aktionschnittstelle mit der App interagiert.
+Das Ausführen von Speaks und Actions übernimmt unser Bot. Der ähnlich eines [Chatbots](https://de.wikipedia.org/wiki/Chatbot) über eine zusätzlichen Aktionschnittstelle mit der App interagieren kann.
 
-Wichtig für einen Bot ist es den Kontext (Zustand der App, in der sich der Benutzer befindet) zu erhalten, damit die passende Interaktion erfolgen kann.
+Wichtig für einen Bot ist es, den Kontext (Zustand der App, in der sich der Benutzer befindet) zu erhalten, damit die passende Interaktion erfolgen kann.
 
 Unsere mySpeech-App hat momentan nur einen Zustand. Mit Hilfe des Routings wollen wir einen zweiten Zustand erzeugen zwischen dem der Besucher wechseln kann.
 
