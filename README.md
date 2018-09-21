@@ -33,12 +33,19 @@ Erzeugen des Speech-Angular NPM-Pakets in Dist-Ordner:
 
 Das im Dist-Ordner erzeugte NPM-Paket 'speech-angular-0.5.0.tgz' kann in den eigenen Angular Projektordner kopiert werden. Probiert es einfach aus mit unserem Schnelleinstieg.
 
-Die API-Deferenzdokumentation findet Ihr [hier](http://lingualogic.de/speech-angular/docs/latest/api).
+
+## Dokumentation
+
+[**Grundlagen**](./docs/design/README.md)
+
+[**API-Referenz**](https://lingualogic.de/speech-angular/docs/latest/api).
+
+[**Roadmap**](./docs/roadmap/Roadmap-2018.md)
 
 
 ## Schnelleinstieg
 
-In unserem Schnelleinstieg wollen wir eine Angluar App erstellen und sie um Sprachdienste erweitern. Den Code findet ihre im [Example-Ordner](./examples).
+In unserem Schnelleinstieg wollen wir eine Angluar App erstellen und sie um Sprachdienste erweitern. Den Code findet ihre im Example-Ordner /examples.
 
 Die Beispiele könnt Ihr direkt ausführen:
 
@@ -94,10 +101,10 @@ In 'app.module.ts' importieren wir den SpeakService und stellen ihn als Provider
     })
     export class AppModule { }
 
-Im Konstruktor des AppModules können Eigenschaften des Speaksservices mittels Optionen gesetzt werden. Für dieses Beispiel reichen uns die Defaultwerte. Weiteres zu Optionen [hier](http://lingualogic.de/speech-angular/docs/latest/api/interfaces/speech_speak.speakserviceoptioninterface.html).
+Im Konstruktor des AppModules können Eigenschaften des Speaksservices mittels Optionen gesetzt werden. Für dieses Beispiel reichen uns die Defaultwerte. Weiteres zu Optionen [hier](https://lingualogic.de/speech-angular/docs/latest/api/interfaces/speech_speak.speakserviceoptioninterface.html).
 
 Nun steht der Service in unseren Komponenten zur Verfügung. Wir wollen ihn in der AppComponent nutzen.
-Dafür öffen wir 'app.component.ts' und importieren den SpeakService. Im Konstruktor der Klasse erzeugen wir über Dependency Injection ein SpeakService Objekt. Die Funktionalität des Services kann [hier](http://lingualogic.de/speech-angular/docs/latest/api/classes/speech_speak.speakservice.html) nachgelesen werden.
+Dafür öffen wir 'app.component.ts' und importieren den SpeakService. Im Konstruktor der Klasse erzeugen wir über Dependency Injection ein SpeakService Objekt. Die Funktionalität des Services kann [hier](https://lingualogic.de/speech-angular/docs/latest/api/classes/speech_speak.speakservice.html) nachgelesen werden.
 
     import { Component } from '@angular/core';
     import { SpeakService } from 'speech-angular'; // <== Import SpeakService
@@ -148,7 +155,7 @@ Nicht auf allen Plattformen oder Browsern steht eine angenehme Sprachsynthese zu
 Audiodateien haben zudem den Vorteil, dass sie ohne Latenz und offline abgespielt werden können.
 Daher wollen wir im nächsten Schritt mit mySpeech eine Audiodatei abspielen.
 
-Zur Erstellung der Audiodateien bieten sich neben eigenen Aufnahmen auch Clouddienste, wie [Amazon Polly](https://aws.amazon.com/de/polly/) an. Für dieses Beispiel haben wir eine [mp3-Datei](./examples/my-speech-speak/src/assets) mit Polly vorbereitet. Diese kopieren wir in den Assets-Ordner von mySpeech.
+Zur Erstellung der Audiodateien bieten sich neben eigenen Aufnahmen auch Clouddienste, wie [Amazon Polly](https://aws.amazon.com/de/polly/) an. Für dieses Beispiel haben wir eine mp3-Datei unter examples/my-speech-speak/src/assets mit Polly vorbereitet. Diese kopieren wir in den Assets-Ordner von mySpeech.
 
 Anschließend passen wir 'app.component.ts' an. Die 'AppComponent' Klasse wird um das OnInit-Interface erweitert, was entsprechend importiert werden muss. Das Interface stellt die 'ngOnInit()' Funktion zur Verfügung, die bei der Initalisierung der Komponente ausgeführt wird. In ihr schalten wir die Eigenschaft Audio an und setzen den Namen für die Audiodatei. Weitere Eigenschaften, wie das Format und den Pfad können optional geändert werden.
 
@@ -175,7 +182,7 @@ Nun starten wir die App erneut. (Achtung: Sollte die App noch laufen, muss sie z
 
 In Chrome öffnen wir anschließend [http://localhost:4200/](http://localhost:4200/). Und drücken den 'Drück mich!' Button.
 
-Ihre App kann jetzt auch Audiodatein abspielen. Den Code zu diesem Teil findet ihr unter [examples/my-speech-speak](./examples/my-speech-speak).
+Ihre App kann jetzt auch Audiodatein abspielen. Den Code zu diesem Teil findet ihr unter examples/my-speech-speak.
 
 ### Sprachen und Funktionalität verbinden
 
@@ -264,7 +271,7 @@ In 'app.component.ts' ergänzen wir den Import von ActionService. Und überarbei
 
 Hinweis: Der Speakservice und die 'speak()' Funktion werden für dieses Beispiel nicht benötig, und könnten daher gelöscht oder auskommentiert werden. Tut man dies nicht, ist es wichtig den Speakservice wieder auf Sprachausgabe per TTS um zustellen.
 
-Die 'addFunction()' des [ActionServices](http://lingualogic.de/speech-angular/docs/latest/api/classes/speech_action.actionservice.html#addfunction) hat drei Parameter. Im ersten Parameter wird ein Name vergeben, der die Funktion identifiziert. Der zweite Parameter definiert die Startfunktion, die beim Aufruf der Action durch den Bot ausgeführt wird. Der dritte Parameter definiert eine Stopfunktion, die ausgeführt wird, wenn der auf die Action folgende Speak endet. In unserem Beispiel soll in der Stopfunktion nichts passieren.
+Die 'addFunction()' des [ActionServices](https://lingualogic.de/speech-angular/docs/latest/api/classes/speech_action.actionservice.html#addfunction) hat drei Parameter. Im ersten Parameter wird ein Name vergeben, der die Funktion identifiziert. Der zweite Parameter definiert die Startfunktion, die beim Aufruf der Action durch den Bot ausgeführt wird. Der dritte Parameter definiert eine Stopfunktion, die ausgeführt wird, wenn der auf die Action folgende Speak endet. In unserem Beispiel soll in der Stopfunktion nichts passieren.
 
 ### Bot - unser Chatbot
 
@@ -375,7 +382,7 @@ Neben den Sprachausgaben in den entsprechenden States, wird im Bot unsere zuvor 
 
 Startet man jetzt die App, kann man den Bot einmalig den Zählerstand erhöhen lassen. Wir wollen allerdings zusätzlich, dass der Bot anschließend zurück in den home State routet.
 
-Hierzu verwenden wir [Events](http://lingualogic.de/speech-angular/docs/latest/api/classes/speech_bot.botservice.html), die uns der Botservice bereitstellt. Das 'stopEvent' wird ausgegeben, wenn der Dialog für einem State ausgegeben wurde. Es wird in die 'ngOnInit' Funktion von
+Hierzu verwenden wir [Events](https://lingualogic.de/speech-angular/docs/latest/api/classes/speech_bot.botservice.html), die uns der Botservice bereitstellt. Das 'stopEvent' wird ausgegeben, wenn der Dialog für einem State ausgegeben wurde. Es wird in die 'ngOnInit' Funktion von
 'bot.component.ts' integriert.
 
     import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -412,7 +419,7 @@ Hierzu verwenden wir [Events](http://lingualogic.de/speech-angular/docs/latest/a
 
     }
 
-Zusätzlich muss sichergesstellt werden, dass das Event beim Wechseln der Komponente unsubscribed wird. Hierzu wird Angulars 'ngOnDestroy' Funktion verwendet, die wie oben in den Code der Bot-Komponete integiert wird. Den Code zu diesem Teil findet ihr unter [examples/my-speech-bot](./examples/my-speech-bot).
+Zusätzlich muss sichergesstellt werden, dass das Event beim Wechseln der Komponente unsubscribed wird. Hierzu wird Angulars 'ngOnDestroy' Funktion verwendet, die wie oben in den Code der Bot-Komponete integiert wird. Den Code zu diesem Teil findet ihr unter examples/my-speech-bot.
 
 -------------------
 
