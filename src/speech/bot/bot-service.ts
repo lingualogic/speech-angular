@@ -1,10 +1,10 @@
 /**
  * BotService zur Anbindung des Bot an Angular.
  *
- * API-Version: 1.0
- * Datum:       15.09.2018
+ * API-Version: 1.1
+ * Datum:       21.09.2018
  *
- * Letzte Aenderung: 15.09.2018
+ * Letzte Aenderung: 21.09.2018
  * Status:           gruen
  *
  * @module speech/bot
@@ -1071,6 +1071,22 @@ export class BotService {
         } catch ( aException ) {
             this._exception( 'parseFile', aException );
             return -1;
+        }
+    }
+
+
+    /**
+     * Pruefen, ob ein Dialog gerade laeuft
+     *
+     * @return {boolean} True, wenn Dialog laeuft, False sonst
+     */
+
+    isRunning(): boolean {
+        try {
+            return this.mBot.isDialogRunning();
+        } catch ( aException ) {
+            this._exception( 'isRunning', aException );
+            return false;
         }
     }
 

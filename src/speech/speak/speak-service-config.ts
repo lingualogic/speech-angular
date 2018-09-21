@@ -26,7 +26,7 @@ export const SpeakServiceConfig: SpeakServiceOptionInterface = {
     speakLanguage: 'de',
     /** Audioformat 'mp3' oder 'wav' */
     audioFormat: 'mp3',
-    /** lokales Verzeichnis, in dem die Audiodateien liegen, z.B. 'assets/speech/audio' */
+    /** lokales Verzeichnis, in dem die Audiodateien liegen, z.B. 'assets/speech/audio/', unbedingt mit '/' am Ende abschliessen! */
     audioFilePath: 'assets/',
     /** True, wenn Audiodateien abgespielt werden sollen, anstelle der Sprachsynthese */
     audioFlag: false,

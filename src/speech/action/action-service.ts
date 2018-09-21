@@ -733,8 +733,19 @@ export class ActionService {
     }
 
 
-    // Aktionsfunktionen-Funktionen
+    // Aktionsfunktion-Funktionen
 
+
+    /**
+     * Hinzufuegen einer Aktionsfunktion mit Start- und Stop Callbacks, um eine Aktion unter diesem
+     * Namen auszufuehren.
+     *
+     * @param {string} aFunctionName - Name der Aktionsfunktion
+     * @param {ActionStartFunc} aStartActionFunc - Callback-Funktion fuer Start der Aktion
+     * @param {ActionStopFunc} aStopActionFunc - Callback-Funktion fuer Stopp der Aktion
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
 
     addFunction( aFunctionName: string, aStartActionFunc: ActionStartFunc, aStopActionFunc: ActionStopFunc ): number {
         try {
@@ -745,6 +756,14 @@ export class ActionService {
         }
     }
 
+
+    /**
+     * Entfernen einer Aktionsfunktion.
+     *
+     * @param {string} aFunctionName - Name der Aktionsfunktion
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
 
     removeFunction( aFunctionName: string ): number {
         try {
@@ -759,6 +778,17 @@ export class ActionService {
     // Aktionelement-Funktionen
 
 
+    /**
+     * Hinzufuegen eines Aktionselements mit Start- und Stop-Callbacks, um eine Aktion fuer dieses Element
+     * auszufuehren.
+     *
+     * @param {string} aElementName - Name des Aktionselementes
+     * @param {ActionStartFunc} aStartActionFunc - Callback-Funktion fuer Start der Aktion zum Element
+     * @param {ActionStopFunc} aStopActionFunc - Callback-Funktion fuer Stopp der Aktion zum Element
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+
     addElement( aElementName: string, aStartActionFunc: ActionStartFunc, aStopActionFunc: ActionStopFunc ): number {
         try {
             return this.mAction.addElement( aElementName, aStartActionFunc, aStopActionFunc );
@@ -768,6 +798,14 @@ export class ActionService {
         }
     }
 
+
+    /**
+     * Entfernen eines Aktionselementes.
+     *
+     * @param {string} aElementName - Name des Aktionselementes
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
 
     removeElement( aElementName: string ): number {
         try {

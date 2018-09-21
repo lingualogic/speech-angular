@@ -10,17 +10,22 @@ import { BotService } from './../speech/bot/bot-service';
 // action
 
 import { ActionService } from './../speech/action/action-service';
+import { ActionComponent } from './action/action.component';
 
 // speak
 
 import { SpeakService } from './../speech/speak/speak-service';
 import { SpeakComponent } from './speak/speak.component';
+import { BotComponent } from './bot/bot.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpeakComponent
+    SpeakComponent,
+    ActionComponent,
+    BotComponent
   ],
   imports: [
     BrowserModule

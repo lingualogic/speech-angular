@@ -1,7 +1,7 @@
 /**
  * Unit-Test von BotService
  *
- * Letzte Aenderung: 15.09.2018
+ * Letzte Aenderung: 21.09.2018
  *
  * @module speech/bot
  * @author SB
@@ -1174,6 +1174,28 @@ describe('BotService', () => {
             expect( botService.init()).toBe( 0 );
             botService.path = 'assets/speech/';
             expect( botService.parseFile()).toBe( 0 );
+        });
+
+    });
+
+    // isRunning
+
+    describe('Funktion istRunning', () => {
+
+        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = botService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                // tslint:disable-next-line
+                expect(aError.message).toEqual("EXCEPTION BotService.isRunning: Cannot read property 'isDialogRunning' of null");
+                done();
+                return 0;
+            });
+            expect(botService.isRunning()).toBe( false );
+        });
+
+        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect(botService.init()).toBe(0);
+            expect(botService.isRunning()).toBe( false );
         });
 
     });

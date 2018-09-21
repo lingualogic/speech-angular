@@ -24,7 +24,7 @@ Installieren der NPM-Pakete von Speech-Angular:
 
 Testen von Speech-Angular:
 
-    $ npm run test
+    $ npm test
 
 Erzeugen des Speech-Angular NPM-Pakets in Dist-Ordner:
 

@@ -17,11 +17,11 @@
  */
 
 export interface ActionServiceDataInterface {
-    /** definierte Aktion */
+    /** definierte Aktion, ist ActionName in ActionService */
     action: string;
-    /** Objekttyp fuer die Aktion */
+    /** Objekttyp fuer die Aktion, ist ElementType in ActionService */
     type: string;
-    /** eindeutiger Objektname fuer die Aktion */
+    /** eindeutiger Objektname fuer die Aktion, ist ElementName in ActionService */
     id: string;
 }
 

@@ -257,6 +257,18 @@ gulp.task('copy-original', function() {
  * Kopiert die Docsdateien aus docs/ nach dist/docs
  */
 
+gulp.task('copy-docs-readme', function() {
+    return gulp.src([
+        'docs/*'
+    ])
+    .pipe( gulp.dest('dist/docs'));
+});
+
+
+/**
+ * Kopiert die Docsdateien aus docs/ nach dist/docs
+ */
+
 gulp.task('copy-docs-blog', function() {
     return gulp.src([
         'docs/blog/*'
@@ -294,7 +306,7 @@ gulp.task('copy-docs-roadmap', function() {
  */
 
 gulp.task('copy-docs', (callback) => {
-    runSequence('copy-docs-blog', 'copy-docs-design', 'copy-docs-roadmap', callback);
+    runSequence('copy-docs-readme', 'copy-docs-blog', 'copy-docs-design', 'copy-docs-roadmap', callback);
 });
 
 
