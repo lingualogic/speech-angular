@@ -325,7 +325,7 @@ Im Bot wird analog vorgegangen. Allerdings wird in der 'ngOnInit()' Funktion zus
 
     ...
 
-Was der Bot tun soll wird in einer Text-Datei definiert, die als 'speech.def' in den Assets der App gespeichert wird. Diese Datei verfügt über ihre eigene Syntax, die [hier](./docs/design/DialogScript.md) nachgelesen werden kann
+Was der Bot tun soll wird in einer Text-Datei definiert, die als 'speech.def' in den Assets der App gespeichert wird. Diese Datei verfügt über ihre eigene Syntax, die [hier](./design/DialogScript.md) nachgelesen werden kann
 
     DIALOG main
 
