@@ -233,8 +233,7 @@ gulp.task('copy-bot-service', function() {
 gulp.task('copy-bundle', function() {
     return gulp.src([
         'bundle/index.js',
-        'bundle/package.json',
-        'bundle/README.md'
+        'bundle/package.json'
     ])
     .pipe( gulp.dest('dist/'));
 });
@@ -247,7 +246,8 @@ gulp.task('copy-bundle', function() {
 gulp.task('copy-original', function() {
     return gulp.src([
         'LICENSE',
-        'CHANGELOG.md'
+        'CHANGELOG.md',
+        'README.md'
     ])
     .pipe( gulp.dest('dist/'));
 });

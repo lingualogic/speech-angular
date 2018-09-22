@@ -1,7 +1,8 @@
-# Dokumentation
+# Speech-Angular Dokumentation
 
 Die Dokumentation des Speech-Angular SDK:
 
+## [Schnelleinstieg](./QuickStart.md)
 
 ## [Grundlagen](./design/README.md)
 

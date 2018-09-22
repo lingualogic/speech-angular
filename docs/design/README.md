@@ -1,4 +1,4 @@
-# Grundlagen
+# Speech-Angular Grundlagen
 
 Hier werden die Grundlagen des Speech-Angular SDKs behandelt:
 
