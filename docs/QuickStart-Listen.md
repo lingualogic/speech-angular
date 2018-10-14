@@ -2,8 +2,8 @@
 
 In unseren Schnelleinstiegen wollen wir Angluar Apps erstellen und sie um Sprachdienste erweitern. Den Code findet Ihr im /examples Ordner.
 
-**Neues Feature ab 0.5.1** 
-Ab Version 0.5.1 verfügt Speech-Angular über den **ListenService**. Der neue Sprachdienst ermöglicht [Spracherkennung](https://de.wikipedia.org/wiki/Spracherkennung).
+**Neues Feature:**
+Ab Version 0.5.1 verfügt Speech-Angular über den **ListenService**. Dieser ermöglicht neue Sprachdienste für [Spracherkennung](https://de.wikipedia.org/wiki/Spracherkennung).
 
 Das Beispiel könnt Ihr direkt im Speech-Angular Projektverzeichnis, ohne in den /examples Ordner wechseln zu müssen, ausführen:
 
@@ -28,9 +28,9 @@ Das NPM-Paket 'speech-angular-0.5.1.tgz' kopieren oder verschieben wir dafür in
 
 Weiter geht es in der App. Zur Programmierung können wir [VScode](https://code.visualstudio.com/) empfehlen.
 
-## Listenservice
+## ListenService
 
-Mit dem neuen Listenservice wollen wir [Spracherkennung](https://de.wikipedia.org/wiki/Spracherkennung) realisieren.
+Mit dem neuen ListenService wollen wir [Spracherkennung](https://de.wikipedia.org/wiki/Spracherkennung) realisieren.
 
 In 'app.module.ts' importieren wir den Service und stellen ihn als Provider zur Verfügung. 
 
@@ -99,9 +99,7 @@ Daher verwenden wir [Events](https://lingualogic.de/speech-angular/docs/latest/a
 Das 'listenResult' wird ausgeführt, wenn eine Spracheingabe erkannt wurde. Es gibt den erkannten Text zurück, dieser soll gesetzt werden. Anschließend muss der View aktualisiert werden.
 Die Integration findet in der 'ngOnInit' Funktion der 'AppComponent' Klasse statt, die zuvor um das OnInit-Interface erweitert wurde.
 
-Um die Spracherkennung zu testen, bearbeiten wir die Template Datei 'app.component.html'. Wir fügen einen 
-- Input - der den erkannten Text anzeigt - und einen
-- Button - der die 'start()' Funktion aufruft - hinzu.
+Um die Spracherkennung zu testen, bearbeiten wir die Template Datei 'app.component.html'. Wir fügen einen Input - der den erkannten Text anzeigt - und einen Button - der die 'start()' Funktion aufruft - hinzu.
 
     <div style="text-align:center">
         <h1>
@@ -114,10 +112,9 @@ Um die Spracherkennung zu testen, bearbeiten wir die Template Datei 'app.compone
 
         <input type="text" placeholder="  " [(ngModel)]='textInput' name="textInput" style="padding: 15px 32px; font-size: 16px;" />
         <button (click)="start()" style="padding: 15px 32px; font-size: 16px;">Drück mich!</button>
-
     </div>
 
-Damit das Two-Way-Binding von "textInput" funktioniert haben wir zuvor in 'app.module.ts' "FormsModule" hinzugefügt.
+Damit das Two-Way-Binding vom TextInput funktioniert haben wir zuvor in 'app.module.ts' das FormsModule hinzugefügt.
 Nun kann die App gestartet und getestet werden.
 
     $ ng serve --open
