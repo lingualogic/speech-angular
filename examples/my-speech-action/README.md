@@ -12,6 +12,6 @@ Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-ang
 
     $ npm start
 
-## Anleitung 
+## Anleitung
 
-Eine Anleitung zur Entwicklung dieser App findet sich in der [Schnelleinstieg](./QuickStart.md).
+Eine Anleitung zur Entwicklung dieser App findet sich in der [Schnelleinstieg](./../../docs/QuickStart.md).

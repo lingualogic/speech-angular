@@ -15,4 +15,4 @@ Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-ang
 
 ## Anleitung 
 
-Eine Anleitung zur Entwicklung dieser App findet sich in der [Schnelleinstieg](./QuickStart_listen.md).
+Eine Anleitung zur Entwicklung dieser App findet sich in der [Schnelleinstieg](./../../docs/QuickStart-Listen.md).
