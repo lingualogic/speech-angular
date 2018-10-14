@@ -1,6 +1,12 @@
 /**
  * Globale Konstanten fuer Listen
  *
+ * API-Version: 1.0
+ * Datum: 08.10.2018
+ *
+ * Letzte Aenderung: 08.10.2018
+ * Status: gelb
+ *
  * @module listen
  * @author SB
  */
@@ -12,3 +18,11 @@ export declare const LISTEN_COMPONENTFACTORY_NAME = "ListenComponentFactory";
 export declare const LISTEN_COMPONENT_NAME = "ListenComponent";
 export declare const LISTEN_PLUGIN_NAME = "ListenComponent";
 export declare const LISTEN_MOCK_NAME = "ListenMock";
+/** Deutsch */
+export declare const LISTEN_DE_LANGUAGE = "de";
+/** Englisch */
+export declare const LISTEN_EN_LANGUAGE = "en";
+/** Default Sprache eingestellt */
+export declare const LISTEN_DEFAULT_LANGUAGE = "de";
+/** Undefiniert */
+export declare const LISTEN_UNDEFINE_LANGUAGE = "";

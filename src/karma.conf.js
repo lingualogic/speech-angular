@@ -5,8 +5,10 @@ module.exports = function (config) {
   config.set({
 
     basePath: '',
-
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    files: [
+        {pattern: 'test/lib/corti.js', watched: false, included: true, served: true, nocache: false}
+    ],
 
     plugins: [
         require('karma-jasmine'),

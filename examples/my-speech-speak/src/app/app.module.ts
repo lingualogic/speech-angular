@@ -6,15 +6,15 @@ import { AppComponent } from './app.component';
 import { SpeakService } from 'speech-angular';      // <== Import SpeakService
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [
-    SpeakService                                    // <== Provider
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule
+    ],
+    providers: [
+        SpeakService                                // <== Provider
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -18,7 +18,13 @@ import {
     SPEECHSERVICE_VERSION_STRING
 } from './src/speech/const/speech-service-version.ts';
 
-console.log('VERSION:', SPEECHSERVICE_VERSION_STRING);
+console.log('');
+console.log('*****************************************************************');
+console.log('**                                                             **');
+console.log('**  Speech-Angular VERSION: ' + SPEECHSERVICE_VERSION_STRING + '  **');
+console.log('**                                                             **');
+console.log('*****************************************************************');
+console.log('');
 
 // Parameter fuer die Erzeugung der speech-angular.js Datei
 
@@ -31,7 +37,7 @@ let preambleText =
  * Build:   ${SPEECHSERVICE_VERSION_BUILD}
  * TYPE:    ${SPEECHSERVICE_VERSION_TYPE}
  * Datum:   ${SPEECHSERVICE_VERSION_DATE}
- * Autor:   Stefan Brauer
+ * Autor:   LinguaLogic Team
  * Lizenz:  MIT
  *
  * THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,

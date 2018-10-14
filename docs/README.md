@@ -2,7 +2,9 @@
 
 Die Dokumentation des Speech-Angular SDK:
 
-## [Schnelleinstieg](./QuickStart.md)
+## [Schnelleinstieg für Speak, Action und Bot](./QuickStart.md)
+
+## [Schnelleinstieg für Listen](./QuickStart-Listen.md)
 
 ## [Grundlagen](./design/README.md)
 

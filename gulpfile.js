@@ -1,5 +1,5 @@
 /**
- * Automatisierung des Buildprozesses von Speech-Angular
+ * Automatisierung des Buildprozesses von Speech-Angular (public)
  */
 
 'use strict';
@@ -36,6 +36,7 @@ gulp.task('help', () => {
     console.log();
 });
 
+
 // Dokumentations-Funktionen
 
 
@@ -52,7 +53,7 @@ gulp.task('help', () => {
 
 gulp.task('doc', function() {
     return gulp
-        .src(['./src/**/*.ts'])
+        .src(['./src/speech/**/*.ts'])
         .pipe(typedoc({
             // TypeScript options (see typescript docs)
             module: 'commonjs',
@@ -163,7 +164,7 @@ gulp.task('test', function(callback) {
 
 gulp.task('copy-index', function() {
     return gulp.src([
-        'build/index.d.ts',
+        'build/speech/index.d.ts',
         'build/speech-angular.js',
     ])
     .pipe( gulp.dest('dist/'));
@@ -176,7 +177,7 @@ gulp.task('copy-index', function() {
 
 gulp.task('copy-const', function() {
     return gulp.src([
-        'build/const/speech-service-version.d.ts',
+        'build/speech/const/speech-service-version.d.ts'
     ])
     .pipe( gulp.dest('dist/const'));
 });
@@ -188,11 +189,25 @@ gulp.task('copy-const', function() {
 
 gulp.task('copy-speak-service', function() {
     return gulp.src([
-        'build/speak/speak-service-const.d.ts',
-        'build/speak/speak-service-option.interface.d.ts',
-        'build/speak/speak-service.d.ts',
+        'build/speech/speak/speak-service-const.d.ts',
+        'build/speech/speak/speak-service-option.interface.d.ts',
+        'build/speech/speak/speak-service.d.ts',
     ])
     .pipe( gulp.dest('dist/speak'));
+});
+
+
+/**
+ * Kopiert die Sourcedateien aus build/src nach dist/src/ von ListenService
+ */
+
+gulp.task('copy-listen-service', function() {
+    return gulp.src([
+        'build/speech/listen/listen-service-const.d.ts',
+        'build/speech/listen/listen-service-option.interface.d.ts',
+        'build/speech/listen/listen-service.d.ts',
+    ])
+    .pipe( gulp.dest('dist/listen'));
 });
 
 
@@ -202,10 +217,10 @@ gulp.task('copy-speak-service', function() {
 
 gulp.task('copy-action-service', function() {
     return gulp.src([
-        'build/action/action-service-const.d.ts',
-        'build/action/action-service-data.interface.d.ts',
-        'build/action/action-service-option.interface.d.ts',
-        'build/action/action-service.d.ts',
+        'build/speech/action/action-service-const.d.ts',
+        'build/speech/action/action-service-data.interface.d.ts',
+        'build/speech/action/action-service-option.interface.d.ts',
+        'build/speech/action/action-service.d.ts',
     ])
     .pipe( gulp.dest('dist/action'));
 });
@@ -217,10 +232,10 @@ gulp.task('copy-action-service', function() {
 
 gulp.task('copy-bot-service', function() {
     return gulp.src([
-        'build/bot/bot-service-const.d.ts',
-        'build/bot/bot-service-action.interface.d.ts',
-        'build/bot/bot-service-option.interface.d.ts',
-        'build/bot/bot-service.d.ts',
+        'build/speech/bot/bot-service-const.d.ts',
+        'build/speech/bot/bot-service-action.interface.d.ts',
+        'build/speech/bot/bot-service-option.interface.d.ts',
+        'build/speech/bot/bot-service.d.ts',
     ])
     .pipe( gulp.dest('dist/bot'));
 });
@@ -293,6 +308,18 @@ gulp.task('copy-docs-design', function() {
  * Kopiert die Docsdateien aus docs/ nach dist/docs
  */
 
+gulp.task('copy-docs-platform', function() {
+    return gulp.src([
+        'docs/platform/*'
+    ])
+    .pipe( gulp.dest('dist/docs/platform'));
+});
+
+
+/**
+ * Kopiert die Docsdateien aus docs/ nach dist/docs
+ */
+
 gulp.task('copy-docs-roadmap', function() {
     return gulp.src([
         'docs/roadmap/*'
@@ -302,11 +329,31 @@ gulp.task('copy-docs-roadmap', function() {
 
 
 /**
+ * Kopiert die Docsdateien aus docs/ nach dist/docs
+ */
+
+gulp.task('copy-docs-tutorial', function() {
+    return gulp.src([
+        'docs/tutorial/*'
+    ])
+    .pipe( gulp.dest('dist/docs/tutorial'));
+});
+
+
+/**
  * Kopiert alle benoetigten Dateien aus docs/ nach dist/
  */
 
 gulp.task('copy-docs', (callback) => {
-    runSequence('copy-docs-readme', 'copy-docs-blog', 'copy-docs-design', 'copy-docs-roadmap', callback);
+    runSequence(
+        'copy-docs-readme',
+        'copy-docs-blog',
+        'copy-docs-design',
+        'copy-docs-platform',
+        'copy-docs-roadmap',
+        'copy-docs-tutorial',
+        callback
+    );
 });
 
 
@@ -315,7 +362,18 @@ gulp.task('copy-docs', (callback) => {
  */
 
 gulp.task('dist-copy', function(callback) {
-    runSequence('copy-index', 'copy-bundle', 'copy-original', 'copy-docs', 'copy-const', 'copy-speak-service', 'copy-action-service', 'copy-bot-service', callback);
+    runSequence(
+        'copy-index',
+        'copy-bundle',
+        'copy-original',
+        'copy-docs',
+        'copy-const',
+        'copy-speak-service',
+        'copy-listen-service',
+        'copy-action-service',
+        'copy-bot-service',
+        callback
+    );
 });
 
 
@@ -354,7 +412,14 @@ gulp.task('build-transpile', shell.task('tsc -p src/speech'));
  * Erzeugt die auszuliefernde Client-Bibliothek
  */
 
-gulp.task('build-pack', shell.task('rollup -c ./rollup.config.js'));
+gulp.task('build-rollup', shell.task('rollup -c ./rollup.config.js'));
+
+
+/**
+ * Verpackt die auszuliefernde Client-Bibliothek
+ */
+
+gulp.task('build-pack', shell.task('cd dist && npm pack'));
 
 
 /**
@@ -362,6 +427,14 @@ gulp.task('build-pack', shell.task('rollup -c ./rollup.config.js'));
  */
 
 gulp.task('build', function(callback) {
-    runSequence('build-clean', 'build-transpile', 'build-pack', 'dist-copy', 'dist-doc', callback);
+    runSequence(
+        'build-clean',
+        'build-transpile',
+        'build-rollup',
+        'dist-copy',
+        'dist-doc',
+        'build-pack',
+        callback
+    );
 });
 

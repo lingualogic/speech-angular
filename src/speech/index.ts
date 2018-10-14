@@ -1,13 +1,14 @@
 /**
  * Globale Export-Datei fuer das Speech Angular Framework (speech-angular NPM-Module)
  *
- * Version: 1.0
- * Datum:   15.09.2018
+ * Version: 1.1
+ * Datum:   10.10.2018
  * Autor:   SB
  *
  * Definiert das gesamte Speech Angular Framework-API:
  *
  *      speak  - SpeakService fuer Sprachausgabe
+ *      listen - ListenService fuer Spracheingabe
  *      action - ActionService fuer Aktionsausfuehrung in der App
  *      bot    - BotService fuer Bot-Controller und Dialog
  *
@@ -29,6 +30,13 @@ export { SPEECHSERVICE_API_VERSION } from './const/speech-service-version';
 export { SPEAK_DE_LANGUAGE, SPEAK_EN_LANGUAGE } from './speak/speak-service-const';
 export { SpeakServiceOptionInterface } from './speak/speak-service-option.interface';
 export { SpeakService } from './speak/speak-service';
+
+
+// listen
+
+export { LISTEN_DE_LANGUAGE, LISTEN_EN_LANGUAGE } from './listen/listen-service-const';
+export { ListenServiceOptionInterface } from './listen/listen-service-option.interface';
+export { ListenService } from './listen/listen-service';
 
 
 // action

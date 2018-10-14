@@ -1,6 +1,13 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.1.0017 Alpha (14.10.2018)
+
+### Features
+
+* **listen-service:** ListenService für die Spracheingbe eingebaut
+
+
 ## 0.5.0.0016 Alpha (21.09.2018)
 
 ### Features

@@ -32,7 +32,7 @@ Um einen Service importieren zu können, muss in der jeweiligen Komponente folge
 	
 Dazu muss das Speech-Angular npm-Paket vorher ins eigene AngularApp-Projekt kopiert und installiert worden sein.
 
-	$ npm install --save speech-angular-0.5.0.tgz
+	$ npm install --save speech-angular-<version>.tgz
 	 
 
 ## Konfiguration

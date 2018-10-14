@@ -3,14 +3,17 @@
 # compiled output
 .rpt2_cache
 out-tsc
-build
-deploy
-dist
-tmp
-old
+build/
+deploy/
+dist/
+tmp/
+old/
+docs/api/
+docs/html/
+documentation/
 
 # dependencies
-node_modules
+node_modules/
 
 # IDEs and editors
 .idea
@@ -27,12 +30,12 @@ node_modules
 # misc
 .sass-cache
 connect.lock
-coverage
+coverage/
 libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
-typings
+typings/
 
 # System Files
 .DS_Store

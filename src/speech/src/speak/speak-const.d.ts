@@ -2,7 +2,7 @@
  * Globale Konstanten fuer Speak
  *
  * API-Version: 1.0
- * Datum:   03.09.2018
+ * Datum: 03.09.2018
  *
  * Letzte Aenderung: 03.09.2018
  * Status: gruen

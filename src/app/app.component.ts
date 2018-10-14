@@ -20,10 +20,7 @@ export class AppComponent implements OnInit {
 
   title = 'Speech-Angular-App';
 
-  errorOutputFlag = false;
-
   constructor() {}
-
 
   ngOnInit(): void {
     console.log('Speech-Angular Version:', SPEECHSERVICE_API_VERSION);

@@ -1,8 +1,11 @@
 /**
  * Globale Fabrik zur Erzeugung einer Listen API Instanz
  *
- * Version: 1.0
- * Datum:   22.08.2018
+ * API-Version: 1.0
+ * Datum: 08.10.2018
+ *
+ * Letzte Aenderung: 08.10.2018
+ * Status: gelb
  *
  * @module listen
  * @author SB

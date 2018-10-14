@@ -6,5 +6,5 @@ Die Speech-Angular Architektur umfasst verschiedene Services, die jeweils ein AP
 ![Gesamtarchitektur](Architektur-1.gif)
 
 Der [BotService](BotService.md) verwendet die anderen Services und kombiniert sie zu einer komplexen Dialogfunktionalität.
-Der [SpeakService](SpeakService.md) dient zur Sprachausgabe von einzelnen Texten. Dazu verwendet er seinerseits entweder Sprachsynthese oder Audiodateien. Der [ActionService](ActionService.md) dient zur Weiterleitung von Aktionen aus dem Bot an konkrete Funktionen oder Komponenten der AngularApp. Die AngularApp kann jeden Service unabhängig von den anderen Services nutzen.  
-
+Der [SpeakService](SpeakService.md) dient zur Sprachausgabe von einzelnen Texten. Dazu verwendet er seinerseits entweder Sprachsynthese oder Audiodateien. Der [ListenService](ListenService.md) dient zur Spracheingabe. Dazu verwendet er seinerseits Spracherkennung.
+Der [ActionService](ActionService.md) dient zur Weiterleitung von Aktionen aus dem Bot an konkrete Funktionen oder Komponenten der AngularApp. Die AngularApp kann jeden Service unabhängig von den anderen Services nutzen.  

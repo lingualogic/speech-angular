@@ -6,7 +6,7 @@ Die Speech-Angular Services kapslen das Speech-Framework vollständig und defini
 
 Die Services sind normale Angular-Services und integrieren sich nahtlos in die jeweilige AngularApp.
 
-Die gemeinsame Grundfunktionalität aller Speech-Angular Services wird [hier](./Service.md) beschrieben. 
+Die gemeinsame Grundfunktionalität aller Speech-Angular Services wird [hier](./Service.md) beschrieben.
 
 Folgende Speech-Angular Services gibt es:
 
@@ -15,3 +15,5 @@ Folgende Speech-Angular Services gibt es:
 * [**ActionService**](./ActionService.md)
 
 * [**SpeakService**](./SpeakService.md)
+
+* [**ListenService**](./ListenService.md)

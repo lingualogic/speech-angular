@@ -4,7 +4,7 @@
     "baseUrl": "./",
     "outDir": "./build",
     "sourceMap": true,
-    "declaration": false,
+    "declaration": true,
     "module": "es2015",
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
@@ -17,5 +17,12 @@
       "es2017",
       "dom"
     ]
-  }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "examples",
+    "node_modules"
+  ]
 }

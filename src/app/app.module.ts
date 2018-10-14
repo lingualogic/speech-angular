@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 // bot
 
 import { BotService } from './../speech/bot/bot-service';
+import { BotComponent } from './bot/bot.component';
 
 // action
 
@@ -16,7 +17,11 @@ import { ActionComponent } from './action/action.component';
 
 import { SpeakService } from './../speech/speak/speak-service';
 import { SpeakComponent } from './speak/speak.component';
-import { BotComponent } from './bot/bot.component';
+
+// listen
+
+import { ListenService } from './../speech/listen/listen-service';
+import { ListenComponent } from './listen/listen.component';
 
 
 
@@ -25,12 +30,13 @@ import { BotComponent } from './bot/bot.component';
     AppComponent,
     SpeakComponent,
     ActionComponent,
-    BotComponent
+    BotComponent,
+    ListenComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [BotService, ActionService, SpeakService],
+  providers: [BotService, ActionService, SpeakService, ListenService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -40,6 +46,15 @@ export class AppModule {
         // BotService-Konfiguration
         const botServiceConfig = BotService.getConfig();
         botServiceConfig.errorOutputFlag = true;
+        // ActionService-Konfiguration
+        const actionServiceConfig = ActionService.getConfig();
+        actionServiceConfig.errorOutputFlag = true;
+        // SpeakService-Konfiguration
+        const speakServiceConfig = SpeakService.getConfig();
+        speakServiceConfig.errorOutputFlag = true;
+        // ListenService-Konfiguration
+        const listenServiceConfig = ListenService.getConfig();
+        listenServiceConfig.errorOutputFlag = true;
     }
 
 }

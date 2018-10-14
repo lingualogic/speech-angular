@@ -1,8 +1,8 @@
 {
   "name": "my-speech-speak",
-  "version": "0.1.0",
-  "description": "MySpeechBot",
-  "author": "Leonard Fuechsel",
+  "version": "0.5.1",
+  "description": "MySpeechSpeak",
+  "author": "Lingualogic Team",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -25,7 +25,7 @@
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "speech-angular": "file:./../../dist/speech-angular-0.5.0.tgz",
+    "speech-angular": "file:./../../dist/speech-angular-0.5.1.tgz",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -39,12 +39,12 @@
     "codelyzer": "~4.2.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~1.7.1",
+    "karma": "^3.0.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.0",
     "karma-jasmine": "~1.1.1",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.3.0",
+    "protractor": "^5.4.1",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1",
     "typescript": "~2.7.2"

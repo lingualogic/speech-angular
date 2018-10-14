@@ -1,8 +1,8 @@
 {
     "name": "speech-angular",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "Speech-Angular",
-    "author": "Stefan Brauer",
+    "author": "LinguaLogic Team",
     "license": "MIT",
     "private": true,
     "main": "index.ts",
@@ -10,13 +10,16 @@
     "scripts": {
         "doc": "gulp doc",
         "start": "ng serve",
-        "build": "gulp build && cd dist && npm pack",
-        "build:app": "ng build",
+        "build": "gulp build",
         "lint": "ng lint",
         "test": "ng test",
         "e2e": "ng e2e",
-        "speak": "npm run build && cd ./examples/my-speech-speak && npm install && npm start",
-        "bot": "npm run build && cd ./examples/my-speech-bot && npm install && npm start"
+        "speak": "cd ./examples/my-speech-speak && npm install && npm start",
+        "speak-offline": "cd ./examples/my-speech-speak-offline && npm install && npm start",
+        "listen": "cd ./examples/my-speech-listen && npm install && npm start",
+        "action": "cd ./examples/my-speech-action && npm install && npm start",
+        "bot": "cd ./examples/my-speech-bot && npm install && npm start",
+        "bot-offline": "cd ./examples/my-speech-bot-offline && npm install && npm start"
     },
     "dependencies": {
         "@angular/animations": "^6.1.7",

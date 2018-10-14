@@ -1,10 +1,10 @@
 {
-  "name": "my-speech-bot",
-  "version": "0.1.0",
-  "description": "MySpeechBot",
-  "author": "Leonard Fuechsel",
-  "license": "MIT",
-  "private": true,
+    "name": "my-speech-bot",
+    "version": "0.5.1",
+    "description": "MySpeechBot",
+    "author": "Lingualogic Team",
+    "license": "MIT",
+    "private": true,
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
@@ -25,7 +25,7 @@
     "@angular/router": "^6.1.0",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "speech-angular": "file:./../../dist/speech-angular-0.5.0.tgz",
+    "speech-angular": "file:./../../dist/speech-angular-0.5.1.tgz",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

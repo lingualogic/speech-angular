@@ -11,6 +11,8 @@ Hier werden die Grundlagen des Speech-Angular SDKs behandelt:
 
 [**SpeakService**](./SpeakService.md) - dient zur Sprachausgabe
 
+[**ListenService**](./ListenService.md) - dient zur Spracheingabe
+
 [**ActionService**](./ActionService.md) - dient zur Ausführung von Aktionen
 
 [**BotService**](./BotService.md) - dient zur Ausführung von Dialogen

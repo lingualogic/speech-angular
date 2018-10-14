@@ -5,7 +5,7 @@ Speech-Angular ist eine Bibliothek zur Integration von Sprachdiensten, wie Sprac
 
 ## Letzte Version
 
-* 0.5.0.0016 Alpha vom 21.09.2018 [Release Notizen](./CHANGELOG.md)
+* 0.5.1.0017 Alpha vom 14.10.2018 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 
@@ -33,6 +33,10 @@ NodeJS muss installiert sein.
 
 * NodeJS >= 8.9
 
+Als weitere Plattformen können Android und iOS mit Cordova verwendet werden:
+
+* Cordova >= 8 für Android und iOS
+
 
 ## Installation
 
@@ -49,44 +53,55 @@ anschließend kann man optional die Unit-Tests von Speech-Angular starten:
 
     $ npm test
 
-zum Schluß wird das NPM-Paket für Speech-Angular in dist/ Ordner erzeugt:
+zum Schluß wird das NPM-Paket für Speech-Angular im dist/ Ordner erzeugt:
 
     $ npm run build
     $ cd dist
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.0.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.1.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.0.tgz' npm-Paketes erfolgt in eurem Angular Projektordner mit folgendem Befehl:
+Die Installation des 'speech-angular-0.5.1.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install --save speech-angular-0.5.0.tgz
+    $ npm install --save speech-angular-0.5.1.tgz
 
-Danach kann Speech-Angular in eurem Angular-Projekt verwendet werden. Probiert es einfach mit unserem [Schnelleinstieg](./docs/QuickStart.md) aus.
+Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit unserem [Schnelleinstieg](./docs/QuickStart.md) aus.
+
+Alternativ kann das fertige Speech-Angular npm-Paket auch von der [LinguaLogic-Webseite](https://lingualogic.de) heruntergeladen werden.
+
+
+# Deinstallation
+
+Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
+
+    $ npm uninstall speech-angular
 
 
 ## Dokumentation
 
-[**Schnelleinstieg**](./docs/QuickStart.md)
+[**Schnelleinstieg für Speak, Action und Bot**](./docs/QuickStart.md)
+
+[**Schnelleinstieg für Listen**](./docs/QuickStart-Listen.md)
 
 [**Grundlagen**](./docs/design/README.md)
 
-[**API-Referenz**](https://lingualogic.de/speech-angular/docs/latest/api).
+[**API-Referenz**](https://lingualogic.de/speech-angular/docs/latest/api)
 
 [**Roadmap**](./docs/roadmap/Roadmap-2018.md)
 
 [**Release Notizen**](./CHANGELOG.md)
 
 
-## Projektverantwortliche
+## Projektverantwortliche (LinguaLogic Team)
 
-**Stefan Brauer**: stefan@lingualogic.de
+Projektorganisation: **Leo Füchsel** (leo@lingualogic.de)
 
-**Leo Füchsel**: leo@lingualogic.de
+Technische Entwicklung: **Stefan Brauer** (stefan@lingualogic.de)
 
 
 ## Mitwirkende
 
 
-## Dank
+## Danksagung
 
 Wir haben das Entstehen und die Entwicklung des Projektes vielen Personen zu danken, vor allem dem gesamten Team der [Nepos GmbH](https://nepos.de).
 
