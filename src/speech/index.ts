@@ -1,12 +1,14 @@
+import { BaseOptionInterface } from './src/base/base-option.interface.d';
 /**
  * Globale Export-Datei fuer das Speech Angular Framework (speech-angular NPM-Module)
  *
- * Version: 1.1
- * Datum:   10.10.2018
+ * Version: 1.2
+ * Datum:   19.10.2018
  * Autor:   SB
  *
  * Definiert das gesamte Speech Angular Framework-API:
  *
+ *      base   - Basisklasse aller SpeechServices
  *      speak  - SpeakService fuer Sprachausgabe
  *      listen - ListenService fuer Spracheingabe
  *      action - ActionService fuer Aktionsausfuehrung in der App
@@ -23,6 +25,12 @@
 // const
 
 export { SPEECHSERVICE_API_VERSION } from './const/speech-service-version';
+
+
+// base
+
+export { BaseServiceOptionInterface } from './base/base-service-option.interface';
+export { BaseService } from './base/base-service';
 
 
 // speak

@@ -1,440 +1,103 @@
 /**
- * Automatisierung des Buildprozesses von Speech-Angular (public)
+ * Oberstes Gulpfile fuer das Speech-Angular SDK
  */
 
-'use strict';
-
-// Module definieren
 
 const gulp = require('gulp');
-const shell = require('gulp-shell');
+const path = require('path');
+const childProcess = require('child_process');
 const runSequence = require('run-sequence');
-const typedoc = require('gulp-typedoc');
-const del = require('del');
+
+// Konstanten fuer Verzeichnisse
+
+const rootDir = path.resolve( __dirname );
+const docsDir = 'docs';
+const srcDir = 'src';
+const appDir = 'app';
+const examplesDir = 'examples';
+const assetsDir = 'src/assets';
+const bundleDir = 'bundle';
+const buildDir = 'build';
+const speechDir = 'build/speech';
+const distDir = 'dist';
+const distAppDir = 'dist-app';
+const e2eDir = 'e2e';
+const testDir = 'test';
+const cordovaDir = 'cordova';
+const cordovaRootDir = path.join( rootDir, cordovaDir );
+const cordovaAppDir = path.join( rootDir, cordovaDir, 'app');
+const cordovaWwwDir = path.join( rootDir, cordovaDir, 'app/www');
 
 
-// Hilfe-Funktionen
-
-gulp.task('?', ['help']);
-
-gulp.task('help', () => {
-    console.log('Gulp-Hilfe');
-    console.log();
-
-    console.log('Doc-Kommandos:');
-    console.log('   doc          - alle Dokumentationsgeneratoren ausfuehren');
-    console.log();
-
-    console.log('Test-Kommandos');
-    console.log('   unit         - alle Unittests von API und Server mit JEST ausfuehren');
-    console.log('   e2e          - alle E2E-Tests des Servers mit BrowserSync ausfuehren');
-    console.log('   test         - alle Unittests und Integrationstests ausfuehren');
-    console.log();
-
-    console.log('Build-Kommandos');
-    console.log('   build       - Speech-Angular in dist/ erzeugen');
-    console.log();
-});
-
-
-// Dokumentations-Funktionen
-
-
-/*
- * Kommandos:
+/**
+ * Ausfuehrungsfunktion
  *
- *      typedoc
+ * @param {*} cmd
+ * @param {*} done
  */
+
+const exec = (cmd, done) => {
+    const proc = childProcess.exec(cmd, {maxBuffer: 1024 * 500}, (error, stdout, stderr) => {
+        if(error) {
+            // eslint-disable-next-line
+            console.log(`${cmd} exited with code ${error.code}`);
+            done(error);
+            return;
+        }
+        done();
+    });
+
+    proc.stdout.pipe(process.stdout);
+    proc.stderr.pipe(process.stderr);
+};
+
+
+const settings = {
+    gulp,
+    exec,
+    rootDir,
+    docsDir,
+    srcDir,
+    appDir,
+    examplesDir,
+    assetsDir,
+    bundleDir,
+    buildDir,
+    speechDir,
+    distDir,
+    distAppDir,
+    e2eDir,
+    testDir,
+    cordovaDir,
+    cordovaRootDir,
+    cordovaAppDir,
+    cordovaWwwDir,
+};
+
+
+// Gulp-Skripte
+
+
+require('./gulp/gulp-docs')(settings);
+require('./gulp/gulp-dist')(settings);
+require('./gulp/gulp-test')(settings);
+require('./gulp/gulp-cordova')(settings);
+
+
+// Gulp-Task
 
 
 /**
- * Erzeugt eine TypeDoc Entwickler Ausgabe fuer SpeechFramework
- */
-
-gulp.task('doc', function() {
-    return gulp
-        .src(['./src/speech/**/*.ts'])
-        .pipe(typedoc({
-            // TypeScript options (see typescript docs)
-            module: 'commonjs',
-            target: 'es6',
-            experimentalDecorators: true,
-            includeDeclarations: false,
-            // Output options (see typedoc docs)
-            out: './docs/api',
-            // json: './typedoc.json',
-            // TypeDoc options (see typedoc docs)
-            name: 'Speech-Angular',
-            mode: 'modules',
-            types: [],
-            exclude: [
-                '**/index*.ts',
-                '**/*.spec.ts'
-            ],
-            externalPattern: './node_modules/**',
-            excludeExternals: true,
-            ignoreCompilerErrors: true,
-            plugins: ['typedoc-plugin-external-module-name'],
-            version: true,
-            verbose: true,
-            hideGenerator: true,
-            logger: typedoc.Logger
-        }));
-});
-
-
-/**
- * Erzeugt eine TypeDoc Nutzer Ausgabe fuer SpeechFramework in den rdner dist/doc/api
- */
-
-gulp.task('dist-doc', function() {
-    return gulp
-        .src(['./src/speech/**/*.ts'])
-        .pipe(typedoc({
-            // TypeScript options (see typescript docs)
-            module: 'commonjs',
-            target: 'es6',
-            experimentalDecorators: true,
-            includeDeclarations: false,
-            // Output options (see typedoc docs)
-            out: './dist/docs/api',
-            // json: './typedoc.json',
-            // TypeDoc options (see typedoc docs)
-            name: 'Speech-Angular',
-            mode: 'modules',
-            types: [],
-            exclude: [
-                '**/index*.ts',
-                '**/*.spec.ts'
-            ],
-            externalPattern: './node_modules/**',
-            excludeExternals: true,
-            ignoreCompilerErrors: true,
-            plugins: ['typedoc-plugin-external-module-name'],
-            version: true,
-            verbose: true,
-            hideGenerator: true,
-            logger: typedoc.Logger
-        }));
-});
-
-
-
-// Test Funktionen
-
-
-/*
- * Kommandos:
- *
- *      unit
- *      e2e
- *      test
- */
-
-
-/**
- * Start aller Jest Unit-Tests
- */
-
-gulp.task('unit', shell.task('ng test'));
-
-
-/**
- * Stable E2E-Tests mit Chrome auf dem Mac starten
- */
-
-gulp.task('e2e', shell.task('ng e2e'));
-
-
-/**
- * Alle Tests ablaufen lassen
- */
-
-gulp.task('test', function(callback) {
-    runSequence('unit', 'e2e', callback);
-});
-
-
-// Kopierkommandos fuer den dist-Ordner (NPM-Package speech-angular)
-
-
-/**
- * Kopiert die Indexdatei aus build/ nach dist/
- */
-
-gulp.task('copy-index', function() {
-    return gulp.src([
-        'build/speech/index.d.ts',
-        'build/speech-angular.js',
-    ])
-    .pipe( gulp.dest('dist/'));
-});
-
-
-/**
- * Kopiert die Konstanten aus build/const nach dist/const
- */
-
-gulp.task('copy-const', function() {
-    return gulp.src([
-        'build/speech/const/speech-service-version.d.ts'
-    ])
-    .pipe( gulp.dest('dist/const'));
-});
-
-
-/**
- * Kopiert die Sourcedateien aus build/src nach dist/src/ von SpeakService
- */
-
-gulp.task('copy-speak-service', function() {
-    return gulp.src([
-        'build/speech/speak/speak-service-const.d.ts',
-        'build/speech/speak/speak-service-option.interface.d.ts',
-        'build/speech/speak/speak-service.d.ts',
-    ])
-    .pipe( gulp.dest('dist/speak'));
-});
-
-
-/**
- * Kopiert die Sourcedateien aus build/src nach dist/src/ von ListenService
- */
-
-gulp.task('copy-listen-service', function() {
-    return gulp.src([
-        'build/speech/listen/listen-service-const.d.ts',
-        'build/speech/listen/listen-service-option.interface.d.ts',
-        'build/speech/listen/listen-service.d.ts',
-    ])
-    .pipe( gulp.dest('dist/listen'));
-});
-
-
-/**
- * Kopiert die Sourcedateien aus build/src nach dist/src/ von ActionService
- */
-
-gulp.task('copy-action-service', function() {
-    return gulp.src([
-        'build/speech/action/action-service-const.d.ts',
-        'build/speech/action/action-service-data.interface.d.ts',
-        'build/speech/action/action-service-option.interface.d.ts',
-        'build/speech/action/action-service.d.ts',
-    ])
-    .pipe( gulp.dest('dist/action'));
-});
-
-
-/**
- * Kopiert die Sourcedateien aus build/src nach dist/src/ von BotService
- */
-
-gulp.task('copy-bot-service', function() {
-    return gulp.src([
-        'build/speech/bot/bot-service-const.d.ts',
-        'build/speech/bot/bot-service-action.interface.d.ts',
-        'build/speech/bot/bot-service-option.interface.d.ts',
-        'build/speech/bot/bot-service.d.ts',
-    ])
-    .pipe( gulp.dest('dist/bot'));
-});
-
-
-/**
- * Kopiert die Bundledateien aus bundle/ nach dist/
- */
-
-gulp.task('copy-bundle', function() {
-    return gulp.src([
-        'bundle/index.js',
-        'bundle/package.json'
-    ])
-    .pipe( gulp.dest('dist/'));
-});
-
-
-/**
- * Kopiert die Originaldateien aus / nach dist/
- */
-
-gulp.task('copy-original', function() {
-    return gulp.src([
-        'LICENSE',
-        'CHANGELOG.md',
-        'README.md'
-    ])
-    .pipe( gulp.dest('dist/'));
-});
-
-
-/**
- * Kopiert die Docsdateien aus docs/ nach dist/docs
- */
-
-gulp.task('copy-docs-readme', function() {
-    return gulp.src([
-        'docs/*'
-    ])
-    .pipe( gulp.dest('dist/docs'));
-});
-
-
-/**
- * Kopiert die Docsdateien aus docs/ nach dist/docs
- */
-
-gulp.task('copy-docs-blog', function() {
-    return gulp.src([
-        'docs/blog/*'
-    ])
-    .pipe( gulp.dest('dist/docs/blog'));
-});
-
-
-/**
- * Kopiert die Docsdateien aus docs/ nach dist/docs
- */
-
-gulp.task('copy-docs-design', function() {
-    return gulp.src([
-        'docs/design/*'
-    ])
-    .pipe( gulp.dest('dist/docs/design'));
-});
-
-
-/**
- * Kopiert die Docsdateien aus docs/ nach dist/docs
- */
-
-gulp.task('copy-docs-platform', function() {
-    return gulp.src([
-        'docs/platform/*'
-    ])
-    .pipe( gulp.dest('dist/docs/platform'));
-});
-
-
-/**
- * Kopiert die Docsdateien aus docs/ nach dist/docs
- */
-
-gulp.task('copy-docs-roadmap', function() {
-    return gulp.src([
-        'docs/roadmap/*'
-    ])
-    .pipe( gulp.dest('dist/docs/roadmap'));
-});
-
-
-/**
- * Kopiert die Docsdateien aus docs/ nach dist/docs
- */
-
-gulp.task('copy-docs-tutorial', function() {
-    return gulp.src([
-        'docs/tutorial/*'
-    ])
-    .pipe( gulp.dest('dist/docs/tutorial'));
-});
-
-
-/**
- * Kopiert alle benoetigten Dateien aus docs/ nach dist/
- */
-
-gulp.task('copy-docs', (callback) => {
-    runSequence(
-        'copy-docs-readme',
-        'copy-docs-blog',
-        'copy-docs-design',
-        'copy-docs-platform',
-        'copy-docs-roadmap',
-        'copy-docs-tutorial',
-        callback
-    );
-});
-
-
-/**
- * Kopiert alle benoetigten Dateien aus bundle/ nach dist/
- */
-
-gulp.task('dist-copy', function(callback) {
-    runSequence(
-        'copy-index',
-        'copy-bundle',
-        'copy-original',
-        'copy-docs',
-        'copy-const',
-        'copy-speak-service',
-        'copy-listen-service',
-        'copy-action-service',
-        'copy-bot-service',
-        callback
-    );
-});
-
-
-// Build-Funktionen
-
-
-/*
- * Kommandos:
- *
- *      build
- */
-
-
-/**
- * Loeschen der temporaeren Build-Verzeichnisse
- */
-
-gulp.task('build-clean', function () {
-    return del([
-        'build/**/*',
-        'dist/**/*',
-        'dist',
-        'build'
-    ]);
-});
-
-
-/**
- * Typescript transpilieren in build-Ordner
- */
-
-gulp.task('build-transpile', shell.task('tsc -p src/speech'));
-
-
-/**
- * Erzeugt die auszuliefernde Client-Bibliothek
- */
-
-gulp.task('build-rollup', shell.task('rollup -c ./rollup.config.js'));
-
-
-/**
- * Verpackt die auszuliefernde Client-Bibliothek
- */
-
-gulp.task('build-pack', shell.task('cd dist && npm pack'));
-
-
-/**
- * Erzeugt die lauffaehige SpeechService-Bibliothek speech-service.bundle.js aus dem API-Quellcode
+ * Erzeugt die lauffaehige Speech-Angular Bibliothek speech-angular.js aus dem API-Quellcode
  */
 
 gulp.task('build', function(callback) {
     runSequence(
-        'build-clean',
-        'build-transpile',
-        'build-rollup',
-        'dist-copy',
-        'dist-doc',
-        'build-pack',
-        callback
-    );
+        // 'test-unit',
+        'dist-build',
+        'docs-dist-typedoc',
+        // 'test-e2e',
+        'dist-pack',
+        callback);
 });
 

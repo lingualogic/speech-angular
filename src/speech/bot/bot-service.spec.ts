@@ -1,11 +1,18 @@
 /**
  * Unit-Test von BotService
  *
- * Letzte Aenderung: 21.09.2018
+ * Letzte Aenderung: 08.11.2018
+ *
+ * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
  *
  * @module speech/bot
  * @author SB
  */
+
+
+// speech
+
+import { SpeechMain } from './../speech';
 
 
 // speech
@@ -72,7 +79,7 @@ class TestBotService extends BotService {
     }
 
     addAllEvent(): number {
-        return this._addAllEvent();
+        return this._addAllEvent( this.getName());
     }
 
     get errorOutputFlag() {
@@ -90,6 +97,11 @@ describe('BotService', () => {
 
     beforeAll(() => {
         console.log('BotService Unit-Tests gestartet...');
+        SpeechMain.init();
+    });
+
+    afterAll(() => {
+        SpeechMain.done();
     });
 
     beforeEach(() => {
@@ -341,10 +353,6 @@ describe('BotService', () => {
         });
 
         it('sollte 0 zurueckgeben, wenn init zweimal aufgerufen wird', () => {
-            const errorEvent = botService.errorEvent.subscribe((aError: any) => {
-                console.log('BotServiceSpec.init:', aError.message);
-                fail('sollte nicht aufgerufen werden');
-            });
             expect( botService.init()).toBe( 0 );
             const option: BotServiceOptionInterface = {
                 speakFlag: false,
@@ -362,7 +370,6 @@ describe('BotService', () => {
             expect( botService.file ).toEqual( 'TestFile' );
             expect( botService.dialog ).toEqual( 'TestDialog' );
             expect( botService.state ).toEqual( 'TestState' );
-            errorEvent.unsubscribe();
         });
 
         it('sollte 0 zurueckgeben, wenn init zweimal aufgerufen wird, mit active false', () => {
@@ -415,7 +422,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn ohne init aufgerufen', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                expect( aError.message ).toEqual('BotService.reset: Bot nicht vorhanden');
+                expect( aError.message ).toEqual('BotService.reset: keine Komponente vorhanden');
                 done();
             });
             expect( botService.reset()).toBe( -1 );
@@ -451,201 +458,6 @@ describe('BotService', () => {
 
     });
 
-    // isInit
-
-    describe('Funktion isInit', () => {
-
-        it('sollte false zurueckgeben, wenn kein init aufgerufen wurde', () => {
-            expect( botService.isInit()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            expect( botService.isInit()).toBe( true );
-        });
-
-    });
-
-    // isActive
-
-    describe('Funktion istActive', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( botService.isActive()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            expect( botService.isActive()).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init und active aus', () => {
-            expect( botService.init()).toBe( 0 );
-            expect( botService.setActiveOff()).toBe( 0 );
-            expect( botService.isActive()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init und active ein', () => {
-            expect( botService.init()).toBe( 0 );
-            expect( botService.setActiveOff()).toBe( 0 );
-            expect( botService.setActiveOn()).toBe( 0 );
-            expect( botService.isActive()).toBe( true );
-        });
-
-    });
-
-    // setActiveOn
-
-    describe('Funktion setActiveOn', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( botService.setActiveOn()).toBe( -1 );
-            expect( botService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            expect( botService.setActiveOn()).toBe( 0 );
-            expect( botService.isActive()).toBe( true );
-        });
-
-    });
-
-    // setActiveOff
-
-    describe('Funktion setActiveOff', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( botService.setActiveOff()).toBe( -1 );
-            expect( botService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            expect( botService.setActiveOff()).toBe( 0 );
-            expect( botService.isActive()).toBe( false );
-        });
-
-    });
-
-    // active
-
-    describe('Eigenschaft active', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und auf true gesetzt wurde', () => {
-            botService.active = true;
-            expect( botService.active ).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen und auf true gesetzt wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            botService.active = true;
-            expect( botService.active ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen und auf false gesetzt wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            botService.active = false;
-            expect( botService.active ).toBe( false );
-        });
-
-    });
-
-    // isErrorOutput
-
-    describe('Funktion isErrorOutput', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und error output aus', () => {
-            botService.setErrorOutputOff();
-            expect( botService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen und error output ein', () => {
-            botService.setErrorOutputOn();
-            expect( botService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde und error output ein', () => {
-            expect( botService.init()).toBe(0);
-            botService.setErrorOutputOn();
-            expect( botService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde und error output aus', () => {
-            expect( botService.init()).toBe(0);
-            botService.setErrorOutputOn();
-            botService.setErrorOutputOff();
-            expect( botService.isErrorOutput()).toBe( false );
-        });
-
-    });
-
-    // setErrorOutputOn
-
-    describe('Funktion setErrorOutputOn', () => {
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            botService.setErrorOutputOn();
-            expect( botService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( botService.init()).toBe(0);
-            botService.setErrorOutputOn();
-            expect( botService.isErrorOutput()).toBe( true );
-        });
-
-    });
-
-    // setErrorOutputOff
-
-    describe('Funktion setErrorOutputOff', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            botService.setErrorOutputOff();
-            expect( botService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( botService.init()).toBe(0);
-            botService.setErrorOutputOff();
-            expect( botService.isErrorOutput()).toBe( false );
-        });
-
-    });
-
-    // errorOutput
-
-    describe('Eigenschaft errorOutput', () => {
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen und auf true gesetzt wurde', () => {
-            botService.errorOutput = true;
-            expect( botService.errorOutput ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und auf false gesetzt wurde', () => {
-            botService.errorOutput = false;
-            expect( botService.errorOutput ).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen und auf true gesetzt wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            botService.errorOutput = true;
-            expect( botService.errorOutput ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen und auf false gesetzt wurde', () => {
-            expect( botService.init()).toBe( 0 );
-            botService.errorOutput = false;
-            expect( botService.errorOutput ).toBe( false );
-        });
-
-    });
-
-    // __error
-
-    // _exception
-
     // _addAllEvent
 
     describe('Funktion _addAllEvent', () => {
@@ -653,7 +465,7 @@ describe('BotService', () => {
         it('should return -1, if no init', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError) => {
                 errorEvent.unsubscribe();
-                expect( aError.message ).toEqual( 'BotService._addAllEvent: keine Bot-Komponente vorhanden' );
+                expect( aError.message ).toEqual( 'BotService._addAllEvent: keine Komponente vorhanden' );
                 done();
             });
             expect( botService.addAllEvent()).toBe( -1 );
@@ -1018,8 +830,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.clearDialog: Cannot read property 'clearDialog' of null" );
+                expect( aError.message ).toBe( 'BotService.clearDialog: keine Bot-Komponente vorhanden' );
                 done();
             });
             expect( botService.clearDialog()).toBe( -1 );
@@ -1039,8 +850,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.setDialog: Cannot read property 'setDialog' of null" );
+                expect( aError.message ).toBe( 'BotService.setDialog: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1068,8 +878,7 @@ describe('BotService', () => {
         it('sollte leeren namen zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.getDialog: Cannot read property 'getDialog' of null" );
+                expect( aError.message ).toBe( 'BotService.getDialog: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1090,8 +899,7 @@ describe('BotService', () => {
         it('sollte leeren namen zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.getDialog: Cannot read property 'getDialog' of null" );
+                expect( aError.message ).toBe( 'BotService.getDialog: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1101,8 +909,7 @@ describe('BotService', () => {
         it('sollte Dialog nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.setDialog: Cannot read property 'setDialog' of null" );
+                expect( aError.message ).toBe( 'BotService.setDialog: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1130,8 +937,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION BotService.parse: Cannot read property 'writeDialogData' of null");
+                expect( aError.message ).toBe( 'BotService.parse: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1157,8 +963,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION BotService.parseFile: Cannot read property 'loadDialogFile' of null");
+                expect( aError.message ).toBe( 'BotService.parseFile: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1178,43 +983,9 @@ describe('BotService', () => {
 
     });
 
-    // isRunning
-
-    describe('Funktion istRunning', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = botService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION BotService.isRunning: Cannot read property 'isDialogRunning' of null");
-                done();
-                return 0;
-            });
-            expect(botService.isRunning()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(botService.init()).toBe(0);
-            expect(botService.isRunning()).toBe( false );
-        });
-
-    });
-
     // start
 
     describe('Funktion start', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = botService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect( aError.message ).toEqual("EXCEPTION BotService.start: Cannot read property 'startDialog' of null");
-                errorEvent.unsubscribe();
-                done();
-                return 0;
-            });
-            expect( botService.start()).toBe( -1 );
-        });
 
         it('sollte -1 zurueckgeben, wenn init aufgerufen wurden und kein dialog', (done) => {
             const startEvent = botService.startEvent.subscribe(() => {
@@ -1267,17 +1038,6 @@ describe('BotService', () => {
 
     describe('Funktion stop', () => {
 
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = botService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.start: Cannot read property 'startDialog' of null" );
-                done();
-                return 0;
-            });
-            expect( botService.start()).toBe( -1 );
-        });
-
         it('should return 0, if init', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
@@ -1315,8 +1075,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect( aError.message ).toEqual("EXCEPTION BotService.toggle: Cannot read property 'toggleDialog' of null");
+                expect( aError.message ).toBe( 'BotService.toggle: keine Bot-Komponente vorhanden' );
                 errorEvent.unsubscribe();
                 done();
                 return 0;
@@ -1379,8 +1138,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.setState: Cannot read property 'setDialogState' of null" );
+                expect( aError.message ).toBe( 'BotService.setState: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1408,8 +1166,7 @@ describe('BotService', () => {
         it('sollte leeren namen zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.getState: Cannot read property 'getDialogState' of null" );
+                expect( aError.message ).toBe( 'BotService.getState: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1430,8 +1187,7 @@ describe('BotService', () => {
         it('sollte leeren namen zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.getState: Cannot read property 'getDialogState' of null" );
+                expect( aError.message ).toBe( 'BotService.getState: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1441,8 +1197,7 @@ describe('BotService', () => {
         it('sollte State nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.setState: Cannot read property 'setDialogState' of null" );
+                expect( aError.message ).toBe( 'BotService.setState: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1470,8 +1225,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.setStateContext: Cannot read property 'setDialogStateContext' of null" );
+                expect( aError.message ).toBe( 'BotService.setStateContext: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1492,8 +1246,7 @@ describe('BotService', () => {
         it('sollte Kontext nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.setStateContext: Cannot read property 'setDialogStateContext' of null" );
+                expect( aError.message ).toBe( 'BotService.setStateContext: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1514,8 +1267,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.clearContext: Cannot read property 'clearContext' of null" );
+                expect( aError.message ).toBe( 'BotService.clearContext: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1536,8 +1288,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.addContextElement: Cannot read property 'addContextElement' of null" );
+                expect( aError.message ).toBe( 'BotService.addContextElement: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });
@@ -1558,8 +1309,7 @@ describe('BotService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = botService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual( "EXCEPTION BotService.removeContextElement: Cannot read property 'removeContextElement' of null" );
+                expect( aError.message ).toBe( 'BotService.removeContextElement: keine Bot-Komponente vorhanden' );
                 done();
                 return 0;
             });

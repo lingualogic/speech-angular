@@ -1,10 +1,10 @@
 /**
  * Speech-Framework
  * 
- * Version: 0.5.1
- * Build:   0040
+ * Version: 0.5.2
+ * Build:   0041
  * TYPE:    ALPHA
- * Datum:   11.10.2018
+ * Datum:   11.11.2018
  * Autor:   LinguaLogic Team
  * Lizenz:  MIT
  * 
@@ -21,44 +21,8 @@
     'object' == typeof exports && 'undefined' != typeof module ? e(exports) : 'function' == typeof define && define.amd ? define([ 'exports' ], e) : e(t.speech = {});
 }(this, function(t) {
     'use strict';
-    var e = 'ActionComponent', n = e, o = 1e4, i = !0, r = function() {
-        function t(t) {
-            this.mErrorClassName = 'ErrorBase', this.mErrorOutputFlag = i, this.mErrorOutputFunc = null, 
-            this.mErrorClassName = t;
-        }
-        return t.prototype._setErrorClassName = function(t) {
-            this.mErrorClassName = t;
-        }, t.prototype._getErrorClassName = function() {
-            return this.mErrorClassName;
-        }, t.prototype._setErrorOutput = function(t) {
-            this.mErrorOutputFlag = t;
-        }, t.prototype._setErrorOutputDefault = function() {
-            this._setErrorOutput(i);
-        }, t.prototype._setErrorOutputFunc = function(t) {
-            this.mErrorOutputFunc = t;
-        }, t.prototype._error = function(t, e) {
-            if (this.mErrorOutputFlag && console.log('===> ERROR ', this.mErrorClassName + '.' + t + ':', e), 
-            'function' == typeof this.mErrorOutputFunc) try {
-                this.mErrorOutputFunc(this.mErrorClassName + '.' + t + ': ' + e);
-            } catch (t) {
-                console.log('ErrorBase._error: Exception ', t.message);
-            }
-        }, t.prototype._exception = function(t, e) {
-            if (this.mErrorOutputFlag && console.log('===> EXCEPTION ', this.mErrorClassName + '.' + t + ':', e.message), 
-            'function' == typeof this.mErrorOutputFunc) try {
-                this.mErrorOutputFunc('EXCEPTION ' + this.mErrorClassName + '.' + t + ': ' + e.message);
-            } catch (t) {
-                console.log('ErrorBase._exception: Exception ', t.message);
-            }
-        }, t.prototype.isErrorOutput = function() {
-            return this.mErrorOutputFlag;
-        }, t.prototype.setErrorOutputOn = function() {
-            this._setErrorOutput(!0);
-        }, t.prototype.setErrorOutputOff = function() {
-            this._setErrorOutput(!1);
-        }, t;
-    }(), u = function(t, e) {
-        return (u = Object.setPrototypeOf || {
+    var e = 'BaseComponent', n = 'ActionComponent', o = n, i = 1e4, r = function(t, e) {
+        return (r = Object.setPrototypeOf || {
             __proto__: []
         } instanceof Array && function(t, e) {
             t.__proto__ = e;
@@ -66,14 +30,14 @@
             for (var n in e) e.hasOwnProperty(n) && (t[n] = e[n]);
         })(t, e);
     };
-    function s(t, e) {
+    function u(t, e) {
         function n() {
             this.constructor = t;
         }
-        u(t, e), t.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, 
+        r(t, e), t.prototype = null === e ? Object.create(e) : (n.prototype = e.prototype, 
         new n());
     }
-    function a(t, e) {
+    function s(t, e) {
         var n, o, i, r, u = {
             label: 0,
             sent: function() {
@@ -152,13 +116,49 @@
             };
         }
     }
-    var p = function(t) {
+    var a = !0, p = function() {
+        function t(t) {
+            this.mErrorClassName = 'ErrorBase', this.mErrorOutputFlag = a, this.mErrorOutputFunc = null, 
+            this.mErrorClassName = t;
+        }
+        return t.prototype._setErrorClassName = function(t) {
+            this.mErrorClassName = t;
+        }, t.prototype._getErrorClassName = function() {
+            return this.mErrorClassName;
+        }, t.prototype._setErrorOutput = function(t) {
+            this.mErrorOutputFlag = t;
+        }, t.prototype._setErrorOutputDefault = function() {
+            this._setErrorOutput(a);
+        }, t.prototype._setErrorOutputFunc = function(t) {
+            this.mErrorOutputFunc = t;
+        }, t.prototype._error = function(t, e) {
+            if (this.mErrorOutputFlag && console.log('===> ERROR ', this.mErrorClassName + '.' + t + ':', e), 
+            'function' == typeof this.mErrorOutputFunc) try {
+                this.mErrorOutputFunc(this.mErrorClassName + '.' + t + ': ' + e);
+            } catch (t) {
+                console.log('ErrorBase._error: Exception ', t.message);
+            }
+        }, t.prototype._exception = function(t, e) {
+            if (this.mErrorOutputFlag && console.log('===> EXCEPTION ', this.mErrorClassName + '.' + t + ':', e.message), 
+            'function' == typeof this.mErrorOutputFunc) try {
+                this.mErrorOutputFunc('EXCEPTION ' + this.mErrorClassName + '.' + t + ': ' + e.message);
+            } catch (t) {
+                console.log('ErrorBase._exception: Exception ', t.message);
+            }
+        }, t.prototype.isErrorOutput = function() {
+            return this.mErrorOutputFlag;
+        }, t.prototype.setErrorOutputOn = function() {
+            this._setErrorOutput(!0);
+        }, t.prototype.setErrorOutputOff = function() {
+            this._setErrorOutput(!1);
+        }, t;
+    }(), c = function(t) {
         function e() {
             var e = t.call(this, 'BuilderList') || this;
             return e.mBuilderList = new Map(), e.mBuilderIterator = e.mBuilderList.values(), 
             e;
         }
-        return s(e, t), e.prototype.getSize = function() {
+        return u(e, t), e.prototype.getSize = function() {
             return this.mBuilderList.size;
         }, e.prototype.insert = function(t, e) {
             try {
@@ -199,7 +199,7 @@
                 return this._exception('clear', t), -1;
             }
         }, e;
-    }(r), c = function() {
+    }(p), l = function() {
         function t() {}
         return t.setErrorOutputOn = function() {
             t.mBuilderList.setErrorOutputOn(), t.mErrorBase.setErrorOutputOn();
@@ -230,14 +230,125 @@
             return t.mBuilderList.remove(e);
         }, t.clear = function() {
             return t.mBuilderList.clear();
-        }, t.mBuilderList = new p(), t.mErrorBase = new r('BuilderManager'), t;
-    }(), l = function(t) {
+        }, t.mBuilderList = new c(), t.mErrorBase = new p('BuilderManager'), t;
+    }(), h = function() {
+        function t(t) {
+            if (this.mComponent = null, 0 !== this._init(t)) throw new Error('Komponente nicht initialisiert');
+        }
+        return t.prototype._getBuilderName = function() {
+            return '';
+        }, t.prototype._init = function(t) {
+            var e = !0;
+            t && 'boolean' == typeof t.errorOutputFlag && (e = t.errorOutputFlag);
+            var n = this._getBuilderName();
+            t && 'string' == typeof t.builderName && (n = t.builderName);
+            try {
+                var o = l.get(n);
+                if (!o) return e && console.log('Base._init: Kein Builder vorhanden'), -1;
+                if (this.mComponent = o.build(), !this.mComponent) return e && console.log('Base._init: keine Komponente erzeugt'), 
+                -1;
+                if (!this.mComponent.isInit()) {
+                    if (0 !== this.mComponent.init(t)) return e && console.log('Base._init: Komponente nicht initialisiert'), 
+                    -1;
+                    this.mComponent.isErrorOutput() && console.log(this.getType() + '-API Version: ', this.getVersion());
+                }
+                return 0;
+            } catch (t) {
+                return e && console.log('Base._init: Exception ', t.message), -1;
+            }
+        }, t.prototype.reset = function(t) {
+            return this.mComponent.reset(t);
+        }, t.prototype.getType = function() {
+            return this.mComponent.getType();
+        }, t.prototype.getName = function() {
+            return this.mComponent.getName();
+        }, t.prototype.getVersion = function() {
+            return this.mComponent.getVersion();
+        }, t.prototype.getServerVersion = function() {
+            return '';
+        }, t.prototype.isActive = function() {
+            return this.mComponent.isActive();
+        }, t.prototype.setActiveOn = function() {
+            return this.mComponent.setActiveOn();
+        }, t.prototype.setActiveOff = function() {
+            return this.mComponent.setActiveOff();
+        }, t.prototype.isErrorOutput = function() {
+            return this.mComponent.isErrorOutput();
+        }, t.prototype.setErrorOutputOn = function() {
+            this.mComponent.setErrorOutputOn();
+        }, t.prototype.setErrorOutputOff = function() {
+            this.mComponent.setErrorOutputOff();
+        }, t.prototype.addInitEvent = function(t, e) {
+            return this.mComponent.addInitEvent(t, e);
+        }, t.prototype.addStartEvent = function(t, e) {
+            return this.mComponent.addStartEvent(t, e);
+        }, t.prototype.addStopEvent = function(t, e) {
+            return this.mComponent.addStopEvent(t, e);
+        }, t.prototype.addErrorEvent = function(t, e) {
+            return this.mComponent.addErrorEvent(t, e);
+        }, t.prototype.removeInitEvent = function(t) {
+            return this.mComponent.removeInitEvent(t);
+        }, t.prototype.removeStartEvent = function(t) {
+            return this.mComponent.removeStartEvent(t);
+        }, t.prototype.removeStopEvent = function(t) {
+            return this.mComponent.removeStopEvent(t);
+        }, t.prototype.removeErrorEvent = function(t) {
+            return this.mComponent.removeErrorEvent(t);
+        }, t.prototype.removeAllEvent = function(t) {
+            return this.mComponent.removeAllEvent(t);
+        }, t.prototype.isRunning = function() {
+            return this.mComponent.isRunning();
+        }, t.prototype.start = function() {
+            return this.mComponent.start();
+        }, t.prototype.stop = function() {
+            return this.mComponent.stop();
+        }, t.prototype.test = function(t, e) {
+            return this.mComponent.test(t, e);
+        }, t;
+    }(), m = function(t) {
+        function e(e) {
+            var n = t.call(this, e) || this;
+            return n.mActionComponent = null, n.mActionComponent = n.mComponent, n;
+        }
+        return u(e, t), e.prototype._getBuilderName = function() {
+            return "Action";
+        }, e.prototype.setActionName = function(t) {
+            return this.mActionComponent.setActionName(t);
+        }, e.prototype.getActionName = function() {
+            return this.mActionComponent.getActionName();
+        }, e.prototype.setElementType = function(t) {
+            return this.mActionComponent.setElementType(t);
+        }, e.prototype.getElementType = function() {
+            return this.mActionComponent.getElementType();
+        }, e.prototype.setElementName = function(t) {
+            return this.mActionComponent.setElementName(t);
+        }, e.prototype.getElementName = function() {
+            return this.mActionComponent.getElementName();
+        }, e.prototype.addFunction = function(t, e, n) {
+            return this.mActionComponent.addFunction(t, e, n);
+        }, e.prototype.removeFunction = function(t) {
+            return this.mActionComponent.removeFunction(t);
+        }, e.prototype.addElement = function(t, e, n) {
+            return this.mActionComponent.addElement(t, e, n);
+        }, e.prototype.removeElement = function(t) {
+            return this.mActionComponent.removeElement(t);
+        }, e;
+    }(h), g = function() {
+        function t() {}
+        return t.create = function(t, e) {
+            try {
+                return new m(e);
+            } catch (t) {
+                return console.log('ActionFactory.create: Exception', t), null;
+            }
+        }, t;
+    }(), f = 'AudioPlayer', y = "mp3", d = function(t) {
         function e() {
             var e = t.call(this, 'FactoryList') || this;
             return e.mFactoryList = new Map(), e.mFactoryIterator = null, e.mFactoryIterator = e.mFactoryList.values(), 
             e;
         }
-        return s(e, t), e.prototype.getSize = function() {
+        return u(e, t), e.prototype.getSize = function() {
             return this.mFactoryList.size;
         }, e.prototype.insert = function(t, e) {
             try {
@@ -278,7 +389,7 @@
                 return this._exception('clear', t), -1;
             }
         }, e;
-    }(r), h = function() {
+    }(p), S = function() {
         function t() {}
         return t.setErrorOutputOn = function() {
             t.mFactoryList.setErrorOutputOn(), t.mErrorBase.setErrorOutputOn();
@@ -310,13 +421,13 @@
             return t.mFactoryList.remove(e);
         }, t.clear = function() {
             return t.mFactoryList.clear();
-        }, t.mFactoryList = new l(), t.mErrorBase = new r('FactoryManager'), t;
-    }(), m = function(t) {
+        }, t.mFactoryList = new d(), t.mErrorBase = new p('FactoryManager'), t;
+    }(), v = function(t) {
         function e() {
             var e = t.call(this, 'PluginList') || this;
             return e.mPluginList = new Map(), e.mPluginIterator = e.mPluginList.values(), e;
         }
-        return s(e, t), e.prototype.getSize = function() {
+        return u(e, t), e.prototype.getSize = function() {
             return this.mPluginList.size;
         }, e.prototype.insert = function(t, e) {
             try {
@@ -344,6 +455,8 @@
             } catch (t) {
                 return void this._exception('next', t);
             }
+        }, e.prototype.getNameList = function() {
+            return Array.from(this.mPluginList.keys());
         }, e.prototype.remove = function(t) {
             try {
                 return this.mPluginList.delete(t), 0;
@@ -357,7 +470,7 @@
                 return this._exception('clear', t), -1;
             }
         }, e;
-    }(r), g = function() {
+    }(p), _ = function() {
         function t() {}
         return t.setErrorOutputOn = function() {
             t.mPluginList.setErrorOutputOn(), t.mErrorBase.setErrorOutputOn();
@@ -368,9 +481,9 @@
         }, t.getSize = function() {
             return t.mPluginList.getSize();
         }, t.get = function(e, n) {
-            if (!e) return this.mErrorBase._error('get', 'kein PluginName uebergeben'), null;
+            if (!e) return t.mErrorBase._error('get', 'kein PluginName uebergeben'), null;
             var o = t.find(e);
-            return o || (n ? n.create(e) : (this.mErrorBase._error('get', 'keine PluginFactoryClass uebergeben'), 
+            return o || (n ? n.create(e) : (t.mErrorBase._error('get', 'keine PluginFactoryClass uebergeben'), 
             null));
         }, t.find = function(e) {
             var n = t.mPluginList.find(e);
@@ -380,44 +493,23 @@
         }, t.remove = function(e) {
             return t.mPluginList.remove(e);
         }, t.clear = function() {
+            for (var e = t.mPluginList.first(); e; ) {
+                try {
+                    e.done();
+                } catch (e) {
+                    t.mErrorBase._exception('clear', e);
+                }
+                e = t.mPluginList.next();
+            }
             return t.mPluginList.clear();
-        }, t.mPluginList = new m(), t.mErrorBase = new r('PluginManager'), t;
-    }(), f = function(t) {
-        function e() {
-            var e = t.call(this, 'Builder') || this;
-            if (0 !== c.insert(e.getName(), e)) throw new Error('Builder ' + e.getName() + ' existiert bereits im BuilderManager');
-            return e;
-        }
-        return s(e, t), e.prototype.getType = function() {
-            return '';
-        }, e.prototype.getName = function() {
-            return 'Builder';
-        }, e.prototype.build = function() {
-            return null;
-        }, e.prototype._getBuilder = function(t, e) {
-            return c.get(t, e);
-        }, e.prototype._getFactory = function(t, e) {
-            return h.get(t, e);
-        }, e.prototype._getComponent = function(t, e, n) {
-            if (e && n) {
-                var o = this._getBuilder(e, n);
-                if (o) return o.build();
-            }
-            return g.get(t);
-        }, e.prototype._getPlugin = function(t, e, n) {
-            if (e && n) {
-                var o = this._getFactory(e, n);
-                if (o) return g.get(t, o);
-            }
-            return g.get(t);
-        }, e;
-    }(r), y = 'ActionFunction', d = function(t) {
+        }, t.mPluginList = new v(), t.mErrorBase = new p('PluginManager'), t;
+    }(), E = function(t) {
         function e(e) {
             var n = t.call(this, e || 'Factory') || this;
-            if (0 !== h.insert(n.getName(), n)) throw new Error('Factory ' + n.getName() + ' existiert bereits im FactoryManager');
+            if (0 !== S.insert(n.getName(), n)) throw new Error('Factory ' + n.getName() + ' existiert bereits im FactoryManager');
             return n;
         }
-        return s(e, t), e.prototype.isMock = function() {
+        return u(e, t), e.prototype.isMock = function() {
             return !1;
         }, e.prototype.getType = function() {
             return 'any';
@@ -426,15 +518,15 @@
         }, e.prototype.create = function(t, e) {
             return void 0 === e && (e = !0), null;
         }, e;
-    }(r), S = function(t) {
+    }(p), A = function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
             var o = t.call(this, 'Plugin') || this;
             if (o.mPluginName = '', o.mOnInitFunc = null, o.mOnErrorFunc = null, o.mInitFlag = !1, 
-            o.mActiveFlag = !1, o._setErrorClassName(o.getClass()), o.mPluginName = e, n && 0 !== g.insert(e, o)) throw new Error('Plugin ' + o.getName() + ' ist bereits im PluginManager vorhanden');
+            o.mActiveFlag = !1, o._setErrorClassName(o.getClass()), o.mPluginName = e, n && 0 !== _.insert(e, o)) throw new Error('Plugin ' + o.getName() + ' ist bereits im PluginManager vorhanden');
             return o._setErrorOutputFunc(o._getErrorOutputFunc()), o;
         }
-        return s(e, t), e.prototype.isMock = function() {
+        return u(e, t), e.prototype.isMock = function() {
             return !1;
         }, e.prototype.getType = function() {
             return 'Plugin';
@@ -443,8 +535,9 @@
         }, e.prototype.getName = function() {
             return this.mPluginName;
         }, e.prototype.init = function(t) {
-            return t && 'boolean' == typeof t.errorOutputFlag && this._setErrorOutput(t.errorOutputFlag), 
-            this.mInitFlag = !0, this.mActiveFlag = !0, 0;
+            return this.mActiveFlag = !0, t && ('boolean' == typeof t.activeFlag && (this.mActiveFlag = t.activeFlag), 
+            'boolean' == typeof t.errorOutputFlag && this._setErrorOutput(t.errorOutputFlag)), 
+            this.mInitFlag = !0, 0;
         }, e.prototype.done = function() {
             return this.mInitFlag = !1, this.mActiveFlag = !1, this.mOnInitFunc = null, this.mOnErrorFunc = null, 
             t.prototype._setErrorOutputDefault.call(this), 0;
@@ -490,6 +583,12 @@
             }
             return 0;
         }, Object.defineProperty(e.prototype, "onInit", {
+            get: function() {
+                var t = this;
+                return function() {
+                    return t._onInit();
+                };
+            },
             set: function(t) {
                 this.mOnInitFunc = t;
             },
@@ -512,16 +611,16 @@
                 result: 0
             };
         }, e;
-    }(r), v = function(t) {
+    }(p), F = function(t) {
         function e(e) {
             return t.call(this, e || 'PluginFactory') || this;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return 'Plugin';
         }, e.prototype.getName = function() {
             return 'PluginFactory';
         }, e.prototype._newPlugin = function(t, e) {
-            return new S(t, e);
+            return new A(t, e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
             var n = t || 'Plugin';
@@ -531,781 +630,11 @@
                 return this._exception('PluginFactory.create', t), null;
             }
         }, e;
-    }(d), E = function(t) {
-        function e() {
-            var e = t.call(this, 'ActionFunctionList') || this;
-            return e.mActionStartFuncList = new Map(), e.mActionStopFuncList = new Map(), e.mStopActionFunc = function() {
-                return 0;
-            }, e;
-        }
-        return s(e, t), e.prototype.clear = function() {
-            this.mActionStartFuncList.clear(), this.mActionStopFuncList.clear(), this.mStopActionFunc = function() {
-                return 0;
-            };
-        }, e.prototype.insert = function(t, e, n) {
-            if (!t) return this._error('insert', 'kein Action-Funktionsname uebergeben'), -1;
-            if (this.mActionStartFuncList.get(t)) return this._error('insert', 'Actionsfunktion bereits eingetragen'), 
-            -1;
-            if ('function' != typeof e) return this._error('insert', 'keine StartAction-Funktion uebergeben'), 
-            -1;
-            try {
-                return this.mActionStartFuncList.set(t, e), 'function' == typeof n ? this.mActionStopFuncList.set(t, n) : this.mActionStopFuncList.set(t, function() {
-                    return 0;
-                }), 0;
-            } catch (t) {
-                return this._exception('insert', t), -1;
-            }
-        }, e.prototype.remove = function(t) {
-            if (!t) return this._error('remove', 'kein Action-Funktionsname uebergeben'), -1;
-            try {
-                return this.mActionStartFuncList.delete(t), this.mActionStopFuncList.delete(t), 
-                0;
-            } catch (t) {
-                return this._exception('remove', t), -1;
-            }
-        }, e.prototype.startAction = function(t) {
-            if (!t.action) return this._error('startAction', 'kein Action Name'), -1;
-            this.mStopActionFunc = function() {
-                return 0;
-            };
-            try {
-                var e = this.mActionStartFuncList.get(t.action);
-                return 'function' != typeof e ? 0 : (this.mStopActionFunc = this.mActionStopFuncList.get(t.action), 
-                e(t), 0);
-            } catch (t) {
-                return this._exception('startAction', t), -1;
-            }
-        }, e.prototype.stopAction = function() {
-            var t = this.mStopActionFunc;
-            this.mStopActionFunc = function() {
-                return 0;
-            };
-            try {
-                return 'function' != typeof t ? 0 : (t(), 0);
-            } catch (t) {
-                return this._exception('stopAction:', t), -1;
-            }
-        }, e;
-    }(r), _ = function(t) {
-        function e(e) {
-            void 0 === e && (e = !0);
-            var n = t.call(this, y, e) || this;
-            return n.mActionFunctionList = new E(), n._setErrorClassName('ActionFunction'), 
-            n.mActionFunctionList._setErrorOutputFunc(n._getErrorOutputFunc()), n;
-        }
-        return s(e, t), e.prototype.init = function(e) {
-            return t.prototype.init.call(this, e);
-        }, e.prototype.done = function() {
-            return this.mActionFunctionList.clear(), t.prototype.done.call(this);
-        }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mActionFunctionList._setErrorOutput(e);
-        }, e.prototype.getStartActionFunc = function() {
-            var t = this;
-            return function(e) {
-                return t.startAction(e);
-            };
-        }, e.prototype.getStopActionFunc = function() {
-            var t = this;
-            return function() {
-                return t.stopAction();
-            };
-        }, e.prototype.startAction = function(t) {
-            return this.mActionFunctionList.startAction(t);
-        }, e.prototype.stopAction = function() {
-            return this.mActionFunctionList.stopAction();
-        }, e.prototype.insert = function(t, e, n) {
-            return this.mActionFunctionList.insert(t, e, n);
-        }, e.prototype.remove = function(t) {
-            return this.mActionFunctionList.remove(t);
-        }, e.prototype.clear = function() {
-            return this.mActionFunctionList.clear(), 0;
-        }, e;
-    }(S), D = function(t) {
-        function e() {
-            return t.call(this, 'ActionFunctionFactory') || this;
-        }
-        return s(e, t), e.prototype.getName = function() {
-            return "ActionFunctionFactory";
-        }, e.prototype._newPlugin = function(t, e) {
-            return new _(e);
-        }, e.prototype.create = function(t, e) {
-            void 0 === e && (e = !0);
-            var n = t || y;
-            try {
-                return this._newPlugin(n, e);
-            } catch (t) {
-                return this._exception('create', t), null;
-            }
-        }, e;
-    }(v), F = 'ActionElement', A = function(t) {
-        function e() {
-            var e = t.call(this, 'ActionElementList') || this;
-            return e.mActionFuncList = new Map(), e.mActionStopFuncList = new Map(), e;
-        }
-        return s(e, t), e.prototype.clear = function() {
-            this.mActionFuncList.clear(), this.mActionStopFuncList.clear();
-        }, e.prototype.insert = function(t, e, n) {
-            if (!t) return this._error('insert', 'kein Elementname uebergeben'), -1;
-            if (this.mActionFuncList.get(t)) return this._error('insert', 'Element bereits eingetragen'), 
-            -1;
-            if ('function' != typeof e) return this._error('insert', 'keine ActionStart-Funktion uebergeben'), 
-            -1;
-            if ('function' != typeof n) return this._error('insert', 'keine ActionStop-Funktion uebergeben'), 
-            -1;
-            try {
-                var o = [ e, n ];
-                return this.mActionFuncList.set(t, o), 0;
-            } catch (t) {
-                return this._exception('insert', t), -1;
-            }
-        }, e.prototype.remove = function(t) {
-            if (!t) return this._error('remove', 'kein Action-Elementname uebergeben'), -1;
-            try {
-                return this.mActionFuncList.delete(t), 0;
-            } catch (t) {
-                return this._exception('remove', t), -1;
-            }
-        }, e.prototype.getStartAction = function(t) {
-            try {
-                var e = this.mActionFuncList.get(t);
-                if (e) return e[0];
-            } catch (t) {
-                this._exception('getStartAction', t);
-            }
-            return this._error('getStartAction', 'keine Funktion vorhanden'), function(t) {
-                return 0;
-            };
-        }, e.prototype.getStopAction = function(t) {
-            try {
-                var e = this.mActionFuncList.get(t);
-                if (e) return e[1];
-            } catch (t) {
-                this._exception('getStopAction', t);
-            }
-            return this._error('getStopAction', 'keine Funktion vorhanden'), function() {
-                return 0;
-            };
-        }, e.prototype.getActionTuple = function(t) {
-            try {
-                return this.mActionFuncList.get(t);
-            } catch (t) {
-                return this._exception('getActionTupel', t), null;
-            }
-        }, e.prototype.startAction = function(t) {
-            try {
-                var e = t.id || '';
-                if (!e) return this._error('startAction', 'kein Elementname vorhanden'), -1;
-                var n = this.getActionTuple(e);
-                if (!n) return 0;
-                var o = n[0];
-                if ('function' != typeof o) return this._error('startAction', 'keine StartAction-Funktion vorhanden'), 
-                -1;
-                var i = n[1];
-                return 'function' != typeof i ? (this._error('startAction', 'keine StopAction-Funktion vorhanden'), 
-                -1) : (this.mActionStopFuncList.set(e, i), o(t), 0);
-            } catch (t) {
-                return this._exception('startAction', t), -1;
-            }
-        }, e.prototype.stopAction = function() {
-            try {
-                return this.mActionStopFuncList.forEach(function(t) {
-                    'function' == typeof t && t();
-                }), this.mActionStopFuncList.clear(), 0;
-            } catch (t) {
-                return this._exception('stopAction', t), -1;
-            }
-        }, e;
-    }(r), k = function(t) {
-        function e(e) {
-            void 0 === e && (e = !0);
-            var n = t.call(this, F, e) || this;
-            return n.mActionElementList = new A(), n._setErrorClassName('ActionElement'), n.mActionElementList._setErrorOutputFunc(n._getErrorOutputFunc()), 
-            n;
-        }
-        return s(e, t), e.prototype.init = function(e) {
-            return t.prototype.init.call(this, e);
-        }, e.prototype.done = function() {
-            return this.mActionElementList.clear(), t.prototype.done.call(this);
-        }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mActionElementList._setErrorOutput(e);
-        }, e.prototype.getStartActionFunc = function() {
-            var t = this;
-            return function(e) {
-                return t.startAction(e);
-            };
-        }, e.prototype.getStopActionFunc = function() {
-            var t = this;
-            return function() {
-                return t.stopAction();
-            };
-        }, e.prototype.startAction = function(t) {
-            return this.mActionElementList.startAction(t);
-        }, e.prototype.stopAction = function() {
-            return this.mActionElementList.stopAction();
-        }, e.prototype.insert = function(t, e, n) {
-            return this.mActionElementList.insert(t, e, n);
-        }, e.prototype.remove = function(t) {
-            return this.mActionElementList.remove(t);
-        }, e.prototype.clear = function() {
-            return this.mActionElementList.clear(), 0;
-        }, e;
-    }(S), L = function(t) {
-        function e() {
-            return t.call(this, 'ActionElementFactory') || this;
-        }
-        return s(e, t), e.prototype.getName = function() {
-            return "ActionElementFactory";
-        }, e.prototype._newPlugin = function(t, e) {
-            return new k(e);
-        }, e.prototype.create = function(t, e) {
-            void 0 === e && (e = !0);
-            var n = t || F;
-            try {
-                return this._newPlugin(n, e);
-            } catch (t) {
-                return this._exception('create', t), null;
-            }
-        }, e;
-    }(v), C = 'init', b = 'error', P = 'speakStart', O = 'speakStop', R = 'listenStart', N = 'listenStop', x = 'listenResult', w = 'actionStart', T = 'actionStop', I = 'dialogSet', M = 'dialogStart', W = 'dialogStop', B = 'dialogParse', q = 'dialogStateSet', H = 'dialogAction', j = 'dialogActionStop', G = 'dialogSpeak', K = 'dialogSpeakStart', X = 'dialogSpeakStop', U = function(t) {
-        function e(e, n) {
-            var o = t.call(this, 'EventFunctionList') || this;
-            return o.mEventName = 'Event', o.mComponentName = 'Component', o.mFunctionList = new Map(), 
-            o.mEventName = e, o.mComponentName = n, o;
-        }
-        return s(e, t), e.prototype.setComponentName = function(t) {
-            this.mComponentName = t;
-        }, e.prototype.getComponentName = function() {
-            return this.mComponentName;
-        }, e.prototype.getName = function() {
-            return this.mEventName;
-        }, e.prototype.getSize = function() {
-            return this.mFunctionList.size;
-        }, e.prototype.addListener = function(t, e) {
-            return t ? 'function' != typeof e ? (this._error('addListener', 'keine Eventfunktion uebergeben ' + t + ',' + this.getComponentName() + ',' + this.getName()), 
-            -1) : this.mFunctionList.has(t) ? (this._error('addListener', 'Eventfunktion bereits vorhanden ' + t + ',' + this.getComponentName() + ',' + this.getName()), 
-            -1) : (this.mFunctionList.set(t, e), 0) : (this._error('addListener', 'kein Listenername uebergeben ' + this.getComponentName() + ',' + this.getName()), 
-            -1);
-        }, e.prototype.removeListener = function(t) {
-            return t ? (this.mFunctionList.delete(t), 0) : (this._error('removeListener', "kein Listenername uebergeben," + this.getComponentName() + ',' + this.getName()), 
-            -1);
-        }, e.prototype.dispatch = function(t) {
-            var e = this, n = 0;
-            return this.mFunctionList.forEach(function(o) {
-                try {
-                    0 !== o(t) && (n = -1);
-                } catch (t) {
-                    return e._exception('dispatch', t), n = -1, -1;
-                }
-            }), n;
-        }, e.prototype.clear = function() {
-            this.mFunctionList.clear();
-        }, e;
-    }(r), V = function(t) {
-        function e(e, n) {
-            void 0 === n && (n = !0);
-            var o = t.call(this, e, n) || this;
-            return o.mSendMessageFunc = null, o.mInitEvent = new U(C), o.mErrorEvent = new U(b), 
-            o.mInitEvent.setComponentName(e), o.mErrorEvent.setComponentName(e), o.mInitEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o.mErrorEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o;
-        }
-        return s(e, t), e.prototype.getType = function() {
-            return 'Component';
-        }, e.prototype.getClass = function() {
-            return 'Component';
-        }, e.prototype.getVersion = function() {
-            return "0.5.1.0040 vom 11.10.2018 (ALPHA)";
-        }, e.prototype.init = function(e) {
-            return 0 !== t.prototype.init.call(this, e) ? -1 : 0;
-        }, e.prototype.done = function() {
-            return this.mInitEvent.clear(), this.mErrorEvent.clear(), t.prototype.done.call(this);
-        }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mInitEvent._setErrorOutput(e), this.mErrorEvent._setErrorOutput(e), 
-            this._setErrorOutputAllPlugin(e);
-        }, e.prototype.connect = function() {
-            return 0;
-        }, e.prototype.isConnect = function() {
-            return !0;
-        }, e.prototype.getNetType = function() {
-            return 'undefined';
-        }, e.prototype._addEventListenerAllPlugin = function(t, n, o) {
-            try {
-                for (var i = -1, r = this.mPluginList.first(); r; ) {
-                    if (r instanceof e) {
-                        r && 0 === r.addEventListener(t, n, o) && (i = 0);
-                    }
-                    r = this.mPluginList.next();
-                }
-                return i;
-            } catch (t) {
-                return this._exception('addEventListenerAllPlugin', t), -1;
-            }
-        }, e.prototype._removeEventListenerAllPlugin = function(t, n) {
-            try {
-                for (var o = -1, i = this.mPluginList.first(); i; ) {
-                    if (i instanceof e) {
-                        i && 0 === i.removeEventListener(t, n) && (o = 0);
-                    }
-                    i = this.mPluginList.next();
-                }
-                return o;
-            } catch (t) {
-                return this._exception('removeEventListenerAllPlugin', t), -1;
-            }
-        }, e.prototype.setSendMessageFunc = function(t) {
-            return this.mSendMessageFunc = t, 0;
-        }, e.prototype.sendMessage = function(t) {
-            return 'function' != typeof this.mSendMessageFunc ? -1 : this.mSendMessageFunc(t);
-        }, e.prototype.handleMessage = function(t) {
-            try {
-                var e = 0;
-                switch (t.event) {
-                  case C:
-                    e = this.mInitEvent.dispatch(t);
-                    break;
-
-                  case b:
-                    e = this.mErrorEvent.dispatch(t);
-                    break;
-
-                  default:
-                    this._error('handleMessage', 'ungueltige Nachricht: ' + t.event), e = -1;
-                }
-                return e;
-            } catch (t) {
-                return this._exception('handleMessage', t), -1;
-            }
-        }, e.prototype._onInit = function() {
-            return this.mInitEvent.dispatch(this.getName());
-        }, e.prototype._onError = function(t) {
-            return this.mErrorEvent.dispatch(t);
-        }, Object.defineProperty(e.prototype, "onError", {
-            get: function() {
-                var t = this;
-                return function(e) {
-                    return t._onError(e);
-                };
-            },
-            enumerable: !0,
-            configurable: !0
-        }), e.prototype.addEventListener = function(t, e, n) {
-            var o = 0;
-            switch (e) {
-              case C:
-                o = this.mInitEvent.addListener(t, n);
-                break;
-
-              case b:
-                this._addEventListenerAllPlugin(t, e, n), o = this.mErrorEvent.addListener(t, n);
-                break;
-
-              default:
-                o = this._addEventListenerAllPlugin(t, e, n);
-            }
-            return o;
-        }, e.prototype.removeEventListener = function(t, e) {
-            var n = 0;
-            switch (e) {
-              case C:
-                n = this.mInitEvent.removeListener(t);
-                break;
-
-              case b:
-                this._removeEventListenerAllPlugin(t, e), n = this.mErrorEvent.removeListener(t);
-                break;
-
-              default:
-                n = this._removeEventListenerAllPlugin(t, e);
-            }
-            return n;
-        }, e;
-    }(function(t) {
-        function e(e, n) {
-            void 0 === n && (n = !0);
-            var o = t.call(this, e, n) || this;
-            return o.mSendMessageFunc = null, o.mPluginList = new m(), o.mPluginList._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o;
-        }
-        return s(e, t), e.prototype.getType = function() {
-            return 'PluginGroup';
-        }, e.prototype.getClass = function() {
-            return 'PluginGroup';
-        }, e.prototype.init = function(e) {
-            return 0 !== t.prototype.init.call(this, e) ? -1 : 0 !== this.startAllPlugin(e) ? (this._clearInit(), 
-            -1) : 0;
-        }, e.prototype.done = function() {
-            return this.stopAllPlugin(), t.prototype.done.call(this);
-        }, e.prototype.setFeatureList = function(e) {
-            if ('object' != typeof e) return this._error('setFeatureList', 'keine gueltige Feature Liste'), 
-            -1;
-            if (function(t) {
-                for (var e in t) if (t.hasOwnProperty(e)) return !1;
-                return !0;
-            }(e)) return 0;
-            try {
-                for (var n = t.prototype.setFeatureList.call(this, e), o = this.mPluginList.first(); o; ) 0 !== o.setFeatureList(e) && (n = -1), 
-                o = this.mPluginList.next();
-                return n;
-            } catch (t) {
-                return this._exception('setFeatureList', t), -1;
-            }
-        }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mPluginList._setErrorOutput(e), 
-            this._setErrorOutputAllPlugin(e);
-        }, e.prototype.insertPlugin = function(t, e) {
-            return this.mPluginList.insert(t, e);
-        }, e.prototype.removePlugin = function(t) {
-            return this.mPluginList.remove(t);
-        }, e.prototype.removeAllPlugin = function() {
-            return this.mPluginList.clear();
-        }, e.prototype.findPlugin = function(t, e) {
-            var n = this.mPluginList.find(t);
-            return n || null;
-        }, e.prototype.isPlugin = function(t) {
-            return !!this.mPluginList.find(t);
-        }, e.prototype.getPluginSize = function() {
-            return this.mPluginList.getSize();
-        }, e.prototype.startPlugin = function(t, e) {
-            var n = this.mPluginList.find(t);
-            return n ? n.isInit() ? 0 : n.init(e) : (this._error('startPlugin', 'Plugin nicht vorhanden'), 
-            -1);
-        }, e.prototype.stopPlugin = function(t) {
-            var e = this.mPluginList.find(t);
-            return e ? e.done() : (this._error('stopPlugin', 'Plugin nicht vorhanden'), -1);
-        }, e.prototype.startAllPlugin = function(t) {
-            try {
-                for (var e = 0, n = this.mPluginList.first(); n; ) n.isInit() || 0 === n.init(t) || (e = -1), 
-                n = this.mPluginList.next();
-                return e;
-            } catch (t) {
-                return this._exception('startAllPlugin', t), -1;
-            }
-        }, e.prototype.stopAllPlugin = function() {
-            try {
-                for (var t = 0, e = this.mPluginList.first(); e; ) 0 !== e.done() && (t = -1), e = this.mPluginList.next();
-                return t;
-            } catch (t) {
-                return this._exception('stopAllPlugin', t), -1;
-            }
-        }, e.prototype._setErrorOutputAllPlugin = function(t) {
-            try {
-                for (var e = this.mPluginList.first(); e; ) t ? e.setErrorOutputOn() : e.setErrorOutputOff(), 
-                e = this.mPluginList.next();
-                return 0;
-            } catch (t) {
-                return this._exception('_setErrorOutputAllPlugin', t), -1;
-            }
-        }, e;
-    }(S)), z = function(t) {
-        function n(n) {
-            void 0 === n && (n = !0);
-            var i = t.call(this, e, n) || this;
-            return i.mActionFunction = null, i.mActionElement = null, i.mActionStartEvent = new U(w, e), 
-            i.mActionStopEvent = new U(T, e), i.mActionRunningFlag = !1, i.mActionName = '', 
-            i.mActionElementType = '', i.mActionElementName = '', i.mActionTimeout = o, i.mActionTimeoutId = 0, 
-            i._setErrorClassName('ActionComponent'), i.mActionStartEvent._setErrorOutputFunc(i._getErrorOutputFunc()), 
-            i.mActionStopEvent._setErrorOutputFunc(i._getErrorOutputFunc()), i;
-        }
-        return s(n, t), n.prototype.getType = function() {
-            return "Action";
-        }, n.prototype.getVersion = function() {
-            return "0.5.1.0040 vom 11.10.2018 (ALPHA)";
-        }, n.prototype.getServerVersion = function() {
-            return '';
-        }, n.prototype.init = function(e) {
-            return this.isInit() ? (this.isErrorOutput() && console.log('ActionComponent.init: bereits initialisiert'), 
-            0) : 0 !== t.prototype.init.call(this, e) ? -1 : (this.mActionFunction = this.findPlugin(y), 
-            this.mActionElement = this.findPlugin(F), 0);
-        }, n.prototype.done = function() {
-            return this.stopAction(), this.mActionFunction = null, this.mActionElement = null, 
-            this.mActionName = '', this.mActionElementType = '', this.mActionElementName = '', 
-            this.mActionTimeout = o, t.prototype.done.call(this);
-        }, n.prototype.reset = function(t) {
-            return this.isInit() ? (this.stopAction(), this.setActiveOn(), this.mActionName = '', 
-            this.mActionElementType = '', this.mActionElementName = '', this.mActionTimeout = o, 
-            0) : (this._error('reset', 'Komponente nicht initialisiert'), -1);
-        }, n.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mActionStartEvent._setErrorOutput(e), 
-            this.mActionStopEvent._setErrorOutput(e);
-        }, n.prototype._onActionStart = function() {
-            return this.mActionStartEvent.dispatch();
-        }, n.prototype._onActionStop = function() {
-            return this.mActionStopEvent.dispatch();
-        }, Object.defineProperty(n.prototype, "onActionStart", {
-            get: function() {
-                var t = this;
-                return function() {
-                    return t._onActionStart();
-                };
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(n.prototype, "onActionStop", {
-            get: function() {
-                var t = this;
-                return function() {
-                    return t._onActionStop();
-                };
-            },
-            enumerable: !0,
-            configurable: !0
-        }), n.prototype.addEventListener = function(e, n, o) {
-            var i = 0;
-            switch (n) {
-              case w:
-                i = this.mActionStartEvent.addListener(e, o);
-                break;
-
-              case T:
-                i = this.mActionStopEvent.addListener(e, o);
-                break;
-
-              default:
-                i = t.prototype.addEventListener.call(this, e, n, o);
-            }
-            return i;
-        }, n.prototype.removeEventListener = function(e, n) {
-            var o = 0;
-            switch (n) {
-              case w:
-                o = this.mActionStartEvent.removeListener(e);
-                break;
-
-              case T:
-                o = this.mActionStopEvent.removeListener(e);
-                break;
-
-              default:
-                o = t.prototype.removeEventListener.call(this, e, n);
-            }
-            return o;
-        }, n.prototype.addActionStartEvent = function(t, e) {
-            return this.addEventListener(t, w, e);
-        }, n.prototype.addActionStopEvent = function(t, e) {
-            return this.addEventListener(t, T, e);
-        }, n.prototype.addErrorEvent = function(t, e) {
-            return this.addEventListener(t, b, e);
-        }, n.prototype.removeActionStartEvent = function(t) {
-            return this.removeEventListener(t, w);
-        }, n.prototype.removeActionStopEvent = function(t) {
-            return this.removeEventListener(t, T);
-        }, n.prototype.removeErrorEvent = function(t) {
-            return this.removeEventListener(t, b);
-        }, n.prototype.removeAllEvent = function(t) {
-            return t ? (this.removeActionStartEvent(t), this.removeActionStopEvent(t), this.removeErrorEvent(t), 
-            0) : (this._error('removeAllEvent', 'kein Pluginname uebergeben'), -1);
-        }, n.prototype.getActionFunc = function() {
-            var t = this;
-            return function(e) {
-                return t.action(e);
-            };
-        }, n.prototype.getStopActionFunc = function() {
-            var t = this;
-            return function() {
-                return t.stopAction();
-            };
-        }, n.prototype.setActionName = function(t) {
-            return this.mActionName = t, 0;
-        }, n.prototype.getActionName = function() {
-            return this.mActionName;
-        }, n.prototype.setElementType = function(t) {
-            return this.mActionElementType = t, 0;
-        }, n.prototype.getElementType = function() {
-            return this.mActionElementType;
-        }, n.prototype.setElementName = function(t) {
-            return this.mActionElementName = t, 0;
-        }, n.prototype.getElementName = function() {
-            return this.mActionElementName;
-        }, n.prototype.isActionRunning = function() {
-            return !!this.isActive() && this.mActionRunningFlag;
-        }, n.prototype.action = function(t) {
-            var e = this;
-            if (!this.isActive()) return 0;
-            if (this.isActionRunning()) return this._error('startAction', 'Aktion laeuft bereits'), 
-            -1;
-            this.mActionRunningFlag = !0;
-            var n = 0;
-            return this.mActionFunction && 0 !== this.mActionFunction.startAction(t) && (n = -1), 
-            this.mActionElement && 0 !== this.mActionElement.startAction(t) && (n = -1), this.mActionTimeoutId = setTimeout(function() {
-                return e.stopAction();
-            }, this.mActionTimeout), this._onActionStart(), n;
-        }, n.prototype.startAction = function() {
-            if (!this.mActionName) return this._error('startAction', 'kein Aktionsname vorhanden'), 
-            -1;
-            if (!this.mActionElementName) return this._error('startAction', 'kein Elementname vorhanden'), 
-            -1;
-            var t = {
-                action: this.mActionName,
-                type: this.mActionElementType,
-                id: this.mActionElementName
-            };
-            return this.action(t);
-        }, n.prototype.stopAction = function() {
-            if (!this.isActive()) return 0;
-            if (!this.isActionRunning()) return 0;
-            this.mActionTimeoutId && (clearTimeout(this.mActionTimeoutId), this.mActionTimeoutId = 0);
-            var t = 0;
-            return this.mActionFunction && 0 !== this.mActionFunction.stopAction() && (t = -1), 
-            this.mActionElement && 0 !== this.mActionElement.stopAction() && (t = -1), this.mActionRunningFlag = !1, 
-            this._onActionStop(), t;
-        }, n.prototype.addFunction = function(t, e, n) {
-            return this.mActionFunction ? this.mActionFunction.insert(t, e, n) : (this._error('addFunction', 'kein ActionFunction-Plugin vorhanden'), 
-            -1);
-        }, n.prototype.removeFunction = function(t) {
-            return this.mActionFunction ? this.mActionFunction.remove(t) : (this._error('removeFunction', 'kein ActionFunction-Plugin vorhanden'), 
-            -1);
-        }, n.prototype.addElement = function(t, e, n) {
-            return this.mActionElement ? this.mActionElement.insert(t, e, n) : (this._error('addElement', 'kein ActionElement-Plugin vorhanden'), 
-            -1);
-        }, n.prototype.removeElement = function(t) {
-            return this.mActionElement ? this.mActionElement.remove(t) : (this._error('removeElement', 'kein ActionElement-Plugin vorhanden'), 
-            -1);
-        }, n;
-    }(V), Y = function(t) {
-        function n() {
-            return t.call(this, 'ActionComponentFactory') || this;
-        }
-        return s(n, t), n.prototype.getName = function() {
-            return "ActionComponentFactory";
-        }, n.prototype.getType = function() {
-            return "Action";
-        }, n.prototype._newPlugin = function(t, e) {
-            return new z(e);
-        }, n.prototype.create = function(t, n) {
-            void 0 === n && (n = !0);
-            var o = t || e;
-            try {
-                return this._newPlugin(o, n);
-            } catch (t) {
-                return this._exception('create', t), null;
-            }
-        }, n;
-    }(v), J = function(t) {
-        function n() {
-            var e = t.call(this) || this;
-            return e.mActionComponent = null, e._setErrorClassName('ActionComponentBuilder'), 
-            e;
-        }
-        return s(n, t), n.prototype.getName = function() {
-            return "ActionComponentBuilder";
-        }, n.prototype.getType = function() {
-            return "Action";
-        }, n.prototype.build = function() {
-            if (this.mActionComponent) return this.mActionComponent;
-            try {
-                var t = this._buildComponent(), e = this._getPlugin(y, "ActionFunctionFactory", D), n = this._getPlugin(F, "ActionElementFactory", L);
-                return 0 !== this._binder(t, e, n) ? (this._error('build', 'Komponenten nicht verbunden'), 
-                null) : t;
-            } catch (t) {
-                return this._exception('build', t), null;
-            }
-        }, n.prototype._buildComponent = function() {
-            return this.mActionComponent || (this.mActionComponent = this._getPlugin(e, "ActionComponentFactory", Y)), 
-            this.mActionComponent;
-        }, n.prototype._binder = function(t, e, n) {
-            return t && e && n ? 0 !== t.insertPlugin(e.getName(), e) ? -1 : 0 !== t.insertPlugin(n.getName(), n) ? -1 : (e.onError = t.onError, 
-            n.onError = t.onError, 0) : -1;
-        }, n;
-    }(f), Q = function() {
-        function t(t) {
-            if (this.mComponent = null, 0 !== this._init(t)) throw new Error('Action nicht initialisiert');
-        }
-        return t.prototype._init = function(t) {
-            var e = !0;
-            t && 'boolean' == typeof t.errorOutputFlag && (e = t.errorOutputFlag);
-            try {
-                var n = "ActionComponentBuilder";
-                t && t.actionBuilder && (n = t.actionBuilder);
-                var o = null;
-                if ("ActionComponentBuilder" === n && (o = c.get("ActionComponentBuilder", J)), 
-                !o) return e && console.log('Action._init: ActionBuilder nicht vorhanden'), -1;
-                if (this.mComponent = o.build(), !this.mComponent) return e && console.log('Action._init: keine ActionComponent erzeugt'), 
-                -1;
-                if (!this.mComponent.isInit()) {
-                    if (0 !== this.mComponent.init(t)) return e && console.log('Action._init: ActionComponent nicht initialisiert'), 
-                    -1;
-                    this.mComponent.isErrorOutput() && console.log('Action-API Version: ', "0.5.1.0040 vom 11.10.2018 (ALPHA)", t);
-                }
-                return 0;
-            } catch (t) {
-                return e && console.log('Action._init: Exception ', t.message), -1;
-            }
-        }, t.prototype.reset = function(t) {
-            return this.mComponent.reset(t);
-        }, t.prototype.getType = function() {
-            return this.mComponent.getType();
-        }, t.prototype.getName = function() {
-            return this.mComponent.getName();
-        }, t.prototype.getVersion = function() {
-            return this.mComponent.getVersion();
-        }, t.prototype.getServerVersion = function() {
-            return '';
-        }, t.prototype.isActive = function() {
-            return this.mComponent.isActive();
-        }, t.prototype.setActiveOn = function() {
-            return this.mComponent.setActiveOn();
-        }, t.prototype.setActiveOff = function() {
-            return this.mComponent.setActiveOff();
-        }, t.prototype.isErrorOutput = function() {
-            return this.mComponent.isErrorOutput();
-        }, t.prototype.setErrorOutputOn = function() {
-            this.mComponent.setErrorOutputOn();
-        }, t.prototype.setErrorOutputOff = function() {
-            this.mComponent.setErrorOutputOff();
-        }, t.prototype.addActionStartEvent = function(t, e) {
-            return this.mComponent.addActionStartEvent(t, e);
-        }, t.prototype.addActionStopEvent = function(t, e) {
-            return this.mComponent.addActionStopEvent(t, e);
-        }, t.prototype.addErrorEvent = function(t, e) {
-            return this.mComponent.addErrorEvent(t, e);
-        }, t.prototype.removeActionStartEvent = function(t) {
-            return this.mComponent.removeActionStartEvent(t);
-        }, t.prototype.removeActionStopEvent = function(t) {
-            return this.mComponent.removeActionStopEvent(t);
-        }, t.prototype.removeErrorEvent = function(t) {
-            return this.mComponent.removeErrorEvent(t);
-        }, t.prototype.removeAllEvent = function(t) {
-            return this.mComponent.removeAllEvent(t);
-        }, t.prototype.setActionName = function(t) {
-            return this.mComponent.setActionName(t);
-        }, t.prototype.getActionName = function() {
-            return this.mComponent.getActionName();
-        }, t.prototype.setElementType = function(t) {
-            return this.mComponent.setElementType(t);
-        }, t.prototype.getElementType = function() {
-            return this.mComponent.getElementType();
-        }, t.prototype.setElementName = function(t) {
-            return this.mComponent.setElementName(t);
-        }, t.prototype.getElementName = function() {
-            return this.mComponent.getElementName();
-        }, t.prototype.isActionRunning = function() {
-            return this.mComponent.isActionRunning();
-        }, t.prototype.startAction = function() {
-            return this.mComponent.startAction();
-        }, t.prototype.stopAction = function() {
-            return this.mComponent.stopAction();
-        }, t.prototype.addFunction = function(t, e, n) {
-            return this.mComponent.addFunction(t, e, n);
-        }, t.prototype.removeFunction = function(t) {
-            return this.mComponent.removeFunction(t);
-        }, t.prototype.addElement = function(t, e, n) {
-            return this.mComponent.addElement(t, e, n);
-        }, t.prototype.removeElement = function(t) {
-            return this.mComponent.removeElement(t);
-        }, t;
-    }(), Z = function() {
-        function t() {}
-        return t.create = function(t, e) {
-            try {
-                return new Q(e);
-            } catch (t) {
-                return console.log('ActionFactory.create: Exception', t), null;
-            }
-        }, t;
-    }(), $ = 'AudioPlayer', tt = "mp3", et = function(t) {
+    }(E), D = function(t) {
         function e() {
             return t.call(this, 'AudioContextFactory') || this;
         }
-        return s(e, t), e.prototype.getAudioContextClass = function() {
+        return u(e, t), e.prototype.getAudioContextClass = function() {
             try {
                 return window.AudioContext || window.webkitAudioContext || null;
             } catch (t) {
@@ -1334,17 +663,17 @@
                 return this._exception('createXMLHttpRequest', t), null;
             }
         }, e;
-    }(r), nt = function(t) {
+    }(p), P = function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
-            var o = t.call(this, $, n) || this;
-            return o.mAudioContextClass = null, o.mAudioContext = null, o.mAudioFormat = tt, 
+            var o = t.call(this, f, n) || this;
+            return o.mAudioContextClass = null, o.mAudioContext = null, o.mAudioFormat = y, 
             o.mAudioBuffer = null, o.mXMLHttpRequest = null, o.mRequest = null, o.mSource = null, 
             o.mAudioLoadFlag = !1, o.mAudioPlayFlag = !1, o.mAudioCancelFlag = !1, o.mOnAudioStartFunc = null, 
             o.mOnAudioStopFunc = null, o.mAudioContextFactory = e, o._setErrorClassName('AudioPlayer'), 
             o;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return 'AudioPlayer';
         }, e.prototype._detectAudioContext = function() {
             if (!this.mAudioContextFactory) return this._error('_detectAudioContext', 'keine AudioContext-Fabrik vorhanden'), 
@@ -1386,7 +715,7 @@
             return 0;
         }, e.prototype.done = function() {
             return this.isInit() && this.stop(), this._closeAudioContext(), this.mAudioContext = null, 
-            this.mAudioContextClass = null, this.mAudioFormat = tt, this.mXMLHttpRequest = null, 
+            this.mAudioContextClass = null, this.mAudioFormat = y, this.mXMLHttpRequest = null, 
             this.mRequest = null, this.mSource = null, this.mAudioBuffer = null, this.mAudioContext = null, 
             this.mAudioLoadFlag = !1, this.mAudioPlayFlag = !1, this.mAudioCancelFlag = !1, 
             this.mOnAudioStartFunc = null, this.mOnAudioStopFunc = null, t.prototype.done.call(this);
@@ -1489,7 +818,7 @@
             try {
                 return this.mAudioPlayFlag = !0, this.mAudioLoadFlag = !1, this.mAudioCancelFlag = !1, 
                 this.mSource = this.mAudioContext.createBufferSource(), this.mSource.onended = function() {
-                    t.isPlay() && t._onAudioStop(), t.mAudioPlayFlag = !1;
+                    t.isPlay() && (t.mAudioPlayFlag = !1, t._onAudioStop());
                 }, this.mSource.buffer = this.mAudioBuffer, this.mSource.connect(this.mAudioContext.destination), 
                 this.mSource.start(0), this._onAudioStart(), 0;
             } catch (t) {
@@ -1526,11 +855,11 @@
             0;
             if (this._cancel(), this.mSource) {
                 try {
-                    this.mAudioPlayFlag = !1, this.mSource.stop(0), this.mSource.disconnect(0), this._onAudioStop();
+                    this.mAudioPlayFlag = !1, this.mSource.stop(0), this.mSource.disconnect(0);
                 } catch (t) {
                     this._exception('stop', t);
                 }
-                this.mSource = null, this.mAudioBuffer = null, this.mAudioCancelFlag = !1;
+                this.mSource = null, this.mAudioBuffer = null, this.mAudioCancelFlag = !1, this._onAudioStop();
             }
             return this.mAudioLoadFlag = !1, 0;
         }, e.prototype.getStopFunc = function() {
@@ -1539,34 +868,34 @@
                 return t.stop();
             };
         }, e;
-    }(S), ot = function(t) {
+    }(A), L = function(t) {
         function e() {
             return t.call(this, 'AudioPlayerFactory') || this;
         }
-        return s(e, t), e.prototype.isMock = function() {
+        return u(e, t), e.prototype.isMock = function() {
             return !1;
         }, e.prototype.getName = function() {
             return "AudioPlayerFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new nt(new et(), e);
+            return new P(new D(), e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || $;
+            var n = t || f;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), it = function() {
+    }(F), k = function() {
         function t(t) {
             if (this.mAudioPlayer = null, 0 !== this._init(t)) throw new Error('Audio nicht initialisiert');
         }
         return t.prototype._init = function(t) {
             if (this.mAudioPlayer) return 0;
             try {
-                var e = h.get("AudioPlayerFactory", ot);
-                return this.mAudioPlayer = g.get($, e), this.mAudioPlayer ? this.mAudioPlayer.isInit() || 0 === this.mAudioPlayer.init(t) ? 0 : (console.log('Audio._init: AudioPlayer nicht initialisiert'), 
+                var e = S.get("AudioPlayerFactory", L);
+                return this.mAudioPlayer = _.get(f, e), this.mAudioPlayer ? this.mAudioPlayer.isInit() || 0 === this.mAudioPlayer.init(t) ? 0 : (console.log('Audio._init: AudioPlayer nicht initialisiert'), 
                 -1) : (console.log('Audio._init: kein AudioPlayer erzeugt'), -1);
             } catch (t) {
                 return console.log('Audio._init: Exception ', t.message), -1;
@@ -1576,502 +905,1225 @@
         }, t.prototype.stop = function() {
             return this.mAudioPlayer.stop();
         }, t;
-    }(), rt = function() {
+    }(), T = function() {
         function t() {}
         return t.create = function(t, e) {
             try {
-                return new it(e);
+                return new k(e);
             } catch (t) {
                 return console.log('AudioFactory.create: Exception', t), null;
             }
         }, t;
-    }(), ut = 'SpeakComponent', st = 'assets/', at = !1, pt = 'TTS', ct = "de-DE", lt = function(t) {
-        function e() {
-            return t.call(this, 'SpeechSynthesisFactory') || this;
+    }(), C = 'SpeakComponent', O = 'assets/', b = !1, R = function(t) {
+        function e(e) {
+            var n = t.call(this, e) || this;
+            return n.mSpeakComponent = null, n.mSpeakComponent = n.mComponent, n;
         }
-        return s(e, t), e.prototype.getSpeechSynthesisUtteranceClass = function() {
+        return u(e, t), e.prototype._getBuilderName = function() {
+            return "Speak";
+        }, e.prototype.isAudio = function() {
+            return this.mSpeakComponent.isAudio();
+        }, e.prototype.setAudioOn = function() {
+            return this.mSpeakComponent.setAudioOn();
+        }, e.prototype.setAudioOff = function() {
+            return this.mSpeakComponent.setAudioOff();
+        }, e.prototype.setAudioFormat = function(t) {
+            return this.mSpeakComponent.setAudioFormat(t);
+        }, e.prototype.getAudioFormat = function() {
+            return this.mSpeakComponent.getAudioFormat();
+        }, e.prototype.getAudioContext = function() {
+            return this.mSpeakComponent.getAudioContext();
+        }, e.prototype.setAudioFilePath = function(t) {
+            return this.mSpeakComponent.setAudioFilePath(t);
+        }, e.prototype.getAudioFilePath = function() {
+            return this.mSpeakComponent.getAudioFilePath();
+        }, e.prototype.setAudioFileName = function(t) {
+            return this.mSpeakComponent.setAudioFileName(t);
+        }, e.prototype.getAudioFileName = function() {
+            return this.mSpeakComponent.getAudioFileName();
+        }, e.prototype.setTTS = function(t) {
+            return this.mSpeakComponent.setTTS(t);
+        }, e.prototype.getTTS = function() {
+            return this.mSpeakComponent.getTTS();
+        }, e.prototype.getTTSList = function() {
+            return this.mSpeakComponent.getTTSList();
+        }, e.prototype.setLanguage = function(t) {
+            return this.mSpeakComponent.setLanguage(t);
+        }, e.prototype.getLanguage = function() {
+            return this.mSpeakComponent.getLanguage();
+        }, e.prototype.getLanguageList = function() {
+            return this.mSpeakComponent.getLanguageList();
+        }, e.prototype.setVoice = function(t) {
+            return this.mSpeakComponent.setVoice(t);
+        }, e.prototype.getVoice = function() {
+            return this.mSpeakComponent.getVoice();
+        }, e.prototype.getVoiceList = function() {
+            return this.mSpeakComponent.getVoiceList();
+        }, e.prototype.setSpeakText = function(t) {
+            return this.mSpeakComponent.setSpeakText(t);
+        }, e.prototype.getSpeakText = function() {
+            return this.mSpeakComponent.getSpeakText();
+        }, e;
+    }(h), N = function() {
+        function t() {}
+        return t.create = function(t, e) {
             try {
-                return window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance || null;
+                return new R(e);
             } catch (t) {
-                return this._exception('getSpeechSynthesisUtteranceClass', t), null;
+                return console.log('===> EXCEPTION SpeakFactory.create: Exception', t.message), 
+                null;
             }
-        }, e.prototype.getSpeechSynthesis = function() {
+        }, t;
+    }(), x = 'ListenComponent', w = x, B = function(t) {
+        function e(e) {
+            var n = t.call(this, e) || this;
+            return n.mListenComponent = null, n.mListenComponent = n.mComponent, n;
+        }
+        return u(e, t), e.prototype._getBuilderName = function() {
+            return "Listen";
+        }, e.prototype.addListenResultEvent = function(t, e) {
+            return this.mListenComponent.addListenResultEvent(t, e);
+        }, e.prototype.removeListenResultEvent = function(t) {
+            return this.mListenComponent.removeListenResultEvent(t);
+        }, e.prototype.setLanguage = function(t) {
+            return this.mListenComponent.setLanguage(t);
+        }, e.prototype.getLanguage = function() {
+            return this.mListenComponent.getLanguage();
+        }, e.prototype.abort = function() {
+            return this.mListenComponent.abort();
+        }, e;
+    }(h), I = function() {
+        function t() {}
+        return t.create = function(t, e) {
             try {
-                return window.speechSynthesis || null;
+                return new B(e);
             } catch (t) {
-                return this._exception('getSpeechSynthesis', t), null;
+                return console.log('ListenFactory.create: Exception', t), null;
             }
-        }, e.prototype.createSpeechSynthesisUtterance = function() {
-            var t = this.getSpeechSynthesisUtteranceClass();
-            if (!t) return null;
+        }, t;
+    }(), M = 'DialogComponent', K = 'assets/', G = 'speech.def', q = !1, H = 'main', V = 'root', j = function(t) {
+        function e(e) {
+            var n = t.call(this, e) || this;
+            return n.mDialogComponent = null, n.mDialogComponent = n.mDialogComponent, n;
+        }
+        return u(e, t), e.prototype._getBuilderName = function() {
+            return "Dialog";
+        }, e.prototype.addDialogParseEvent = function(t, e) {
+            return this.mDialogComponent.addDialogParseEvent(t, e);
+        }, e.prototype.addDialogSetEvent = function(t, e) {
+            return this.mDialogComponent.addDialogSetEvent(t, e);
+        }, e.prototype.addDialogStartEvent = function(t, e) {
+            return this.mDialogComponent.addDialogStartEvent(t, e);
+        }, e.prototype.addDialogStopEvent = function(t, e) {
+            return this.mDialogComponent.addDialogStopEvent(t, e);
+        }, e.prototype.addDialogStateSetEvent = function(t, e) {
+            return this.mDialogComponent.addDialogStateSetEvent(t, e);
+        }, e.prototype.addDialogActionEvent = function(t, e) {
+            return this.mDialogComponent.addDialogActionEvent(t, e);
+        }, e.prototype.addDialogActionStopEvent = function(t, e) {
+            return this.mDialogComponent.addDialogActionStopEvent(t, e);
+        }, e.prototype.addDialogSpeakEvent = function(t, e) {
+            return this.mDialogComponent.addDialogSpeakEvent(t, e);
+        }, e.prototype.addDialogSpeakStartEvent = function(t, e) {
+            return this.mDialogComponent.addDialogSpeakStartEvent(t, e);
+        }, e.prototype.addDialogSpeakStopEvent = function(t, e) {
+            return this.mDialogComponent.addDialogSpeakStopEvent(t, e);
+        }, e.prototype.addErrorEvent = function(t, e) {
+            return this.mDialogComponent.addErrorEvent(t, e);
+        }, e.prototype.removeDialogParseEvent = function(t) {
+            return this.mDialogComponent.removeDialogParseEvent(t);
+        }, e.prototype.removeDialogSetEvent = function(t) {
+            return this.mDialogComponent.removeDialogSetEvent(t);
+        }, e.prototype.removeDialogStartEvent = function(t) {
+            return this.mDialogComponent.removeDialogStartEvent(t);
+        }, e.prototype.removeDialogStopEvent = function(t) {
+            return this.mDialogComponent.removeDialogStopEvent(t);
+        }, e.prototype.removeDialogStateSetEvent = function(t) {
+            return this.mDialogComponent.removeDialogStateSetEvent(t);
+        }, e.prototype.removeDialogActionEvent = function(t) {
+            return this.mDialogComponent.removeDialogActionEvent(t);
+        }, e.prototype.removeDialogActionStopEvent = function(t) {
+            return this.mDialogComponent.removeDialogActionStopEvent(t);
+        }, e.prototype.removeDialogSpeakEvent = function(t) {
+            return this.mDialogComponent.removeDialogSpeakEvent(t);
+        }, e.prototype.removeDialogSpeakStartEvent = function(t) {
+            return this.mDialogComponent.removeDialogSpeakStartEvent(t);
+        }, e.prototype.removeDialogSpeakStopEvent = function(t) {
+            return this.mDialogComponent.removeDialogSpeakStopEvent(t);
+        }, e.prototype.removeErrorEvent = function(t) {
+            return this.mDialogComponent.removeErrorEvent(t);
+        }, e.prototype.removeAllEvent = function(t) {
+            return this.mDialogComponent.removeAllEvent(t);
+        }, e.prototype.parseSpeechDefFile = function(t) {
+            return this.mDialogComponent.parseSpeechDefFile(t);
+        }, e.prototype.parseSpeechDefData = function(t) {
+            return this.mDialogComponent.parseSpeechDefData(t);
+        }, e.prototype.clearDialog = function() {
+            return this.mDialogComponent.clearDialog();
+        }, e.prototype.setDialog = function(t) {
+            return this.mDialogComponent.setDialog(t);
+        }, e.prototype.getDialog = function() {
+            return this.mDialogComponent.getDialog();
+        }, e.prototype.toggleDialog = function() {
+            return this.mDialogComponent.toggleDialog();
+        }, e.prototype.setDialogFilePath = function(t) {
+            return this.mDialogComponent.setDialogFilePath(t);
+        }, e.prototype.getDialogFilePath = function() {
+            return this.mDialogComponent.getDialogFilePath();
+        }, e.prototype.setDialogFileName = function(t) {
+            return this.mDialogComponent.setDialogFileName(t);
+        }, e.prototype.getDialogFileName = function() {
+            return this.mDialogComponent.getDialogFileName();
+        }, e.prototype.loadDialogFile = function(t) {
+            return this.mDialogComponent.loadDialogFile(t);
+        }, e.prototype.writeDialogData = function(t) {
+            return this.mDialogComponent.writeDialogData(t);
+        }, e.prototype.skipNextSpeak = function() {
+            return this.mDialogComponent.skipNextSpeak();
+        }, e.prototype.setDialogState = function(t, e) {
+            return this.mDialogComponent.setDialogState(t, e);
+        }, e.prototype.getDialogState = function() {
+            return this.mDialogComponent.getDialogState();
+        }, e.prototype.setDialogStateContext = function(t) {
+            return this.mDialogComponent.setDialogStateContext(t);
+        }, e;
+    }(h), X = function() {
+        function t() {}
+        return t.create = function(t, e) {
             try {
-                return new t();
+                return new j(e);
             } catch (t) {
-                return this._exception('createSpeechSynthesisUtterance', t), null;
+                return console.log('DialogFactory.create: Exception', t), null;
+            }
+        }, t;
+    }(), U = 'BotComponent', z = function(t) {
+        function e(e) {
+            var n = t.call(this, e) || this;
+            return n.mBotComponent = null, n.mBotComponent = n.mComponent, n;
+        }
+        return u(e, t), e.prototype._getBuilderName = function() {
+            return "Bot";
+        }, e.prototype.addDialogSetEvent = function(t, e) {
+            return this.mBotComponent.addDialogSetEvent(t, e);
+        }, e.prototype.addDialogParseEvent = function(t, e) {
+            return this.mBotComponent.addDialogParseEvent(t, e);
+        }, e.prototype.addDialogStartEvent = function(t, e) {
+            return this.mBotComponent.addDialogStartEvent(t, e);
+        }, e.prototype.addDialogStopEvent = function(t, e) {
+            return this.mBotComponent.addDialogStopEvent(t, e);
+        }, e.prototype.addDialogStateSetEvent = function(t, e) {
+            return this.mBotComponent.addDialogStateSetEvent(t, e);
+        }, e.prototype.addDialogActionEvent = function(t, e) {
+            return this.mBotComponent.addDialogActionEvent(t, e);
+        }, e.prototype.addDialogActionStopEvent = function(t, e) {
+            return this.mBotComponent.addDialogActionStopEvent(t, e);
+        }, e.prototype.addDialogSpeakEvent = function(t, e) {
+            return this.mBotComponent.addDialogSpeakEvent(t, e);
+        }, e.prototype.addDialogSpeakStartEvent = function(t, e) {
+            return this.mBotComponent.addDialogSpeakStartEvent(t, e);
+        }, e.prototype.addDialogSpeakStopEvent = function(t, e) {
+            return this.mBotComponent.addDialogSpeakStopEvent(t, e);
+        }, e.prototype.addErrorEvent = function(t, e) {
+            return this.mBotComponent.addErrorEvent(t, e);
+        }, e.prototype.removeDialogSetEvent = function(t) {
+            return this.mBotComponent.removeDialogSetEvent(t);
+        }, e.prototype.removeDialogParseEvent = function(t) {
+            return this.mBotComponent.removeDialogParseEvent(t);
+        }, e.prototype.removeDialogStartEvent = function(t) {
+            return this.mBotComponent.removeDialogStartEvent(t);
+        }, e.prototype.removeDialogStopEvent = function(t) {
+            return this.mBotComponent.removeDialogStopEvent(t);
+        }, e.prototype.removeDialogStateSetEvent = function(t) {
+            return this.mBotComponent.removeDialogStateSetEvent(t);
+        }, e.prototype.removeDialogActionEvent = function(t) {
+            return this.mBotComponent.removeDialogActionEvent(t);
+        }, e.prototype.removeDialogActionStopEvent = function(t) {
+            return this.mBotComponent.removeDialogActionStopEvent(t);
+        }, e.prototype.removeDialogSpeakEvent = function(t) {
+            return this.mBotComponent.removeDialogSpeakEvent(t);
+        }, e.prototype.removeDialogSpeakStartEvent = function(t) {
+            return this.mBotComponent.removeDialogSpeakStartEvent(t);
+        }, e.prototype.removeDialogSpeakStopEvent = function(t) {
+            return this.mBotComponent.removeDialogSpeakStopEvent(t);
+        }, e.prototype.removeErrorEvent = function(t) {
+            return this.mBotComponent.removeErrorEvent(t);
+        }, e.prototype.removeAllEvent = function(t) {
+            return this.mBotComponent.removeAllEvent(t);
+        }, e.prototype.isSpeak = function() {
+            return this.mBotComponent.isSpeak();
+        }, e.prototype.setSpeakOn = function() {
+            return this.mBotComponent.setSpeakOn();
+        }, e.prototype.setSpeakOff = function() {
+            return this.mBotComponent.setSpeakOff();
+        }, e.prototype.getSpeak = function() {
+            return this.mBotComponent.getSpeak();
+        }, e.prototype.isListen = function() {
+            return this.mBotComponent.isListen();
+        }, e.prototype.setListenOn = function() {
+            return this.mBotComponent.setListenOn();
+        }, e.prototype.setListenOff = function() {
+            return this.mBotComponent.setListenOff();
+        }, e.prototype.getListen = function() {
+            return this.mBotComponent.getListen();
+        }, e.prototype.isAction = function() {
+            return this.mBotComponent.isAction();
+        }, e.prototype.setActionOn = function() {
+            return this.mBotComponent.setActionOn();
+        }, e.prototype.setActionOff = function() {
+            return this.mBotComponent.setActionOff();
+        }, e.prototype.getAction = function() {
+            return this.mBotComponent.getAction();
+        }, e.prototype.parseSpeechDefFile = function(t) {
+            return this.mBotComponent.parseSpeechDefFile(t);
+        }, e.prototype.parseSpeechDefData = function(t) {
+            return this.mBotComponent.parseSpeechDefData(t);
+        }, e.prototype.clearDialog = function() {
+            return this.mBotComponent.clearDialog();
+        }, e.prototype.setDialog = function(t) {
+            return this.mBotComponent.setDialog(t);
+        }, e.prototype.getDialog = function() {
+            return this.mBotComponent.getDialog();
+        }, e.prototype.toggleDialog = function() {
+            return this.mBotComponent.toggleDialog();
+        }, e.prototype.setDialogFilePath = function(t) {
+            return this.mBotComponent.setDialogFilePath(t);
+        }, e.prototype.getDialogFilePath = function() {
+            return this.mBotComponent.getDialogFilePath();
+        }, e.prototype.setDialogFileName = function(t) {
+            return this.mBotComponent.setDialogFileName(t);
+        }, e.prototype.getDialogFileName = function() {
+            return this.mBotComponent.getDialogFileName();
+        }, e.prototype.loadDialogFile = function(t) {
+            return this.mBotComponent.loadDialogFile(t);
+        }, e.prototype.writeDialogData = function(t) {
+            return this.mBotComponent.writeDialogData(t);
+        }, e.prototype.skipNextSpeak = function() {
+            return this.mBotComponent.skipNextSpeak();
+        }, e.prototype.setDialogState = function(t, e) {
+            return this.mBotComponent.setDialogState(t, e);
+        }, e.prototype.getDialogState = function() {
+            return this.mBotComponent.getDialogState();
+        }, e.prototype.setDialogStateContext = function(t) {
+            return this.mBotComponent.setDialogStateContext(t);
+        }, e.prototype.clearContext = function() {
+            return this.mBotComponent.clearContext();
+        }, e.prototype.addContextElement = function(t, e) {
+            return this.mBotComponent.addContextElement(t, e);
+        }, e.prototype.removeContextElement = function(t, e) {
+            return this.mBotComponent.removeContextElement(t, e);
+        }, e;
+    }(h), W = function() {
+        function t() {}
+        return t.create = function(t, e) {
+            try {
+                return new z(e);
+            } catch (t) {
+                return console.log('BotFactory.create: Exception', t.message), null;
+            }
+        }, t;
+    }(), Y = function(t) {
+        function e() {
+            var e = t.call(this, 'PortList') || this;
+            return e.mPortList = new Map(), e.mPortIterator = e.mPortList.values(), e;
+        }
+        return u(e, t), e.prototype.getSize = function() {
+            return this.mPortList.size;
+        }, e.prototype.insert = function(t, e) {
+            try {
+                return t ? e ? this.mPortList.has(t) ? (this._error('insert', 'Port existiert bereits: ' + t), 
+                -1) : (this.mPortList.set(t, e), 0) : (this._error('insert', 'kein Port uebergeben'), 
+                -1) : (this._error('insert', 'kein Portname uebergeben'), -1);
+            } catch (t) {
+                return this._exception('insert', t), -1;
+            }
+        }, e.prototype.find = function(t) {
+            try {
+                return this.mPortList.get(t);
+            } catch (t) {
+                return void this._exception('find', t);
+            }
+        }, e.prototype.first = function() {
+            try {
+                return this.mPortIterator = this.mPortList.values(), this.mPortIterator.next().value;
+            } catch (t) {
+                return void this._exception('first', t);
+            }
+        }, e.prototype.next = function() {
+            try {
+                return this.mPortIterator.next().value;
+            } catch (t) {
+                return void this._exception('next', t);
+            }
+        }, e.prototype.remove = function(t) {
+            try {
+                return this.mPortList.delete(t), 0;
+            } catch (t) {
+                return this._exception('remove', t), -1;
+            }
+        }, e.prototype.clear = function() {
+            try {
+                return this.mPortList.clear(), 0;
+            } catch (t) {
+                return this._exception('clear', t), -1;
             }
         }, e;
-    }(r), ht = function(t) {
+    }(p), Z = function() {
+        function t() {}
+        return t.setErrorOutputOn = function() {
+            t.mPortList.setErrorOutputOn(), t.mErrorBase.setErrorOutputOn();
+        }, t.setErrorOutputOff = function() {
+            t.mPortList.setErrorOutputOff(), t.mErrorBase.setErrorOutputOff();
+        }, t._setErrorOutputFunc = function(e) {
+            t.mPortList._setErrorOutputFunc(e), t.mErrorBase._setErrorOutputFunc(e);
+        }, t.getSize = function() {
+            return t.mPortList.getSize();
+        }, t.get = function(e, n) {
+            if (!e) return t.mErrorBase._error('get', 'kein Portname uebergeben'), null;
+            var o = t.find(e);
+            if (o) return o;
+            if (!n) return t.mErrorBase._error('get', 'keine Portklasse uebergeben'), null;
+            try {
+                o = new n(e);
+            } catch (e) {
+                return t.mErrorBase._exception('get', e), null;
+            }
+            return e !== o.getName() ? (t.mErrorBase._error('get', 'Portnamen stimmen nicht ueberein ' + e + ' != ' + o.getName()), 
+            t.remove(o.getName()), null) : o;
+        }, t.find = function(e) {
+            var n = t.mPortList.find(e);
+            return n || null;
+        }, t.insert = function(e, n) {
+            return t.mPortList.insert(e, n);
+        }, t.remove = function(e) {
+            return t.mPortList.remove(e);
+        }, t.clear = function() {
+            for (var e = t.mPortList.first(); e; ) {
+                try {
+                    e.done(!0);
+                } catch (e) {
+                    t.mErrorBase._exception('clear', e);
+                }
+                e = t.mPortList.next();
+            }
+            return t.mPortList.clear();
+        }, t.mPortList = new Y(), t.mErrorBase = new p('PortManager'), t;
+    }(), J = function() {
+        function t() {}
+        return t.setErrorOutputOn = function() {
+            l.setErrorOutputOn(), S.setErrorOutputOn(), _.setErrorOutputOn(), Z.setErrorOutputOn();
+        }, t.setErrorOutputOff = function() {
+            l.setErrorOutputOff(), S.setErrorOutputOff(), _.setErrorOutputOff(), Z.setErrorOutputOff();
+        }, t._setErrorOutputFunc = function(t) {
+            l._setErrorOutputFunc(t), S._setErrorOutputFunc(t), _._setErrorOutputFunc(t), Z._setErrorOutputFunc(t);
+        }, t.insertBuilder = function(t, e) {
+            return l.mBuilderList.insert(t, e);
+        }, t.getBuilder = function(t, e) {
+            return l.get(t, e);
+        }, t.findBuilder = function(t) {
+            return l.find(t);
+        }, t.insertPort = function(t, e) {
+            return Z.mPortList.insert(t, e);
+        }, t.clear = function() {
+            l.clear(), S.clear(), _.clear(), Z.clear();
+        }, t;
+    }(), Q = function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
-            var o = t.call(this, pt, n) || this;
-            return o.mSpeechSynthesisUtteranceClass = null, o.mSpeechSynthesis = null, o.mUtteranceObject = null, 
-            o.mOnSpeakStartFunc = null, o.mOnSpeakStopFunc = null, o.mSpeakRunningFlag = !1, 
-            o.mSpeakLanguage = ct, o._setErrorClassName('TTSPlugin'), o.mSpeechSynthesisFactory = e, 
-            o.mSpeechSynthesisFactory._setErrorOutputFunc(o._getErrorOutputFunc()), o;
+            var o = t.call(this, 'Builder') || this;
+            if (o._setErrorClassName(o.getClass()), n && 0 !== l.insert(e || o.getName(), o)) throw new Error('Builder ' + o.getName() + ' existiert bereits im BuilderManager');
+            return o;
         }
-        return s(e, t), e.prototype._detectSpeechSynthesis = function() {
-            if (!this.mSpeechSynthesisFactory) return this._error('_detectSpeechSynthesis', 'keine TTS-Fabrik vorhanden'), 
-            !1;
-            try {
-                this.mSpeechSynthesisUtteranceClass = this.mSpeechSynthesisFactory.getSpeechSynthesisUtteranceClass(), 
-                this.mSpeechSynthesis = this.mSpeechSynthesisFactory.getSpeechSynthesis();
-            } catch (t) {
-                return this._exception('_detectSpeechSynthesis', t), !1;
+        return u(e, t), e.prototype.getType = function() {
+            return '';
+        }, e.prototype.getClass = function() {
+            return 'Builder';
+        }, e.prototype.getName = function() {
+            return 'Builder';
+        }, e.prototype.build = function() {
+            return null;
+        }, e.prototype._getBuilder = function(t, e) {
+            return l.get(t, e);
+        }, e.prototype._getFactory = function(t, e) {
+            return S.get(t, e);
+        }, e.prototype._getComponent = function(t, e, n) {
+            if (e) {
+                var o = this._getBuilder(e, n);
+                if (o) return o.build();
             }
-            return null === this.mSpeechSynthesisUtteranceClass ? (this._error('_detectSpechSynthesis', 'Kein HTML5 SpeechSynthesisUtterance API vorhanden'), 
-            !1) : null !== this.mSpeechSynthesis || (this._error('_detectSpeechSynthesis', 'Kein HTML5 SpeechSynthesis API vorhanden'), 
-            !1);
-        }, e.prototype.init = function(e) {
-            return this.isInit() ? (this._error('init', 'init doppelt aufgerufen'), -1) : 0 !== t.prototype.init.call(this, e) ? -1 : this._detectSpeechSynthesis() ? 0 : (this.setActiveOff(), 
-            0);
+            return _.get(t);
+        }, e.prototype._getPlugin = function(t, e, n) {
+            if (e && n) {
+                var o = this._getFactory(e, n);
+                if (o) return _.get(t, o);
+            }
+            return _.get(t);
+        }, e;
+    }(p), $ = 'ActionFunction', tt = function(t) {
+        function e() {
+            var e = t.call(this, 'ActionFunctionList') || this;
+            return e.mActionStartFuncList = new Map(), e.mActionStopFuncList = new Map(), e.mStopActionFunc = function() {
+                return 0;
+            }, e;
+        }
+        return u(e, t), e.prototype.clear = function() {
+            this.mActionStartFuncList.clear(), this.mActionStopFuncList.clear(), this.mStopActionFunc = function() {
+                return 0;
+            };
+        }, e.prototype.insert = function(t, e, n) {
+            if (!t) return this._error('insert', 'kein Action-Funktionsname uebergeben'), -1;
+            if (this.mActionStartFuncList.get(t)) return this._error('insert', 'Actionsfunktion bereits eingetragen'), 
+            -1;
+            if ('function' != typeof e) return this._error('insert', 'keine StartAction-Funktion uebergeben'), 
+            -1;
+            try {
+                return this.mActionStartFuncList.set(t, e), 'function' == typeof n ? this.mActionStopFuncList.set(t, n) : this.mActionStopFuncList.set(t, function() {
+                    return 0;
+                }), 0;
+            } catch (t) {
+                return this._exception('insert', t), -1;
+            }
+        }, e.prototype.remove = function(t) {
+            if (!t) return this._error('remove', 'kein Action-Funktionsname uebergeben'), -1;
+            try {
+                return this.mActionStartFuncList.delete(t), this.mActionStopFuncList.delete(t), 
+                0;
+            } catch (t) {
+                return this._exception('remove', t), -1;
+            }
+        }, e.prototype.startAction = function(t) {
+            if (!t.action) return this._error('startAction', 'kein Action Name'), -1;
+            this.mStopActionFunc = function() {
+                return 0;
+            };
+            try {
+                var e = this.mActionStartFuncList.get(t.action);
+                return 'function' != typeof e ? 0 : (this.mStopActionFunc = this.mActionStopFuncList.get(t.action), 
+                e(t), 0);
+            } catch (t) {
+                return this._exception('startAction', t), -1;
+            }
+        }, e.prototype.stopAction = function() {
+            var t = this.mStopActionFunc;
+            this.mStopActionFunc = function() {
+                return 0;
+            };
+            try {
+                return 'function' != typeof t ? 0 : (t(), 0);
+            } catch (t) {
+                return this._exception('stopAction:', t), -1;
+            }
+        }, e;
+    }(p), et = function(t) {
+        function e(e) {
+            void 0 === e && (e = !0);
+            var n = t.call(this, $, e) || this;
+            return n.mActionFunctionList = new tt(), n._setErrorClassName('ActionFunction'), 
+            n.mActionFunctionList._setErrorOutputFunc(n._getErrorOutputFunc()), n;
+        }
+        return u(e, t), e.prototype.init = function(e) {
+            return t.prototype.init.call(this, e);
         }, e.prototype.done = function() {
-            return this.mSpeechSynthesisUtteranceClass && (this.isSpeakRunning() && this.stopSpeak(), 
-            this.mSpeechSynthesisUtteranceClass = null, this.mSpeechSynthesis = null, this.mUtteranceObject = null, 
-            this.mOnSpeakStartFunc = null, this.mOnSpeakStopFunc = null, this.mSpeakRunningFlag = !1, 
-            this.mSpeakLanguage = ct), t.prototype.done.call(this);
-        }, e.prototype.isActive = function() {
-            return !!this.mSpeechSynthesisUtteranceClass && t.prototype.isActive.call(this);
-        }, e.prototype.setActiveOn = function() {
-            return this.mSpeechSynthesisUtteranceClass ? t.prototype.setActiveOn.call(this) : -1;
+            return this.mActionFunctionList.clear(), t.prototype.done.call(this);
         }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mSpeechSynthesisFactory && this.mSpeechSynthesisFactory._setErrorOutput(e);
-        }, e.prototype._onSpeakStart = function() {
-            if ('function' == typeof this.mOnSpeakStartFunc) try {
-                return this.mOnSpeakStartFunc();
-            } catch (t) {
-                return this._exception('_onSpeakStart', t), -1;
-            }
-            return 0;
-        }, e.prototype._onSpeakStop = function() {
-            if ('function' == typeof this.mOnSpeakStopFunc) try {
-                return this.mOnSpeakStopFunc();
-            } catch (t) {
-                return this._exception('_onSpeakStop', t), -1;
-            }
-            return 0;
-        }, Object.defineProperty(e.prototype, "onSpeakStart", {
-            set: function(t) {
-                this.mOnSpeakStartFunc = t;
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(e.prototype, "onSpeakStop", {
-            set: function(t) {
-                this.mOnSpeakStopFunc = t;
-            },
-            enumerable: !0,
-            configurable: !0
-        }), e.prototype.setLanguage = function(t) {
-            var e = 0;
-            switch (t) {
-              case 'de':
-                this.mSpeakLanguage = "de-DE";
-                break;
-
-              case 'en':
-                this.mSpeakLanguage = "en-US";
-                break;
-
-              default:
-                e = -1;
-            }
-            return e;
-        }, e.prototype.getLanguage = function() {
-            var t = '';
-            switch (this.mSpeakLanguage) {
-              case "de-DE":
-                t = 'de';
-                break;
-
-              case "en-US":
-                t = 'en';
-            }
-            return t;
-        }, e.prototype.isSpeakRunning = function() {
-            return this.mSpeakRunningFlag;
-        }, e.prototype.startSpeak = function(t) {
-            var e = this;
-            try {
-                return this.isActive() ? t ? this.isSpeakRunning() ? (this._error('startSpeak', 'Sprachausgabe laeuft bereits'), 
-                -1) : (this.mSpeakRunningFlag = !0, this.mUtteranceObject = new this.mSpeechSynthesisUtteranceClass(t), 
-                this.mUtteranceObject.lang = this.mSpeakLanguage, this.mUtteranceObject.onstart = function() {}, 
-                this.mUtteranceObject.onend = function() {
-                    e.mSpeakRunningFlag && (e.mSpeakRunningFlag = !1, e._onSpeakStop());
-                }, this.mUtteranceObject.onerror = function(t) {
-                    e.mSpeakRunningFlag && (e.mSpeakRunningFlag = !1, e._onSpeakStop()), e._onError(t.error);
-                }, this.mSpeechSynthesis.speak(this.mUtteranceObject), this._onSpeakStart()) : (this._error('startSpeak', 'kein text uebergeben'), 
-                -1) : (this.isErrorOutput() && console.log('TTSPlugin.startSpeak: TTS ist nicht aktiv'), 
-                0);
-            } catch (t) {
-                return this._exception('startSpeak', t), -1;
-            }
-        }, e.prototype.getStartSpeakFunc = function() {
+            t.prototype._setErrorOutput.call(this, e), this.mActionFunctionList._setErrorOutput(e);
+        }, e.prototype.getStartActionFunc = function() {
             var t = this;
             return function(e) {
-                return t.startSpeak(e);
+                return t.startAction(e);
             };
-        }, e.prototype.stopSpeak = function() {
-            try {
-                return this.isActive() ? this.isSpeakRunning() ? (this.mSpeakRunningFlag = !1, this.mSpeechSynthesis.cancel(), 
-                this._onSpeakStop()) : 0 : (this.isErrorOutput() && console.log('TTSPlugin.stopSpeak: TTS ist nicht aktiv'), 
-                0);
-            } catch (t) {
-                return this._exception('speakStop', t), -1;
-            }
-        }, e.prototype.getStopSpeakFunc = function() {
+        }, e.prototype.getStopActionFunc = function() {
             var t = this;
             return function() {
-                return t.stopSpeak();
+                return t.stopAction();
             };
+        }, e.prototype.startAction = function(t) {
+            return this.mActionFunctionList.startAction(t);
+        }, e.prototype.stopAction = function() {
+            return this.mActionFunctionList.stopAction();
+        }, e.prototype.insert = function(t, e, n) {
+            return this.mActionFunctionList.insert(t, e, n);
+        }, e.prototype.remove = function(t) {
+            return this.mActionFunctionList.remove(t);
+        }, e.prototype.clear = function() {
+            return this.mActionFunctionList.clear(), 0;
         }, e;
-    }(S), mt = function(t) {
+    }(A), nt = function(t) {
         function e() {
-            return t.call(this, 'TTSFactory') || this;
+            return t.call(this, 'ActionFunctionFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
-            return "TTSFactory";
+        return u(e, t), e.prototype.getName = function() {
+            return "ActionFunctionFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new ht(new lt(), e);
+            return new et(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || pt;
+            var n = t || $;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), gt = function(t) {
+    }(F), ot = 'ActionElement', it = function(t) {
+        function e() {
+            var e = t.call(this, 'ActionElementList') || this;
+            return e.mActionFuncList = new Map(), e.mActionStopFuncList = new Map(), e;
+        }
+        return u(e, t), e.prototype.clear = function() {
+            this.mActionFuncList.clear(), this.mActionStopFuncList.clear();
+        }, e.prototype.insert = function(t, e, n) {
+            if (!t) return this._error('insert', 'kein Elementname uebergeben'), -1;
+            if (this.mActionFuncList.get(t)) return this._error('insert', 'Element bereits eingetragen'), 
+            -1;
+            if ('function' != typeof e) return this._error('insert', 'keine ActionStart-Funktion uebergeben'), 
+            -1;
+            if ('function' != typeof n) return this._error('insert', 'keine ActionStop-Funktion uebergeben'), 
+            -1;
+            try {
+                var o = [ e, n ];
+                return this.mActionFuncList.set(t, o), 0;
+            } catch (t) {
+                return this._exception('insert', t), -1;
+            }
+        }, e.prototype.remove = function(t) {
+            if (!t) return this._error('remove', 'kein Action-Elementname uebergeben'), -1;
+            try {
+                return this.mActionFuncList.delete(t), 0;
+            } catch (t) {
+                return this._exception('remove', t), -1;
+            }
+        }, e.prototype.getStartAction = function(t) {
+            try {
+                var e = this.mActionFuncList.get(t);
+                if (e) return e[0];
+            } catch (t) {
+                this._exception('getStartAction', t);
+            }
+            return this._error('getStartAction', 'keine Funktion vorhanden'), function(t) {
+                return 0;
+            };
+        }, e.prototype.getStopAction = function(t) {
+            try {
+                var e = this.mActionFuncList.get(t);
+                if (e) return e[1];
+            } catch (t) {
+                this._exception('getStopAction', t);
+            }
+            return this._error('getStopAction', 'keine Funktion vorhanden'), function() {
+                return 0;
+            };
+        }, e.prototype.getActionTuple = function(t) {
+            try {
+                return this.mActionFuncList.get(t);
+            } catch (t) {
+                return this._exception('getActionTupel', t), null;
+            }
+        }, e.prototype.startAction = function(t) {
+            try {
+                var e = t.id || '';
+                if (!e) return this._error('startAction', 'kein Elementname vorhanden'), -1;
+                var n = this.getActionTuple(e);
+                if (!n) return 0;
+                var o = n[0];
+                if ('function' != typeof o) return this._error('startAction', 'keine StartAction-Funktion vorhanden'), 
+                -1;
+                var i = n[1];
+                return 'function' != typeof i ? (this._error('startAction', 'keine StopAction-Funktion vorhanden'), 
+                -1) : (this.mActionStopFuncList.set(e, i), o(t), 0);
+            } catch (t) {
+                return this._exception('startAction', t), -1;
+            }
+        }, e.prototype.stopAction = function() {
+            try {
+                return this.mActionStopFuncList.forEach(function(t) {
+                    'function' == typeof t && t();
+                }), this.mActionStopFuncList.clear(), 0;
+            } catch (t) {
+                return this._exception('stopAction', t), -1;
+            }
+        }, e;
+    }(p), rt = function(t) {
         function e(e) {
             void 0 === e && (e = !0);
-            var n = t.call(this, ut, e) || this;
-            return n.mTTSPlugin = null, n.mAudioPlayer = null, n.mSpeakStartEvent = new U(P, ut), 
-            n.mSpeakStopEvent = new U(O, ut), n.mTTSFeatureFlag = !1, n.mAudioFeatureFlag = !1, 
-            n.mSpeakStopSelector = '', n.mAudioFilePath = st, n.mAudioFileName = '', n.mAudioFlag = at, 
-            n.mSpeakText = '', n.mSpeakStartEvent._setErrorOutputFunc(n._getErrorOutputFunc()), 
-            n.mSpeakStopEvent._setErrorOutputFunc(n._getErrorOutputFunc()), n;
+            var n = t.call(this, ot, e) || this;
+            return n.mActionElementList = new it(), n._setErrorClassName('ActionElement'), n.mActionElementList._setErrorOutputFunc(n._getErrorOutputFunc()), 
+            n;
         }
-        return s(e, t), e.prototype.getType = function() {
-            return "Speak";
-        }, e.prototype.getClass = function() {
-            return 'SpeakComponent';
-        }, e.prototype.getVersion = function() {
-            return "0.5.1.0040 vom 11.10.2018 (ALPHA)";
-        }, e.prototype.getServerVersion = function() {
-            return '';
-        }, e.prototype._setOption = function(t) {
-            return t ? ('string' == typeof t.audioFilePath && (this.mAudioFilePath = t.audioFilePath), 
-            'boolean' == typeof t.audioFlag && (!0 === t.audioFlag ? this.mAudioFlag = !0 : this.mAudioFlag = !1), 
-            t.speakLanguage && this.setLanguage(t.speakLanguage), 0) : -1;
-        }, e.prototype.init = function(e) {
-            return this.isInit() ? (this.isErrorOutput() && console.log('SpeakComponent.init: bereits initialisiert'), 
-            0) : 0 !== t.prototype.init.call(this, e) ? (this._error('init', 'super.init() Fehler'), 
-            -1) : (this.mAudioPlayer = this.findPlugin($), this.mTTSPlugin = this.findPlugin(pt), 
-            this._setOption(e), 0);
+        return u(e, t), e.prototype.init = function(e) {
+            return t.prototype.init.call(this, e);
         }, e.prototype.done = function() {
-            return this.mTTSPlugin = null, this.mAudioPlayer = null, this.mTTSFeatureFlag = !1, 
-            this.mAudioFeatureFlag = !1, this.mSpeakStopSelector = '', this.mSpeakStartEvent.clear(), 
-            this.mSpeakStopEvent.clear(), this.mAudioFilePath = st, this.mAudioFileName = '', 
-            this.mAudioFlag = at, this.mSpeakText = '', t.prototype.done.call(this);
-        }, e.prototype.reset = function(t) {
-            return this.isInit() ? (this.stopSpeak(), this.setActiveOn(), this.setAudioFormat(tt), 
-            this.setLanguage("de"), this.mSpeakStopSelector = '', this.mAudioFilePath = st, 
-            this.mAudioFileName = '', this.mAudioFlag = at, this.mSpeakText = '', this._setOption(t), 
-            0) : (this._error('reset', 'Komponente nicht initialisiert'), -1);
-        }, e.prototype.setFeatureList = function(t) {
-            return t.features ? (t.features.TTS && 'boolean' == typeof t.features.TTS && (this.mTTSFeatureFlag = t.features.TTS), 
-            t.features.AUDIO && 'boolean' == typeof t.features.AUDIO && (this.mAudioFeatureFlag = t.features.AUDIO), 
-            0) : (this._error('setFeatureList', 'keine FeatureInfos uebergeben'), -1);
+            return this.mActionElementList.clear(), t.prototype.done.call(this);
         }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mSpeakStartEvent._setErrorOutput(e), 
-            this.mSpeakStopEvent._setErrorOutput(e);
-        }, e.prototype._onSpeakStart = function() {
-            return this.mSpeakStartEvent.dispatch();
-        }, e.prototype._onSpeakStop = function() {
-            return this.mSpeakStopEvent.dispatch();
-        }, Object.defineProperty(e.prototype, "onSpeakStart", {
+            t.prototype._setErrorOutput.call(this, e), this.mActionElementList._setErrorOutput(e);
+        }, e.prototype.getStartActionFunc = function() {
+            var t = this;
+            return function(e) {
+                return t.startAction(e);
+            };
+        }, e.prototype.getStopActionFunc = function() {
+            var t = this;
+            return function() {
+                return t.stopAction();
+            };
+        }, e.prototype.startAction = function(t) {
+            return this.mActionElementList.startAction(t);
+        }, e.prototype.stopAction = function() {
+            return this.mActionElementList.stopAction();
+        }, e.prototype.insert = function(t, e, n) {
+            return this.mActionElementList.insert(t, e, n);
+        }, e.prototype.remove = function(t) {
+            return this.mActionElementList.remove(t);
+        }, e.prototype.clear = function() {
+            return this.mActionElementList.clear(), 0;
+        }, e;
+    }(A), ut = function(t) {
+        function e() {
+            return t.call(this, 'ActionElementFactory') || this;
+        }
+        return u(e, t), e.prototype.getName = function() {
+            return "ActionElementFactory";
+        }, e.prototype._newPlugin = function(t, e) {
+            return new rt(e);
+        }, e.prototype.create = function(t, e) {
+            void 0 === e && (e = !0);
+            var n = t || ot;
+            try {
+                return this._newPlugin(n, e);
+            } catch (t) {
+                return this._exception('create', t), null;
+            }
+        }, e;
+    }(F), st = 'init', at = 'start', pt = 'stop', ct = 'error', lt = 'listenResult', ht = 'dialogSet', mt = 'dialogStart', gt = 'dialogStop', ft = 'dialogParse', yt = 'dialogStateSet', dt = 'dialogAction', St = 'dialogActionStop', vt = 'dialogSpeak', _t = 'dialogSpeakStart', Et = 'dialogSpeakStop', At = function(t) {
+        function e(e, n) {
+            var o = t.call(this, 'EventFunctionList') || this;
+            return o.mEventName = 'Event', o.mComponentName = 'Component', o.mFunctionList = new Map(), 
+            o.mEventName = e, o.mComponentName = n, o;
+        }
+        return u(e, t), e.prototype.setComponentName = function(t) {
+            this.mComponentName = t;
+        }, e.prototype.getComponentName = function() {
+            return this.mComponentName;
+        }, e.prototype.getName = function() {
+            return this.mEventName;
+        }, e.prototype.getSize = function() {
+            return this.mFunctionList.size;
+        }, e.prototype.addListener = function(t, e) {
+            return t ? 'function' != typeof e ? (this._error('addListener', 'keine Eventfunktion uebergeben ' + t + ',' + this.getComponentName() + ',' + this.getName()), 
+            -1) : this.mFunctionList.has(t) ? (this._error('addListener', 'Eventfunktion bereits vorhanden ' + t + ',' + this.getComponentName() + ',' + this.getName()), 
+            -1) : (this.mFunctionList.set(t, e), 0) : (this._error('addListener', 'kein Listenername uebergeben ' + this.getComponentName() + ',' + this.getName()), 
+            -1);
+        }, e.prototype.removeListener = function(t) {
+            return t ? (this.mFunctionList.delete(t), 0) : (this._error('removeListener', "kein Listenername uebergeben," + this.getComponentName() + ',' + this.getName()), 
+            -1);
+        }, e.prototype.dispatch = function(t) {
+            var e = this, n = 0;
+            return this.mFunctionList.forEach(function(o) {
+                try {
+                    0 !== o(t) && (n = -1);
+                } catch (t) {
+                    return e._exception('dispatch', t), n = -1, -1;
+                }
+            }), n;
+        }, e.prototype.clear = function() {
+            this.mFunctionList.clear();
+        }, e;
+    }(p), Ft = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e, n) || this;
+            return o.mSendMessageFunc = null, o.mPluginList = new v(), o.mCurrentPlugin = null, 
+            o.mPluginList._setErrorOutputFunc(o._getErrorOutputFunc()), o;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return 'PluginGroup';
+        }, e.prototype.getClass = function() {
+            return 'PluginGroup';
+        }, e.prototype.init = function(e) {
+            return 0 !== t.prototype.init.call(this, e) ? -1 : 0 !== this.startAllPlugin(e) ? (this._clearInit(), 
+            -1) : 0;
+        }, e.prototype.done = function() {
+            return this.mCurrentPlugin = null, this.stopAllPlugin(), t.prototype.done.call(this);
+        }, e.prototype.setFeatureList = function(e) {
+            if ('object' != typeof e) return this._error('setFeatureList', 'keine gueltige Feature Liste'), 
+            -1;
+            if (function(t) {
+                for (var e in t) if (t.hasOwnProperty(e)) return !1;
+                return !0;
+            }(e)) return 0;
+            try {
+                for (var n = t.prototype.setFeatureList.call(this, e), o = this.mPluginList.first(); o; ) 0 !== o.setFeatureList(e) && (n = -1), 
+                o = this.mPluginList.next();
+                return n;
+            } catch (t) {
+                return this._exception('setFeatureList', t), -1;
+            }
+        }, e.prototype._setErrorOutput = function(e) {
+            t.prototype._setErrorOutput.call(this, e), this.mPluginList._setErrorOutput(e), 
+            this._setErrorOutputAllPlugin(e);
+        }, e.prototype.insertPlugin = function(t, e) {
+            return this.mPluginList.insert(t, e);
+        }, e.prototype.removePlugin = function(t) {
+            return this.mPluginList.remove(t);
+        }, e.prototype.removeAllPlugin = function() {
+            return this.mPluginList.clear();
+        }, e.prototype.findPlugin = function(t, e) {
+            var n = this.mPluginList.find(t);
+            return n || null;
+        }, e.prototype.firstPlugin = function() {
+            return this.mPluginList.first();
+        }, e.prototype.nextPlugin = function() {
+            return this.mPluginList.next();
+        }, e.prototype.getPluginNameList = function() {
+            return this.mPluginList.getNameList();
+        }, e.prototype.isCurrentPlugin = function() {
+            return !!this.mCurrentPlugin;
+        }, e.prototype.setCurrentPlugin = function(t) {
+            var e = this.findPlugin(t);
+            return e ? (this.mCurrentPlugin = e, 0) : (this._error('setCurrentPlugin', 'Kein Plugin vorhanden'), 
+            0);
+        }, e.prototype.getCurrentPlugin = function() {
+            return this.mCurrentPlugin;
+        }, e.prototype.getCurrentPluginName = function() {
+            return this.mCurrentPlugin ? this.mCurrentPlugin.getName() : '';
+        }, e.prototype.isPlugin = function(t) {
+            return !!this.mPluginList.find(t);
+        }, e.prototype.getPluginSize = function() {
+            return this.mPluginList.getSize();
+        }, e.prototype.startPlugin = function(t, e) {
+            var n = this.mPluginList.find(t);
+            return n ? n.isInit() ? 0 : n.init(e) : (this._error('startPlugin', 'Plugin nicht vorhanden'), 
+            -1);
+        }, e.prototype.stopPlugin = function(t) {
+            var e = this.mPluginList.find(t);
+            return e ? e.done() : (this._error('stopPlugin', 'Plugin nicht vorhanden'), -1);
+        }, e.prototype.startAllPlugin = function(t) {
+            try {
+                for (var e = 0, n = this.mPluginList.first(); n; ) n.isInit() || 0 === n.init(t) || (e = -1), 
+                n = this.mPluginList.next();
+                return e;
+            } catch (t) {
+                return this._exception('startAllPlugin', t), -1;
+            }
+        }, e.prototype.stopAllPlugin = function() {
+            try {
+                for (var t = 0, e = this.mPluginList.first(); e; ) 0 !== e.done() && (t = -1), e = this.mPluginList.next();
+                return t;
+            } catch (t) {
+                return this._exception('stopAllPlugin', t), -1;
+            }
+        }, e.prototype._setErrorOutputAllPlugin = function(t) {
+            try {
+                for (var e = this.mPluginList.first(); e; ) t ? e.setErrorOutputOn() : e.setErrorOutputOff(), 
+                e = this.mPluginList.next();
+                return 0;
+            } catch (t) {
+                return this._exception('_setErrorOutputAllPlugin', t), -1;
+            }
+        }, e;
+    }(A), Dt = function(t) {
+        function n(n, o) {
+            void 0 === o && (o = !0);
+            var i = t.call(this, n, o) || this;
+            return i.mStartEvent = new At(at, e), i.mStopEvent = new At(pt, e), i.mRunningFlag = !1, 
+            i.mStartEvent.setComponentName(n), i.mStopEvent.setComponentName(n), i.mStartEvent._setErrorOutputFunc(i._getErrorOutputFunc()), 
+            i.mStopEvent._setErrorOutputFunc(i._getErrorOutputFunc()), i;
+        }
+        return u(n, t), n.prototype.getType = function() {
+            return "Base";
+        }, n.prototype.getClass = function() {
+            return 'BaseComponent';
+        }, n.prototype.getVersion = function() {
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
+        }, n.prototype.getServerVersion = function() {
+            return '';
+        }, n.prototype._setOption = function(t) {
+            return 0;
+        }, n.prototype._initAllPlugin = function() {
+            return 0;
+        }, n.prototype.init = function(e) {
+            return this.isInit() ? (this.isErrorOutput() && console.log('BaseComponent.init: bereits initialisiert'), 
+            0) : 0 !== t.prototype.init.call(this, e) ? -1 : 0 !== this._initAllPlugin() ? (this._clearInit(), 
+            -1) : (this._setOption(e), 0);
+        }, n.prototype._doneAllPlugin = function() {}, n.prototype._doneAllEvent = function() {}, 
+        n.prototype._doneAllAttribute = function() {}, n.prototype.done = function() {
+            return this.isRunning() && this.stop(), this._doneAllEvent(), this.mStartEvent.clear(), 
+            this.mStopEvent.clear(), this._doneAllPlugin(), this._doneAllAttribute(), t.prototype.done.call(this);
+        }, n.prototype._resetAllDefault = function() {}, n.prototype.reset = function(t) {
+            return this.isInit() ? (this.isRunning() && this.stop(), this.setActiveOn(), this._resetAllDefault(), 
+            this._setOption(t), 0) : (this._error('reset', 'Komponente nicht initialisiert'), 
+            -1);
+        }, n.prototype._setErrorOutput = function(e) {
+            t.prototype._setErrorOutput.call(this, e), this.mStartEvent._setErrorOutput(e), 
+            this.mStopEvent._setErrorOutput(e);
+        }, n.prototype._onStart = function() {
+            return this.mStartEvent.dispatch();
+        }, n.prototype._onStop = function() {
+            return this.mStopEvent.dispatch();
+        }, Object.defineProperty(n.prototype, "onStart", {
             get: function() {
                 var t = this;
                 return function() {
-                    return t._onSpeakStart();
+                    return t._onStart();
                 };
             },
             enumerable: !0,
             configurable: !0
-        }), Object.defineProperty(e.prototype, "onSpeakStop", {
+        }), Object.defineProperty(n.prototype, "onStop", {
             get: function() {
                 var t = this;
                 return function() {
-                    return t._onSpeakStop();
+                    return t._onStop();
                 };
             },
             enumerable: !0,
             configurable: !0
-        }), e.prototype.addEventListener = function(e, n, o) {
+        }), n.prototype.addEventListener = function(e, n, o) {
             var i = 0;
             switch (n) {
-              case P:
-                i = this.mSpeakStartEvent.addListener(e, o);
+              case at:
+                i = this.mStartEvent.addListener(e, o);
                 break;
 
-              case O:
-                i = this.mSpeakStopEvent.addListener(e, o);
+              case pt:
+                i = this.mStopEvent.addListener(e, o);
                 break;
 
               default:
                 i = t.prototype.addEventListener.call(this, e, n, o);
             }
             return i;
-        }, e.prototype.removeEventListener = function(e, n) {
+        }, n.prototype.removeEventListener = function(e, n) {
             var o = 0;
             switch (n) {
-              case P:
-                o = this.mSpeakStartEvent.removeListener(e);
+              case at:
+                o = this.mStartEvent.removeListener(e);
                 break;
 
-              case O:
-                o = this.mSpeakStopEvent.removeListener(e);
+              case pt:
+                o = this.mStopEvent.removeListener(e);
                 break;
 
               default:
                 o = t.prototype.removeEventListener.call(this, e, n);
             }
             return o;
-        }, e.prototype.addSpeakStartEvent = function(t, e) {
-            return this.addEventListener(t, P, e);
-        }, e.prototype.addSpeakStopEvent = function(t, e) {
-            return this.addEventListener(t, O, e);
-        }, e.prototype.addErrorEvent = function(t, e) {
-            return this.addEventListener(t, b, e);
-        }, e.prototype.removeSpeakStartEvent = function(t) {
-            return this.removeEventListener(t, P);
-        }, e.prototype.removeSpeakStopEvent = function(t) {
-            return this.removeEventListener(t, O);
-        }, e.prototype.removeErrorEvent = function(t) {
-            return this.removeEventListener(t, b);
-        }, e.prototype.removeAllEvent = function(t) {
-            return this.removeSpeakStartEvent(t), this.removeSpeakStopEvent(t), this.removeErrorEvent(t), 
-            0;
-        }, e.prototype.isAudio = function() {
-            return this.mAudioFlag;
-        }, e.prototype.setAudioOn = function() {
-            return this.mAudioFlag = !0, 0;
-        }, e.prototype.setAudioOff = function() {
-            return this.mAudioFlag = !1, 0;
-        }, e.prototype.getAudioContext = function() {
-            return this.mAudioPlayer ? this.mAudioPlayer.getAudioContext() : null;
-        }, e.prototype.setAudioFormat = function(t) {
-            return this.mAudioPlayer ? this.mAudioPlayer.setAudioFormat(t) : -1;
-        }, e.prototype.getAudioFormat = function() {
-            return this.mAudioPlayer ? this.mAudioPlayer.getAudioFormat() : '';
-        }, e.prototype.setAudioFilePath = function(t) {
-            return this.mAudioFilePath = t, 0;
-        }, e.prototype.getAudioFilePath = function() {
-            return this.mAudioFilePath;
-        }, e.prototype.setAudioFileName = function(t) {
-            return this.mAudioFileName = t, 0;
-        }, e.prototype.getAudioFileName = function() {
-            return this.mAudioFileName;
-        }, e.prototype.setLanguage = function(t) {
-            return this.mTTSPlugin ? this.mTTSPlugin.setLanguage(t) : -1;
-        }, e.prototype.getLanguage = function() {
-            return this.mTTSPlugin ? this.mTTSPlugin.getLanguage() : "";
-        }, e.prototype.setSpeakText = function(t) {
-            return this.mSpeakText = t, 0;
-        }, e.prototype.getSpeakText = function() {
-            return this.mSpeakText;
-        }, e.prototype.isSpeakRunning = function() {
-            return !!this.isActive() && (this.mAudioFlag ? !!this.mAudioPlayer && (this.mAudioPlayer.isPlay() || this.mAudioPlayer.isLoad()) : !!this.mTTSPlugin && this.mTTSPlugin.isSpeakRunning());
-        }, e.prototype.startSpeak = function() {
-            return this.isActive() ? this.isSpeakRunning() ? (this._error('startSpeak', 'Sprachausgabe laeuft bereits'), 
-            -1) : this.mAudioFlag ? this._startSpeakAudio() : this._startSpeakTTS() : 0;
-        }, e.prototype.getStartSpeakFunc = function() {
+        }, n.prototype.addInitEvent = function(t, e) {
+            return this.addEventListener(t, st, e);
+        }, n.prototype.addStartEvent = function(t, e) {
+            return this.addEventListener(t, at, e);
+        }, n.prototype.addStopEvent = function(t, e) {
+            return this.addEventListener(t, pt, e);
+        }, n.prototype.addErrorEvent = function(t, e) {
+            return this.addEventListener(t, ct, e);
+        }, n.prototype.removeInitEvent = function(t) {
+            return this.removeEventListener(t, st);
+        }, n.prototype.removeStartEvent = function(t) {
+            return this.removeEventListener(t, at);
+        }, n.prototype.removeStopEvent = function(t) {
+            return this.removeEventListener(t, pt);
+        }, n.prototype.removeErrorEvent = function(t) {
+            return this.removeEventListener(t, ct);
+        }, n.prototype.removeAllEvent = function(t) {
+            return t ? (this.removeInitEvent(t), this.removeStartEvent(t), this.removeStopEvent(t), 
+            this.removeErrorEvent(t), 0) : (this._error('removeAllEvent', 'kein Pluginname uebergeben'), 
+            -1);
+        }, n.prototype.getStartFunc = function() {
             var t = this;
             return function() {
-                return t.startSpeak();
+                return t.start();
             };
-        }, e.prototype._startSpeakAudio = function() {
-            return this.mSpeakStopSelector = '', this.mAudioFeatureFlag ? 0 : this.mAudioPlayer ? this.mAudioFileName ? (this.mSpeakStopSelector = "audio", 
-            this.mAudioPlayer.play(this.mAudioFilePath, this.mAudioFileName)) : (this._error('_startSpeakAudio', 'kein Audiodateiname fuer die Sprachausgabe vorhanden'), 
-            -1) : (this._error('_startSpeakAudio', 'kein AudioPlayer vorhanden'), -1);
-        }, e.prototype._startSpeakTTS = function() {
-            return this.mSpeakStopSelector = '', this.mTTSFeatureFlag ? 0 : this.mTTSPlugin ? this.mSpeakText ? (this.mSpeakStopSelector = "tts", 
-            this.mTTSPlugin.startSpeak(this.mSpeakText)) : (this._error('_startSpeakTTS', 'kein Text fuer die Sprachausgabe vorhanden'), 
-            -1) : (this._error('_startSpeakTTS', 'kein TTSPlugin vorhanden'), -1);
-        }, e.prototype.stopSpeak = function() {
-            return this.isSpeakRunning() ? this.mSpeakStopSelector ? "audio" === this.mSpeakStopSelector ? (this.mSpeakStopSelector = '', 
-            this.mAudioPlayer ? this.mAudioPlayer.stop() : (this._error('stopSpeak', 'kein AudioPlayer vorhanden'), 
-            -1)) : "tts" === this.mSpeakStopSelector ? (this.mSpeakStopSelector = '', this.mTTSPlugin ? this.mTTSPlugin.stopSpeak() : (this._error('stopSpeak', 'kein TTSPlugin vorhanden'), 
-            -1)) : (this._error('stopSpeak', 'kein gueltiger StopSelector vorhanden'), -1) : (this._error('stopSpeak', 'kein StopSelector vorhanden'), 
-            -1) : (this.mSpeakStopSelector = '', 0);
-        }, e.prototype.getStopSpeakFunc = function() {
+        }, n.prototype.getStopFunc = function() {
             var t = this;
             return function() {
-                return t.stopSpeak();
+                return t.stop();
             };
-        }, e;
-    }(V), ft = function(t) {
-        function e() {
-            return t.call(this, 'SpeakComponentFactory') || this;
+        }, n.prototype.isRunning = function() {
+            return !!this.isActive() && this.mRunningFlag;
+        }, n.prototype.start = function() {
+            return 0;
+        }, n.prototype.stop = function() {
+            return 0;
+        }, n.prototype.test = function(t, e) {
+            return {
+                result: -1,
+                errorText: 'kein Test implementiert'
+            };
+        }, n;
+    }(function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e, n) || this;
+            return o.mSendMessageFunc = null, o.mInitEvent = new At(st), o.mErrorEvent = new At(ct), 
+            o.mInitEvent.setComponentName(e), o.mErrorEvent.setComponentName(e), o.mInitEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mErrorEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o;
         }
-        return s(e, t), e.prototype.getType = function() {
-            return "Speak";
-        }, e.prototype.getName = function() {
-            return "SpeakComponentFactory";
+        return u(e, t), e.prototype.getType = function() {
+            return 'Component';
+        }, e.prototype.getClass = function() {
+            return 'Component';
+        }, e.prototype.getVersion = function() {
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
+        }, e.prototype.init = function(e) {
+            return 0 !== t.prototype.init.call(this, e) ? -1 : 0;
+        }, e.prototype.done = function() {
+            return this.mInitEvent.clear(), this.mErrorEvent.clear(), t.prototype.done.call(this);
+        }, e.prototype._setErrorOutput = function(e) {
+            t.prototype._setErrorOutput.call(this, e), this.mInitEvent._setErrorOutput(e), this.mErrorEvent._setErrorOutput(e), 
+            this._setErrorOutputAllPlugin(e);
+        }, e.prototype.connect = function() {
+            return 0;
+        }, e.prototype.isConnect = function() {
+            return !0;
+        }, e.prototype.getNetType = function() {
+            return 'undefined';
+        }, e.prototype._addEventListenerAllPlugin = function(t, n, o) {
+            try {
+                for (var i = -1, r = this.mPluginList.first(); r; ) {
+                    if (r instanceof e) {
+                        r && 0 === r.addEventListener(t, n, o) && (i = 0);
+                    }
+                    r = this.mPluginList.next();
+                }
+                return i;
+            } catch (t) {
+                return this._exception('addEventListenerAllPlugin', t), -1;
+            }
+        }, e.prototype._removeEventListenerAllPlugin = function(t, n) {
+            try {
+                for (var o = -1, i = this.mPluginList.first(); i; ) {
+                    if (i instanceof e) {
+                        i && 0 === i.removeEventListener(t, n) && (o = 0);
+                    }
+                    i = this.mPluginList.next();
+                }
+                return o;
+            } catch (t) {
+                return this._exception('removeEventListenerAllPlugin', t), -1;
+            }
+        }, e.prototype.setSendMessageFunc = function(t) {
+            return this.mSendMessageFunc = t, 0;
+        }, e.prototype.sendMessage = function(t) {
+            return 'function' != typeof this.mSendMessageFunc ? -1 : this.mSendMessageFunc(t);
+        }, e.prototype.handleMessage = function(t) {
+            try {
+                var e = 0;
+                switch (t.event) {
+                  case st:
+                    e = this.mInitEvent.dispatch(t);
+                    break;
+
+                  case ct:
+                    e = this.mErrorEvent.dispatch(t);
+                    break;
+
+                  default:
+                    this._error('handleMessage', 'ungueltige Nachricht: ' + t.event), e = -1;
+                }
+                return e;
+            } catch (t) {
+                return this._exception('handleMessage', t), -1;
+            }
+        }, e.prototype._onInit = function() {
+            return this.mInitEvent.dispatch(this.getName());
+        }, Object.defineProperty(e.prototype, "onInit", {
+            get: function() {
+                var t = this;
+                return function() {
+                    return t._onInit();
+                };
+            },
+            enumerable: !0,
+            configurable: !0
+        }), e.prototype._onError = function(t) {
+            return this.mErrorEvent.dispatch(t);
+        }, Object.defineProperty(e.prototype, "onError", {
+            get: function() {
+                var t = this;
+                return function(e) {
+                    return t._onError(e);
+                };
+            },
+            enumerable: !0,
+            configurable: !0
+        }), e.prototype.addEventListener = function(t, e, n) {
+            var o = 0;
+            switch (e) {
+              case st:
+                o = this.mInitEvent.addListener(t, n);
+                break;
+
+              case ct:
+                this._addEventListenerAllPlugin(t, e, n), o = this.mErrorEvent.addListener(t, n);
+                break;
+
+              default:
+                o = this._addEventListenerAllPlugin(t, e, n);
+            }
+            return o;
+        }, e.prototype.removeEventListener = function(t, e) {
+            var n = 0;
+            switch (e) {
+              case st:
+                n = this.mInitEvent.removeListener(t);
+                break;
+
+              case ct:
+                this._removeEventListenerAllPlugin(t, e), n = this.mErrorEvent.removeListener(t);
+                break;
+
+              default:
+                n = this._removeEventListenerAllPlugin(t, e);
+            }
+            return n;
+        }, e;
+    }(Ft)), Pt = function(t) {
+        function e(e) {
+            void 0 === e && (e = !0);
+            var o = t.call(this, n, e) || this;
+            return o.mActionFunction = null, o.mActionElement = null, o.mActionRunningFlag = !1, 
+            o.mActionName = '', o.mActionElementType = '', o.mActionElementName = '', o.mActionTimeout = i, 
+            o.mActionTimeoutId = 0, o;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "Action";
+        }, e.prototype.getClass = function() {
+            return 'ActionComponent';
+        }, e.prototype.getVersion = function() {
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
+        }, e.prototype.getServerVersion = function() {
+            return '';
+        }, e.prototype._initAllPlugin = function() {
+            return this.mActionFunction = this.findPlugin($), this.mActionElement = this.findPlugin(ot), 
+            0;
+        }, e.prototype.init = function(e) {
+            return t.prototype.init.call(this, e);
+        }, e.prototype._doneAllPlugin = function() {
+            this.mActionFunction = null, this.mActionElement = null;
+        }, e.prototype._doneAllAttribute = function() {
+            this.mActionName = '', this.mActionElementType = '', this.mActionElementName = '', 
+            this.mActionTimeout = i;
+        }, e.prototype._resetAllDefault = function() {
+            this.mActionName = '', this.mActionElementType = '', this.mActionElementName = '', 
+            this.mActionTimeout = i;
+        }, e.prototype.reset = function(e) {
+            return t.prototype.reset.call(this, e);
+        }, e.prototype.getActionFunc = function() {
+            var t = this;
+            return function(e) {
+                return t.action(e);
+            };
+        }, e.prototype.setActionName = function(t) {
+            return this.mActionName = t, 0;
+        }, e.prototype.getActionName = function() {
+            return this.mActionName;
+        }, e.prototype.setElementType = function(t) {
+            return this.mActionElementType = t, 0;
+        }, e.prototype.getElementType = function() {
+            return this.mActionElementType;
+        }, e.prototype.setElementName = function(t) {
+            return this.mActionElementName = t, 0;
+        }, e.prototype.getElementName = function() {
+            return this.mActionElementName;
+        }, e.prototype.isRunning = function() {
+            return !!this.isActive() && this.mActionRunningFlag;
+        }, e.prototype.action = function(t) {
+            var e = this;
+            if (!this.isActive()) return 0;
+            if (this.isRunning()) return this._error('startAction', 'Aktion laeuft bereits'), 
+            -1;
+            this.mActionRunningFlag = !0;
+            var n = 0;
+            return this.mActionFunction && 0 !== this.mActionFunction.startAction(t) && (n = -1), 
+            this.mActionElement && 0 !== this.mActionElement.startAction(t) && (n = -1), this.mActionTimeoutId = setTimeout(function() {
+                return e.stop();
+            }, this.mActionTimeout), this._onStart(), n;
+        }, e.prototype.start = function() {
+            if (!this.mActionName) return this._error('startAction', 'kein Aktionsname vorhanden'), 
+            -1;
+            if (!this.mActionElementName) return this._error('startAction', 'kein Elementname vorhanden'), 
+            -1;
+            var t = {
+                action: this.mActionName,
+                type: this.mActionElementType,
+                id: this.mActionElementName
+            };
+            return this.action(t);
+        }, e.prototype.stop = function() {
+            if (!this.isActive()) return 0;
+            if (this.mActionTimeoutId && (clearTimeout(this.mActionTimeoutId), this.mActionTimeoutId = 0), 
+            !this.isRunning()) return 0;
+            var t = 0;
+            return this.mActionFunction && 0 !== this.mActionFunction.stopAction() && (t = -1), 
+            this.mActionElement && 0 !== this.mActionElement.stopAction() && (t = -1), this.mActionRunningFlag = !1, 
+            this._onStop(), t;
+        }, e.prototype.addFunction = function(t, e, n) {
+            return this.mActionFunction ? this.mActionFunction.insert(t, e, n) : (this._error('addFunction', 'kein ActionFunction-Plugin vorhanden'), 
+            -1);
+        }, e.prototype.removeFunction = function(t) {
+            return this.mActionFunction ? this.mActionFunction.remove(t) : (this._error('removeFunction', 'kein ActionFunction-Plugin vorhanden'), 
+            -1);
+        }, e.prototype.addElement = function(t, e, n) {
+            return this.mActionElement ? this.mActionElement.insert(t, e, n) : (this._error('addElement', 'kein ActionElement-Plugin vorhanden'), 
+            -1);
+        }, e.prototype.removeElement = function(t) {
+            return this.mActionElement ? this.mActionElement.remove(t) : (this._error('removeElement', 'kein ActionElement-Plugin vorhanden'), 
+            -1);
+        }, e;
+    }(Dt), Lt = function(t) {
+        function e() {
+            return t.call(this, 'ActionComponentFactory') || this;
+        }
+        return u(e, t), e.prototype.getName = function() {
+            return "ActionComponentFactory";
+        }, e.prototype.getType = function() {
+            return "Action";
         }, e.prototype._newPlugin = function(t, e) {
-            return new gt(e);
+            return new Pt(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || ut;
+            var o = t || n;
             try {
-                return this._newPlugin(n, e);
+                return this._newPlugin(o, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), yt = function(t) {
-        function e() {
-            var e = t.call(this) || this;
-            return e.mSpeakComponent = null, e._setErrorClassName('SpeakComponentBuilder'), 
-            e;
+    }(F), kt = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || 'ActionComponentBuilder', n) || this;
+            return o.mActionComponent = null, o;
         }
-        return s(e, t), e.prototype.getType = function() {
-            return "Speak";
+        return u(e, t), e.prototype.getClass = function() {
+            return 'ActionComponentBuilder';
         }, e.prototype.getName = function() {
-            return "SpeakComponentBuilder";
+            return "ActionComponentBuilder";
+        }, e.prototype.getType = function() {
+            return "Action";
         }, e.prototype.build = function() {
-            if (this.mSpeakComponent) return this.mSpeakComponent;
+            if (this.mActionComponent) return this.mActionComponent;
             try {
-                var t = this._buildComponent(), e = this._getPlugin(pt, "TTSFactory", mt), n = this._getPlugin($, "AudioPlayerFactory", ot);
+                var t = this._buildComponent(), e = this._getPlugin($, "ActionFunctionFactory", nt), n = this._getPlugin(ot, "ActionElementFactory", ut);
                 return 0 !== this._binder(t, e, n) ? (this._error('build', 'Komponenten nicht verbunden'), 
                 null) : t;
             } catch (t) {
                 return this._exception('build', t), null;
             }
         }, e.prototype._buildComponent = function() {
-            return this.mSpeakComponent || (this.mSpeakComponent = this._getPlugin(ut, "SpeakComponentFactory", ft)), 
-            this.mSpeakComponent;
+            return this.mActionComponent || (this.mActionComponent = this._getPlugin(n, "ActionComponentFactory", Lt)), 
+            this.mActionComponent;
         }, e.prototype._binder = function(t, e, n) {
-            return t && e && n ? 0 !== t.insertPlugin(e.getName(), e) ? -1 : 0 !== t.insertPlugin(n.getName(), n) ? -1 : (e.onSpeakStart = t.onSpeakStart, 
-            e.onSpeakStop = t.onSpeakStop, e.onError = t.onError, n.onAudioStart = t.onSpeakStart, 
-            n.onAudioStop = t.onSpeakStop, n.onError = t.onError, 0) : -1;
+            return t ? e ? n ? 0 !== t.insertPlugin(e.getName(), e) ? (this._error('_binder', 'ActionFunction-Plugin wurde nicht eingefuegt'), 
+            -1) : 0 !== t.insertPlugin(n.getName(), n) ? (this._error('_binder', 'ActionElement-Plugin wurde nicht eingefuegt'), 
+            -1) : (e.onError = t.onError, n.onError = t.onError, 0) : (this._error('_binder', 'Kein ActionElement-Plugin vorhanden'), 
+            -1) : (this._error('_binder', 'Kein ActionFunction-Plugin vorhanden'), -1) : (this._error('_binder', 'Keine Action-Komponente vorhanden'), 
+            -1);
         }, e;
-    }(f), dt = function() {
-        function t(t) {
-            if (this.mComponent = null, 0 !== this._init(t)) throw new Error('Speak nicht initialisiert');
-        }
-        return t.prototype._init = function(t) {
-            var e = !0;
-            t && 'boolean' == typeof t.errorOutputFlag && (e = t.errorOutputFlag);
-            try {
-                var n = c.get("SpeakComponentBuilder", yt);
-                if (!n) return e && console.log('Speak._init: SpeakComponentBuilder nicht vorhanden'), 
-                -1;
-                if (this.mComponent = n.build(), !this.mComponent) return e && console.log('Speak._init: keine SpeakComponent erzeugt'), 
-                -1;
-                if (!this.mComponent.isInit()) {
-                    if (0 !== this.mComponent.init(t)) return e && console.log('Speak._init: SpeakComponent nicht initialisiert'), 
-                    -1;
-                    this.mComponent.isErrorOutput() && console.log('Speak-API Version: ', "0.5.1.0040 vom 11.10.2018 (ALPHA)");
-                }
-                return 0;
-            } catch (t) {
-                return e && console.log('Speak._init: Exception', t.message), -1;
-            }
-        }, t.prototype.reset = function(t) {
-            return this.mComponent.reset(t);
-        }, t.prototype.getType = function() {
-            return this.mComponent.getType();
-        }, t.prototype.getName = function() {
-            return this.mComponent.getName();
-        }, t.prototype.getVersion = function() {
-            return this.mComponent.getVersion();
-        }, t.prototype.isActive = function() {
-            return this.mComponent.isActive();
-        }, t.prototype.setActiveOn = function() {
-            return this.mComponent.setActiveOn();
-        }, t.prototype.setActiveOff = function() {
-            return this.mComponent.setActiveOff();
-        }, t.prototype.isErrorOutput = function() {
-            return this.mComponent.isErrorOutput();
-        }, t.prototype.setErrorOutputOn = function() {
-            this.mComponent.setErrorOutputOn();
-        }, t.prototype.setErrorOutputOff = function() {
-            this.mComponent.setErrorOutputOff();
-        }, t.prototype.addSpeakStartEvent = function(t, e) {
-            return this.mComponent.addSpeakStartEvent(t, e);
-        }, t.prototype.addSpeakStopEvent = function(t, e) {
-            return this.mComponent.addSpeakStopEvent(t, e);
-        }, t.prototype.addErrorEvent = function(t, e) {
-            return this.mComponent.addErrorEvent(t, e);
-        }, t.prototype.removeSpeakStartEvent = function(t) {
-            return this.mComponent.removeSpeakStartEvent(t);
-        }, t.prototype.removeSpeakStopEvent = function(t) {
-            return this.mComponent.removeSpeakStopEvent(t);
-        }, t.prototype.removeErrorEvent = function(t) {
-            return this.mComponent.removeErrorEvent(t);
-        }, t.prototype.removeAllEvent = function(t) {
-            return this.mComponent.removeAllEvent(t);
-        }, t.prototype.isAudio = function() {
-            return this.mComponent.isAudio();
-        }, t.prototype.setAudioOn = function() {
-            return this.mComponent.setAudioOn();
-        }, t.prototype.setAudioOff = function() {
-            return this.mComponent.setAudioOff();
-        }, t.prototype.setAudioFormat = function(t) {
-            return this.mComponent.setAudioFormat(t);
-        }, t.prototype.getAudioFormat = function() {
-            return this.mComponent.getAudioFormat();
-        }, t.prototype.getAudioContext = function() {
-            return this.mComponent.getAudioContext();
-        }, t.prototype.setAudioFilePath = function(t) {
-            return this.mComponent.setAudioFilePath(t);
-        }, t.prototype.getAudioFilePath = function() {
-            return this.mComponent.getAudioFilePath();
-        }, t.prototype.setAudioFileName = function(t) {
-            return this.mComponent.setAudioFileName(t);
-        }, t.prototype.getAudioFileName = function() {
-            return this.mComponent.getAudioFileName();
-        }, t.prototype.setLanguage = function(t) {
-            return this.mComponent.setLanguage(t);
-        }, t.prototype.getLanguage = function() {
-            return this.mComponent.getLanguage();
-        }, t.prototype.setSpeakText = function(t) {
-            return this.mComponent.setSpeakText(t);
-        }, t.prototype.getSpeakText = function() {
-            return this.mComponent.getSpeakText();
-        }, t.prototype.isSpeakRunning = function() {
-            return this.mComponent.isSpeakRunning();
-        }, t.prototype.startSpeak = function() {
-            return this.mComponent.startSpeak();
-        }, t.prototype.stopSpeak = function() {
-            return this.mComponent.stopSpeak();
-        }, t;
-    }(), St = function() {
-        function t() {}
-        return t.create = function(t, e) {
-            try {
-                return new dt(e);
-            } catch (t) {
-                return console.log('===> EXCEPTION SpeakFactory.create: Exception', t.message), 
-                null;
-            }
-        }, t;
-    }(), vt = 'ListenComponent', Et = vt, _t = 'ASR', Dt = 'ASRMock', Ft = 'ASRHtml5', At = 3e4, kt = "de-DE", Lt = function(t) {
+    }(Q), Tt = 'ASR', Ct = 'ASRMock', Ot = 'ASRHtml5', bt = 3e4, Rt = "de-DE", Nt = function(t) {
         function e() {
             return t.call(this, 'SpeechRecognitionFactory') || this;
         }
-        return s(e, t), e.prototype.getSpeechRecognitionClass = function() {
+        return u(e, t), e.prototype.getSpeechRecognitionClass = function() {
             try {
                 return window.SpeechRecognition || window.webkitSpeechRecognition || null;
             } catch (t) {
@@ -2084,15 +2136,15 @@
                 return this._exception('getSpeechGrammarListClass', t), null;
             }
         }, e;
-    }(r), Ct = function(t) {
+    }(p), xt = function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
-            var o = t.call(this, e || _t, n) || this;
-            return o.mListenRunningFlag = !1, o.mListenLanguage = kt, o.mListenTimeoutId = 0, 
-            o.mListenTimeoutTime = At, o.mOnListenStartFunc = null, o.mOnListenStopFunc = null, 
+            var o = t.call(this, e || Tt, n) || this;
+            return o.mListenRunningFlag = !1, o.mListenLanguage = Rt, o.mListenTimeoutId = 0, 
+            o.mListenTimeoutTime = bt, o.mOnListenStartFunc = null, o.mOnListenStopFunc = null, 
             o.mOnListenResultFunc = null, o;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "ASR";
         }, e.prototype.getClass = function() {
             return 'ASRPlugin';
@@ -2101,7 +2153,7 @@
             0) : 0 : (this.setActiveOff(), 0);
         }, e.prototype.done = function() {
             return this.isListenRunning() && this.stopListen(), this._clearRecognitionTimeout(), 
-            this.mListenTimeoutTime = At, this.mListenRunningFlag = !1, this.mListenLanguage = kt, 
+            this.mListenTimeoutTime = bt, this.mListenRunningFlag = !1, this.mListenLanguage = Rt, 
             this.mOnListenStartFunc = null, this.mOnListenStopFunc = null, this.mOnListenResultFunc = null, 
             t.prototype.done.call(this);
         }, e.prototype.isActive = function() {
@@ -2160,14 +2212,11 @@
         }, e.prototype._onRecognitionStart = function() {
             return 0;
         }, e.prototype._onRecognitionEnd = function() {
-            return this.isListenRunning() && (this.mListenRunningFlag = !1, this._onListenStop()), 
-            0;
+            return this._stopListen();
         }, e.prototype._onRecognitionSpeechStart = function() {
             return this._clearRecognitionTimeout(), 0;
         }, e.prototype._onRecognitionSpeechEnd = function() {
-            var t = 0;
-            return this.isListenRunning() && (this.mListenRunningFlag = !1, t = this._onListenStop()), 
-            t;
+            return this._stopListen();
         }, e.prototype._getRecognitionResult = function(t) {
             return t;
         }, e.prototype._onRecognitionResult = function(t) {
@@ -2177,17 +2226,26 @@
             } catch (t) {
                 this._exception('_onRecognitionResult', t), e = -1;
             }
-            return this.isListenRunning() && (this.mListenRunningFlag = !1, 0 !== this._onListenStop() && (e = -1)), 
-            e;
+            return 0 !== this._stopListen() && (e = -1), e;
         }, e.prototype._onRecognitionNoMatch = function(t) {
-            var e = 0;
-            return this.isListenRunning() && (this.mListenRunningFlag = !1, e = this._onListenStop()), 
-            e;
+            return this._stopListen();
         }, e.prototype._onRecognitionError = function(t) {
             try {
-                var e = this._onError(t.error);
-                return this.isListenRunning() && (this.mListenRunningFlag = !1, 0 !== this._onListenStop() && (e = -1)), 
-                e;
+                var e = t;
+                if ('string' == typeof t.error && !t.message) switch (t.error) {
+                  case 'network':
+                    e = new Error('Netzwerk nicht eingeschaltet');
+                    break;
+
+                  case 'no-speech':
+                    e = new Error('Keine Sprache aufgenommen');
+                    break;
+
+                  default:
+                    e = new Error(t.error);
+                }
+                var n = this._onError(e);
+                return 0 !== this._stopListen() && (n = -1), n;
             } catch (t) {
                 return this._exception('_onRecognitionError', t), -1;
             }
@@ -2232,7 +2290,7 @@
         }, e.prototype.startListen = function() {
             if (!this.isActive()) return this.isErrorOutput() && console.log('ASRPlugin.startListen: ASR ist nicht aktiv'), 
             0;
-            if (this.isListenRunning()) return this._error('startListen', 'listen laeuft bereits'), 
+            if (this.isListenRunning()) return this._error('startListen', 'Spracheingabe laeuft bereits'), 
             -1;
             this._setRecognitionTimeout();
             try {
@@ -2246,11 +2304,14 @@
             return function() {
                 return t.startListen();
             };
+        }, e.prototype._stopListen = function() {
+            var t = 0;
+            return this.isListenRunning() && (this._clearRecognitionTimeout(), this.mListenRunningFlag = !1, 
+            0 !== this._onListenStop() && (t = -1)), t;
         }, e.prototype.stopListen = function() {
             if (!this.isActive()) return this.isErrorOutput() && console.log('ASRPlugin.stopListen: ASR ist nicht aktiv'), 
             0;
-            if (!this.isListenRunning()) return this._error('stopListen', 'listen nicht gestartet'), 
-            -1;
+            if (!this.isListenRunning()) return 0;
             this._clearRecognitionTimeout();
             var t = 0;
             try {
@@ -2268,8 +2329,7 @@
         }, e.prototype.abortListen = function() {
             if (!this.isActive()) return this.isErrorOutput() && console.log('ASRPlugin.abortListen: ASR ist nicht aktiv'), 
             0;
-            if (!this.isListenRunning()) return this._error('abortListen', 'listen nicht gestartet'), 
-            -1;
+            if (!this.isListenRunning()) return 0;
             this._clearRecognitionTimeout();
             var t = 0;
             try {
@@ -2280,10 +2340,10 @@
             return this.isListenRunning() && (this.mListenRunningFlag = !1, 0 !== this._onListenStop() && (t = -1)), 
             t;
         }, e;
-    }(S), bt = function(t) {
+    }(A), wt = function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
-            var o = t.call(this, e || Dt, n) || this;
+            var o = t.call(this, e || Ct, n) || this;
             return o.recognitionFlag = !0, o.recognitionResult = '', o.initRecognitionResult = 0, 
             o.startRecognitionResult = 0, o.startRecognitionExceptionFlag = !1, o.startRecognitionExceptionText = 'TestException startRecognition', 
             o.stopRecognitionResult = 0, o.stopRecognitionExceptionFlag = !1, o.stopRecognitionExceptionText = 'TestException stopRecognition', 
@@ -2304,7 +2364,7 @@
                 return 0;
             }, o;
         }
-        return s(e, t), e.prototype.getClass = function() {
+        return u(e, t), e.prototype.getClass = function() {
             return 'ASRMock';
         }, e.prototype.isMock = function() {
             return !0;
@@ -2348,14 +2408,15 @@
             if (this.abortRecognitionExceptionFlag) throw new Error(this.abortRecognitionExceptionText);
             return this.onEndFunc(), this.onErrorFunc(), this.abortRecognitionResult;
         }, e;
-    }(Ct), Pt = function(t) {
+    }(xt), Bt = function(t) {
         function e(e, n, o) {
             void 0 === o && (o = !0);
-            var i = t.call(this, n || Ft, o) || this;
-            return i.mSpeechRecognitionFactory = null, i.mSpeechRecognition = null, i.mSpeechGrammarList = null, 
-            i.mGrammarList = null, i.mRecognition = null, i.mSpeechRecognitionFactory = e, i;
+            var i = t.call(this, n || Ot, o) || this;
+            return i.mRecognitionFactory = null, i.mRecognitionClass = null, i.mGrammarListClass = null, 
+            i.mGrammarList = null, i.mRecognition = null, i.mRecognitionFactory = e, i.mRecognitionFactory._setErrorOutputFunc(i._getErrorOutputFunc()), 
+            i;
         }
-        return s(e, t), e.prototype.getClass = function() {
+        return u(e, t), e.prototype.getClass = function() {
             return 'ASRHtml5';
         }, e.prototype.done = function() {
             if (this.isListenRunning() && this.mRecognition) try {
@@ -2363,25 +2424,27 @@
             } catch (t) {
                 this._exception('done', t);
             }
-            return this.mSpeechRecognition = null, this.mSpeechGrammarList = null, this.mGrammarList = null, 
+            return this.mRecognitionClass = null, this.mGrammarListClass = null, this.mGrammarList = null, 
             this.mRecognition = null, t.prototype.done.call(this);
+        }, e.prototype._setErrorOutput = function(e) {
+            this.mRecognitionFactory && this.mRecognitionFactory._setErrorOutput(e), t.prototype._setErrorOutput.call(this, e);
         }, e.prototype._detectRecognition = function() {
-            if (!this.mSpeechRecognitionFactory) return this._error('_detectRecognition', 'keine Recognition-Fabrik vorhanden'), 
+            if (!this.mRecognitionFactory) return this._error('_detectRecognition', 'keine Recognition-Fabrik vorhanden'), 
             !1;
             try {
-                this.mSpeechRecognition = this.mSpeechRecognitionFactory.getSpeechRecognitionClass();
+                this.mRecognitionClass = this.mRecognitionFactory.getSpeechRecognitionClass();
             } catch (t) {
                 return this._exception('_detectRecognition', t), !1;
             }
-            return null !== this.mSpeechRecognition || (this._error('_detectRecognition', 'Kein HTML5 SpeechRecognition API vorhanden'), 
+            return null !== this.mRecognitionClass || (this._error('_detectRecognition', 'Kein HTML5 SpeechRecognition API vorhanden'), 
             !1);
         }, e.prototype._initRecognition = function(t) {
             var e = this;
             try {
-                this.mRecognition = new this.mSpeechRecognition(), this.mRecognition.lang = this._getASRLanguage(), 
+                this.mRecognition = new this.mRecognitionClass(), this.mRecognition.lang = this._getASRLanguage(), 
                 this.mRecognition.continuous = !1, this.mRecognition.interimResults = !1, this.mRecognition.maxAlternatives = 1;
             } catch (t) {
-                return this._exception('init', t), -1;
+                return this._exception('_initRecognition', t), -1;
             }
             return this.mRecognition.onstart = function() {
                 return e._onRecognitionStart();
@@ -2425,24 +2488,24 @@
                 errorText: i
             };
         }, e;
-    }(Ct), Ot = function(t) {
+    }(xt), It = function(t) {
         function e() {
             return t.call(this, 'ASRFactory') || this;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "ASR";
         }, e.prototype.getName = function() {
             return "ASRFactory";
         }, e.prototype._newPlugin = function(t, e) {
             var n = null;
             switch (t) {
-              case _t:
-              case Ft:
-                n = new Pt(new Lt(), t, e);
+              case Tt:
+              case Ot:
+                n = new Bt(new Nt(), t, e);
                 break;
 
-              case Dt:
-                n = new bt(Dt, e);
+              case Ct:
+                n = new wt(Ct, e);
                 break;
 
               default:
@@ -2451,45 +2514,46 @@
             return n;
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || _t;
+            var n = t || Tt;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), Rt = function(t) {
+    }(F), Mt = function(t) {
         function e(e) {
             void 0 === e && (e = !0);
-            var n = t.call(this, vt, e) || this;
-            return n.mASRPlugin = null, n.mListenStartEvent = new U(R, vt), n.mListenStopEvent = new U(N, vt), 
-            n.mListenResultEvent = new U(x, vt), n.mASRActiveFlag = !1, n.mASRFeatureFlag = !1, 
-            n.mListenStartEvent._setErrorOutputFunc(n._getErrorOutputFunc()), n.mListenStopEvent._setErrorOutputFunc(n._getErrorOutputFunc()), 
-            n.mListenResultEvent._setErrorOutputFunc(n._getErrorOutputFunc()), n;
+            var n = t.call(this, x, e) || this;
+            return n.mASRPlugin = null, n.mListenResultEvent = new At(lt, x), n.mASRActiveFlag = !1, 
+            n.mASRFeatureFlag = !1, n.mListenResultEvent._setErrorOutputFunc(n._getErrorOutputFunc()), 
+            n;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "Listen";
         }, e.prototype.getClass = function() {
             return 'ListenComponent';
         }, e.prototype.getVersion = function() {
-            return "0.5.1.0040 vom 11.10.2018 (ALPHA)";
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
         }, e.prototype.getServerVersion = function() {
             return '';
-        }, e.prototype._setOption = function(t) {
-            return t ? (t.listenLanguage && this.setLanguage(t.listenLanguage), 0) : -1;
+        }, e.prototype._setOption = function(e) {
+            return e ? (e.listenLanguage && this.setLanguage(e.listenLanguage), t.prototype._setOption.call(this, e)) : -1;
+        }, e.prototype._initAllPlugin = function() {
+            return this.mASRPlugin = this.findPlugin(Tt), this.mASRPlugin && (this.mASRActiveFlag = this.mASRPlugin.isActive()), 
+            0;
         }, e.prototype.init = function(e) {
-            return this.isInit() ? (this.isErrorOutput() && console.log('ListenComponent.init: bereits initialisiert'), 
-            0) : 0 !== t.prototype.init.call(this, e) ? (this._error('init', 'super.init() Fehler'), 
-            -1) : (this.mASRPlugin = this.findPlugin(_t), this.mASRPlugin && (this.mASRActiveFlag = this.mASRPlugin.isActive()), 
-            this._setOption(e), 0);
-        }, e.prototype.done = function() {
-            return this.isListenRunning() && this.abortListen(), this.mASRPlugin = null, this.mASRActiveFlag = !1, 
-            this.mASRFeatureFlag = !1, this.mListenStartEvent.clear(), this.mListenStopEvent.clear(), 
-            this.mListenResultEvent.clear(), t.prototype.done.call(this);
-        }, e.prototype.reset = function(t) {
-            return this.isInit() ? (this.isListenRunning() && this.abortListen(), this.setActiveOn(), 
-            this.setLanguage("de"), this._setOption(t), 0) : (this._error('reset', 'Komponente nicht initialisiert'), 
-            -1);
+            return t.prototype.init.call(this, e);
+        }, e.prototype._doneAllPlugin = function() {
+            this.mASRPlugin = null;
+        }, e.prototype._doneAllEvent = function() {
+            this.mListenResultEvent.clear();
+        }, e.prototype._doneAllAttribute = function() {
+            this.mASRActiveFlag = !1, this.mASRFeatureFlag = !1;
+        }, e.prototype._resetAllDefault = function() {
+            this.setLanguage("de");
+        }, e.prototype.reset = function(e) {
+            return t.prototype.reset.call(this, e);
         }, e.prototype.isActive = function() {
             return !!this.mASRActiveFlag && t.prototype.isActive.call(this);
         }, e.prototype.setActiveOn = function() {
@@ -2498,33 +2562,10 @@
             return t.features ? (t.features.ASR && 'boolean' == typeof t.features.ASR && (this.mASRFeatureFlag = t.features.ASR), 
             0) : (this._error('setFeatureList', 'keine FeatureInfos uebergeben'), -1);
         }, e.prototype._setErrorOutput = function(e) {
-            t.prototype._setErrorOutput.call(this, e), this.mListenStartEvent._setErrorOutput(e), 
-            this.mListenStopEvent._setErrorOutput(e), this.mListenResultEvent._setErrorOutput(e);
-        }, e.prototype._onListenStart = function() {
-            return this.mListenStartEvent.dispatch();
-        }, e.prototype._onListenStop = function() {
-            return this.mListenStopEvent.dispatch();
+            t.prototype._setErrorOutput.call(this, e), this.mListenResultEvent._setErrorOutput(e);
         }, e.prototype._onListenResult = function(t) {
             return this.mListenResultEvent.dispatch(t);
-        }, Object.defineProperty(e.prototype, "onListenStart", {
-            get: function() {
-                var t = this;
-                return function() {
-                    return t._onListenStart();
-                };
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(e.prototype, "onListenStop", {
-            get: function() {
-                var t = this;
-                return function() {
-                    return t._onListenStop();
-                };
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(e.prototype, "onListenResult", {
+        }, Object.defineProperty(e.prototype, "onListenResult", {
             get: function() {
                 var t = this;
                 return function(e) {
@@ -2536,15 +2577,7 @@
         }), e.prototype.addEventListener = function(e, n, o) {
             var i = 0;
             switch (n) {
-              case R:
-                i = this.mListenStartEvent.addListener(e, o);
-                break;
-
-              case N:
-                i = this.mListenStopEvent.addListener(e, o);
-                break;
-
-              case x:
+              case lt:
                 i = this.mListenResultEvent.addListener(e, o);
                 break;
 
@@ -2555,15 +2588,7 @@
         }, e.prototype.removeEventListener = function(e, n) {
             var o = 0;
             switch (n) {
-              case R:
-                o = this.mListenStartEvent.removeListener(e);
-                break;
-
-              case N:
-                o = this.mListenStopEvent.removeListener(e);
-                break;
-
-              case x:
+              case lt:
                 o = this.mListenResultEvent.removeListener(e);
                 break;
 
@@ -2571,49 +2596,27 @@
                 o = t.prototype.removeEventListener.call(this, e, n);
             }
             return o;
-        }, e.prototype.addListenStartEvent = function(t, e) {
-            return this.addEventListener(t, R, e);
-        }, e.prototype.addListenStopEvent = function(t, e) {
-            return this.addEventListener(t, N, e);
         }, e.prototype.addListenResultEvent = function(t, e) {
-            return this.addEventListener(t, x, e);
-        }, e.prototype.addErrorEvent = function(t, e) {
-            return this.addEventListener(t, b, e);
-        }, e.prototype.removeListenStartEvent = function(t) {
-            return this.removeEventListener(t, R);
-        }, e.prototype.removeListenStopEvent = function(t) {
-            return this.removeEventListener(t, N);
+            return this.addEventListener(t, lt, e);
         }, e.prototype.removeListenResultEvent = function(t) {
-            return this.removeEventListener(t, x);
-        }, e.prototype.removeErrorEvent = function(t) {
-            return this.removeEventListener(t, b);
-        }, e.prototype.removeAllEvent = function(t) {
-            return this.removeListenStartEvent(t), this.removeListenStopEvent(t), this.removeListenResultEvent(t), 
-            this.removeErrorEvent(t), 0;
+            return this.removeEventListener(t, lt);
+        }, e.prototype.removeAllEvent = function(e) {
+            return t.prototype.removeAllEvent.call(this, e), this.removeListenResultEvent(e), 
+            0;
         }, e.prototype.setLanguage = function(t) {
             return this.mASRPlugin ? this.mASRPlugin.setLanguage(t) : -1;
         }, e.prototype.getLanguage = function() {
             return this.mASRPlugin ? this.mASRPlugin.getLanguage() : "";
-        }, e.prototype.isListenRunning = function() {
+        }, e.prototype.isRunning = function() {
             return !!this.isActive() && (!!this.mASRPlugin && this.mASRPlugin.isListenRunning());
-        }, e.prototype.startListen = function() {
-            return this.isActive() ? this.mASRPlugin ? this.mASRPlugin.startListen() : (this._error('startListen', 'kein ASR vorhanden'), 
+        }, e.prototype.start = function() {
+            return this.isActive() ? this.mASRPlugin ? this.mASRPlugin.startListen() : (this._error('start', 'kein ASR vorhanden'), 
             -1) : 0;
-        }, e.prototype.getStartListenFunc = function() {
-            var t = this;
-            return function() {
-                return t.startListen();
-            };
-        }, e.prototype.stopListen = function() {
-            return this.isActive() ? this.mASRPlugin ? this.mASRPlugin.stopListen() : (this._error('stopListen', 'kein ASR vorhanden'), 
+        }, e.prototype.stop = function() {
+            return this.isActive() ? this.mASRPlugin ? this.mASRPlugin.stopListen() : (this._error('stop', 'kein ASR vorhanden'), 
             -1) : 0;
-        }, e.prototype.getStopListenFunc = function() {
-            var t = this;
-            return function() {
-                return t.stopListen();
-            };
-        }, e.prototype.abortListen = function() {
-            return this.isActive() ? this.mASRPlugin ? this.mASRPlugin.abortListen() : (this._error('abortListen', 'kein ASR vorhanden'), 
+        }, e.prototype.abort = function() {
+            return this.isActive() ? this.mASRPlugin ? this.mASRPlugin.abortListen() : (this._error('abort', 'kein ASR vorhanden'), 
             -1) : 0;
         }, e.prototype.test = function(t, e) {
             var n = '';
@@ -2631,141 +2634,724 @@
                 errorText: n
             };
         }, e;
-    }(V), Nt = function(t) {
+    }(Dt), Kt = function(t) {
         function e() {
             return t.call(this, 'ListenComponentFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getName = function() {
             return "ListenComponentFactory";
         }, e.prototype.getType = function() {
             return "Listen";
         }, e.prototype._newPlugin = function(t, e) {
-            return new Rt(e);
+            return new Mt(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || vt;
+            var n = t || x;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), xt = function(t) {
-        function e() {
-            var e = t.call(this) || this;
-            return e.mListenComponent = null, e._setErrorClassName('ListenComponentBuilder'), 
-            e;
+    }(F), Gt = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || 'ListenComponentBuilder', n) || this;
+            return o.mListenComponent = null, o;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "Listen";
+        }, e.prototype.getClass = function() {
+            return 'ListenComponentBuilder';
         }, e.prototype.getName = function() {
             return "ListenComponentBuilder";
         }, e.prototype.build = function() {
             if (this.mListenComponent) return this.mListenComponent;
             try {
-                var t = this._buildComponent(), e = this._getPlugin(_t, "ASRFactory", Ot);
+                var t = this._buildComponent(), e = this._getPlugin(Tt, "ASRFactory", It);
                 return 0 !== this._binder(t, e) ? (this._error('build', 'Komponenten nicht verbunden'), 
                 null) : t;
             } catch (t) {
                 return this._exception('build', t), null;
             }
         }, e.prototype._buildComponent = function() {
-            return this.mListenComponent || (this.mListenComponent = this._getPlugin(vt, "ListenComponentFactory", Nt)), 
+            return this.mListenComponent || (this.mListenComponent = this._getPlugin(x, "ListenComponentFactory", Kt)), 
             this.mListenComponent;
         }, e.prototype._binder = function(t, e) {
-            return t && e ? 0 !== t.insertPlugin(e.getName(), e) ? -1 : (e.onListenStart = t.onListenStart, 
-            e.onListenStop = t.onListenStop, e.onListenResult = t.onListenResult, e.onError = t.onError, 
-            0) : -1;
+            return t ? e ? 0 !== t.insertPlugin(e.getName(), e) ? (this._error('_binder', 'ASR-Plugin wurde nicht eingefuegt'), 
+            -1) : (e.onListenStart = t.onStart, e.onListenStop = t.onStop, e.onListenResult = t.onListenResult, 
+            e.onError = t.onError, 0) : (this._error('_binder', 'Kein ASR-Plugin vorhanden'), 
+            -1) : (this._error('_binder', 'Keine Listen-Komponente vorhanden'), -1);
         }, e;
-    }(f), wt = function() {
-        function t(t) {
-            if (this.mComponent = null, 0 !== this._init(t)) throw new Error('Listen nicht initialisiert');
+    }(Q), qt = 'TTS', Ht = 'TTSMock', Vt = 'TTSHtml5', jt = 'TTSNuance', Xt = 'TTSGroup', Ut = Xt, zt = "de-DE", Wt = function(t) {
+        function e() {
+            return t.call(this, 'SpeechSynthesisFactory') || this;
         }
-        return t.prototype._init = function(t) {
-            var e = !0;
-            t && 'boolean' == typeof t.errorOutputFlag && (e = t.errorOutputFlag);
+        return u(e, t), e.prototype.getSpeechSynthesisUtteranceClass = function() {
             try {
-                var n = c.get("ListenComponentBuilder", xt);
-                if (!n) return e && console.log('Listen._init: ListenComponentBuilder nicht vorhanden'), 
-                -1;
-                if (this.mComponent = n.build(), !this.mComponent) return e && console.log('Listen._init: keine ListenComponent erzeugt'), 
-                -1;
-                if (!this.mComponent.isInit()) {
-                    if (0 !== this.mComponent.init(t)) return e && console.log('Listen._init: ListenComponent nicht initialisiert'), 
-                    -1;
-                    this.mComponent.isErrorOutput() && console.log('Listen-API Version: ', "0.5.1.0040 vom 11.10.2018 (ALPHA)");
-                }
+                return window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance || null;
+            } catch (t) {
+                return this._exception('getSpeechSynthesisUtteranceClass', t), null;
+            }
+        }, e.prototype.getSpeechSynthesis = function() {
+            try {
+                return window.speechSynthesis || null;
+            } catch (t) {
+                return this._exception('getSpeechSynthesis', t), null;
+            }
+        }, e;
+    }(p), Yt = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || qt, n) || this;
+            return o.mSpeakRunningFlag = !1, o.mSpeakLanguage = zt, o.mSpeakVoice = '', o.mOnSpeakStartFunc = null, 
+            o.mOnSpeakStopFunc = null, o;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "TTS";
+        }, e.prototype.getClass = function() {
+            return 'TTSPlugin';
+        }, e.prototype.init = function(e) {
+            return this.isInit() ? (this._error('init', 'init doppelt aufgerufen'), -1) : 0 !== t.prototype.init.call(this, e) ? -1 : this._detectSynthesis() ? 0 !== this._initSynthesis(e) ? (this._clearInit(), 
+            -1) : (e && e.language && this.setLanguage(e.language), e && e.voice && this.setVoice(e.voice), 
+            0) : (this.setActiveOff(), 0);
+        }, e.prototype.done = function() {
+            return this.isSpeakRunning() && this.stopSpeak(), this.mSpeakRunningFlag = !1, this.mSpeakLanguage = zt, 
+            this.mSpeakVoice = '', this.mOnSpeakStartFunc = null, this.mOnSpeakStopFunc = null, 
+            t.prototype.done.call(this);
+        }, e.prototype.isActive = function() {
+            return !!this._isSynthesis() && t.prototype.isActive.call(this);
+        }, e.prototype.setActiveOn = function() {
+            return this._isSynthesis() ? t.prototype.setActiveOn.call(this) : -1;
+        }, e.prototype._onSpeakStart = function() {
+            if ('function' == typeof this.mOnSpeakStartFunc) try {
+                return this.mOnSpeakStartFunc();
+            } catch (t) {
+                return this._exception('_onSpeakStart', t), -1;
+            }
+            return 0;
+        }, e.prototype._onSpeakStop = function() {
+            if ('function' == typeof this.mOnSpeakStopFunc) try {
+                return this.mOnSpeakStopFunc();
+            } catch (t) {
+                return this._exception('_onSpeakStop', t), -1;
+            }
+            return 0;
+        }, Object.defineProperty(e.prototype, "onSpeakStart", {
+            set: function(t) {
+                this.mOnSpeakStartFunc = t;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(e.prototype, "onSpeakStop", {
+            set: function(t) {
+                this.mOnSpeakStopFunc = t;
+            },
+            enumerable: !0,
+            configurable: !0
+        }), e.prototype._detectSynthesis = function() {
+            return !1;
+        }, e.prototype._initSynthesis = function(t) {
+            return -1;
+        }, e.prototype._isSynthesis = function() {
+            return !1;
+        }, e.prototype._onSynthesisStart = function() {
+            return 0;
+        }, e.prototype._onSynthesisEnd = function() {
+            var t = 0;
+            return this.isSpeakRunning() && (this.mSpeakRunningFlag = !1, t = this._onSpeakStop()), 
+            t;
+        }, e.prototype._onSynthesisError = function(t) {
+            try {
+                var e = this._onError(t.error);
+                return this.isSpeakRunning() && (this.mSpeakRunningFlag = !1, 0 !== this._onSpeakStop() && (e = -1)), 
+                e;
+            } catch (t) {
+                return this._exception('_onSynthesisError', t), -1;
+            }
+        }, e.prototype._createSynthesis = function(t) {
+            return -1;
+        }, e.prototype._startSynthesis = function(t) {
+            return -1;
+        }, e.prototype._stopSynthesis = function() {
+            return -1;
+        }, e.prototype.setTTS = function(t) {
+            return 0;
+        }, e.prototype.getTTS = function() {
+            return this.getName();
+        }, e.prototype.getTTSList = function() {
+            return [ this.getName() ];
+        }, e.prototype.setLanguage = function(t) {
+            var e = 0;
+            switch (t) {
+              case 'de':
+                this.mSpeakLanguage = "de-DE";
+                break;
+
+              case 'en':
+                this.mSpeakLanguage = "en-US";
+                break;
+
+              default:
+                e = -1;
+            }
+            return e;
+        }, e.prototype.getLanguage = function() {
+            var t = '';
+            switch (this.mSpeakLanguage) {
+              case "de-DE":
+                t = 'de';
+                break;
+
+              case "en-US":
+                t = 'en';
+            }
+            return t;
+        }, e.prototype.getLanguageList = function() {
+            return [ 'de', 'en' ];
+        }, e.prototype._getTTSLanguage = function() {
+            return this.mSpeakLanguage;
+        }, e.prototype.setVoice = function(t) {
+            return this.mSpeakVoice = t, 0;
+        }, e.prototype.getVoice = function() {
+            return this.mSpeakVoice;
+        }, e.prototype.getVoiceList = function() {
+            return [];
+        }, e.prototype.isSpeakRunning = function() {
+            return this.mSpeakRunningFlag;
+        }, e.prototype.startSpeak = function(t) {
+            if (!this.isActive()) return this.isErrorOutput() && console.log('TTSPlugin.startSpeak: TTS ist nicht aktiv'), 
+            0;
+            if (!t) return this._error('startSpeak', 'kein text uebergeben'), -1;
+            if (this.isSpeakRunning()) return this._error('startSpeak', 'Sprachausgabe laeuft bereits'), 
+            -1;
+            this.mSpeakRunningFlag = !0;
+            try {
+                return 0 !== this._createSynthesis(t) ? (this.mSpeakRunningFlag = !1, -1) : 0 !== this._startSynthesis(t) ? (this.mSpeakRunningFlag = !1, 
+                -1) : this._onSpeakStart();
+            } catch (t) {
+                return this._exception('startSpeak', t), this.mSpeakRunningFlag = !1, -1;
+            }
+        }, e.prototype.getStartSpeakFunc = function() {
+            var t = this;
+            return function(e) {
+                return t.startSpeak(e);
+            };
+        }, e.prototype.stopSpeak = function() {
+            if (!this.isActive()) return this.isErrorOutput() && console.log('TTSPlugin.stopSpeak: TTS ist nicht aktiv'), 
+            0;
+            if (!this.isSpeakRunning()) return this.isErrorOutput() && console.log('TTSPlugin.stopSpeak: keine aktive Sprachausgabe'), 
+            0;
+            var t = 0;
+            try {
+                t = this._stopSynthesis();
+            } catch (e) {
+                this._exception('stopSpeak', e), t = -1;
+            }
+            return this.isSpeakRunning() && (this.mSpeakRunningFlag = !1, 0 !== this._onSpeakStop() && (t = -1)), 
+            t;
+        }, e.prototype.getStopSpeakFunc = function() {
+            var t = this;
+            return function() {
+                return t.stopSpeak();
+            };
+        }, e;
+    }(A), Zt = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || Ht, n) || this;
+            return o.synthesisFlag = !0, o.initSynthesisResult = 0, o.startSynthesisResult = 0, 
+            o.startSynthesisExceptionFlag = !1, o.startSynthesisExceptionText = 'TestException startSynthesis', 
+            o.stopSynthesisResult = 0, o.stopSynthesisExceptionFlag = !1, o.stopSynthesisExceptionText = 'TestException stopSynthesis', 
+            o.onStartFunc = function() {
                 return 0;
+            }, o.onEndFunc = function() {
+                return 0;
+            }, o.onErrorFunc = function() {
+                return 0;
+            }, o;
+        }
+        return u(e, t), e.prototype.getClass = function() {
+            return 'TTSMock';
+        }, e.prototype.isMock = function() {
+            return !0;
+        }, e.prototype.done = function() {
+            return this.synthesisFlag = !0, this.initSynthesisResult = 0, this.startSynthesisResult = 0, 
+            this.stopSynthesisResult = 0, this.startSynthesisExceptionFlag = !1, this.stopSynthesisExceptionFlag = !1, 
+            this.startSynthesisExceptionText = 'TestException startSynthesis', this.stopSynthesisExceptionText = 'TestException stopSynthesis', 
+            this.onStartFunc = function() {
+                return 0;
+            }, this.onEndFunc = function() {
+                return 0;
+            }, this.onErrorFunc = function() {
+                return 0;
+            }, t.prototype.done.call(this);
+        }, e.prototype._detectSynthesis = function() {
+            return this.synthesisFlag;
+        }, e.prototype._initSynthesis = function(t) {
+            return this._onInit(), this.initSynthesisResult;
+        }, e.prototype._isSynthesis = function() {
+            return this.synthesisFlag;
+        }, e.prototype._createSynthesis = function(t) {
+            return 0;
+        }, e.prototype._startSynthesis = function(t) {
+            if (this.startSynthesisExceptionFlag) throw new Error(this.startSynthesisExceptionText);
+            return this.onStartFunc(), this.onErrorFunc(), this.onEndFunc(), this.startSynthesisResult;
+        }, e.prototype._stopSynthesis = function() {
+            if (this.stopSynthesisExceptionFlag) throw new Error(this.stopSynthesisExceptionText);
+            return this.onErrorFunc(), this.onEndFunc(), this.stopSynthesisResult;
+        }, e;
+    }(Yt), Jt = function(t) {
+        function e(e, n, o) {
+            void 0 === o && (o = !0);
+            var i = t.call(this, n || Vt, o) || this;
+            return i.mSynthesis = null, i.mUtteranceClass = null, i.mUtterance = null, i.mSynthesisFactory = e, 
+            i.mSynthesisFactory._setErrorOutputFunc(i._getErrorOutputFunc()), i;
+        }
+        return u(e, t), e.prototype.getClass = function() {
+            return 'TTSHtml5';
+        }, e.prototype.done = function() {
+            if (this.isSpeakRunning() && this.mSynthesis) try {
+                this.mSynthesis.cancel();
             } catch (t) {
-                return e && console.log('Listen._init: Exception', t.message), -1;
+                this._exception('done', t);
             }
-        }, t.prototype.reset = function(t) {
-            return this.mComponent.reset(t);
-        }, t.prototype.getType = function() {
-            return this.mComponent.getType();
-        }, t.prototype.getName = function() {
-            return this.mComponent.getName();
-        }, t.prototype.getVersion = function() {
-            return this.mComponent.getVersion();
-        }, t.prototype.isActive = function() {
-            return this.mComponent.isActive();
-        }, t.prototype.setActiveOn = function() {
-            return this.mComponent.setActiveOn();
-        }, t.prototype.setActiveOff = function() {
-            return this.mComponent.setActiveOff();
-        }, t.prototype.isErrorOutput = function() {
-            return this.mComponent.isErrorOutput();
-        }, t.prototype.setErrorOutputOn = function() {
-            this.mComponent.setErrorOutputOn();
-        }, t.prototype.setErrorOutputOff = function() {
-            this.mComponent.setErrorOutputOff();
-        }, t.prototype.addListenStartEvent = function(t, e) {
-            return this.mComponent.addListenStartEvent(t, e);
-        }, t.prototype.addListenStopEvent = function(t, e) {
-            return this.mComponent.addListenStopEvent(t, e);
-        }, t.prototype.addListenResultEvent = function(t, e) {
-            return this.mComponent.addListenResultEvent(t, e);
-        }, t.prototype.addErrorEvent = function(t, e) {
-            return this.mComponent.addErrorEvent(t, e);
-        }, t.prototype.removeListenStartEvent = function(t) {
-            return this.mComponent.removeListenStartEvent(t);
-        }, t.prototype.removeListenStopEvent = function(t) {
-            return this.mComponent.removeListenStopEvent(t);
-        }, t.prototype.removeListenResultEvent = function(t) {
-            return this.mComponent.removeListenResultEvent(t);
-        }, t.prototype.removeErrorEvent = function(t) {
-            return this.mComponent.removeErrorEvent(t);
-        }, t.prototype.removeAllEvent = function(t) {
-            return this.mComponent.removeAllEvent(t);
-        }, t.prototype.setLanguage = function(t) {
-            return this.mComponent.setLanguage(t);
-        }, t.prototype.getLanguage = function() {
-            return this.mComponent.getLanguage();
-        }, t.prototype.isListenRunning = function() {
-            return this.mComponent.isListenRunning();
-        }, t.prototype.startListen = function() {
-            return this.mComponent.startListen();
-        }, t.prototype.stopListen = function() {
-            return this.mComponent.stopListen();
-        }, t.prototype.abortListen = function() {
-            return this.mComponent.abortListen();
-        }, t.prototype.test = function(t, e) {
-            return this.mComponent.test(t, e);
-        }, t;
-    }(), Tt = function() {
-        function t() {}
-        return t.create = function(t, e) {
+            return this.mSynthesis = null, this.mUtteranceClass = null, this.mUtterance = null, 
+            t.prototype.done.call(this);
+        }, e.prototype._setErrorOutput = function(e) {
+            this.mSynthesisFactory && this.mSynthesisFactory._setErrorOutput(e), t.prototype._setErrorOutput.call(this, e);
+        }, e.prototype.getVoiceList = function() {
+            if (!this.mSynthesis) return this._error('getVoiceList', 'keine SpeechSynthesis vorhanden'), 
+            [];
+            var t = this._getTTSLanguage();
+            if (!t) return this._error('getVoiceList', 'keine Sprache vorhanden'), [];
+            var e = [];
             try {
-                return new wt(e);
+                var n = this.mSynthesis.getVoices();
+                if (!Array.isArray(n)) return this._error('getVoiceList', 'keine Voice-Liste als Array vorhanden'), 
+                [];
+                for (var o = 0; o < n.length; o++) n[o].lang === t && e.push(n[o].name);
+                return e;
             } catch (t) {
-                return console.log('ListenFactory.create: Exception', t), null;
+                return this._exception('getVoiceList', t), [];
             }
-        }, t;
-    }(), It = 'DialogComponent', Mt = 'DialogProxy', Wt = 'assets/', Bt = 'speech.def', qt = !1, Ht = 'main', jt = 'root', Gt = 'FileReader', Kt = function(t) {
+        }, e.prototype._getTTSVoice = function(t) {
+            if (void 0 === t && (t = !0), this.mSynthesis) {
+                var e = this._getTTSLanguage();
+                if (e) {
+                    var n = this.getVoice();
+                    try {
+                        var o = this.mSynthesis.getVoices();
+                        if (!Array.isArray(o)) return void this._error('_getTTSVoice', 'keine Voice-Liste als Array vorhanden');
+                        if (n) for (var i = 0; i < o.length; i++) if (o[i].name === n) return o[i];
+                        var r = void 0, u = void 0;
+                        for (i = 0; i < o.length; i++) if (o[i].lang === e && (r || o[i].localService !== t || (r = o[i]), 
+                        o[i].default && (u = o[i], o[i].localService === t))) return u;
+                        return r || u;
+                    } catch (t) {
+                        return void this._exception('_getTTSVoice', t);
+                    }
+                } else this._error('_getTTSVoice', 'keine Sprache vorhanden');
+            } else this._error('_getTTSVoice', 'keine SpeechSynthesis vorhanden');
+        }, e.prototype._detectSynthesis = function() {
+            if (!this.mSynthesisFactory) return this._error('_detectSynthesis', 'keine SpeechSynthesis-Fabrik vorhanden'), 
+            !1;
+            try {
+                this.mSynthesis = this.mSynthesisFactory.getSpeechSynthesis(), this.mUtteranceClass = this.mSynthesisFactory.getSpeechSynthesisUtteranceClass();
+            } catch (t) {
+                return this._exception('_detectSynthesis', t), !1;
+            }
+            return null === this.mSynthesis ? (this._error('_detectSynthesis', 'Kein HTML5 SpeechSynthesis API vorhanden'), 
+            !1) : null !== this.mUtteranceClass || (this._error('_detectSynthesis', 'Kein HTML5 SpeechSynthesisUtterance API vorhanden'), 
+            !1);
+        }, e.prototype._initSynthesis = function(t) {
+            return this._onInit();
+        }, e.prototype._createSynthesis = function(t) {
+            var e = this;
+            try {
+                this.mUtterance = new this.mUtteranceClass(t), this.mUtterance.lang = this._getTTSLanguage(), 
+                this.mUtterance.voice = this._getTTSVoice();
+            } catch (t) {
+                return this._exception('_createSynthesis', t), -1;
+            }
+            return this.mUtterance.onstart = function() {
+                return e._onSynthesisStart();
+            }, this.mUtterance.onend = function() {
+                return e._onSynthesisEnd();
+            }, this.mUtterance.onerror = function(t) {
+                return e._onSynthesisError(t);
+            }, 0;
+        }, e.prototype._isSynthesis = function() {
+            return !!this.mSynthesis;
+        }, e.prototype._startSynthesis = function(t) {
+            return this.mSynthesis && this.mUtterance ? (this.mSynthesis.cancel(), this.mSynthesis.speak(this.mUtterance), 
+            0) : -1;
+        }, e.prototype._stopSynthesis = function() {
+            return this.mSynthesis ? (this.mSynthesis.cancel(), 0) : -1;
+        }, e;
+    }(Yt), Qt = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || jt, n) || this;
+            return o.mNuancePort = null, o;
+        }
+        return u(e, t), e.prototype.getClass = function() {
+            return 'TTSNuance';
+        }, e.prototype.done = function() {
+            return this.mNuancePort && (this.mNuancePort.removeAllEvent(jt), this.mNuancePort.done(), 
+            this.mNuancePort = null), t.prototype.done.call(this);
+        }, e.prototype._setErrorOutput = function(e) {
+            t.prototype._setErrorOutput.call(this, e), this.mNuancePort && (e ? this.mNuancePort.setErrorOutputOn() : this.mNuancePort.setErrorOutputOff());
+        }, e.prototype.getVoiceList = function() {
+            return 'de' === this.getLanguage() ? [ 'Anna-ML', 'Petra-ML', 'Markus', 'Yannick' ] : 'en' === this.getLanguage() ? [ 'Allison', 'Ava', 'Samantha', 'Susan', 'Zoe', 'Tom' ] : [];
+        }, e.prototype._detectSynthesis = function() {
+            return this.mNuancePort = Z.find("Nuance"), !!this.mNuancePort || (this._error('_detectSynthesis', 'kein Nuance-Port vorhanden'), 
+            !1);
+        }, e.prototype._initSynthesis = function(t) {
+            var e = this;
+            return this.mNuancePort ? (this.mNuancePort.addOpenEvent(jt, function(t) {
+                return e._onInit(), 0;
+            }), this.mNuancePort.addStartEvent(jt, function(t) {
+                return e._onSynthesisStart(), 0;
+            }), this.mNuancePort.addStopEvent(jt, function(t) {
+                return e._onSynthesisEnd(), 0;
+            }), this.mNuancePort.addErrorEvent(jt, function(t) {
+                return e._onError(t), 0;
+            }), 0 !== this.mNuancePort.init(t) ? (this._error('_initSynthesis', 'Nuance-Port nicht initialisiert'), 
+            -1) : 0 !== this.mNuancePort.open(t) ? (this._error('_initSynthesis', 'Nuance-Port nicht geoeffnet'), 
+            -1) : 0) : (this._error('_initSynthesis', 'kein Nuance-Port vorhanden'), -1);
+        }, e.prototype._isSynthesis = function() {
+            return !!this.mNuancePort && this.mNuancePort.isAction("TTS");
+        }, e.prototype._createSynthesis = function(t) {
+            return 0;
+        }, e.prototype._startSynthesis = function(t) {
+            return this.mNuancePort ? (console.log('TTSNuance._startSynthesis:', this._getTTSLanguage(), this.getVoice()), 
+            this.mNuancePort.start("TTS", {
+                text: t,
+                language: this._getTTSLanguage(),
+                voice: this.getVoice()
+            })) : -1;
+        }, e.prototype._stopSynthesis = function() {
+            return this.mNuancePort ? this.mNuancePort.stop("TTS") : -1;
+        }, e;
+    }(Yt), $t = function(t) {
+        function e(e, n, o) {
+            void 0 === o && (o = !0);
+            var i = t.call(this, n || Xt, o) || this;
+            return i.mTTSFactory = null, i.mTTSHtml5 = null, i.mTTSNuance = null, i.mCurrentTTS = null, 
+            i.mTTSFactory = e, i._insertAllTTS(), i;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "TTS";
+        }, e.prototype.getClass = function() {
+            return 'TTSGroup';
+        }, e.prototype._insertAllTTS = function() {
+            this.mTTSFactory ? (this.insertPlugin(Vt, this.mTTSFactory.create(Vt, !1)), this.insertPlugin(jt, this.mTTSFactory.create(jt, !1))) : this._error('_insertAllTTS', 'keine TTS-Fabrik vorhanden');
+        }, e.prototype._initTTSHtml5 = function(t) {
+            if (this.mTTSHtml5 = this.findPlugin(Vt), this.mTTSHtml5) {
+                if (this.mTTSHtml5.init(t), this.mTTSHtml5.isActive()) return void (this.isErrorOutput() && console.log('TTSGroup._initTTSHtml5: TTS eingefuegt'));
+                this.removePlugin(Vt), this.mTTSHtml5.done(), this.mTTSHtml5 = null;
+            }
+            this.isErrorOutput() && console.log('TTSGroup._initTTSHtml5: TTS nicht eingefuegt');
+        }, e.prototype._initTTSNuance = function(t) {
+            if (this.mTTSNuance = this.findPlugin(jt), this.mTTSNuance) {
+                if (this.mTTSNuance.init(t), this.mTTSNuance.isActive()) return void (this.isErrorOutput() && console.log('TTSGroup._initTTSNuance: TTS eingefuegt'));
+                this.removePlugin(jt), this.mTTSNuance.done(), this.mTTSNuance = null;
+            }
+            this.isErrorOutput() && console.log('TTSGroup._initTTSNuance: TTS nicht eingefuegt');
+        }, e.prototype.init = function(e) {
+            if (this.isInit()) return this._error('init', 'init doppelt aufgerufen'), -1;
+            if (!this.mTTSFactory) return this._error('init', 'keine TTS-Fabrik vorhanden'), 
+            -1;
+            var n = e || {};
+            return this.isErrorOutput() || (n.errorOutputFlag = !1), this._initTTSHtml5(n), 
+            this._initTTSNuance(n), 0 !== t.prototype.init.call(this, e) ? -1 : (this.mCurrentTTS = this.firstPlugin(), 
+            this.mCurrentTTS || (this.isErrorOutput() && console.log('TTSGroup.init: keine TTS verfuegbar'), 
+            this.setActiveOff()), e && e.tts && this.setTTS(e.tts), 0);
+        }, e.prototype.done = function() {
+            return this.mTTSHtml5 = null, this.mTTSNuance = null, this.mCurrentTTS = null, t.prototype.done.call(this);
+        }, e.prototype.isActive = function() {
+            return !!this.mCurrentTTS && (!!this.mCurrentTTS.isActive() && t.prototype.isActive.call(this));
+        }, e.prototype.setActiveOn = function() {
+            return this.mCurrentTTS && this.mCurrentTTS.isActive() ? t.prototype.setActiveOn.call(this) : -1;
+        }, Object.defineProperty(e.prototype, "onInit", {
+            set: function(t) {
+                for (var e = this.firstPlugin(); e; ) e.onInit = t, e = this.nextPlugin();
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(e.prototype, "onSpeakStart", {
+            set: function(t) {
+                for (var e = this.firstPlugin(); e; ) e.onSpeakStart = t, e = this.nextPlugin();
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(e.prototype, "onSpeakStop", {
+            set: function(t) {
+                for (var e = this.firstPlugin(); e; ) e.onSpeakStop = t, e = this.nextPlugin();
+            },
+            enumerable: !0,
+            configurable: !0
+        }), Object.defineProperty(e.prototype, "onError", {
+            set: function(t) {
+                this.mOnErrorFunc = t;
+                for (var e = this.firstPlugin(); e; ) e.onError = t, e = this.nextPlugin();
+            },
+            enumerable: !0,
+            configurable: !0
+        }), e.prototype.setTTS = function(t) {
+            var e = null;
+            switch (t) {
+              case Vt:
+                e = this.mTTSHtml5;
+                break;
+
+              case jt:
+                e = this.mTTSNuance;
+            }
+            return e ? (this.mCurrentTTS = e, 0) : (this._error('setTTS', 'Keine TTS vorhanden'), 
+            -1);
+        }, e.prototype.getTTS = function() {
+            return this.mCurrentTTS ? this.mCurrentTTS.getName() : '';
+        }, e.prototype.getTTSList = function() {
+            return this.getPluginNameList();
+        }, e.prototype.setLanguage = function(t) {
+            for (var e = 0, n = this.firstPlugin(); n; ) 0 !== n.setLanguage(t) && (e = -1), 
+            n = this.nextPlugin();
+            return e;
+        }, e.prototype.getLanguage = function() {
+            return this.mCurrentTTS ? this.mCurrentTTS.getLanguage() : '';
+        }, e.prototype.getLanguageList = function() {
+            return this.mCurrentTTS ? this.mCurrentTTS.getLanguageList() : [];
+        }, e.prototype.setVoice = function(t) {
+            return this.mCurrentTTS ? this.mCurrentTTS.setVoice(t) : -1;
+        }, e.prototype.getVoice = function() {
+            return this.mCurrentTTS ? this.mCurrentTTS.getVoice() : '';
+        }, e.prototype.getVoiceList = function() {
+            return this.mCurrentTTS ? this.mCurrentTTS.getVoiceList() : [];
+        }, e.prototype.isSpeakRunning = function() {
+            return !!this.mCurrentTTS && this.mCurrentTTS.isSpeakRunning();
+        }, e.prototype.startSpeak = function(t) {
+            return this.isActive() ? this.mCurrentTTS.startSpeak(t) : (this.isErrorOutput() && console.log('TTSGroup.startSpeak: TTS ist nicht aktiv'), 
+            0);
+        }, e.prototype.getStartSpeakFunc = function() {
+            var t = this;
+            return function(e) {
+                return t.startSpeak(e);
+            };
+        }, e.prototype.stopSpeak = function() {
+            return this.isActive() ? this.mCurrentTTS.stopSpeak() : (this.isErrorOutput() && console.log('TTSGroup.startSpeak: TTS ist nicht aktiv'), 
+            0);
+        }, e.prototype.getStopSpeakFunc = function() {
+            var t = this;
+            return function() {
+                return t.stopSpeak();
+            };
+        }, e;
+    }(Ft), te = function(t) {
+        function e() {
+            return t.call(this, 'TTSFactory') || this;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "TTS";
+        }, e.prototype.getName = function() {
+            return "TTSFactory";
+        }, e.prototype._newPlugin = function(t, e) {
+            var n = null;
+            switch (t) {
+              case Xt:
+                n = new $t(this, t, e);
+                break;
+
+              case qt:
+              case Vt:
+                n = new Jt(new Wt(), t, e);
+                break;
+
+              case jt:
+                n = new Qt(t, e);
+                break;
+
+              case Ht:
+                n = new Zt(Ht, e);
+                break;
+
+              default:
+                this._error('_newPlugin', 'keine TTS vorhanden');
+            }
+            return n;
+        }, e.prototype.create = function(t, e) {
+            void 0 === e && (e = !0);
+            var n = t || qt;
+            try {
+                return this._newPlugin(n, e);
+            } catch (t) {
+                return this._exception('create', t), null;
+            }
+        }, e;
+    }(F), ee = function(t) {
+        function e(e) {
+            void 0 === e && (e = !0);
+            var n = t.call(this, C, e) || this;
+            return n.mTTSPlugin = null, n.mAudioPlayer = null, n.mTTSActiveFlag = !1, n.mAudioPlayerActiveFlag = !1, 
+            n.mTTSFeatureFlag = !1, n.mAudioFeatureFlag = !1, n.mAudioFilePath = O, n.mAudioFileName = '', 
+            n.mAudioFlag = b, n.mSpeakText = '', n.mSpeakStopSelector = '', n;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "Speak";
+        }, e.prototype.getClass = function() {
+            return 'SpeakComponent';
+        }, e.prototype.getVersion = function() {
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
+        }, e.prototype.getServerVersion = function() {
+            return '';
+        }, e.prototype._setOption = function(e) {
+            return e ? ('string' == typeof e.audioFilePath && (this.mAudioFilePath = e.audioFilePath), 
+            'boolean' == typeof e.audioFlag && (!0 === e.audioFlag ? this.mAudioFlag = !0 : this.mAudioFlag = !1), 
+            e.speakLanguage && this.setLanguage(e.speakLanguage), t.prototype._setOption.call(this, e)) : -1;
+        }, e.prototype._initAllPlugin = function() {
+            return this.mTTSPlugin = this.findPlugin(Ut), this.mAudioPlayer = this.findPlugin(f), 
+            this.mTTSPlugin && (this.mTTSActiveFlag = this.mTTSPlugin.isActive()), this.mAudioPlayer && (this.mAudioPlayerActiveFlag = this.mAudioPlayer.isActive(), 
+            this.mAudioPlayerActiveFlag || (this.mAudioFlag = !1)), 0;
+        }, e.prototype.init = function(e) {
+            return t.prototype.init.call(this, e);
+        }, e.prototype._doneAllPlugin = function() {
+            this.mTTSPlugin = null, this.mAudioPlayer = null;
+        }, e.prototype._doneAllAttribute = function() {
+            this.mTTSActiveFlag = !1, this.mAudioPlayerActiveFlag = !1, this.mTTSFeatureFlag = !1, 
+            this.mAudioFeatureFlag = !1, this.mAudioFilePath = O, this.mAudioFileName = '', 
+            this.mAudioFlag = b, this.mSpeakText = '', this.mSpeakStopSelector = '';
+        }, e.prototype._resetAllDefault = function() {
+            this.setAudioFormat(y), this.setLanguage("de"), this.mSpeakStopSelector = '', this.mAudioFilePath = O, 
+            this.mAudioFileName = '', this.mAudioFlag = b, this.mSpeakText = '';
+        }, e.prototype.reset = function(e) {
+            return t.prototype.reset.call(this, e);
+        }, e.prototype.isActive = function() {
+            return !(!this.mTTSActiveFlag && !this.mAudioPlayerActiveFlag) && t.prototype.isActive.call(this);
+        }, e.prototype.setActiveOn = function() {
+            return this.mTTSActiveFlag || this.mAudioPlayerActiveFlag ? t.prototype.setActiveOn.call(this) : -1;
+        }, e.prototype.setFeatureList = function(t) {
+            return t.features ? (t.features.TTS && 'boolean' == typeof t.features.TTS && (this.mTTSFeatureFlag = t.features.TTS), 
+            t.features.AUDIO && 'boolean' == typeof t.features.AUDIO && (this.mAudioFeatureFlag = t.features.AUDIO), 
+            0) : (this._error('setFeatureList', 'keine FeatureInfos uebergeben'), -1);
+        }, e.prototype.isAudio = function() {
+            return !!this.mAudioPlayerActiveFlag && this.mAudioFlag;
+        }, e.prototype.setAudioOn = function() {
+            return this.mAudioPlayerActiveFlag ? (this.mAudioFlag = !0, 0) : -1;
+        }, e.prototype.setAudioOff = function() {
+            return this.mAudioFlag = !1, 0;
+        }, e.prototype.getAudioContext = function() {
+            return this.mAudioPlayer ? this.mAudioPlayer.getAudioContext() : null;
+        }, e.prototype.setAudioFormat = function(t) {
+            return this.mAudioPlayer ? this.mAudioPlayer.setAudioFormat(t) : -1;
+        }, e.prototype.getAudioFormat = function() {
+            return this.mAudioPlayer ? this.mAudioPlayer.getAudioFormat() : '';
+        }, e.prototype.setAudioFilePath = function(t) {
+            return this.mAudioFilePath = t, 0;
+        }, e.prototype.getAudioFilePath = function() {
+            return this.mAudioFilePath;
+        }, e.prototype.setAudioFileName = function(t) {
+            return this.mAudioFileName = t, 0;
+        }, e.prototype.getAudioFileName = function() {
+            return this.mAudioFileName;
+        }, e.prototype.setTTS = function(t) {
+            return this.mTTSPlugin ? this.mTTSPlugin.setTTS(t) : -1;
+        }, e.prototype.getTTS = function() {
+            return this.mTTSPlugin ? this.mTTSPlugin.getTTS() : '';
+        }, e.prototype.getTTSList = function() {
+            return this.mTTSPlugin ? this.mTTSPlugin.getTTSList() : [];
+        }, e.prototype.setLanguage = function(t) {
+            return this.mTTSPlugin ? this.mTTSPlugin.setLanguage(t) : -1;
+        }, e.prototype.getLanguage = function() {
+            return this.mTTSPlugin ? this.mTTSPlugin.getLanguage() : "";
+        }, e.prototype.getLanguageList = function() {
+            return this.mTTSPlugin ? this.mTTSPlugin.getLanguageList() : [];
+        }, e.prototype.setVoice = function(t) {
+            return this.mTTSPlugin ? this.mTTSPlugin.setVoice(t) : -1;
+        }, e.prototype.getVoice = function() {
+            return this.mTTSPlugin ? this.mTTSPlugin.getVoice() : "";
+        }, e.prototype.getVoiceList = function() {
+            return this.mTTSPlugin ? this.mTTSPlugin.getVoiceList() : [];
+        }, e.prototype.setSpeakText = function(t) {
+            return this.mSpeakText = t, 0;
+        }, e.prototype.getSpeakText = function() {
+            return this.mSpeakText;
+        }, e.prototype.isRunning = function() {
+            return !!this.isActive() && (this.mAudioFlag ? !!this.mAudioPlayer && (this.mAudioPlayer.isPlay() || this.mAudioPlayer.isLoad()) : !!this.mTTSPlugin && this.mTTSPlugin.isSpeakRunning());
+        }, e.prototype.start = function() {
+            return this.isActive() ? this.isRunning() ? (this._error('start', 'Sprachausgabe laeuft bereits'), 
+            -1) : this.mAudioFlag ? this._startSpeakAudio() : this._startSpeakTTS() : 0;
+        }, e.prototype._startSpeakAudio = function() {
+            return this.mSpeakStopSelector = '', this.mAudioFeatureFlag ? 0 : this.mAudioPlayer ? this.mAudioFileName ? (this.mSpeakStopSelector = "audio", 
+            this.mAudioPlayer.play(this.mAudioFilePath, this.mAudioFileName)) : (this._error('_startSpeakAudio', 'kein Audiodateiname fuer die Sprachausgabe vorhanden'), 
+            -1) : (this._error('_startSpeakAudio', 'kein AudioPlayer vorhanden'), -1);
+        }, e.prototype._startSpeakTTS = function() {
+            return this.mSpeakStopSelector = '', this.mTTSFeatureFlag ? 0 : this.mTTSPlugin ? this.mSpeakText ? (this.mSpeakStopSelector = "tts", 
+            this.mTTSPlugin.startSpeak(this.mSpeakText)) : (this._error('_startSpeakTTS', 'kein Text fuer die Sprachausgabe vorhanden'), 
+            -1) : (this._error('_startSpeakTTS', 'kein TTSPlugin vorhanden'), -1);
+        }, e.prototype.stop = function() {
+            return this.isRunning() ? this.mSpeakStopSelector ? "audio" === this.mSpeakStopSelector ? (this.mSpeakStopSelector = '', 
+            this.mAudioPlayer ? this.mAudioPlayer.stop() : (this._error('stop', 'kein AudioPlayer vorhanden'), 
+            -1)) : "tts" === this.mSpeakStopSelector ? (this.mSpeakStopSelector = '', this.mTTSPlugin ? this.mTTSPlugin.stopSpeak() : (this._error('stop', 'kein TTSPlugin vorhanden'), 
+            -1)) : (this._error('stop', 'kein gueltiger StopSelector vorhanden'), -1) : (this._error('stop', 'kein StopSelector vorhanden'), 
+            -1) : (this.mSpeakStopSelector = '', 0);
+        }, e;
+    }(Dt), ne = function(t) {
+        function e() {
+            return t.call(this, 'SpeakComponentFactory') || this;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "Speak";
+        }, e.prototype.getName = function() {
+            return "SpeakComponentFactory";
+        }, e.prototype._newPlugin = function(t, e) {
+            return new ee(e);
+        }, e.prototype.create = function(t, e) {
+            void 0 === e && (e = !0);
+            var n = t || C;
+            try {
+                return this._newPlugin(n, e);
+            } catch (t) {
+                return this._exception('create', t), null;
+            }
+        }, e;
+    }(F), oe = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || 'SpeakComponentBuilder', n) || this;
+            return o.mSpeakComponent = null, o;
+        }
+        return u(e, t), e.prototype.getType = function() {
+            return "Speak";
+        }, e.prototype.getClass = function() {
+            return 'SpeakComponentBuilder';
+        }, e.prototype.getName = function() {
+            return "SpeakComponentBuilder";
+        }, e.prototype.build = function() {
+            if (this.mSpeakComponent) return this.mSpeakComponent;
+            try {
+                var t = this._buildComponent(), e = this._getPlugin(Ut, "TTSFactory", te), n = this._getPlugin(f, "AudioPlayerFactory", L);
+                return 0 !== this._binder(t, e, n) ? (this._error('build', 'Komponenten nicht verbunden'), 
+                null) : t;
+            } catch (t) {
+                return this._exception('build', t), null;
+            }
+        }, e.prototype._buildComponent = function() {
+            return this.mSpeakComponent || (this.mSpeakComponent = this._getPlugin(C, "SpeakComponentFactory", ne)), 
+            this.mSpeakComponent;
+        }, e.prototype._binder = function(t, e, n) {
+            return t ? e ? n ? 0 !== t.insertPlugin(e.getName(), e) ? (this._error('_binder', 'TTS-Plugin wurde nicht eingefuegt'), 
+            -1) : 0 !== t.insertPlugin(n.getName(), n) ? (this._error('_binder', 'AudioPlayer-Plugin wurde nicht eingefuegt'), 
+            -1) : (e.onInit = t.onInit, e.onSpeakStart = t.onStart, e.onSpeakStop = t.onStop, 
+            e.onError = t.onError, n.onAudioStart = t.onStart, n.onAudioStop = t.onStop, n.onError = t.onError, 
+            0) : (this._error('_binder', 'Kein AudioPlayer-Plugin vorhanden'), -1) : (this._error('_binder', 'Kein TTS-Plugin vorhanden'), 
+            -1) : (this._error('_binder', 'Keine Speak-Komponente vorhanden'), -1);
+        }, e;
+    }(Q), ie = 'FileReader', re = function(t) {
         function e() {
             return t.call(this, 'XMLHttpRequestFactory') || this;
         }
-        return s(e, t), e.prototype.getXMLHttpRequestClass = function() {
+        return u(e, t), e.prototype.getXMLHttpRequestClass = function() {
             try {
                 return XMLHttpRequest || null;
             } catch (t) {
@@ -2780,14 +3366,14 @@
                 return this._exception('createXMLHttpRequest', t), null;
             }
         }, e;
-    }(r), Xt = function(t) {
+    }(p), ue = function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
-            var o = t.call(this, Gt, n) || this;
+            var o = t.call(this, ie, n) || this;
             return o.mXMLHttpRequest = null, o.mRequest = null, o.mOnReadFunc = null, o.mXMLHttpRequestFactory = e, 
             o._setErrorClassName('FileReader'), o;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return 'FileReader';
         }, e.prototype._detectXMLHttpRequest = function() {
             if (!this.mXMLHttpRequestFactory) return this._error('_detectXMLHttpRequest', 'keine File-Fabrik vorhanden'), 
@@ -2850,24 +3436,24 @@
             enumerable: !0,
             configurable: !0
         }), e;
-    }(S), Ut = function(t) {
+    }(A), se = function(t) {
         function e() {
             return t.call(this, 'FileReaderFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getName = function() {
             return "FileReaderFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new Xt(new Kt(), e);
+            return new ue(new re(), e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || Gt;
+            var n = t || ie;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), Vt = 'StorePlugin', zt = function() {
+    }(F), ae = 'StorePlugin', pe = function() {
         function t(t, e, n, o, i) {
             this.mNodeType = '', this.mStateId = 0, this.mParentId = 0, this.mNodeId = 0, this.mNextId = 0, 
             this.mName = '', this.mObjectType = '', this.mObjectName = '', this.mText = '', 
@@ -2909,7 +3495,7 @@
         }, t.prototype.getProperty = function() {
             return this.mProperty;
         }, t;
-    }(), Yt = function() {
+    }(), ce = function() {
         function t(t, e, n) {
             this.mDialogName = '', this.mStateName = '', this.mStateId = 0, this.mNodeList = new Map(), 
             this.mNodeKeys = null, this.mDialogName = t, this.mStateName = e, this.mStateId = n;
@@ -2921,7 +3507,7 @@
         }, t.prototype.getId = function() {
             return this.mStateId;
         }, t.prototype.newDialogNode = function(t, e, n, o) {
-            var i = new zt(t, e, this.mStateId, n, o);
+            var i = new pe(t, e, this.mStateId, n, o);
             return this.mNodeList.set(i.getNodeId(), i), i;
         }, t.prototype.getDialogNode = function(t) {
             return this.mNodeList.get(t);
@@ -2934,32 +3520,32 @@
             var t = this.mNodeKeys.next();
             return !t.value || t.done ? -1 : t.value;
         }, t;
-    }(), Jt = function() {
+    }(), le = function() {
         function t(t) {
             this.mDialogName = '', this.mDialogStateList = new Map(), this.mDialogName = t;
         }
         return t.prototype.getName = function() {
             return this.mDialogName;
         }, t.prototype.newDialogState = function(t, e) {
-            var n = new Yt(this.mDialogName, t, e);
+            var n = new ce(this.mDialogName, t, e);
             return this.mDialogStateList.set(t, n), n;
         }, t.prototype.getDialogState = function(t) {
             return this.mDialogStateList.get(t);
         }, t;
-    }(), Qt = function(t) {
+    }(), he = function(t) {
         function e(e) {
             void 0 === e && (e = !0);
-            var n = t.call(this, Vt, e) || this;
+            var n = t.call(this, ae, e) || this;
             return n.mDialogList = new Map(), n._setErrorClassName('StorePlugin'), n;
         }
-        return s(e, t), e.prototype.init = function(e) {
+        return u(e, t), e.prototype.init = function(e) {
             return t.prototype.init.call(this, e);
         }, e.prototype.done = function() {
             return this.mDialogList.clear(), t.prototype.done.call(this);
         }, e.prototype.clear = function() {
             this.mDialogList.clear();
         }, e.prototype.newDialog = function(t) {
-            var e = new Jt(t);
+            var e = new le(t);
             return this.mDialogList.set(t, e), e;
         }, e.prototype.newDialogState = function(t, e, n) {
             var o = this.getDialog(t);
@@ -2987,31 +3573,31 @@
                 return t.getDialogState(e, n);
             };
         }, e;
-    }(S), Zt = function(t) {
+    }(A), me = function(t) {
         function e() {
             return t.call(this, 'StoreFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getName = function() {
             return "StoreFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new Qt(e);
+            return new he(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || Vt;
+            var n = t || ae;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), $t = 'ParserPlugin', te = function(t) {
+    }(F), ge = 'ParserPlugin', fe = function(t) {
         function e(e) {
             void 0 === e && (e = !0);
-            var n = t.call(this, $t, e) || this;
+            var n = t.call(this, ge, e) || this;
             return n.mOnParserEndFunc = null, n.mNewDialogFunc = null, n.mNewDialogStateFunc = null, 
             n._setErrorClassName('ParserPlugin'), n;
         }
-        return s(e, t), e.prototype.init = function(e) {
+        return u(e, t), e.prototype.init = function(e) {
             return t.prototype.init.call(this, e);
         }, e.prototype.done = function() {
             return this.mOnParserEndFunc = null, this.mNewDialogFunc = null, this.mNewDialogStateFunc = null, 
@@ -3043,11 +3629,11 @@
         }, e.prototype.parseSpeechDefData = function(t) {
             if (!t) return this._error('parseSpeechDefData', 'keine Def-Daten uebergeben'), 
             -1;
-            var e = t.split('\n'), n = '', o = '', i = null, r = null, u = 0, s = 0, a = 0, p = [], c = '', l = '', h = 0, m = 0, g = '', f = '', y = '', d = '', S = 0, v = 0, E = 0, _ = '', D = !1;
+            var e = t.split('\n'), n = '', o = '', i = null, r = null, u = 0, s = 0, a = 0, p = [], c = '', l = '', h = 0, m = 0, g = '', f = '', y = '', d = '', S = 0, v = 0, _ = 0, E = '', A = !1;
             try {
                 for (var F = 0; F < e.length; ++F) if (c = e[F].trim(), l = '', F < e.length - 1 && (l = e[F + 1].trim()), 
                 c && 0 !== (v = c.indexOf('#'))) {
-                    switch (-1 === (v = c.indexOf(' ')) && (v = c.length), n = c.substr(0, v), 'GROUPEND' === l && (D = !0, 
+                    switch (-1 === (v = c.indexOf(' ')) && (v = c.length), n = c.substr(0, v), 'GROUPEND' === l && (A = !0, 
                     l = '', F < e.length - 2 && (l = e[F + 2].trim())), p = (c = c.substr(v + 1, c.length)).split(','), 
                     n) {
                       case 'DIALOG':
@@ -3059,7 +3645,7 @@
                         break;
 
                       case 'GROUP':
-                        h = ++s, _ = p[0].trim(), m = h + 1, l || (m = 0), E = h, (r = i.newDialogNode("group", h, 0, m)).setProperty(_);
+                        h = ++s, E = p[0].trim(), m = h + 1, l || (m = 0), _ = h, (r = i.newDialogNode("group", h, 0, m)).setProperty(E);
                         break;
 
                       case 'GROUPEND':
@@ -3067,20 +3653,20 @@
 
                       case 'ACTION':
                         h = ++s, g = p[0].trim(), f = p[1].trim(), y = p[2].trim(), m = h + 1, l || (m = 0), 
-                        (r = i.newDialogNode("action", h, E, m)).setName(g), r.setObjectType(f), r.setObjectName(y), 
-                        r.setProperty(_);
+                        (r = i.newDialogNode("action", h, _, m)).setName(g), r.setObjectType(f), r.setObjectName(y), 
+                        r.setProperty(E);
                         break;
 
                       case 'SPEAK':
                         h = ++s, S = 1e3 * parseInt(p[0].trim(), 10), d = p[1].trim();
-                        for (var A = 2; A < p.length; A++) d += ',' + p[A].trim();
-                        m = h + 1, l || (m = 0), (r = i.newDialogNode("speak", h, E, m)).setTimeout(S), 
-                        r.setText(d), r.setProperty(_);
+                        for (var D = 2; D < p.length; D++) d += ',' + p[D].trim();
+                        m = h + 1, l || (m = 0), (r = i.newDialogNode("speak", h, _, m)).setTimeout(S), 
+                        r.setText(d), r.setProperty(E);
                         break;
 
                       case 'WAIT':
-                        h = ++s, S = 1e3 * parseInt(p[0].trim(), 10), m = h + 1, l || (m = 0), (r = i.newDialogNode("wait", h, E, m)).setTimeout(S), 
-                        r.setProperty(_);
+                        h = ++s, S = 1e3 * parseInt(p[0].trim(), 10), m = h + 1, l || (m = 0), (r = i.newDialogNode("wait", h, _, m)).setTimeout(S), 
+                        r.setProperty(E);
                         break;
 
                       case '':
@@ -3089,7 +3675,7 @@
                       default:
                         return this._error('parseSpeechDefData', 'ParserFehler'), -1;
                     }
-                    D && (E = 0, _ = '', D = !1);
+                    A && (_ = 0, E = '', A = !1);
                 }
                 return this._onParserEnd();
             } catch (t) {
@@ -3110,45 +3696,45 @@
         }, e.prototype.setNewDialogStateFunc = function(t) {
             return this.mNewDialogStateFunc = t, 0;
         }, e;
-    }(S), ee = function(t) {
+    }(A), ye = function(t) {
         function e() {
             return t.call(this, 'ParserFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getName = function() {
             return "ParserFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new te(e);
+            return new fe(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || $t;
+            var n = t || ge;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), ne = 'InterpreterPlugin', oe = (function(t) {
+    }(F), de = 'InterpreterPlugin', Se = (function(t) {
         function e(e) {
             return t.call(this, e) || this;
         }
-        s(e, t), e.prototype.cancel = function() {
+        u(e, t), e.prototype.cancel = function() {
             this.cancelMethod && this.cancelMethod();
         };
     }(Promise), function(t) {
         function e(e) {
             void 0 === e && (e = !0);
-            var n = t.call(this, ne, e) || this;
-            return n.mDialogName = Ht, n.mStateName = jt, n.mStateContext = null, n.mNodePromise = null, 
+            var n = t.call(this, de, e) || this;
+            return n.mDialogName = H, n.mStateName = V, n.mStateContext = null, n.mNodePromise = null, 
             n.mDialogRunFlag = !1, n.mSpeakRunFlag = !1, n.mGroupId = 0, n.mGroupProperty = '', 
             n.mGroupActionFlag = !1, n.mNoWaitNodeFlag = !1, n.mGetDialogStateFunc = null, n.mDialogSetFunc = null, 
             n.mDialogStartFunc = null, n.mDialogStopFunc = null, n.mDialogStateSetFunc = null, 
             n.mDialogActionFunc = null, n.mDialogSpeakFunc = null, n.mDialogSpeakStartFunc = null, 
             n.mDialogSpeakStopFunc = null, n._setErrorClassName('InterpreterPlugin'), n;
         }
-        return s(e, t), e.prototype.init = function(e) {
+        return u(e, t), e.prototype.init = function(e) {
             return t.prototype.init.call(this, e);
         }, e.prototype.done = function() {
-            return this.mDialogName = Ht, this.mStateName = jt, this.mStateContext = null, this.mNodePromise = null, 
+            return this.mDialogName = H, this.mStateName = V, this.mStateContext = null, this.mNodePromise = null, 
             this.mDialogRunFlag = !1, this.mSpeakRunFlag = !1, this.mGroupId = 0, this.mGroupProperty = '', 
             this.mGroupActionFlag = !1, this.mNoWaitNodeFlag = !1, this.mGetDialogStateFunc = null, 
             this.mDialogSetFunc = null, this.mDialogStartFunc = null, this.mDialogStopFunc = null, 
@@ -3185,7 +3771,7 @@
         }, e.prototype._onDialogAction = function(t) {
             if ('function' == typeof this.mDialogActionFunc) try {
                 var e = {
-                    event: H,
+                    event: dt,
                     state: this.mStateName,
                     action: t.getName(),
                     type: t.getObjectType(),
@@ -3199,7 +3785,7 @@
         }, e.prototype._onDialogSpeak = function(t) {
             if ('function' == typeof this.mDialogSpeakFunc) try {
                 var e = {
-                    event: G,
+                    event: vt,
                     state: this.mStateName,
                     id: t.getNodeId().toString(),
                     text: t.getText(),
@@ -3322,7 +3908,7 @@
             var t = this.mSpeakRunFlag;
             return this.mSpeakRunFlag = !1, t ? this._onDialogSpeakStop() : 0;
         }, e.prototype._getWaitNode = function() {
-            return new zt("wait", 0, 0, 0, 0);
+            return new pe("wait", 0, 0, 0, 0);
         }, e.prototype._setNodePromise = function(t) {
             this.mNodePromise = t;
         }, e.prototype._clearNodePromise = function() {
@@ -3340,7 +3926,7 @@
         }, e.prototype._runState = function(t) {
             return e = this, n = void 0, i = function() {
                 var e, n, o, i, r;
-                return a(this, function(u) {
+                return s(this, function(u) {
                     switch (u.label) {
                       case 0:
                         if (!(e = t.getFirstDialogNodeId())) return this._error('runState', 'kein Knoten vorhanden'), 
@@ -3462,31 +4048,31 @@
         }, e.prototype._runWait = function(t) {}, e.prototype.setGetDialogStateFunc = function(t) {
             return this.mGetDialogStateFunc = t, 0;
         }, e;
-    }(S)), ie = function(t) {
+    }(A)), ve = function(t) {
         function e() {
             return t.call(this, 'InterpreterFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getName = function() {
             return "InterpreterFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new oe(e);
+            return new Se(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || ne;
+            var n = t || de;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), re = function(t) {
+    }(F), _e = function(t) {
         function e() {
             var e = t.call(this, 'DialogContext') || this;
             return e.mContext = {
                 property: {}
             }, e;
         }
-        return s(e, t), e.prototype.clear = function() {
+        return u(e, t), e.prototype.clear = function() {
             this.mContext = {
                 property: {}
             };
@@ -3518,55 +4104,116 @@
                 return this._exception('remove', t), -1;
             }
         }, e;
-    }(r), ue = function(t) {
+    }(p), Ee = function(t) {
+        function e(e) {
+            void 0 === e && (e = !0);
+            var n = t.call(this, M, e) || this;
+            return n.mStore = null, n.mInterpreter = null, n._setErrorClassName('DialogComponent'), 
+            n;
+        }
+        return u(e, t), e.prototype.init = function(e) {
+            return this.isInit() ? (this.isErrorOutput() && console.log('DialogComponent.init: bereits initialisiert'), 
+            0) : (this.mStore = this.findPlugin(ae), this.mStore ? (this.mInterpreter = this.findPlugin(de), 
+            this.mInterpreter ? t.prototype.init.call(this, e) : -1) : -1);
+        }, e.prototype.done = function() {
+            return this.mInterpreter && (this.stop(), this.mInterpreter = null), t.prototype.done.call(this);
+        }, e.prototype.clearDialog = function() {
+            try {
+                return this.mStore.clear(), 0;
+            } catch (t) {
+                return this._exception('clearDialog', t), -1;
+            }
+        }, e.prototype.setDialog = function(t) {
+            try {
+                return this.mInterpreter.setDialog(t);
+            } catch (t) {
+                return this._exception('setDialog', t), -1;
+            }
+        }, e.prototype.getDialog = function() {
+            try {
+                return this.mInterpreter.getDialog();
+            } catch (t) {
+                return this._exception('getDialog', t), '';
+            }
+        }, e.prototype.isRunning = function() {
+            return !!this.mInterpreter && this.mInterpreter.isDialogRunning();
+        }, e.prototype.start = function() {
+            return this.mInterpreter ? (t.prototype.start.call(this), this.mInterpreter.startDialog()) : -1;
+        }, e.prototype.stop = function() {
+            return this.mInterpreter ? (t.prototype.stop.call(this), this.mInterpreter.stopDialog()) : -1;
+        }, e.prototype.setDialogState = function(t, e) {
+            try {
+                return this.mInterpreter.setState(t, e);
+            } catch (t) {
+                return this._exception('setDialogState', t), -1;
+            }
+        }, e.prototype.getDialogState = function() {
+            try {
+                return this.mInterpreter.getState();
+            } catch (t) {
+                return this._exception('getDialogState', t), '';
+            }
+        }, e.prototype.setDialogStateContext = function(t) {
+            try {
+                return this.mInterpreter.setStateContext(t);
+            } catch (t) {
+                return this._exception('setDialogStateContext', t), -1;
+            }
+        }, e.prototype.skipNextSpeak = function() {
+            return this.mInterpreter ? 0 : -1;
+        }, e;
+    }(function(t) {
         function e(e, n) {
             void 0 === n && (n = !0);
             var o = t.call(this, e, n) || this;
-            return o.mDialogContext = new re(), o.mParseSpeechDefFileFunc = null, o.mParseSpeechDefDataFunc = null, 
-            o.mReadFileFunc = null, o.mDialogParseEvent = new U(B), o.mDialogSetEvent = new U(I), 
-            o.mDialogStartEvent = new U(M), o.mDialogStopEvent = new U(W), o.mDialogStateSetEvent = new U(q), 
-            o.mDialogActionEvent = new U(H), o.mDialogActionStopEvent = new U(j), o.mDialogSpeakEvent = new U(G), 
-            o.mDialogSpeakStartEvent = new U(K), o.mDialogSpeakStopEvent = new U(X), o.mDialogLoadFlag = qt, 
-            o.mDialogFilePath = Wt, o.mDialogFileName = Bt, o.mActivDialogFlag = !1, o._setErrorClassName('DialogBase'), 
-            o.mDialogContext._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogParseEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o.mDialogSetEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogStartEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o.mDialogStopEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogStateSetEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o.mDialogActionEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogActionStopEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o.mDialogSpeakEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogSpeakStartEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
-            o.mDialogSpeakStopEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogParseEvent.setComponentName(e), 
-            o.mDialogSetEvent.setComponentName(e), o.mDialogStartEvent.setComponentName(e), 
-            o.mDialogStopEvent.setComponentName(e), o.mDialogStateSetEvent.setComponentName(e), 
-            o.mDialogActionEvent.setComponentName(e), o.mDialogActionStopEvent.setComponentName(e), 
-            o.mDialogSpeakEvent.setComponentName(e), o.mDialogSpeakStartEvent.setComponentName(e), 
-            o.mDialogSpeakStopEvent.setComponentName(e), o;
+            return o.mDialogContext = new _e(), o.mParseSpeechDefFileFunc = null, o.mParseSpeechDefDataFunc = null, 
+            o.mReadFileFunc = null, o.mDialogParseEvent = new At(ft), o.mDialogSetEvent = new At(ht), 
+            o.mDialogStartEvent = new At(mt), o.mDialogStopEvent = new At(gt), o.mDialogStateSetEvent = new At(yt), 
+            o.mDialogActionEvent = new At(dt), o.mDialogActionStopEvent = new At(St), o.mDialogSpeakEvent = new At(vt), 
+            o.mDialogSpeakStartEvent = new At(_t), o.mDialogSpeakStopEvent = new At(Et), o.mDialogLoadFlag = q, 
+            o.mDialogFilePath = K, o.mDialogFileName = G, o.mActivDialogFlag = !1, o.mDialogContext._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mDialogParseEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogSetEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mDialogStartEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogStopEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mDialogStateSetEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogActionEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mDialogActionStopEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogSpeakEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mDialogSpeakStartEvent._setErrorOutputFunc(o._getErrorOutputFunc()), o.mDialogSpeakStopEvent._setErrorOutputFunc(o._getErrorOutputFunc()), 
+            o.mDialogParseEvent.setComponentName(e), o.mDialogSetEvent.setComponentName(e), 
+            o.mDialogStartEvent.setComponentName(e), o.mDialogStopEvent.setComponentName(e), 
+            o.mDialogStateSetEvent.setComponentName(e), o.mDialogActionEvent.setComponentName(e), 
+            o.mDialogActionStopEvent.setComponentName(e), o.mDialogSpeakEvent.setComponentName(e), 
+            o.mDialogSpeakStartEvent.setComponentName(e), o.mDialogSpeakStopEvent.setComponentName(e), 
+            o;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "Dialog";
+        }, e.prototype.getClass = function() {
+            return 'DialogBase';
         }, e.prototype.getVersion = function() {
-            return "0.5.1.0040 vom 11.10.2018 (ALPHA)";
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
         }, e.prototype.getServerVersion = function() {
             return '';
-        }, e.prototype._setOption = function(t) {
-            t && ('string' == typeof t.dialogName && this.setDialog(t.dialogName), 'string' == typeof t.dialogRootState && this.setDialogState(t.dialogRootState), 
-            'boolean' == typeof t.dialogLoadFlag && (!0 === t.dialogLoadFlag ? this.mDialogLoadFlag = !0 : this.mDialogLoadFlag = !1), 
-            'string' == typeof t.dialogFilePath && this.setDialogFilePath(t.dialogFilePath), 
-            'string' == typeof t.dialogFileName && this.setDialogFileName(t.dialogFileName));
+        }, e.prototype._setOption = function(e) {
+            return e ? ('string' == typeof e.dialogName && this.setDialog(e.dialogName), 'string' == typeof e.dialogRootState && this.setDialogState(e.dialogRootState), 
+            'boolean' == typeof e.dialogLoadFlag && (!0 === e.dialogLoadFlag ? this.mDialogLoadFlag = !0 : this.mDialogLoadFlag = !1), 
+            'string' == typeof e.dialogFilePath && this.setDialogFilePath(e.dialogFilePath), 
+            'string' == typeof e.dialogFileName && this.setDialogFileName(e.dialogFileName), 
+            t.prototype._setOption.call(this, e)) : -1;
         }, e.prototype.init = function(e) {
             return 0 !== t.prototype.init.call(this, e) ? -1 : 0 !== this.connect() ? (this._clearInit(), 
-            -1) : (this._setOption(e), this.mDialogLoadFlag && 0 !== this.loadDialogFile() ? (this._error('init', 'Dialogdatei nicht geladen'), 
-            -1) : 0);
-        }, e.prototype.done = function() {
-            return this.isInit() && this.stopDialog(), this.mDialogContext.clear(), this.mReadFileFunc = null, 
+            -1) : this.mDialogLoadFlag && 0 !== this.loadDialogFile() ? (this._error('init', 'Dialogdatei nicht geladen'), 
+            this._clearInit(), -1) : 0;
+        }, e.prototype._doneAllEvent = function() {
             this.mDialogParseEvent.clear(), this.mDialogSetEvent.clear(), this.mDialogStartEvent.clear(), 
             this.mDialogStopEvent.clear(), this.mDialogStateSetEvent.clear(), this.mDialogActionEvent.clear(), 
             this.mDialogActionStopEvent.clear(), this.mDialogSpeakEvent.clear(), this.mDialogSpeakStartEvent.clear(), 
-            this.mDialogSpeakStopEvent.clear(), this.mDialogFilePath = Wt, this.mDialogFileName = Bt, 
-            this.mDialogLoadFlag = qt, this.mActivDialogFlag = !1, t.prototype.done.call(this);
+            this.mDialogSpeakStopEvent.clear();
+        }, e.prototype._doneAllAttribute = function() {
+            this.mDialogContext.clear(), this.mReadFileFunc = null, this.mDialogFilePath = K, 
+            this.mDialogFileName = G, this.mDialogLoadFlag = q, this.mActivDialogFlag = !1;
         }, e.prototype.reset = function(t) {
-            return this.isInit() ? (this.stopDialog(), this.setActiveOn(), this.clearDialog(), 
-            this.mDialogContext.clear(), this.setDialog(Ht), this.setDialogState(jt), this.mDialogFilePath = Wt, 
-            this.mDialogFileName = Bt, this.mDialogLoadFlag = qt, this.mActivDialogFlag = !1, 
-            this._setOption(t), this.mDialogLoadFlag && 0 !== this.loadDialogFile() ? (this._error('init', 'Dialogdatei nicht geladen'), 
+            return this.isInit() ? (this.stop(), this.setActiveOn(), this.clearDialog(), this.mDialogContext.clear(), 
+            this.setDialog(H), this.setDialogState(V), this.mDialogFilePath = K, this.mDialogFileName = G, 
+            this.mDialogLoadFlag = q, this.mActivDialogFlag = !1, this._setOption(t), this.mDialogLoadFlag && 0 !== this.loadDialogFile() ? (this._error('reset', 'Dialogdatei nicht geladen'), 
             -1) : 0) : (this._error('reset', 'Komponente nicht initialisiert'), -1);
         }, e.prototype._setErrorOutput = function(e) {
             t.prototype._setErrorOutput.call(this, e), this.mDialogParseEvent._setErrorOutput(e), 
@@ -3694,43 +4341,43 @@
         }), e.prototype.addEventListener = function(e, n, o) {
             var i = 0;
             switch (n) {
-              case B:
+              case ft:
                 i = this.mDialogParseEvent.addListener(e, o);
                 break;
 
-              case I:
+              case ht:
                 i = this.mDialogSetEvent.addListener(e, o);
                 break;
 
-              case M:
+              case mt:
                 i = this.mDialogStartEvent.addListener(e, o);
                 break;
 
-              case W:
+              case gt:
                 i = this.mDialogStopEvent.addListener(e, o);
                 break;
 
-              case q:
+              case yt:
                 i = this.mDialogStateSetEvent.addListener(e, o);
                 break;
 
-              case H:
+              case dt:
                 i = this.mDialogActionEvent.addListener(e, o);
                 break;
 
-              case j:
+              case St:
                 i = this.mDialogActionStopEvent.addListener(e, o);
                 break;
 
-              case G:
+              case vt:
                 i = this.mDialogSpeakEvent.addListener(e, o);
                 break;
 
-              case K:
+              case _t:
                 i = this.mDialogSpeakStartEvent.addListener(e, o);
                 break;
 
-              case X:
+              case Et:
                 i = this.mDialogSpeakStopEvent.addListener(e, o);
                 break;
 
@@ -3741,43 +4388,43 @@
         }, e.prototype.removeEventListener = function(e, n) {
             var o = 0;
             switch (n) {
-              case B:
+              case ft:
                 o = this.mDialogParseEvent.removeListener(e);
                 break;
 
-              case I:
+              case ht:
                 o = this.mDialogSetEvent.removeListener(e);
                 break;
 
-              case M:
+              case mt:
                 o = this.mDialogStartEvent.removeListener(e);
                 break;
 
-              case W:
+              case gt:
                 o = this.mDialogStopEvent.removeListener(e);
                 break;
 
-              case q:
+              case yt:
                 o = this.mDialogStateSetEvent.removeListener(e);
                 break;
 
-              case H:
+              case dt:
                 o = this.mDialogActionEvent.removeListener(e);
                 break;
 
-              case j:
+              case St:
                 o = this.mDialogActionStopEvent.removeListener(e);
                 break;
 
-              case G:
+              case vt:
                 o = this.mDialogSpeakEvent.removeListener(e);
                 break;
 
-              case K:
+              case _t:
                 o = this.mDialogSpeakStartEvent.removeListener(e);
                 break;
 
-              case X:
+              case Et:
                 o = this.mDialogSpeakStopEvent.removeListener(e);
                 break;
 
@@ -3786,49 +4433,49 @@
             }
             return o;
         }, e.prototype.addDialogParseEvent = function(t, e) {
-            return this.addEventListener(t, B, e);
+            return this.addEventListener(t, ft, e);
         }, e.prototype.addDialogSetEvent = function(t, e) {
-            return this.addEventListener(t, I, e);
+            return this.addEventListener(t, ht, e);
         }, e.prototype.addDialogStartEvent = function(t, e) {
-            return this.addEventListener(t, M, e);
+            return this.addEventListener(t, mt, e);
         }, e.prototype.addDialogStopEvent = function(t, e) {
-            return this.addEventListener(t, W, e);
+            return this.addEventListener(t, gt, e);
         }, e.prototype.addDialogStateSetEvent = function(t, e) {
-            return this.addEventListener(t, q, e);
+            return this.addEventListener(t, yt, e);
         }, e.prototype.addDialogActionEvent = function(t, e) {
-            return this.addEventListener(t, H, e);
+            return this.addEventListener(t, dt, e);
         }, e.prototype.addDialogActionStopEvent = function(t, e) {
-            return this.addEventListener(t, j, e);
+            return this.addEventListener(t, St, e);
         }, e.prototype.addDialogSpeakEvent = function(t, e) {
-            return this.addEventListener(t, G, e);
+            return this.addEventListener(t, vt, e);
         }, e.prototype.addDialogSpeakStartEvent = function(t, e) {
-            return this.addEventListener(t, K, e);
+            return this.addEventListener(t, _t, e);
         }, e.prototype.addDialogSpeakStopEvent = function(t, e) {
-            return this.addEventListener(t, X, e);
+            return this.addEventListener(t, Et, e);
         }, e.prototype.addErrorEvent = function(t, e) {
-            return this.addEventListener(t, b, e);
+            return this.addEventListener(t, ct, e);
         }, e.prototype.removeDialogParseEvent = function(t) {
-            return this.removeEventListener(t, B);
+            return this.removeEventListener(t, ft);
         }, e.prototype.removeDialogSetEvent = function(t) {
-            return this.removeEventListener(t, I);
+            return this.removeEventListener(t, ht);
         }, e.prototype.removeDialogStartEvent = function(t) {
-            return this.removeEventListener(t, M);
+            return this.removeEventListener(t, mt);
         }, e.prototype.removeDialogStopEvent = function(t) {
-            return this.removeEventListener(t, W);
+            return this.removeEventListener(t, gt);
         }, e.prototype.removeDialogStateSetEvent = function(t) {
-            return this.removeEventListener(t, q);
+            return this.removeEventListener(t, yt);
         }, e.prototype.removeDialogActionEvent = function(t) {
-            return this.removeEventListener(t, H);
+            return this.removeEventListener(t, dt);
         }, e.prototype.removeDialogActionStopEvent = function(t) {
-            return this.removeEventListener(t, j);
+            return this.removeEventListener(t, St);
         }, e.prototype.removeDialogSpeakEvent = function(t) {
-            return this.removeEventListener(t, G);
+            return this.removeEventListener(t, vt);
         }, e.prototype.removeDialogSpeakStartEvent = function(t) {
-            return this.removeEventListener(t, K);
+            return this.removeEventListener(t, _t);
         }, e.prototype.removeDialogSpeakStopEvent = function(t) {
-            return this.removeEventListener(t, X);
+            return this.removeEventListener(t, Et);
         }, e.prototype.removeErrorEvent = function(t) {
-            return this.removeEventListener(t, b);
+            return this.removeEventListener(t, ct);
         }, e.prototype.removeAllEvent = function(t) {
             return this.removeDialogParseEvent(t), this.removeDialogSetEvent(t), this.removeDialogStartEvent(t), 
             this.removeDialogStopEvent(t), this.removeDialogStateSetEvent(t), this.removeDialogActionEvent(t), 
@@ -3870,19 +4517,19 @@
             -1) : this.mReadFileFunc(e);
         }, e.prototype.writeDialogData = function(t) {
             return this.parseSpeechDefData(t);
-        }, e.prototype.isDialogRunning = function() {
+        }, e.prototype.isRunning = function() {
             return this.mActivDialogFlag;
         }, e.prototype.toggleDialog = function() {
-            return this.isDialogRunning() ? this.stopDialog() : this.startDialog();
+            return this.isRunning() ? this.stop() : this.start();
         }, e.prototype.clearDialog = function() {
             return 0;
         }, e.prototype.setDialog = function(t) {
             return 0;
         }, e.prototype.getDialog = function() {
             return '';
-        }, e.prototype.startDialog = function() {
+        }, e.prototype.start = function() {
             return this.mActivDialogFlag = !0, 0;
-        }, e.prototype.stopDialog = function() {
+        }, e.prototype.stop = function() {
             return this._stop(), 0;
         }, e.prototype.setDialogState = function(t, e) {
             return 0;
@@ -3901,101 +4548,45 @@
         }, e.prototype.removeContextElement = function(t, e) {
             return 0 !== this.mDialogContext.remove(t, e) ? -1 : this.setDialogStateContext(this.mDialogContext.getContext());
         }, e;
-    }(V), se = function(t) {
-        function e(e) {
-            void 0 === e && (e = !0);
-            var n = t.call(this, It, e) || this;
-            return n.mStore = null, n.mInterpreter = null, n._setErrorClassName('DialogComponent'), 
-            n;
-        }
-        return s(e, t), e.prototype.init = function(e) {
-            return this.isInit() ? (this.isErrorOutput() && console.log('DialogComponent.init: bereits initialisiert'), 
-            0) : (this.mStore = this.findPlugin(Vt), this.mStore ? (this.mInterpreter = this.findPlugin(ne), 
-            this.mInterpreter ? t.prototype.init.call(this, e) : -1) : -1);
-        }, e.prototype.done = function() {
-            return this.mInterpreter && (this.stopDialog(), this.mInterpreter = null), t.prototype.done.call(this);
-        }, e.prototype.clearDialog = function() {
-            try {
-                return this.mStore.clear(), 0;
-            } catch (t) {
-                return this._exception('clearDialog', t), -1;
-            }
-        }, e.prototype.setDialog = function(t) {
-            try {
-                return this.mInterpreter.setDialog(t);
-            } catch (t) {
-                return this._exception('setDialog', t), -1;
-            }
-        }, e.prototype.getDialog = function() {
-            try {
-                return this.mInterpreter.getDialog();
-            } catch (t) {
-                return this._exception('getDialog', t), '';
-            }
-        }, e.prototype.isDialogRunning = function() {
-            return !!this.mInterpreter && this.mInterpreter.isDialogRunning();
-        }, e.prototype.startDialog = function() {
-            return this.mInterpreter ? (t.prototype.startDialog.call(this), this.mInterpreter.startDialog()) : -1;
-        }, e.prototype.stopDialog = function() {
-            return this.mInterpreter ? (t.prototype.stopDialog.call(this), this.mInterpreter.stopDialog()) : -1;
-        }, e.prototype.setDialogState = function(t, e) {
-            try {
-                return this.mInterpreter.setState(t, e);
-            } catch (t) {
-                return this._exception('setDialogState', t), -1;
-            }
-        }, e.prototype.getDialogState = function() {
-            try {
-                return this.mInterpreter.getState();
-            } catch (t) {
-                return this._exception('getDialogState', t), '';
-            }
-        }, e.prototype.setDialogStateContext = function(t) {
-            try {
-                return this.mInterpreter.setStateContext(t);
-            } catch (t) {
-                return this._exception('setDialogStateContext', t), -1;
-            }
-        }, e.prototype.skipNextSpeak = function() {
-            return this.mInterpreter ? 0 : -1;
-        }, e;
-    }(ue), ae = function(t) {
+    }(Dt)), Ae = function(t) {
         function e() {
             return t.call(this, 'DialogComponentFactory') || this;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getName = function() {
             return "DialogComponentFactory";
         }, e.prototype.getType = function() {
             return "Dialog";
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
             try {
-                return new se(e);
+                return new Ee(e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), pe = function(t) {
-        function e() {
-            var e = t.call(this) || this;
-            return e.mDialogComponent = null, e._setErrorClassName('DialogComponentBuilder'), 
-            e;
+    }(F), Fe = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || 'DialogComponentBuilder', n) || this;
+            return o.mDialogComponent = null, o;
         }
-        return s(e, t), e.prototype.getName = function() {
+        return u(e, t), e.prototype.getClass = function() {
+            return 'DialogComponentBuilder';
+        }, e.prototype.getName = function() {
             return "DialogComponentBuilder";
         }, e.prototype.getType = function() {
             return "Dialog";
         }, e.prototype.build = function() {
             if (this.mDialogComponent) return this.mDialogComponent;
             try {
-                var t = this._buildComponent(), e = this._getPlugin(Gt, "FileReaderFactory", Ut), n = this._getPlugin(Vt, "StoreFactory", Zt), o = this._getPlugin($t, "ParserFactory", ee), i = this._getPlugin(ne, "InterpreterFactory", ie);
+                var t = this._buildComponent(), e = this._getPlugin(ie, "FileReaderFactory", se), n = this._getPlugin(ae, "StoreFactory", me), o = this._getPlugin(ge, "ParserFactory", ye), i = this._getPlugin(de, "InterpreterFactory", ve);
                 return 0 !== this._binder(t, e, n, o, i) ? (this._error('build', 'Komponenten nicht verbunden'), 
                 null) : t;
             } catch (t) {
                 return this._exception('build', t), null;
             }
         }, e.prototype._buildComponent = function() {
-            return this.mDialogComponent || (this.mDialogComponent = this._getPlugin(It, "DialogComponentFactory", ae)), 
+            return this.mDialogComponent || (this.mDialogComponent = this._getPlugin(M, "DialogComponentFactory", Ae)), 
             this.mDialogComponent;
         }, e.prototype._binder = function(t, e, n, o, i) {
             return t ? e ? n ? o ? i ? 0 !== t.insertPlugin(e.getName(), e) ? -1 : 0 !== t.insertPlugin(n.getName(), n) ? -1 : 0 !== t.insertPlugin(o.getName(), o) ? -1 : 0 !== t.insertPlugin(i.getName(), i) ? -1 : 0 !== t.setReadFileFunc(e.getReadFunc()) ? -1 : (e.onRead = t.getWriteFileDataFunc(), 
@@ -4010,730 +4601,42 @@
             -1) : (this._error('_binder', 'FileReader nicht vorhanden'), -1) : (this._error('_binder', 'Dialog nicht vorhanden'), 
             -1);
         }, e;
-    }(f), ce = 'NetWebWorker', le = 'NetWebSocket', he = ce, me = function(t) {
-        function e() {
-            return t.call(this, 'WebSocketFactory') || this;
-        }
-        return s(e, t), e.prototype.createWebSocket = function(t) {
-            try {
-                return new WebSocket(t);
-            } catch (t) {
-                return this._exception('createWebSocket', t), null;
-            }
-        }, e;
-    }(r), ge = function(t) {
-        function e() {
-            return t.call(this, 'WebWorkerFactory') || this;
-        }
-        return s(e, t), e.prototype.getWebWorkerClass = function() {
-            try {
-                return window.Worker || null;
-            } catch (t) {
-                return this._exception('getWebWorkerClass', t), null;
-            }
-        }, e.prototype.createWebWorker = function(t) {
-            var e = this.getWebWorkerClass();
-            if (!e) return null;
-            try {
-                return new e(t);
-            } catch (t) {
-                return this._exception('createWebWorker', t), null;
-            }
-        }, e;
-    }(r), fe = function(t) {
-        function e(e, n) {
-            void 0 === n && (n = !0);
-            var o = t.call(this, e, n) || this;
-            return o.mHandleMessageList = new Map(), o.mOnOpenFunc = null, o.mOnCloseFunc = null, 
-            o.mOnMessageFunc = null, o._setErrorClassName('NetPlugin'), o;
-        }
-        return s(e, t), e.prototype.getType = function() {
-            return 'NetPlugin';
-        }, e.prototype.init = function(e) {
-            return this.mOnMessageFunc = this.getHandleMessageFunc(), t.prototype.init.call(this, e);
-        }, e.prototype.done = function() {
-            return this.mOnOpenFunc = null, this.mOnCloseFunc = null, this.mOnMessageFunc = null, 
-            t.prototype.done.call(this);
-        }, e.prototype._onOpen = function() {
-            if ('function' == typeof this.mOnOpenFunc) try {
-                return this.mOnOpenFunc();
-            } catch (t) {
-                return this._exception('_onOpen', t), -1;
-            }
-            return 0;
-        }, e.prototype._onClose = function() {
-            if ('function' == typeof this.mOnCloseFunc) try {
-                return this.mOnCloseFunc();
-            } catch (t) {
-                return this._exception('_onClose', t), -1;
-            }
-            return 0;
-        }, e.prototype._onMessage = function(t) {
-            if ('function' == typeof this.mOnMessageFunc) try {
-                return this.mOnMessageFunc(t);
-            } catch (t) {
-                return this._exception('_onMessage', t), -1;
-            }
-            return 0;
-        }, e.prototype.open = function() {
-            return -1;
-        }, e.prototype.close = function() {
-            return 0;
-        }, e.prototype.isOpen = function() {
-            return !1;
-        }, e.prototype.getState = function() {
-            return '';
-        }, e.prototype.sendMessage = function(t) {
-            return 0;
-        }, e.prototype.getSendMessageFunc = function() {
-            var t = this;
-            return function(e) {
-                return t.sendMessage(e);
-            };
-        }, e.prototype.handleMessage = function(t) {
-            return this.mHandleMessageList.forEach(function(e) {
-                e(t);
-            }), 0;
-        }, e.prototype.getHandleMessageFunc = function() {
-            var t = this;
-            return function(e) {
-                return t.handleMessage(e);
-            };
-        }, e.prototype.setHandleMessageFunc = function(t, e) {
-            return this.mHandleMessageList.set(t, e), 0;
-        }, Object.defineProperty(e.prototype, "onOpen", {
-            set: function(t) {
-                this.mOnOpenFunc = t;
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(e.prototype, "onClose", {
-            set: function(t) {
-                this.mOnCloseFunc = t;
-            },
-            enumerable: !0,
-            configurable: !0
-        }), Object.defineProperty(e.prototype, "onMessage", {
-            set: function(t) {
-                this.mOnMessageFunc = t;
-            },
-            enumerable: !0,
-            configurable: !0
-        }), e;
-    }(S), ye = function(t) {
-        function e(e, n) {
-            void 0 === n && (n = !0);
-            var o = t.call(this, le, n) || this;
-            return o.mWebSocket = null, o.mWebSocketOpenFlag = !1, o.mConnectIntervalId = 0, 
-            o.mConnectInfinite = !1, o.mWebSocketFactory = e, o._setErrorClassName('NetWebSocket'), 
-            o;
-        }
-        return s(e, t), e.prototype.init = function(e) {
-            return this.isInit() ? (this._error('init', 'init doppelt aufgerufen'), -1) : (e && e.connectInfinite && (this.mConnectInfinite = !0, 
-            console.log('NetWebSocket.init: ConnectInfinite eingeschaltet')), t.prototype.init.call(this, e));
-        }, e.prototype.done = function() {
-            try {
-                return this.close(), this.mConnectIntervalId = 0, this.mConnectInfinite = !1, t.prototype.done.call(this);
-            } catch (t) {
-                return this._exception('done', t), -1;
-            }
-        }, e.prototype.getType = function() {
-            return "WebSocket";
-        }, e.prototype.open = function() {
-            return this.isInit() ? this.isOpen() ? (this._error('.open', 'bereits geoeffnet'), 
-            -1) : 0 !== this._connect() ? (this._error('open', 'keine Verbindung moeglich'), 
-            -1) : 0 : (this._error('open', 'nicht initialisiert'), -1);
-        }, e.prototype.close = function() {
-            if (this.mWebSocketOpenFlag = !1, this.mWebSocket) {
-                this._clearInfiniteConnect();
-                try {
-                    this.mWebSocket.onclose = function() {}, this.mWebSocket.close(), this.mWebSocket = null;
-                } catch (t) {
-                    return this._exception('close', t), this.mWebSocket = null, -1;
-                }
-            }
-            return 0;
-        }, e.prototype.isOpen = function() {
-            return this.mWebSocketOpenFlag;
-        }, e.prototype.getState = function() {
-            if (!this.mWebSocket) return 'NULL';
-            var t = '';
-            switch (this.mWebSocket.readyState) {
-              case 0:
-                t = 'CONNECTING';
-                break;
-
-              case 1:
-                t = 'OPEN';
-                break;
-
-              case 2:
-                t = 'CLOSING';
-                break;
-
-              case 3:
-                t = 'CLOSED';
-                break;
-
-              default:
-                t = 'UNKNOW';
-            }
-            return t;
-        }, e.prototype.sendMessage = function(t) {
-            if (this.isOpen()) {
-                if (!this.mWebSocket) return this._error('sendMessage', 'keine WebSocket vorhanden'), 
-                -1;
-                try {
-                    return this.mWebSocket.send(JSON.stringify(t)), 0;
-                } catch (t) {
-                    this._exception('sendMessage', t);
-                }
-            }
-            return -1;
-        }, e.prototype._webSocketOpen = function(t) {
-            return this.mWebSocketOpenFlag = !0, this._clearInfiniteConnect(), 0 !== this._onMessage({
-                event: 'start'
-            }) ? -1 : 0 !== this._onOpen() ? -1 : 0;
-        }, e.prototype._webSocketClose = function(t) {
-            return this.mWebSocketOpenFlag = !1, this._setInfiniteConnect(), this._onClose();
-        }, e.prototype._webSocketMessage = function(t) {
-            try {
-                return this._onMessage(JSON.parse(t.data));
-            } catch (t) {
-                return this._exception('_websocketMessage', t), -1;
-            }
-        }, e.prototype._webSocketError = function(t) {
-            return this._onError(t);
-        }, e.prototype._connect = function() {
-            var t = this;
-            if (this.mWebSocket && this.isOpen()) return 0;
-            if (!this.isInit()) return this._error('_connect', 'nicht initialisiert'), -1;
-            if (!this.mWebSocketFactory) return this._error('_connect', 'keine WebSocketFactory Funktion vorhanden'), 
-            -1;
-            try {
-                return this.mWebSocket = this.mWebSocketFactory.createWebSocket("ws://localhost:7050"), 
-                this.mWebSocket ? (this.mWebSocket.onopen = function(e) {
-                    t._webSocketOpen(e);
-                }, this.mWebSocket.onclose = function(e) {
-                    t._webSocketClose(e);
-                }, this.mWebSocket.onmessage = function(e) {
-                    t._webSocketMessage(e);
-                }, this.mWebSocket.onerror = function(e) {
-                    t._webSocketError(e);
-                }, 0) : (this._error('_connect', 'keine WebSocket erzeugt'), -1);
-            } catch (t) {
-                return this._exception('_connect', t), this.mWebSocket = null, -1;
-            }
-        }, e.prototype._setInfiniteConnect = function() {
-            var t = this;
-            this.mConnectInfinite && 0 === this.mConnectIntervalId && (this.mConnectIntervalId = setInterval(function() {
-                t._connect();
-            }, 5e3));
-        }, e.prototype._clearInfiniteConnect = function() {
-            0 !== this.mConnectIntervalId && (clearInterval(this.mConnectIntervalId), this.mConnectIntervalId = 0);
-        }, e;
-    }(fe), de = function(t) {
-        function e(e, n) {
-            void 0 === n && (n = !0);
-            var o = t.call(this, ce, n) || this;
-            return o.mWebWorkerClass = null, o.mWebWorker = null, o.mWebWorkerPath = '', o.mWebWorkerFactory = e, 
-            o._setErrorClassName('NetWebWorker'), o;
-        }
-        return s(e, t), e.prototype._detectWebWorker = function() {
-            if (!this.mWebWorkerFactory) return this._error('_detectWebWorker', 'keine WebWorker-Fabrik vorhanden'), 
-            !1;
-            try {
-                this.mWebWorkerClass = this.mWebWorkerFactory.getWebWorkerClass();
-            } catch (t) {
-                return this._exception('_detectWebWorker', t), !1;
-            }
-            return null !== this.mWebWorkerClass || (this._error('_detectWebWorker', 'Unable to use the WebWorker API'), 
-            !1);
-        }, e.prototype.init = function(e) {
-            return this.isInit() ? (this._error('init', 'init doppelt aufgerufen'), -1) : this._detectWebWorker() ? (e && e.webWorkerPath && (this.mWebWorkerPath = e.webWorkerPath), 
-            t.prototype.init.call(this, e)) : -1;
-        }, e.prototype.done = function() {
-            return this.mWebWorkerClass = null, this.mWebWorker = null, this.mWebWorkerPath = '', 
-            this.close(), t.prototype.done.call(this);
-        }, e.prototype.getType = function() {
-            return "WebWorker";
-        }, e.prototype._webWorkerOpen = function(t) {
-            return 0 !== this._onMessage({
-                event: 'start'
-            }) ? -1 : 0 !== this._onOpen() ? -1 : 0;
-        }, e.prototype._webWorkerClose = function(t) {
-            return this._onClose();
-        }, e.prototype._webWorkerMessage = function(t) {
-            try {
-                this._onMessage(t.data);
-            } catch (t) {
-                return this._exception('_webWorkerMessage', t), -1;
-            }
-            return 0;
-        }, e.prototype._webWorkerError = function(t) {
-            return this._onError(t);
-        }, e.prototype.open = function() {
-            var t = this;
-            if (!this.isInit()) return this._error('open', 'nicht initialisiert'), -1;
-            if (this.isOpen()) return this._error('open', 'bereits geoeffnet'), -1;
-            try {
-                if (!this.mWebWorkerClass) return this._error('open', 'keine WebWorkerClass vorhanden'), 
-                -1;
-                var e = this.mWebWorkerPath + "speechworker.js";
-                return this.mWebWorker = new this.mWebWorkerClass(e), this.mWebWorker ? (this.mWebWorker.onmessage = function(e) {
-                    t._webWorkerMessage(e);
-                }, this.mWebWorker.onerror = function(e) {
-                    e.preventDefault(), console.log('NetWebWorker.open: Error', e), t.mWebWorker = null, 
-                    t._webWorkerError(new Error('WebWorker nicht initialisiert'));
-                }, this._webWorkerOpen('')) : (this._error('open', 'kein WebWorker erzeugt'), -1);
-            } catch (t) {
-                return this._exception('open', t), -1;
-            }
-        }, e.prototype.close = function() {
-            if (this.mWebWorker) {
-                var t = this.mWebWorker;
-                this.mWebWorker = null;
-                try {
-                    return this._webWorkerClose(''), t.terminate(), 0;
-                } catch (t) {
-                    return this._exception('close', t), -1;
-                }
-            }
-            return 0;
-        }, e.prototype.isOpen = function() {
-            return !!this.mWebWorker;
-        }, e.prototype.getState = function() {
-            return this.mWebWorker ? 'OPEN' : 'NULL';
-        }, e.prototype.sendMessage = function(t) {
-            if (this.mWebWorker) try {
-                return this.mWebWorker.postMessage(t), 0;
-            } catch (t) {
-                this._exception('sendMessage', t);
-            }
-            return -1;
-        }, e;
-    }(fe), Se = function(t) {
-        function e() {
-            var e = t.call(this) || this;
-            return e._setErrorClassName('NetFactory'), e;
-        }
-        return s(e, t), e.prototype.getName = function() {
-            return "NetFactory";
-        }, e.prototype._newPlugin = function(t, e) {
-            return t === le ? new ye(new me(), e) : new de(new ge(), e);
-        }, e.prototype.create = function(t, e) {
-            void 0 === e && (e = !0);
-            var n = t || he;
-            try {
-                return this._newPlugin(n, e);
-            } catch (t) {
-                return this._exception('create', t), null;
-            }
-        }, e;
-    }(v), ve = function(t) {
+    }(Q), De = function(t) {
         function e(e) {
             void 0 === e && (e = !0);
-            var n = t.call(this, Mt, e) || this;
-            return n.mNet = null, n.mServerVersion = '', n._setErrorClassName('DialogProxy'), 
-            n;
-        }
-        return s(e, t), e.prototype.getServerVersion = function() {
-            return this.mServerVersion;
-        }, e.prototype.init = function(e) {
-            return this.isInit() ? (this.isErrorOutput() && console.log('DialogProxy.init: bereits initialisiert'), 
-            0) : (this.mNet = this.findPlugin(he), this.mNet ? t.prototype.init.call(this, e) : (this._error('init', 'kein NetPlugin vorhanden'), 
-            -1));
-        }, e.prototype.done = function() {
-            return this.mNet && (this.mNet.close(), this.mNet = null), t.prototype.done.call(this);
-        }, e.prototype.connect = function() {
-            return this.isInit() ? this.isConnect() ? 0 : 0 !== this.mNet.open() ? (this._error('connect', 'keine Verbindung aufgebaut'), 
-            -1) : 0 : (this._error('connect', 'nicht initialisiert'), -1);
-        }, e.prototype.isConnect = function() {
-            return !!this.mNet && this.mNet.isOpen();
-        }, e.prototype.getNetType = function() {
-            return this.mNet ? this.mNet.getType() : 'undefined';
-        }, e.prototype.handleMessage = function(e) {
-            try {
-                var n = 0;
-                switch (e.event) {
-                  case C:
-                    break;
-
-                  case "start":
-                    this.getFeatureInfo();
-                    break;
-
-                  case "stop":
-                    break;
-
-                  case "featureInfo":
-                    this.setFeatureList(e);
-                    break;
-
-                  case B:
-                    n = this._onDialogParse();
-                    break;
-
-                  case I:
-                    var o = e.dialog || '';
-                    n = this._onDialogSet(o);
-                    break;
-
-                  case M:
-                    n = this._onDialogStart();
-                    break;
-
-                  case W:
-                    n = this._onDialogStop();
-                    break;
-
-                  case q:
-                    var i = e.state || '';
-                    n = this._onDialogStateSet(i);
-                    break;
-
-                  case H:
-                    var r = {
-                        event: e.event,
-                        state: e.state || '',
-                        action: e.action || '',
-                        type: e.type || '',
-                        id: e.id || ''
-                    };
-                    n = this._onDialogAction(r);
-                    break;
-
-                  case G:
-                    var u = {
-                        event: e.event,
-                        state: e.state || '',
-                        id: e.id || '',
-                        text: e.text || '',
-                        timeout: e.timeout || 0
-                    };
-                    n = this._onDialogSpeak(u);
-                    break;
-
-                  case K:
-                    n = this._onDialogSpeakStart();
-                    break;
-
-                  case X:
-                    n = this._onDialogSpeakStop();
-                    break;
-
-                  case b:
-                    n = this.mErrorEvent.dispatch(e);
-                    break;
-
-                  default:
-                    n = t.prototype.handleMessage.call(this, e);
-                }
-                return n;
-            } catch (t) {
-                return this._exception('handleMessage', t), -1;
-            }
-        }, e.prototype.getFeatureInfo = function() {
-            var t = {
-                event: "featureInfo"
-            };
-            return this.sendMessage(t);
-        }, e.prototype.setFeatureList = function(e) {
-            return e.version && (this.mServerVersion = 'Speech-' + this.getNetType() + '-Server Version: ' + e.version), 
-            t.prototype.setFeatureList.call(this, e);
-        }, e.prototype.setting = function() {
-            if (this.mNet) {
-                var t = {
-                    event: "setting"
-                };
-                return this.mNet.sendMessage(t);
-            }
-            return -1;
-        }, e.prototype.writeDialogData = function(t) {
-            if (!t) return this._error('writeDialogData', 'keine Dialogdaten uebergeben'), -1;
-            var e = {
-                event: "writeData",
-                dialogData: t
-            };
-            return this.sendMessage(e);
-        }, e.prototype.setDialog = function(t) {
-            return this._error('setDialog', 'nicht implementiert'), -1;
-        }, e.prototype.getDialog = function() {
-            return this._error('getDialog', 'nicht implementiert'), '';
-        }, e.prototype.startDialog = function() {
-            t.prototype.startDialog.call(this);
-            var e = {
-                event: "startDialog"
-            };
-            return this.sendMessage(e);
-        }, e.prototype.stopDialog = function() {
-            t.prototype.stopDialog.call(this);
-            var e = {
-                event: "stopDialog"
-            };
-            return this.sendMessage(e);
-        }, e.prototype.setDialogState = function(t, e) {
-            var n = {
-                event: "setState",
-                state: t,
-                context: e || null
-            };
-            return this.sendMessage(n);
-        }, e.prototype.getDialogState = function() {
-            return this._error('getDialogState', 'nicht implementiert'), '';
-        }, e.prototype.setDialogStateContext = function(t) {
-            var e = {
-                event: "setStateContext",
-                context: t
-            };
-            return this.sendMessage(e);
-        }, e.prototype.skipNextSpeak = function() {
-            var t = {
-                event: "skipNextSpeak"
-            };
-            return this.sendMessage(t);
-        }, e;
-    }(ue), Ee = function(t) {
-        function e() {
-            return t.call(this, 'DialogProxyFactory') || this;
-        }
-        return s(e, t), e.prototype.getName = function() {
-            return "DialogProxyFactory";
-        }, e.prototype.create = function(t, e) {
-            void 0 === e && (e = !0);
-            try {
-                return new ve(e);
-            } catch (t) {
-                return this._exception('create', t), null;
-            }
-        }, e;
-    }(v), _e = function(t) {
-        function e() {
-            var e = t.call(this) || this;
-            return e.mDialogComponent = null, e._setErrorClassName('DialogProxyBuilder'), e;
-        }
-        return s(e, t), e.prototype.getName = function() {
-            return "DialogProxyBuilder";
-        }, e.prototype.build = function() {
-            if (this.mDialogComponent) return this.mDialogComponent;
-            try {
-                var t = this._buildComponent(), e = this._getPlugin(Gt, "FileReaderFactory", Ut), n = this._getPlugin(he, "NetFactory", Se);
-                return 0 !== this._binder(t, e, n) ? (this._error('build', 'Komponenten nicht verbunden'), 
-                null) : t;
-            } catch (t) {
-                return this._exception('build', t), null;
-            }
-        }, e.prototype._buildComponent = function() {
-            return this.mDialogComponent || (this.mDialogComponent = this._getPlugin(Mt, "DialogProxyFactory", Ee)), 
-            this.mDialogComponent;
-        }, e.prototype._binder = function(t, e, n) {
-            return t ? e ? n ? 0 !== t.insertPlugin(e.getName(), e) ? -1 : 0 !== t.insertPlugin(n.getName(), n) ? -1 : 0 !== t.setReadFileFunc(e.getReadFunc()) ? -1 : (e.onRead = t.getWriteFileDataFunc(), 
-            e.onError = t.onError, n.onError = t.onError, 0 !== t.setSendMessageFunc(n.getSendMessageFunc()) ? -1 : 0 !== n.setHandleMessageFunc(t.getName(), t.getHandleMessageFunc()) ? -1 : 0) : (this._error('_binder', 'Net nicht vorhanden'), 
-            -1) : (this._error('_binder', 'FileReader nicht vorhanden'), -1) : (this._error('_binder', 'Dialog nicht vorhanden'), 
-            -1);
-        }, e;
-    }(f), De = function(t) {
-        function e() {
-            var e = t.call(this) || this;
-            return e.mDialogComponent = null, e._setErrorClassName('DialogServerBuilder'), e;
-        }
-        return s(e, t), e.prototype.getName = function() {
-            return "DialogServerBuilder";
-        }, e.prototype.getType = function() {
-            return "Dialog";
-        }, e.prototype.build = function() {
-            if (this.mDialogComponent) return this.mDialogComponent;
-            try {
-                var t = this._buildComponent(), e = this._getPlugin(Vt, "StoreFactory", Zt), n = this._getPlugin($t, "ParserFactory", ee), o = this._getPlugin(ne, "InterpreterFactory", ie);
-                return 0 !== this._binder(t, e, n, o) ? (this._error('build', 'Komponenten nicht verbunden'), 
-                null) : t;
-            } catch (t) {
-                return this._exception('build', t), null;
-            }
-        }, e.prototype._buildComponent = function() {
-            return this.mDialogComponent || (this.mDialogComponent = this._getPlugin(It, "DialogComponentFactory", ae)), 
-            this.mDialogComponent;
-        }, e.prototype._binder = function(t, e, n, o) {
-            return t ? e ? n ? o ? 0 !== t.insertPlugin(e.getName(), e) ? -1 : 0 !== t.insertPlugin(n.getName(), n) ? -1 : 0 !== t.insertPlugin(o.getName(), o) ? -1 : (n.setNewDialogFunc(e.getNewDialogFunc()), 
-            n.setNewDialogStateFunc(e.getNewDialogStateFunc()), n.onError = t.onError, o.setGetDialogStateFunc(e.getGetDialogStateFunc()), 
-            o.onError = t.onError, t.setParseSpeechDefFileFunc(n.getParseSpeechDefFileFunc()), 
-            t.setParseSpeechDefDataFunc(n.getParseSpeechDefDataFunc()), n.onParserEnd = t.onDialogParse, 
-            n.onError = t.onError, o.onDialogSet = t.onDialogSet, o.onDialogStart = t.onDialogStart, 
-            o.onDialogStop = t.onDialogStop, o.onDialogStateSet = t.onDialogStateSet, o.onDialogAction = t.onDialogAction, 
-            o.onDialogSpeak = t.onDialogSpeak, o.onDialogSpeakStart = t.onDialogSpeakStart, 
-            o.onDialogSpeakStop = t.onDialogSpeakStop, o.onError = t.onError, 0) : (this._error('_binder', 'Interpreter nicht vorhanden'), 
-            -1) : (this._error('_binder', 'Parser nicht vorhanden'), -1) : (this._error('_binder', 'Store nicht vorhanden'), 
-            -1) : (this._error('_binder', 'Dialog nicht vorhanden'), -1);
-        }, e;
-    }(f), Fe = function() {
-        function t(t) {
-            if (this.mComponent = null, 0 !== this._init(t)) throw new Error('Dialog nicht initialisiert');
-        }
-        return t.prototype._init = function(t) {
-            try {
-                var e = "DialogComponentBuilder";
-                t && t.dialogBuilder && (e = t.dialogBuilder);
-                var n = null;
-                if ("DialogComponentBuilder" === e ? n = c.get("DialogComponentBuilder", pe) : "DialogProxyBuilder" === e ? n = c.get("DialogProxyBuilder", _e) : "DialogServerBuilder" === e && (n = c.get("DialogServerBuilder", De)), 
-                !n) return console.log('Dialog._init: DialogBuilder nicht vorhanden'), -1;
-                if (this.mComponent = n.build(), !this.mComponent) return console.log('Dialog._init: keine DialogComponent erzeugt'), 
-                -1;
-                if (!this.mComponent.isInit()) {
-                    if (0 !== this.mComponent.init(t)) return console.log('Dialog._init: DialogComponent nicht initialisiert'), 
-                    -1;
-                    this.mComponent.isErrorOutput() && console.log('Dialog-API Version: ', "0.5.1.0040 vom 11.10.2018 (ALPHA)");
-                }
-                return 0;
-            } catch (t) {
-                return console.log('Dialog._init: Exception ', t.message), -1;
-            }
-        }, t.prototype.reset = function(t) {
-            return this.mComponent.reset(t);
-        }, t.prototype.getType = function() {
-            return this.mComponent.getType();
-        }, t.prototype.getName = function() {
-            return this.mComponent.getName();
-        }, t.prototype.getVersion = function() {
-            return this.mComponent.getVersion();
-        }, t.prototype.getServerVersion = function() {
-            return this.mComponent.getServerVersion();
-        }, t.prototype.isActive = function() {
-            return this.mComponent.isActive();
-        }, t.prototype.setActiveOn = function() {
-            return this.mComponent.setActiveOn();
-        }, t.prototype.setActiveOff = function() {
-            return this.mComponent.setActiveOff();
-        }, t.prototype.isErrorOutput = function() {
-            return this.mComponent.isErrorOutput();
-        }, t.prototype.setErrorOutputOn = function() {
-            this.mComponent.setErrorOutputOn();
-        }, t.prototype.setErrorOutputOff = function() {
-            this.mComponent.setErrorOutputOff();
-        }, t.prototype.addDialogParseEvent = function(t, e) {
-            return this.mComponent.addDialogParseEvent(t, e);
-        }, t.prototype.addDialogSetEvent = function(t, e) {
-            return this.mComponent.addDialogSetEvent(t, e);
-        }, t.prototype.addDialogStartEvent = function(t, e) {
-            return this.mComponent.addDialogStartEvent(t, e);
-        }, t.prototype.addDialogStopEvent = function(t, e) {
-            return this.mComponent.addDialogStopEvent(t, e);
-        }, t.prototype.addDialogStateSetEvent = function(t, e) {
-            return this.mComponent.addDialogStateSetEvent(t, e);
-        }, t.prototype.addDialogActionEvent = function(t, e) {
-            return this.mComponent.addDialogActionEvent(t, e);
-        }, t.prototype.addDialogActionStopEvent = function(t, e) {
-            return this.mComponent.addDialogActionStopEvent(t, e);
-        }, t.prototype.addDialogSpeakEvent = function(t, e) {
-            return this.mComponent.addDialogSpeakEvent(t, e);
-        }, t.prototype.addDialogSpeakStartEvent = function(t, e) {
-            return this.mComponent.addDialogSpeakStartEvent(t, e);
-        }, t.prototype.addDialogSpeakStopEvent = function(t, e) {
-            return this.mComponent.addDialogSpeakStopEvent(t, e);
-        }, t.prototype.addErrorEvent = function(t, e) {
-            return this.mComponent.addErrorEvent(t, e);
-        }, t.prototype.removeDialogParseEvent = function(t) {
-            return this.mComponent.removeDialogParseEvent(t);
-        }, t.prototype.removeDialogSetEvent = function(t) {
-            return this.mComponent.removeDialogSetEvent(t);
-        }, t.prototype.removeDialogStartEvent = function(t) {
-            return this.mComponent.removeDialogStartEvent(t);
-        }, t.prototype.removeDialogStopEvent = function(t) {
-            return this.mComponent.removeDialogStopEvent(t);
-        }, t.prototype.removeDialogStateSetEvent = function(t) {
-            return this.mComponent.removeDialogStateSetEvent(t);
-        }, t.prototype.removeDialogActionEvent = function(t) {
-            return this.mComponent.removeDialogActionEvent(t);
-        }, t.prototype.removeDialogActionStopEvent = function(t) {
-            return this.mComponent.removeDialogActionStopEvent(t);
-        }, t.prototype.removeDialogSpeakEvent = function(t) {
-            return this.mComponent.removeDialogSpeakEvent(t);
-        }, t.prototype.removeDialogSpeakStartEvent = function(t) {
-            return this.mComponent.removeDialogSpeakStartEvent(t);
-        }, t.prototype.removeDialogSpeakStopEvent = function(t) {
-            return this.mComponent.removeDialogSpeakStopEvent(t);
-        }, t.prototype.removeErrorEvent = function(t) {
-            return this.mComponent.removeErrorEvent(t);
-        }, t.prototype.removeAllEvent = function(t) {
-            return this.mComponent.removeAllEvent(t);
-        }, t.prototype.parseSpeechDefFile = function(t) {
-            return this.mComponent.parseSpeechDefFile(t);
-        }, t.prototype.parseSpeechDefData = function(t) {
-            return this.mComponent.parseSpeechDefData(t);
-        }, t.prototype.clearDialog = function() {
-            return this.mComponent.clearDialog();
-        }, t.prototype.setDialog = function(t) {
-            return this.mComponent.setDialog(t);
-        }, t.prototype.getDialog = function() {
-            return this.mComponent.getDialog();
-        }, t.prototype.isDialogRunning = function() {
-            return this.mComponent.isDialogRunning();
-        }, t.prototype.toggleDialog = function() {
-            return this.mComponent.toggleDialog();
-        }, t.prototype.startDialog = function() {
-            return this.mComponent.startDialog();
-        }, t.prototype.stopDialog = function() {
-            return this.mComponent.stopDialog();
-        }, t.prototype.setDialogFilePath = function(t) {
-            return this.mComponent.setDialogFilePath(t);
-        }, t.prototype.getDialogFilePath = function() {
-            return this.mComponent.getDialogFilePath();
-        }, t.prototype.setDialogFileName = function(t) {
-            return this.mComponent.setDialogFileName(t);
-        }, t.prototype.getDialogFileName = function() {
-            return this.mComponent.getDialogFileName();
-        }, t.prototype.loadDialogFile = function(t) {
-            return this.mComponent.loadDialogFile(t);
-        }, t.prototype.writeDialogData = function(t) {
-            return this.mComponent.writeDialogData(t);
-        }, t.prototype.skipNextSpeak = function() {
-            return this.mComponent.skipNextSpeak();
-        }, t.prototype.setDialogState = function(t, e) {
-            return this.mComponent.setDialogState(t, e);
-        }, t.prototype.getDialogState = function() {
-            return this.mComponent.getDialogState();
-        }, t.prototype.setDialogStateContext = function(t) {
-            return this.mComponent.setDialogStateContext(t);
-        }, t;
-    }(), Ae = function() {
-        function t() {}
-        return t.create = function(t, e) {
-            try {
-                return new Fe(e);
-            } catch (t) {
-                return console.log('DialogFactory.create: Exception', t), null;
-            }
-        }, t;
-    }(), ke = 'BotComponent', Le = function(t) {
-        function e(e) {
-            void 0 === e && (e = !0);
-            var n = t.call(this, ke, e) || this;
+            var n = t.call(this, U, e) || this;
             return n.mAudioPlayer = null, n.mSpeak = null, n.mListen = null, n.mAction = null, 
             n.mDialog = null, n.mSpeakEnableFlag = !0, n.mListenEnableFlag = !0, n.mActionEnableFlag = !0, 
-            n._setErrorClassName('BotComponent'), n;
+            n;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "Bot";
+        }, e.prototype.getClass = function() {
+            return 'BotComponent';
         }, e.prototype.getVersion = function() {
-            return "0.5.1.0040 vom 11.10.2018 (ALPHA)";
+            return "0.5.2.0041 vom 11.11.2018 (ALPHA)";
         }, e.prototype.getServerVersion = function() {
             return this.mDialog ? this.mDialog.getServerVersion() : '';
+        }, e.prototype._initAllPlugin = function() {
+            return this.mAudioPlayer = this.findPlugin(f), this.mSpeak = this.findPlugin(C), 
+            this.mListen = this.findPlugin(w), this.mAction = this.findPlugin(o), this.mDialog = this.findPlugin(M), 
+            this.mDialog ? 0 : (this._error('_initAllPlugin', 'keine Dialog-Komponente vorhanden'), 
+            this._clearInit(), -1);
         }, e.prototype.init = function(e) {
-            return this.isInit() ? (this.isErrorOutput() && console.log('BotComponent.init: bereits initialisiert'), 
-            0) : 0 !== t.prototype.init.call(this, e) ? -1 : (this.mAudioPlayer = this.findPlugin($), 
-            this.mSpeak = this.findPlugin(ut), this.mListen = this.findPlugin(Et), this.mAction = this.findPlugin(n), 
-            this.mDialog = this.findPlugin(It), this.mDialog ? 0 : (this._error('init', 'keine DialogComponent vorhanden'), 
-            this._clearInit(), -1));
-        }, e.prototype.done = function() {
-            return this.isActive() && this.stopDialog(), this.mAudioPlayer = null, this.mSpeak = null, 
-            this.mListen = null, this.mAction = null, this.mDialog = null, this.mSpeakEnableFlag = !0, 
-            this.mListenEnableFlag = !0, this.mActionEnableFlag = !0, t.prototype.done.call(this);
-        }, e.prototype.reset = function(t) {
-            return this.isInit() ? (this.isActive() && this.stopDialog(), this.setActiveOn(), 
-            this.mSpeakEnableFlag = !0, this.mListenEnableFlag = !0, this.mActionEnableFlag = !0, 
-            this.mDialog ? this.mDialog.reset(t) : 0) : (this._error('reset', 'Komponente nicht initialisiert'), 
-            -1);
+            return t.prototype.init.call(this, e);
+        }, e.prototype._doneAllPlugin = function() {
+            this.mAudioPlayer = null, this.mSpeak = null, this.mListen = null, this.mAction = null, 
+            this.mDialog = null;
+        }, e.prototype._doneAllAttribute = function() {
+            this.mSpeakEnableFlag = !0, this.mListenEnableFlag = !0, this.mActionEnableFlag = !0;
+        }, e.prototype._resetAllDefault = function() {
+            this.mSpeakEnableFlag = !0, this.mListenEnableFlag = !0, this.mActionEnableFlag = !0;
+        }, e.prototype.reset = function(e) {
+            return 0 !== t.prototype.reset.call(this, e) ? -1 : this.mDialog ? this.mDialog.reset(e) : 0;
         }, e.prototype.isActive = function() {
             return !!this.mDialog && t.prototype.isActive.call(this);
+        }, e.prototype.setActiveOn = function() {
+            return this.mDialog ? t.prototype.setActiveOn.call(this) : -1;
         }, e.prototype.connect = function() {
             return 0;
         }, e.prototype.isConnect = function() {
@@ -4741,65 +4644,57 @@
         }, e.prototype.getNetType = function() {
             return 'undefined';
         }, e.prototype.addDialogSetEvent = function(t, e) {
-            return this.addEventListener(t, I, e);
+            return this.addEventListener(t, ht, e);
         }, e.prototype.addDialogParseEvent = function(t, e) {
-            return this.addEventListener(t, B, e);
+            return this.addEventListener(t, ft, e);
         }, e.prototype.addDialogStartEvent = function(t, e) {
-            return this.addEventListener(t, M, e);
+            return this.addEventListener(t, mt, e);
         }, e.prototype.addDialogStopEvent = function(t, e) {
-            return this.addEventListener(t, W, e);
+            return this.addEventListener(t, gt, e);
         }, e.prototype.addDialogStateSetEvent = function(t, e) {
-            return this.addEventListener(t, q, e);
+            return this.addEventListener(t, yt, e);
         }, e.prototype.addDialogActionEvent = function(t, e) {
-            return this.addEventListener(t, H, e);
+            return this.addEventListener(t, dt, e);
         }, e.prototype.addDialogActionStopEvent = function(t, e) {
-            return this.addEventListener(t, j, e);
+            return this.addEventListener(t, St, e);
         }, e.prototype.addDialogSpeakEvent = function(t, e) {
-            return this.addEventListener(t, G, e);
+            return this.addEventListener(t, vt, e);
         }, e.prototype.addDialogSpeakStartEvent = function(t, e) {
-            return this.addEventListener(t, K, e);
+            return this.addEventListener(t, _t, e);
         }, e.prototype.addDialogSpeakStopEvent = function(t, e) {
-            return this.addEventListener(t, X, e);
-        }, e.prototype.addSpeakStartEvent = function(t, e) {
-            return this.addEventListener(t, P, e);
-        }, e.prototype.addSpeakStopEvent = function(t, e) {
-            return this.addEventListener(t, O, e);
+            return this.addEventListener(t, Et, e);
         }, e.prototype.addErrorEvent = function(t, e) {
-            return this.addEventListener(t, b, e);
+            return this.addEventListener(t, ct, e);
         }, e.prototype.removeDialogSetEvent = function(t) {
-            return this.removeEventListener(t, I);
+            return this.removeEventListener(t, ht);
         }, e.prototype.removeDialogParseEvent = function(t) {
-            return this.removeEventListener(t, B);
+            return this.removeEventListener(t, ft);
         }, e.prototype.removeDialogStartEvent = function(t) {
-            return this.removeEventListener(t, M);
+            return this.removeEventListener(t, mt);
         }, e.prototype.removeDialogStopEvent = function(t) {
-            return this.removeEventListener(t, W);
+            return this.removeEventListener(t, gt);
         }, e.prototype.removeDialogStateSetEvent = function(t) {
-            return this.removeEventListener(t, q);
+            return this.removeEventListener(t, yt);
         }, e.prototype.removeDialogActionEvent = function(t) {
-            return this.removeEventListener(t, H);
+            return this.removeEventListener(t, dt);
         }, e.prototype.removeDialogActionStopEvent = function(t) {
-            return this.removeEventListener(t, j);
+            return this.removeEventListener(t, St);
         }, e.prototype.removeDialogSpeakEvent = function(t) {
-            return this.removeEventListener(t, G);
+            return this.removeEventListener(t, vt);
         }, e.prototype.removeDialogSpeakStartEvent = function(t) {
-            return this.removeEventListener(t, K);
+            return this.removeEventListener(t, _t);
         }, e.prototype.removeDialogSpeakStopEvent = function(t) {
-            return this.removeEventListener(t, X);
-        }, e.prototype.removeSpeakStartEvent = function(t) {
-            return this.removeEventListener(t, P);
-        }, e.prototype.removeSpeakStopEvent = function(t) {
-            return this.removeEventListener(t, O);
+            return this.removeEventListener(t, Et);
         }, e.prototype.removeErrorEvent = function(t) {
-            return this.removeEventListener(t, b);
+            return this.removeEventListener(t, ct);
         }, e.prototype.removeAllEvent = function(t) {
-            return this.mDialog && this.mDialog.removeAllEvent(t), this.removeSpeakStartEvent(t), 
-            this.removeSpeakStopEvent(t), this.removeErrorEvent(t), 0;
+            return this.mDialog && this.mDialog.removeAllEvent(t), this.removeErrorEvent(t), 
+            0;
         }, e.prototype._dialogSpeak = function(t) {
             return this.isActive() && this.isSpeak() ? (this.mSpeak.setSpeakText(t.text), this.mSpeak.setAudioFileName(t.id), 
-            this.mSpeak.startSpeak()) : 0;
+            this.mSpeak.start()) : 0;
         }, e.prototype._dialogSpeakStop = function() {
-            return this.isActive() && this.isSpeak() ? this.mSpeak.stopSpeak() : 0;
+            return this.isActive() && this.isSpeak() ? this.mSpeak.stop() : 0;
         }, e.prototype.getDialogSpeakFunc = function() {
             var t = this;
             return function(e) {
@@ -4821,7 +4716,7 @@
             }
             return 0;
         }, e.prototype._dialogActionStop = function() {
-            return this.isActive() && this.isAction() ? this.mAction.stopAction() : 0;
+            return this.isActive() && this.isAction() ? this.mAction.stop() : 0;
         }, e.prototype.getDialogActionFunc = function() {
             var t = this;
             return function(e) {
@@ -4889,17 +4784,16 @@
         }, e.prototype.getDialog = function() {
             return this.mDialog ? this.mDialog.getDialog() : (this._error('getDialog', 'keine Dialog-Komponente vorhanden'), 
             '');
-        }, e.prototype.isDialogRunning = function() {
-            return this.mDialog ? this.mDialog.isDialogRunning() : (this._error('isDialogRunning', 'keine Dialog-Komponente vorhanden'), 
-            !1);
+        }, e.prototype.isRunning = function() {
+            return !!this.mDialog && this.mDialog.isRunning();
         }, e.prototype.toggleDialog = function() {
             return this.isActive() ? this.mDialog.toggleDialog() : (this._error('toggleDialog', 'Komponente ist nicht aktiviert'), 
             -1);
-        }, e.prototype.startDialog = function() {
-            return this.isActive() ? this.mDialog.startDialog() : (this._error('startDialog', 'Komponente ist nicht aktiviert'), 
+        }, e.prototype.start = function() {
+            return this.isActive() ? this.mDialog.start() : (this._error('start', 'Komponente ist nicht aktiviert'), 
             -1);
-        }, e.prototype.stopDialog = function() {
-            return this.isActive() ? this.mDialog.stopDialog() : (this._error('stopDialog', 'Komponente ist nicht aktiviert'), 
+        }, e.prototype.stop = function() {
+            return this.isActive() ? this.mDialog.stop() : (this._error('stop', 'Komponente ist nicht aktiviert'), 
             -1);
         }, e.prototype.setDialogState = function(t, e) {
             return this.isActive() ? this.mDialog.setDialogState(t, e) : (this._error('setDialogState', 'Komponente ist nicht aktiviert'), 
@@ -4923,236 +4817,88 @@
             return this.isActive() ? this.mDialog.removeContextElement(t, e) : (this._error('removeContextElement', 'Komponente ist nicht aktiviert'), 
             -1);
         }, e;
-    }(V), Ce = function(t) {
+    }(Dt), Pe = function(t) {
         function e() {
             return t.call(this, 'BotComponentFactory') || this;
         }
-        return s(e, t), e.prototype.getType = function() {
+        return u(e, t), e.prototype.getType = function() {
             return "Bot";
         }, e.prototype.getName = function() {
             return "BotComponentFactory";
         }, e.prototype._newPlugin = function(t, e) {
-            return new Le(e);
+            return new De(e);
         }, e.prototype.create = function(t, e) {
             void 0 === e && (e = !0);
-            var n = t || ke;
+            var n = t || U;
             try {
                 return this._newPlugin(n, e);
             } catch (t) {
                 return this._exception('create', t), null;
             }
         }, e;
-    }(v), be = function(t) {
-        function n() {
-            var e = t.call(this) || this;
-            return e.mBotComponent = null, e._setErrorClassName('BotComponentBuilder'), e;
+    }(F), Le = function(t) {
+        function e(e, n) {
+            void 0 === n && (n = !0);
+            var o = t.call(this, e || 'BotComponentBuilder', n) || this;
+            return o.mBotComponent = null, o;
         }
-        return s(n, t), n.prototype.getType = function() {
+        return u(e, t), e.prototype.getClass = function() {
+            return 'BotComponentBuilder';
+        }, e.prototype.getType = function() {
             return "Bot";
-        }, n.prototype.getName = function() {
+        }, e.prototype.getName = function() {
             return "BotComponentBuilder";
-        }, n.prototype.build = function() {
+        }, e.prototype.build = function() {
             if (this.mBotComponent) return this.mBotComponent;
             try {
-                var t = this._buildComponent(), n = this._getComponent(It, "DialogComponentBuilder", pe), o = this._getComponent(e, "ActionComponentBuilder", J), i = this._getComponent(vt, "ListenComponentBuilder", xt), r = this._getComponent(ut, "SpeakComponentBuilder", yt), u = this._getPlugin($, "AudioPlayerFactory", ot);
-                return 0 !== this._binder(t, n, o, i, r, u) ? (this._error('build', 'Komponenten nicht verbunden'), 
+                var t = this._buildComponent(), e = this._getComponent(M, "Dialog"), o = this._getComponent(n, "Action"), i = this._getComponent(x, "Listen"), r = this._getComponent(C, "Speak"), u = this._getPlugin(f, "AudioPlayerFactory", L);
+                return 0 !== this._binder(t, e, o, i, r, u) ? (this._error('build', 'Komponenten nicht verbunden'), 
                 null) : t;
             } catch (t) {
                 return this._exception('build', t), null;
             }
-        }, n.prototype._buildComponent = function() {
-            return this.mBotComponent || (this.mBotComponent = this._getPlugin(ke, "BotComponentFactory", Ce)), 
+        }, e.prototype._buildComponent = function() {
+            return this.mBotComponent || (this.mBotComponent = this._getPlugin(U, "BotComponentFactory", Pe)), 
             this.mBotComponent;
-        }, n.prototype._binder = function(t, e, n, o, i, r) {
-            return t && e && n && o && i && r ? 0 !== t.insertPlugin(r.getName(), r) ? -1 : 0 !== t.insertPlugin(i.getName(), i) ? -1 : 0 !== t.insertPlugin(o.getName(), o) ? -1 : 0 !== t.insertPlugin(n.getName(), n) ? -1 : 0 !== t.insertPlugin(e.getName(), e) ? -1 : 0 !== e.addDialogActionEvent(ke, t.getDialogActionFunc()) ? -1 : 0 !== e.addDialogActionStopEvent(ke, t.getDialogActionStopFunc()) ? -1 : 0 !== e.addDialogSpeakEvent(ke, t.getDialogSpeakFunc()) ? -1 : 0 !== e.addDialogSpeakStopEvent(ke, t.getDialogSpeakStopFunc()) ? -1 : 0 : -1;
-        }, n;
-    }(f), Pe = function() {
-        function t(t) {
-            if (this.mComponent = null, 0 !== this._init(t)) throw new Error('Bot nicht initialisiert');
-        }
-        return t.prototype._init = function(t) {
-            var e = !0;
-            t && 'boolean' == typeof t.errorOutputFlag && (e = t.errorOutputFlag);
-            try {
-                var n = "BotComponentBuilder";
-                t && t.botBuilder && (n = t.botBuilder);
-                var o = null;
-                if ("BotComponentBuilder" === n && (o = c.get("BotComponentBuilder", be)), !o) return e && console.log('Bot._init: BotBuilder nicht vorhanden'), 
-                -1;
-                if (this.mComponent = o.build(), !this.mComponent) return e && console.log('Bot._init: keine BotComponent erzeugt'), 
-                -1;
-                if (!this.mComponent.isInit()) {
-                    if (0 !== this.mComponent.init(t)) return e && console.log('Bot._init: BotComponent nicht initialisiert'), 
-                    -1;
-                    this.mComponent.isErrorOutput() && console.log('Bot-API Version: ', "0.5.1.0040 vom 11.10.2018 (ALPHA)");
-                }
-                return 0;
-            } catch (t) {
-                return e && console.log('Bot._init: Exception ', t.message), -1;
-            }
-        }, t.prototype.reset = function(t) {
-            return this.mComponent.reset(t);
-        }, t.prototype.getType = function() {
-            return this.mComponent.getType();
-        }, t.prototype.getName = function() {
-            return this.mComponent.getName();
-        }, t.prototype.getVersion = function() {
-            return this.mComponent.getVersion();
-        }, t.prototype.getServerVersion = function() {
-            return this.mComponent.getServerVersion();
-        }, t.prototype.isActive = function() {
-            return this.mComponent.isActive();
-        }, t.prototype.setActiveOn = function() {
-            return this.mComponent.setActiveOn();
-        }, t.prototype.setActiveOff = function() {
-            return this.mComponent.setActiveOff();
-        }, t.prototype.isErrorOutput = function() {
-            return this.mComponent.isErrorOutput();
-        }, t.prototype.setErrorOutputOn = function() {
-            this.mComponent.setErrorOutputOn();
-        }, t.prototype.setErrorOutputOff = function() {
-            this.mComponent.setErrorOutputOff();
-        }, t.prototype.addDialogSetEvent = function(t, e) {
-            return this.mComponent.addDialogSetEvent(t, e);
-        }, t.prototype.addDialogParseEvent = function(t, e) {
-            return this.mComponent.addDialogParseEvent(t, e);
-        }, t.prototype.addDialogStartEvent = function(t, e) {
-            return this.mComponent.addDialogStartEvent(t, e);
-        }, t.prototype.addDialogStopEvent = function(t, e) {
-            return this.mComponent.addDialogStopEvent(t, e);
-        }, t.prototype.addDialogStateSetEvent = function(t, e) {
-            return this.mComponent.addDialogStateSetEvent(t, e);
-        }, t.prototype.addDialogActionEvent = function(t, e) {
-            return this.mComponent.addDialogActionEvent(t, e);
-        }, t.prototype.addDialogActionStopEvent = function(t, e) {
-            return this.mComponent.addDialogActionStopEvent(t, e);
-        }, t.prototype.addDialogSpeakEvent = function(t, e) {
-            return this.mComponent.addDialogSpeakEvent(t, e);
-        }, t.prototype.addDialogSpeakStartEvent = function(t, e) {
-            return this.mComponent.addDialogSpeakStartEvent(t, e);
-        }, t.prototype.addDialogSpeakStopEvent = function(t, e) {
-            return this.mComponent.addDialogSpeakStopEvent(t, e);
-        }, t.prototype.addSpeakStartEvent = function(t, e) {
-            return this.mComponent.addSpeakStartEvent(t, e);
-        }, t.prototype.addSpeakStopEvent = function(t, e) {
-            return this.mComponent.addSpeakStopEvent(t, e);
-        }, t.prototype.addErrorEvent = function(t, e) {
-            return this.mComponent.addErrorEvent(t, e);
-        }, t.prototype.removeDialogSetEvent = function(t) {
-            return this.mComponent.removeDialogSetEvent(t);
-        }, t.prototype.removeDialogParseEvent = function(t) {
-            return this.mComponent.removeDialogParseEvent(t);
-        }, t.prototype.removeDialogStartEvent = function(t) {
-            return this.mComponent.removeDialogStartEvent(t);
-        }, t.prototype.removeDialogStopEvent = function(t) {
-            return this.mComponent.removeDialogStopEvent(t);
-        }, t.prototype.removeDialogStateSetEvent = function(t) {
-            return this.mComponent.removeDialogStateSetEvent(t);
-        }, t.prototype.removeDialogActionEvent = function(t) {
-            return this.mComponent.removeDialogActionEvent(t);
-        }, t.prototype.removeDialogActionStopEvent = function(t) {
-            return this.mComponent.removeDialogActionStopEvent(t);
-        }, t.prototype.removeDialogSpeakEvent = function(t) {
-            return this.mComponent.removeDialogSpeakEvent(t);
-        }, t.prototype.removeDialogSpeakStartEvent = function(t) {
-            return this.mComponent.removeDialogSpeakStartEvent(t);
-        }, t.prototype.removeDialogSpeakStopEvent = function(t) {
-            return this.mComponent.removeDialogSpeakStopEvent(t);
-        }, t.prototype.removeSpeakStartEvent = function(t) {
-            return this.mComponent.removeSpeakStartEvent(t);
-        }, t.prototype.removeSpeakStopEvent = function(t) {
-            return this.mComponent.removeSpeakStopEvent(t);
-        }, t.prototype.removeErrorEvent = function(t) {
-            return this.mComponent.removeErrorEvent(t);
-        }, t.prototype.removeAllEvent = function(t) {
-            return this.mComponent.removeAllEvent(t);
-        }, t.prototype.isSpeak = function() {
-            return this.mComponent.isSpeak();
-        }, t.prototype.setSpeakOn = function() {
-            return this.mComponent.setSpeakOn();
-        }, t.prototype.setSpeakOff = function() {
-            return this.mComponent.setSpeakOff();
-        }, t.prototype.getSpeak = function() {
-            return this.mComponent.getSpeak();
-        }, t.prototype.isListen = function() {
-            return this.mComponent.isListen();
-        }, t.prototype.setListenOn = function() {
-            return this.mComponent.setListenOn();
-        }, t.prototype.setListenOff = function() {
-            return this.mComponent.setListenOff();
-        }, t.prototype.getListen = function() {
-            return this.mComponent.getListen();
-        }, t.prototype.isAction = function() {
-            return this.mComponent.isAction();
-        }, t.prototype.setActionOn = function() {
-            return this.mComponent.setActionOn();
-        }, t.prototype.setActionOff = function() {
-            return this.mComponent.setActionOff();
-        }, t.prototype.getAction = function() {
-            return this.mComponent.getAction();
-        }, t.prototype.parseSpeechDefFile = function(t) {
-            return this.mComponent.parseSpeechDefFile(t);
-        }, t.prototype.parseSpeechDefData = function(t) {
-            return this.mComponent.parseSpeechDefData(t);
-        }, t.prototype.clearDialog = function() {
-            return this.mComponent.clearDialog();
-        }, t.prototype.setDialog = function(t) {
-            return this.mComponent.setDialog(t);
-        }, t.prototype.getDialog = function() {
-            return this.mComponent.getDialog();
-        }, t.prototype.isDialogRunning = function() {
-            return this.mComponent.isDialogRunning();
-        }, t.prototype.toggleDialog = function() {
-            return this.mComponent.toggleDialog();
-        }, t.prototype.startDialog = function() {
-            return this.mComponent.startDialog();
-        }, t.prototype.stopDialog = function() {
-            return this.mComponent.stopDialog();
-        }, t.prototype.setDialogFilePath = function(t) {
-            return this.mComponent.setDialogFilePath(t);
-        }, t.prototype.getDialogFilePath = function() {
-            return this.mComponent.getDialogFilePath();
-        }, t.prototype.setDialogFileName = function(t) {
-            return this.mComponent.setDialogFileName(t);
-        }, t.prototype.getDialogFileName = function() {
-            return this.mComponent.getDialogFileName();
-        }, t.prototype.loadDialogFile = function(t) {
-            return this.mComponent.loadDialogFile(t);
-        }, t.prototype.writeDialogData = function(t) {
-            return this.mComponent.writeDialogData(t);
-        }, t.prototype.skipNextSpeak = function() {
-            return this.mComponent.skipNextSpeak();
-        }, t.prototype.setDialogState = function(t, e) {
-            return this.mComponent.setDialogState(t, e);
-        }, t.prototype.getDialogState = function() {
-            return this.mComponent.getDialogState();
-        }, t.prototype.setDialogStateContext = function(t) {
-            return this.mComponent.setDialogStateContext(t);
-        }, t.prototype.clearContext = function() {
-            return this.mComponent.clearContext();
-        }, t.prototype.addContextElement = function(t, e) {
-            return this.mComponent.addContextElement(t, e);
-        }, t.prototype.removeContextElement = function(t, e) {
-            return this.mComponent.removeContextElement(t, e);
-        }, t;
-    }(), Oe = function() {
+        }, e.prototype._binder = function(t, e, n, o, i, r) {
+            return t ? e ? n ? o ? i ? r ? 0 !== t.insertPlugin(r.getName(), r) ? (this._error('_binder', 'AudioPlayer-Plugin wurde nicht eingefuegt'), 
+            -1) : 0 !== t.insertPlugin(i.getName(), i) ? (this._error('_binder', 'Speak-Komponente wurde nicht eingefuegt'), 
+            -1) : 0 !== t.insertPlugin(o.getName(), o) ? (this._error('_binder', 'Listen-Komponente wurde nicht eingefuegt'), 
+            -1) : 0 !== t.insertPlugin(n.getName(), n) ? (this._error('_binder', 'Action-Komponente wurde nicht eingefuegt'), 
+            -1) : 0 !== t.insertPlugin(e.getName(), e) ? (this._error('_binder', 'Dialog-Komponente wurde nicht eingefuegt'), 
+            -1) : 0 !== e.addDialogActionEvent(U, t.getDialogActionFunc()) ? -1 : 0 !== e.addDialogActionStopEvent(U, t.getDialogActionStopFunc()) ? -1 : 0 !== e.addDialogSpeakEvent(U, t.getDialogSpeakFunc()) ? -1 : 0 !== e.addDialogSpeakStopEvent(U, t.getDialogSpeakStopFunc()) ? -1 : 0 : (this._error('_binder', 'Kein AudioPlayer-Plugin vorhanden'), 
+            -1) : (this._error('_binder', 'Keine Speak-Komponente vorhanden'), -1) : (this._error('_binder', 'Keine Listen-Komponente vorhanden'), 
+            -1) : (this._error('_binder', 'Keine Action-Komponente vorhanden'), -1) : (this._error('_binder', 'Keine Dialog-Komponente vorhanden'), 
+            -1) : (this._error('_binder', 'Keine Bot-Komponente vorhanden'), -1);
+        }, e;
+    }(Q), ke = function() {
         function t() {}
-        return t.create = function(t, e) {
-            try {
-                return new Pe(e);
-            } catch (t) {
-                return console.log('BotFactory.create: Exception', t.message), null;
-            }
-        }, t;
+        return t.setErrorOutputOn = function() {
+            J.setErrorOutputOn();
+        }, t.setErrorOutputOff = function() {
+            J.setErrorOutputOff();
+        }, t._createAllBuilder = function() {
+            var t = 0;
+            return 0 !== J.insertBuilder("Speak", new oe('', !1)) && (t = -1), 0 !== J.insertBuilder("Listen", new Gt('', !1)) && (t = -1), 
+            0 !== J.insertBuilder("Action", new kt('', !1)) && (t = -1), 0 !== J.insertBuilder("Dialog", new Fe('', !1)) && (t = -1), 
+            0 !== J.insertBuilder("Bot", new Le('', !1)) && (t = -1), t;
+        }, t.init = function() {
+            return t.initFlag ? 0 : 0 !== t._createAllBuilder() ? -1 : (t.initFlag = !0, 0);
+        }, t.isInit = function() {
+            return t.initFlag;
+        }, t.done = function() {
+            return J.clear(), t.initFlag = !1, 0;
+        }, t.initFlag = !1, t;
     }();
-    t.SPEECH_API_VERSION = "0.5.1.0040 vom 11.10.2018 (ALPHA)", t.ACTION_TYPE_NAME = "Action", 
-    t.ACTION_COMPONENT_NAME = e, t.ActionFactory = Z, t.AUDIO_PLUGIN_NAME = 'AudioPlugin', 
-    t.AudioFactory = rt, t.SPEAK_TYPE_NAME = "Speak", t.SPEAK_COMPONENT_NAME = ut, t.SPEAK_DE_LANGUAGE = "de", 
-    t.SPEAK_EN_LANGUAGE = 'en', t.SpeakFactory = St, t.LISTEN_TYPE_NAME = "Listen", 
-    t.LISTEN_COMPONENT_NAME = vt, t.ListenFactory = Tt, t.DIALOG_TYPE_NAME = "Dialog", 
-    t.DIALOG_COMPONENT_NAME = It, t.DIALOG_MAIN_NAME = Ht, t.DIALOG_ROOTSTATE_NAME = jt, 
-    t.DialogFactory = Ae, t.BOT_TYPE_NAME = "Bot", t.BOT_COMPONENT_NAME = ke, t.BotFactory = Oe, 
-    Object.defineProperty(t, '__esModule', {
+    t.SPEECH_API_VERSION = "0.5.2.0041 vom 11.11.2018 (ALPHA)", t.BASE_TYPE_NAME = "Base", 
+    t.BASE_COMPONENT_NAME = e, t.ACTION_TYPE_NAME = "Action", t.ACTION_COMPONENT_NAME = n, 
+    t.ActionFactory = g, t.AUDIO_PLUGIN_NAME = 'AudioPlugin', t.AudioFactory = T, t.SPEAK_TYPE_NAME = "Speak", 
+    t.SPEAK_COMPONENT_NAME = C, t.SPEAK_DE_LANGUAGE = "de", t.SPEAK_EN_LANGUAGE = 'en', 
+    t.SpeakFactory = N, t.LISTEN_TYPE_NAME = "Listen", t.LISTEN_COMPONENT_NAME = x, 
+    t.LISTEN_DE_LANGUAGE = "de", t.LISTEN_EN_LANGUAGE = 'en', t.ListenFactory = I, t.DIALOG_TYPE_NAME = "Dialog", 
+    t.DIALOG_COMPONENT_NAME = M, t.DIALOG_MAIN_NAME = H, t.DIALOG_ROOTSTATE_NAME = V, 
+    t.DialogFactory = X, t.BOT_TYPE_NAME = "Bot", t.BOT_COMPONENT_NAME = U, t.BotFactory = W, 
+    t.SpeechMain = ke, Object.defineProperty(t, '__esModule', {
         value: !0
     });
 });

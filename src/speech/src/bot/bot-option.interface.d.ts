@@ -15,8 +15,6 @@ import { DialogOptionInterface } from './../dialog/dialog-option.interface';
  * BotOption Schnittstelle fuer optionale Konfigurationsparameter von Bot bei der Initialisierung
  */
 export interface BotOptionInterface extends DialogOptionInterface {
-    /** definiert den zu verwendenden Builder fuer die Erzeugung der Bot-Komponente */
-    botBuilder?: string;
     /** Verzeichnis, in dem die Audiodateien liegen */
     audioFilePath?: string;
     /** Audioformat MP3 oder WAV */
@@ -25,6 +23,4 @@ export interface BotOptionInterface extends DialogOptionInterface {
     audioContext?: AudioContext;
     /** True, wenn Audiodateien abgespielt werden sollen */
     audioFlag?: boolean;
-    /** legt fest, ob die Fehlermeldungen zusaetzlich auf der Konsole ausgegeben werden */
-    errorOutputFlag?: boolean;
 }

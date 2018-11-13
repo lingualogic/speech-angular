@@ -15,6 +15,7 @@ module.exports = function (config) {
         require('karma-chrome-launcher'),
         require('karma-safari-launcher'),
         require('karma-firefox-launcher'),
+        require('karma-opera-launcher'),
         require('karma-jasmine-html-reporter'),
         require('karma-coverage-istanbul-reporter'),
         require('@angular-devkit/build-angular/plugins/karma')
@@ -46,18 +47,21 @@ module.exports = function (config) {
     autoWatch: true,
 
     // for all platforms
-    // browsers: ['Chrome', 'Firefox'],
+    // browsers: ['Chrome', 'Firefox', 'Opera'],
 
     // only for mac
-    // browsers: ['Chrome', 'Firefox', 'Safari'],
+    // browsers: ['Chrome', 'Firefox', 'Opera', 'Safari'],
 
     browsers: ['Chrome'],
     // browsers: ['Firefox'],
+    // browsers: ['Opera'],
     // browsers: ['Safari'],
 
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: 1,
+
+    browserNoActivityTimeout: 100000,
 
     singleRun: true
   });

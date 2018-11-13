@@ -17,6 +17,8 @@ export declare const SPEAK_COMPONENT_NAME = "SpeakComponent";
 export declare const SPEAK_MOCK_NAME = "SpeakMock";
 export declare const SPEAK_AUDIOFILE_PATH = "assets/";
 export declare const SPEAK_AUDIO_FLAG: boolean;
+export declare const SPEAK_HTML5_TTS = "TTSHtml5";
+export declare const SPEAK_NUANCE_TTS = "TTSNuance";
 /** Deutsch */
 export declare const SPEAK_DE_LANGUAGE = "de";
 /** Englisch */
@@ -25,3 +27,5 @@ export declare const SPEAK_EN_LANGUAGE = "en";
 export declare const SPEAK_DEFAULT_LANGUAGE = "de";
 /** Undefiniert */
 export declare const SPEAK_UNDEFINE_LANGUAGE = "";
+/** Undefiniert */
+export declare const SPEAK_UNDEFINE_VOICE = "";

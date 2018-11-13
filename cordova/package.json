@@ -1,0 +1,13 @@
+{
+    "name": "speechangularapp",
+    "displayName": "SpeechAngularApp",
+    "version": "0.5.2",
+    "description": "Test-App fuer Speech-Angular SDK",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "LinguaLogic Team",
+    "license": "MIT",
+    "dependencies": {}
+}

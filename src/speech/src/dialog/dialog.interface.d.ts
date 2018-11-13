@@ -1,89 +1,23 @@
 /**
  * Oeffentliche Dialog Schnittstelle
  *
- * API-Version: 1.0
- * Datum:   07.09.2018
+ * API-Version: 1.1
+ * Datum:   18.10.2018
  *
- * Letzte Aenderung: 07.09.2018
+ * Letzte Aenderung: 18.10.2018
  * Status: gelb
  *
  * @module dialog
  * @author SB
  */
 import { OnSpeechErrorFunc } from '../interface/speech-function.interface';
+import { BaseInterface } from './../base/base.interface';
 import { OnDialogParseFunc, OnDialogSetFunc, OnDialogStartFunc, OnDialogStopFunc, OnDialogStateSetFunc, OnDialogActionFunc, OnDialogActionStopFunc, OnDialogSpeakFunc, OnDialogSpeakStartFunc, OnDialogSpeakStopFunc } from './dialog-function.type';
 import { DialogStateContextInterface } from './dialog-state-context.interface';
-export { OnDialogParseFunc, OnDialogSetFunc, OnDialogStartFunc, OnDialogStopFunc, OnDialogStateSetFunc, OnDialogActionFunc, OnDialogSpeakFunc, OnDialogSpeakStartFunc, OnDialogSpeakStopFunc, DialogStartActionFunc, DialogStopActionFunc } from './dialog-function.type';
-export { DialogActionInterface } from './dialog-action.interface';
-export { DialogSpeakInterface } from './dialog-speak.interface';
-export { DialogStateContextInterface } from './dialog-state-context.interface';
-export { DialogOptionInterface } from './dialog-option.interface';
 /** @export
  * Dialog Schnittstelle
  */
-export interface DialogInterface {
-    /**
-     * Komponente auf initialen Zustand zuruecksetzen
-     *
-     * @param {any} aOption - optionale Parameter
-     */
-    reset(aOption?: any): number;
-    /**
-     * Typ des Komponenten-Interfaces zurueckgeben
-     *
-     * @return {string} typeName
-     */
-    getType(): string;
-    /**
-     * Name der konkreten Komponente zurueckgeben
-     *
-     * @return {string} componentName
-     */
-    getName(): string;
-    /**
-     * Version der Komponente zurueckgeben
-     *
-     * @return {string} componentVersion
-     */
-    getVersion(): string;
-    /**
-     * Version der Server-Komponente zurueckgeben (gilt nur fuer Proxies)
-     *
-     * @return {string} serverComponentVersion
-     */
-    getServerVersion(): string;
-    /**
-     * pruefen auf aktive Komponente
-     *
-     * @return {boolean} activeFlag
-     */
-    isActive(): boolean;
-    /**
-     * Komponente aktivieren
-     *
-     * @return {number} Fehercode 0 oder -1
-     */
-    setActiveOn(): number;
-    /**
-     * Komponente daktivieren
-     *
-     * @return {number} Fehlercode oder -1
-     */
-    setActiveOff(): number;
-    /**
-     * pruefen auf Fehlerausgabe auf die Konsole
-     *
-     * @return {boolean} errorOutputFlag
-     */
-    isErrorOutput(): boolean;
-    /**
-     * Fehlerausgabe auf Konsole einschalten
-     */
-    setErrorOutputOn(): void;
-    /**
-     * Fehlerausgabe auf Konsole ausschalten
-     */
-    setErrorOutputOff(): void;
+export interface DialogInterface extends BaseInterface {
     /**
      * Traegt eine Ereignisfunktion in das DialogParse Ereignis ein.
      * DialogParse wird ausgeloest, wenn ein Dialogskript geparst worden ist.
@@ -173,7 +107,7 @@ export interface DialogInterface {
      * DialogSpeakStart wird ausgeloest, wenn eine Sprachausgabe gestartet wird.
      *
      * @param {string} aPluginName - Name des Plugins, welches die Funktion eintragt
-     * @param {OnDialogActionStopFunc} aEventFunc - Funktion, die Ereignis verarbeitet
+     * @param {OnDialogSpeakStartFunc} aEventFunc - Funktion, die Ereignis verarbeitet
      *
      * @return {number} Fehlercode 0 oder -1
      */
@@ -183,7 +117,7 @@ export interface DialogInterface {
      * DialogSpeakStop wird ausgeloest, wenn eine Sprachausgabe durch den Timeout beendert wird.
      *
      * @param {string} aPluginName - Name des Plugins, welches die Funktion eintragt
-     * @param {OnDialogActionStopFunc} aEventFunc - Funktion, die Ereignis verarbeitet
+     * @param {OnDialogSpeakStopFunc} aEventFunc - Funktion, die Ereignis verarbeitet
      *
      * @return {number} Fehlercode 0 oder -1
      */
@@ -194,7 +128,7 @@ export interface DialogInterface {
      * Die Fehlerdaten werden der Ereignisfunktion uebergeben.
      *
      * @param {string} aPluginName - Name des Plugins, welches die Funktion eintragt
-     * @param {OnDialogSpeakFunc} aEventFunc - Funktion, die Ereignis verarbeitet
+     * @param {OnSpeechErrorFunc} aEventFunc - Funktion, die Ereignis verarbeitet
      *
      * @return {number} Fehlercode 0 oder -1
      */
@@ -378,29 +312,11 @@ export interface DialogInterface {
      */
     getDialog(): string;
     /**
-     * Pruefen, ob ein Dialog gerade ausgefuehrt wird.
-     *
-     * @return {boolean} True, wenn Dialog ausgefuehrt wird, False sonst
-     */
-    isDialogRunning(): boolean;
-    /**
      * Schaltet zwischen Dialog ausfuehren und Dialog beenden hin und her.
      *
      * @return {number} Fehlercode 0 oder -1
      */
     toggleDialog(): number;
-    /**
-     * Statet den aktuell eingestellten Dialog.
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    startDialog(): number;
-    /**
-     * Beendet den aktuell laufenden Dialog.
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    stopDialog(): number;
     /**
      * Ueberspringt eine Sprachausgabe.
      *

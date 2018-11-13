@@ -9,13 +9,16 @@
  */
 
 
+// base
+
+import { BaseServiceOptionInterface } from './../base/base-service-option.interface';
+
+
 /** @export
  * SpeakServiceOption Schnittstelle fuer optionale Konfigurationsparameter des SpeakService bei der Initialisierung
  */
 
-export interface SpeakServiceOptionInterface {
-    /** ein/ausschalten der Speak-Komponente */
-    activeFlag?: true;
+export interface SpeakServiceOptionInterface extends BaseServiceOptionInterface {
     /** setzt die Sprache fuer die Sprachausgabe ( 'de', 'en' )*/
     speakLanguage?: string;
     /** Audioformat 'mp3' oder 'wav' */
@@ -24,7 +27,5 @@ export interface SpeakServiceOptionInterface {
     audioFilePath?: string;
     /** True, wenn Audiodateien abgespielt werden sollen, anstelle der Sprachsynthese */
     audioFlag?: boolean;
-    /** legt fest, ob die Fehlermeldungen zusaetzlich auf der Konsole ausgegeben werden */
-    errorOutputFlag?: boolean;
 }
 

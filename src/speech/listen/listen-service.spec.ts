@@ -1,8 +1,10 @@
 /**
  * Unit-Test von ListenService
  *
- * Letzter Aenderung: 11.10.2018
+ * Letzter Aenderung: 08.11.2018
  * Status: gelb
+ *
+ * getestet unter:  Chrome(Mac)
  *
  * @module speech/listen
  * @author SB
@@ -12,6 +14,11 @@
 // Definiert die Mock-Bibliothek fuer SpeechRecognition
 
 declare var Corti;
+
+
+// speech
+
+import { SpeechMain } from './../speech';
 
 
 // listen
@@ -58,7 +65,7 @@ class TestListenService extends ListenService {
     }
 
     addAllEvent(): number {
-        return this._addAllEvent();
+        return this._addAllEvent( this.getName());
     }
 
     get errorOutputFlag() {
@@ -76,6 +83,11 @@ describe('ListenService', () => {
 
     beforeAll(() => {
         console.log('ListenService Unit-Tests gestartet...');
+        SpeechMain.init();
+    });
+
+    afterAll(() => {
+        SpeechMain.done();
     });
 
     beforeEach(() => {
@@ -262,212 +274,6 @@ describe('ListenService', () => {
 
     });
 
-    // isInit
-
-    describe('Funktion istInit', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( listenService.isInit()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde sondern nur reset', () => {
-            expect( listenService.reset()).toBe( -1 );
-            expect( listenService.isInit()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.isInit()).toBe( true );
-        });
-
-        it('sollte true zurueckgeben, wenn init und reset aufgerufen wurden', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.isInit()).toBe( true );
-            expect( listenService.reset()).toBe( 0 );
-            expect( listenService.isInit()).toBe( true );
-        });
-
-    });
-
-    // isActive
-
-    describe('Funktion istActive', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( listenService.isActive()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.isActive()).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde und active aus gesetzt ist', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.setActiveOff()).toBe( 0 );
-            expect( listenService.isActive()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde und active ein gesetzt ist', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.setActiveOff()).toBe( 0 );
-            expect( listenService.setActiveOn()).toBe( 0 );
-            expect( listenService.isActive()).toBe( true );
-        });
-
-    });
-
-    // setActiveOn
-
-    describe('Funktion setActiveOn', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( listenService.setActiveOn()).toBe( -1 );
-            expect( listenService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.setActiveOn()).toBe( 0 );
-            expect( listenService.isActive()).toBe( true );
-        });
-
-    });
-
-    // setActiveOff
-
-    describe('Funktion setActiveOff', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( listenService.setActiveOff()).toBe( -1 );
-            expect( listenService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.setActiveOff()).toBe( 0 );
-            expect( listenService.isActive()).toBe( false );
-        });
-
-    });
-
-    // active
-
-    describe('Eigenschaft active', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und auf true gesetzt wurde', () => {
-            listenService.active = true;
-            expect( listenService.active ).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen und auf true gesetzt wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.active = true;
-            expect( listenService.active ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen und auf false gesetzt wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.active = false;
-            expect( listenService.active ).toBe( false );
-        });
-
-    });
-
-    // isErrorOutput
-
-    describe('Funktion isErrorOutput', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect( listenService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde und errorOutput ein gesetzt ist', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.setErrorOutputOn();
-            expect( listenService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde und errorOutput aus gesetzt ist', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.setErrorOutputOn();
-            listenService.setErrorOutputOff();
-            expect( listenService.isErrorOutput()).toBe( false );
-        });
-
-    });
-
-    // setErrorOutputOn
-
-    describe('Funktion setErrorOutputOn', () => {
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            listenService.setErrorOutputOn();
-            expect( listenService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.setErrorOutputOn();
-            expect( listenService.isErrorOutput()).toBe( true );
-        });
-
-    });
-
-    // setErrorOutputOff
-
-    describe('Funktion setErrorOutputOff', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            listenService.setErrorOutputOff();
-            expect( listenService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.setErrorOutputOff();
-            expect( listenService.isErrorOutput()).toBe( false );
-        });
-
-    });
-
-    // errorOutput
-
-    describe('Eigenschaft errorOutput', () => {
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen und auf true gesetzt wurde', () => {
-            listenService.errorOutput = true;
-            expect( listenService.errorOutput ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und auf false gesetzt wurde', () => {
-            listenService.errorOutput = false;
-            expect( listenService.errorOutput ).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen und auf true gesetzt wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.errorOutput = true;
-            expect( listenService.errorOutput ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen und auf false gesetzt wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            listenService.errorOutput = false;
-            expect( listenService.errorOutput ).toBe( false );
-        });
-
-    });
-
-    // _error
-
-    // _exception
-
     // _addAllEvent
 
     describe('Funktion _addAllEvent', () => {
@@ -475,7 +281,7 @@ describe('ListenService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = listenService.errorEvent.subscribe((aError) => {
                 errorEvent.unsubscribe();
-                expect( aError.message ).toBe( 'ListenService._addAllEvent: keine Listen-Komponente vorhanden' );
+                expect( aError.message ).toBe( 'ListenService._addAllEvent: keine Komponente vorhanden' );
                 done();
             });
             expect( listenService.addAllEvent()).toBe( -1 );
@@ -604,7 +410,7 @@ describe('ListenService', () => {
             const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 // console.log('===> ListenServiceSpec.errorEvent: Error=', aError.message);
-                expect(aError.message).toBe( 'ASRHtml5.startListen: listen laeuft bereits' );
+                expect(aError.message).toBe( 'ASRHtml5.startListen: Spracheingabe laeuft bereits' );
                 done();
                 return 0;
             });
@@ -690,41 +496,9 @@ describe('ListenService', () => {
 
     });
 
-    // isRunning
-
-    describe('Funktion istRunning', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                expect( aError.message ).toEqual('ListenService.isRunning: keine Listen-Komponente vorhanden');
-                done();
-                return 0;
-            });
-            expect( listenService.isRunning()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect( listenService.init()).toBe( 0 );
-            expect( listenService.isRunning()).toBe( false );
-        });
-
-    });
-
     // start
 
     describe('Funktion start', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect( aError.message ).toEqual( "EXCEPTION ListenService.start: Cannot read property 'startListen' of null" );
-                done();
-                return 0;
-            });
-            expect( listenService.start()).toBe( -1 );
-        });
 
         it('sollte gueltigen Text als Ergebnis der Spracherkennung zurueckgeben', (done) => {
             let errorText = '';
@@ -771,26 +545,9 @@ describe('ListenService', () => {
 
     describe('Funktion stop', () => {
 
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect( aError.message ).toBe( "EXCEPTION ListenService.stop: Cannot read property 'stopListen' of null" );
-                done();
-                return 0;
-            });
-            expect( listenService.stop()).toBe( -1 );
-        });
-
-        it('sollte -1 zurueckgeben, wenn init aufgerufen wurde und nicht start', (done) => {
-            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                expect( aError.message ).toBe( 'ASRHtml5.stopListen: listen nicht gestartet' );
-                done();
-                return 0;
-            });
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und nicht start', () => {
             expect( listenService.init()).toBe( 0 );
-            expect( listenService.stop()).toBe( -1 );
+            expect( listenService.stop()).toBe( 0 );
         });
 
         it('sollte 0 zurueckgeben wenn init und start aufgerufen wurden', (done) => {
@@ -803,6 +560,39 @@ describe('ListenService', () => {
             expect( listenService.start()).toBe( 0 );
             expect( listenService.isRunning()).toBe( true );
             expect( listenService.stop()).toBe( 0 );
+            expect( listenService.isRunning()).toBe( false );
+        });
+
+    });
+
+    // abort
+
+    describe('Funktion abort', () => {
+
+        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.abort: keine Listen-Komponente vorhanden' );
+                done();
+            });
+            expect( listenService.abort()).toBe( -1 );
+        });
+
+        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und nicht start', () => {
+            expect( listenService.init()).toBe( 0 );
+            expect( listenService.abort()).toBe( 0 );
+        });
+
+        it('sollte 0 zurueckgeben wenn init und start aufgerufen wurden', (done) => {
+            const stopEvent = listenService.stopEvent.subscribe(() => {
+                stopEvent.unsubscribe();
+                done();
+                return 0;
+            });
+            expect( listenService.init()).toBe( 0 );
+            expect( listenService.start()).toBe( 0 );
+            expect( listenService.isRunning()).toBe( true );
+            expect( listenService.abort()).toBe( 0 );
             expect( listenService.isRunning()).toBe( false );
         });
 

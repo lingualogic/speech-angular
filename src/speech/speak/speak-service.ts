@@ -1,11 +1,11 @@
 /**
  * Speak-Service fuer die Integration von Speak in Angular
  *
- * API-Version: 1.0
- * Datum:       15.09.2018
+ * API-Version: 1.1
+ * Datum:       08.11.2018
  *
- * Letzte Aenderung: 15.09.2018
- * Status:           gruen
+ * Letzte Aenderung: 08.11.2018
+ * Status:           gelb
  *
  * @module speech/speak
  * @author SB
@@ -14,7 +14,7 @@
 
 // extern
 
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 
 // speech
@@ -22,9 +22,13 @@ import { EventEmitter, Injectable } from '@angular/core';
 import {
     SPEAK_COMPONENT_NAME,
     SpeakFactory,
-    SpeakInterface,
-    SpeakOptionInterface
+    SpeakInterface
 } from './../speech';
+
+
+// base
+
+import { BaseService } from './../base/base-service';
 
 
 // speak
@@ -35,22 +39,6 @@ import { SpeakServiceConfig } from './speak-service-config';
 import { SpeakServiceOptionInterface } from './speak-service-option.interface';
 
 
-// Konstanten
-
-/**
- * Stellt ein, ob die Events synchron oder asynchron ausgeliefert werden
- */
-
-const SPEAK_ASYNC_EVENT = true;
-
-
-/**
- * Setzt den Daufaultwert fuer Fehlerausgaben auf der Konsole
- */
-
-const SPEAK_ERROR_OUTPUT = false;
-
-
 /** @export
  * SpeakService Klasse
  */
@@ -58,11 +46,11 @@ const SPEAK_ERROR_OUTPUT = false;
 @Injectable({
     providedIn: 'root',
 })
-export class SpeakService {
+export class SpeakService extends BaseService {
 
     /** definiert die Konfiguration des Service */
 
-    protected static speakServiceConfig = SpeakServiceConfig;
+    private static speakServiceConfig = SpeakServiceConfig;
 
     /** legt fest, ob die Initialisierung im Konstruktor bereits erfolgt */
 
@@ -71,18 +59,6 @@ export class SpeakService {
     // Speak-Komponente
 
     private mSpeak: SpeakInterface = null;
-
-    // Service-Events
-
-    private mSpeakStartEvent = new EventEmitter( SPEAK_ASYNC_EVENT );
-    private mSpeakStopEvent = new EventEmitter( SPEAK_ASYNC_EVENT );
-    private mErrorEvent = new EventEmitter<any>( SPEAK_ASYNC_EVENT );
-
-    /**
-     * Fehlerausgabe fuer Konsole festlegen
-     */
-
-    protected mErrorOutputFlag = SPEAK_ERROR_OUTPUT;
 
 
     /**
@@ -140,6 +116,7 @@ export class SpeakService {
      */
 
     constructor() {
+        super( SPEAK_COMPONENT_NAME, SPEAK_SERVICE_NAME, SPEAKSERVICE_API_VERSION );
         // console.log('SpeakService.constructor: initFlag = ', SpeakService.isConstructorInit(), SpeakService.getConfig());
         if ( SpeakService.isConstructorInit()) {
             if ( this.init( SpeakService.getConfig()) !== 0 ) {
@@ -159,14 +136,10 @@ export class SpeakService {
      * @param {SpeakServiceOptionInterface} aOption - optionale Parameter
      */
 
-    protected _setOption( aOption: SpeakServiceOptionInterface ): void {
+    protected _setOption( aOption: SpeakServiceOptionInterface ): number {
         // console.log('SpeakService._setOption:', aOption);
-        if ( !aOption ) {
-            return;
-        }
-        // ActiveFlag uebertragen
-        if ( typeof aOption.activeFlag === 'boolean' ) {
-            this.active = aOption.activeFlag;
+        if ( super._setOption( aOption ) !== 0 ) {
+            return -1;
         }
         // Sprache uebertragen
         if ( typeof aOption.speakLanguage === 'string' ) {
@@ -184,10 +157,7 @@ export class SpeakService {
         if ( typeof aOption.audioFlag === 'boolean' ) {
             this.audio = aOption.audioFlag;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            this.errorOutput = aOption.errorOutputFlag;
-        }
+        return 0;
     }
 
 
@@ -201,9 +171,7 @@ export class SpeakService {
 
     protected _mapOption( aOption: SpeakServiceOptionInterface ): any {
         // Optionen uebertragen
-        const option: SpeakOptionInterface = {
-            errorOutputFlag: this.mErrorOutputFlag
-        };
+        const option = super._mapOption( aOption ) as SpeakServiceOptionInterface;
         if ( !aOption ) {
             return option;
         }
@@ -223,12 +191,25 @@ export class SpeakService {
         if ( typeof aOption.audioFlag === 'boolean' ) {
             option.audioFlag = aOption.audioFlag;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            option.errorOutputFlag = aOption.errorOutputFlag;
-            this.mErrorOutputFlag = aOption.errorOutputFlag;
-        }
         return option;
+    }
+
+
+    /**
+     * Hier wird die Komponente erzeugt.
+     *
+     * @protected
+     * @param aComponentName - Name der zu erzeugenden Komponente
+     * @param aOption - optionale Parameter fuer die Initialisierung der Komponente
+     *
+     * @return {*} Rueckgabe der Speak-Instanz
+     */
+
+    protected _createComponent( aComponentName: string, aOption: any ): any {
+        // console.log('SpeakService._createComponent:', aComponentName);
+        this.mSpeak = SpeakFactory.create( aComponentName, aOption );
+        // console.log('SpeakService._createComponent:', typeof this.mSpeak);
+        return this.mSpeak;
     }
 
 
@@ -241,29 +222,7 @@ export class SpeakService {
      */
 
     init( aOption?: SpeakServiceOptionInterface ): number {
-        // console.log('SpeakService.init: start errorOutpoutFlag = ', this.mErrorOutputFlag, this.isErrorOutput());
-        // pruefen auf bereits initialisiert
-        if ( this.mSpeak ) {
-            this._setOption( aOption );
-            return 0;
-        }
-        // Optionen uebertragen (BotService->Bot)
-        const option = this._mapOption( aOption ) as SpeakOptionInterface;
-        // Speak erzeugen
-        // console.log('SpeakService.init:', option);
-        this.mSpeak = SpeakFactory.create( SPEAK_COMPONENT_NAME, option );
-        if ( !this.mSpeak ) {
-            this._error('init', 'Speak nicht erzeugt');
-            return -1;
-        }
-        // Optionen eintragen in SpeakService
-        this._setOption( aOption );
-        if ( this.mErrorOutputFlag ) {
-            console.log( 'SpeakService Version:', SPEAKSERVICE_API_VERSION );
-        }
-        // console.log('SpeakService.init: option errorOutpoutFlag = ', this.mErrorOutputFlag, this.isErrorOutput());
-        // SpeakEvents auf EventEmitter mappen
-        return this._addAllEvent();
+        return super.init( aOption );
     }
 
 
@@ -276,273 +235,7 @@ export class SpeakService {
      */
 
     reset( aOption?: SpeakServiceOptionInterface ): number {
-        if ( !this.mSpeak ) {
-            this._error('reset', 'Speak nicht vorhanden');
-            return -1;
-        }
-        // Optionen uebertragen (SpeakService->Speak)
-        const option = this._mapOption( aOption ) as SpeakOptionInterface;
-        const result = this.mSpeak.reset( option );
-        this._setOption( aOption );
-        return result;
-    }
-
-
-    /**
-     * pruefen auf initialisierten Service
-     *
-     * @return {boolean} Rueckgabe, ob Service initialisiert ist
-     */
-
-    isInit(): boolean {
-        if ( this.mSpeak ) {
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * pruefen auf aktive Komponente
-     *
-     * @return {boolean} aktivFlag
-     */
-
-    isActive(): boolean {
-        if ( this.mSpeak ) {
-            return this.mSpeak.isActive();
-        }
-        return false;
-    }
-
-
-    /**
-     * Komponente aktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOn(): number {
-        if ( this.mSpeak ) {
-            return this.mSpeak.setActiveOn();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Komponente daaktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOff(): number {
-        if ( this.mSpeak ) {
-            return this.mSpeak.setActiveOff();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente setzen
-     *
-     * @param {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    set active( aActiveFlag: boolean ) {
-        if ( aActiveFlag ) {
-            this.setActiveOn();
-        } else {
-            this.setActiveOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    get active() {
-        return this.isActive();
-    }
-
-
-    // Fehler-Funktionen
-
-
-    /**
-     * pruefen auf Konsolen-Ausgabe von Fehlermeldungen
-     */
-
-    isErrorOutput(): boolean {
-        if ( this.mSpeak ) {
-            return this.mSpeak.isErrorOutput();
-        }
-        return this.mErrorOutputFlag;
-    }
-
-
-    /**
-     * Konsolen-Ausgabe von Fehlermeldungen einschalten
-     */
-
-    setErrorOutputOn(): void {
-        this.mErrorOutputFlag = true;
-        if ( this.mSpeak ) {
-            this.mSpeak.setErrorOutputOn();
-        }
-    }
-
-
-    /**
-     * Konsolen-Ausgabe von Fehlermeldungen ausschalten
-     */
-
-    setErrorOutputOff(): void {
-        this.mErrorOutputFlag = false;
-        if ( this.mSpeak ) {
-            this.mSpeak.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Fehlerausgabe auf der Konsole setzen
-     *
-     * @param {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    set errorOutput( aErrorOutputFlag: boolean ) {
-        if ( aErrorOutputFlag ) {
-            this.setErrorOutputOn();
-        } else {
-            this.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Konsolenausgabe zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    get errorOutput() {
-        return this.isErrorOutput();
-    }
-
-
-    /**
-     * Fehler ausgeben
-     *
-     * @param aFuncName - Name der Funktion, in der der Fehler vorkam
-     * @param aErrorText - Fehlertext
-     */
-
-    protected _error( aFuncName: string, aErrorText: string ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> ERROR SpeakService.' + aFuncName + ':', aErrorText);
-        }
-        this.mErrorEvent.emit(new Error( 'SpeakService.' + aFuncName + ': ' + aErrorText ));
-    }
-
-
-    /**
-     * Exception ausgeben
-     *
-     * @param {string} aFuncName - Name der Funktion, in der die Exception vorkam
-     * @param {Exception} aException - Exception-Objekt
-     */
-
-    protected _exception( aFuncName: string, aException: any ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> EXCEPTION SpeakService.' + aFuncName + ':', aException);
-        }
-        this.mErrorEvent.emit(new Error( 'EXCEPTION SpeakService.' + aFuncName + ': ' + aException.message ));
-    }
-
-
-    // Event-Funktionen
-
-
-    /**
-     * Anbindung der Events
-     *
-     * @private
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    protected _addAllEvent(): number {
-        if ( !this.mSpeak ) {
-            this._error('_addAllEvent', 'keine Speak-Komponente vorhanden');
-            return -1;
-        }
-
-        // alle alten Events loeschen
-
-        this.mSpeak.removeAllEvent( SPEAK_SERVICE_NAME );
-
-        // neue Events eintragen
-
-        this.mSpeak.addSpeakStartEvent( SPEAK_SERVICE_NAME, () => {
-            this.mSpeakStartEvent.emit();
-            return 0;
-        });
-
-        this.mSpeak.addSpeakStopEvent( SPEAK_SERVICE_NAME, () => {
-            this.mSpeakStopEvent.emit();
-            return 0;
-        });
-
-        this.mSpeak.addErrorEvent( SPEAK_SERVICE_NAME, (aError: any) => {
-            this.mErrorEvent.emit( aError );
-            return 0;
-        });
-        return 0;
-    }
-
-
-    // Rueckgabe der globalen Events
-
-
-    /**
-     * Ereignis fuer Sprachausgabe gestartet
-     *
-     * @readonly
-     * @return {EventEmitter} speakStartEvent
-     */
-
-    get startEvent() {
-        return this.mSpeakStartEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Sprachausgabe gestoppt
-     *
-     * @readonly
-     * @return {EventEmitter} speakStopEvent
-     */
-
-    get stopEvent() {
-        return this.mSpeakStopEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Fehler aufgetreten
-     *
-     * @readonly
-     * @return {EventEmitter} errorEvent
-     */
-
-    get errorEvent() {
-        return this.mErrorEvent;
+        return super.reset( aOption );
     }
 
 
@@ -839,6 +532,117 @@ export class SpeakService {
     }
 
 
+    /**
+     * Liste aller verfuegbaren Sprachen (de, en) zurueckgeben
+     *
+     * @return {Array<string>} Liste Kurzform der Sprache zurueckgeben (de, en) oder leere Liste
+     */
+
+    getLanguageList(): Array<string> {
+        if ( !this.mSpeak ) {
+            this._error('getLanguageList', 'keine Speak-Komponente vorhanden');
+            return [];
+        }
+        return this.mSpeak.getLanguageList();
+    }
+
+
+    /**
+     * Eigenschaft alle verfuegbaren Sprachen (de, en) zurueckgeben
+     *
+     * @return {Array<string>} Liste Kurzform der Sprache zurueckgeben (de, en)
+     */
+
+
+    get languages(): Array<string> {
+        return this.getLanguageList();
+    }
+
+
+    // Voice-Funktionen
+
+
+    /**
+     * Stimme fuer die Sprachausgabe einstellen
+     *
+     * @param {string} aVoice - einzustellende Stimme
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+
+    setVoice( aVoice: string ): number {
+        if ( !this.mSpeak ) {
+            this._error('setVoice', 'keine Speak-Komponente vorhanden');
+            return -1;
+        }
+        return this.mSpeak.setVoice( aVoice );
+    }
+
+
+    /**
+     * Rueckgabe der eingestellten Stimme
+     *
+     * @return {string} eingestellte Stimme
+     */
+
+    getVoice(): string {
+        if ( !this.mSpeak ) {
+            this._error('getVoice', 'keine Speak-Komponente vorhanden');
+            return '';
+        }
+        return this.mSpeak.getVoice();
+    }
+
+
+    /**
+     * Eigenschaft Stimme eintragen fuer die Sprachausgabe.
+     *
+     * @param {string} aVoiceName - Name der Stimme
+     */
+
+    set voice( aVoiceName: string ) {
+        this.setVoice( aVoiceName );
+    }
+
+
+    /**
+     * Eigenschaft Stimme zurueckgeben.
+     *
+     * @return {string} Name der Stimme
+     */
+
+    get voice(): string {
+        return this.getVoice();
+    }
+
+
+    /**
+     * Liste aller verfuegbaren Stimmen zurueckgeben
+     *
+     * @return {Array<string>} Liste aller Stimmen
+     */
+
+    getVoiceList(): Array<string> {
+        if ( !this.mSpeak ) {
+            this._error('getVoiceList', 'keine Speak-Komponente vorhanden');
+            return [];
+        }
+        return this.mSpeak.getVoiceList();
+    }
+
+
+    /**
+     * Eigenschaft alle verfuegbaren Stimmen
+     *
+     * @return {string} Liste aller Stimmen
+     */
+
+
+    get voices(): Array<string> {
+        return this.getVoiceList();
+    }
+
+
     // Speak-Funktionen
 
 
@@ -893,53 +697,6 @@ export class SpeakService {
 
     get text(): string {
         return this.getText();
-    }
-
-
-    /**
-     * pruefen auf laufende Sprachausgabe
-     *
-     * @return {boolean} runningFlag
-     */
-
-    isRunning(): boolean {
-        if ( !this.mSpeak ) {
-            this._error('isRunning', 'keine Speak-Komponente vorhanden');
-            return false;
-        }
-        return this.mSpeak.isSpeakRunning();
-    }
-
-
-    /**
-     * Sprachausgabe starten. Vorher muss ein Text oder eine Datei eingetragen sein.
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    start(): number {
-        try {
-            return this.mSpeak.startSpeak();
-        } catch ( aException ) {
-            this._exception( 'start', aException );
-            return -1;
-        }
-    }
-
-
-    /**
-     * Sprachausgabe stoppen
-     *
-     * @returns {number} Fehlercode 0 oder -1
-     */
-
-    stop(): number {
-        try {
-            return this.mSpeak.stopSpeak();
-        } catch ( aException ) {
-            this._exception( 'stop', aException );
-            return -1;
-        }
     }
 
 }

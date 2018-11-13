@@ -4,13 +4,16 @@
 .rpt2_cache
 out-tsc
 build/
-deploy/
+/deploy/
 dist/
+dist-app/
 tmp/
 old/
 docs/api/
 docs/html/
 documentation/
+**/cordova/app
+**/electron/www
 
 # dependencies
 node_modules/

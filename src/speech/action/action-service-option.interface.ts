@@ -1,22 +1,25 @@
 /**
  * ActionServiceOption Schnittstelle
  *
- * API-Version: 1.0
- * Datum:       15.09.2018
+ * API-Version: 1.1
+ * Datum:       18.10.2018
  *
  * @module speech/action
  * @author SB
  */
 
 
+// base
+
+import { BaseServiceOptionInterface } from './../base/base-service-option.interface';
+
+
 /** @export
  * ActionServiceOption Schnittstelle fuer optionale Konfigurationsparameter des ActionService bei der Initialisierung
  */
 
-export interface ActionServiceOptionInterface {
-    /** ein/ausschalten der Aktionskomponente */
-    activeFlag?: true;
-    /** legt fest, ob die Fehlermeldungen zusaetzlich auf der Konsole ausgegeben werden */
-    errorOutputFlag?: boolean;
+export interface ActionServiceOptionInterface extends BaseServiceOptionInterface {
+    // Dummy-Attribut fuer Vermeidung von TLint-Error
+    dummy?: any;
 }
 

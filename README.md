@@ -5,7 +5,7 @@ Speech-Angular ist eine Bibliothek zur Integration von Sprachdiensten, wie Sprac
 
 ## Letzte Version
 
-* 0.5.1.0017 Alpha vom 14.10.2018 [Release Notizen](./CHANGELOG.md)
+* 0.5.2.0018 Alpha vom 11.11.2018 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 
@@ -35,7 +35,10 @@ NodeJS muss installiert sein.
 
 Als weitere Plattformen können Android und iOS mit Cordova verwendet werden:
 
-* Cordova >= 8 für Android und iOS
+* Cordova >= 8 für Android  >= 5.1 und iOS >= 10
+
+Für Cordova müssen weitere Programme zur Entwicklung von Android- und iOS-Apps installiert werden.
+Informationen hierzu finden sich unter [docs/platform/Cordova.md](./docs/platform/Cordova.md).
 
 
 ## Installation
@@ -58,18 +61,18 @@ zum Schluß wird das NPM-Paket für Speech-Angular im dist/ Ordner erzeugt:
     $ npm run build
     $ cd dist
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.1.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.2.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.1.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
+Die Installation des 'speech-angular-0.5.2.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install --save speech-angular-0.5.1.tgz
+    $ npm install --save speech-angular-0.5.2.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit unserem [Schnelleinstieg](./docs/QuickStart.md) aus.
 
 Alternativ kann das fertige Speech-Angular npm-Paket auch von der [LinguaLogic-Webseite](https://lingualogic.de) heruntergeladen werden.
 
 
-# Deinstallation
+## Deinstallation
 
 Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
@@ -84,11 +87,47 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 [**Grundlagen**](./docs/design/README.md)
 
+[**Plattformen**](./docs/platform/README.md)
+
 [**API-Referenz**](https://lingualogic.de/speech-angular/docs/latest/api)
 
 [**Roadmap**](./docs/roadmap/Roadmap-2018.md)
 
 [**Release Notizen**](./CHANGELOG.md)
+
+
+## Beispiel-Apps
+
+Im examples Ordner sind mehrere kleine Beispiele für die einzelnen Services von Speech-Angular zu finden.
+Zum Ausführen der Beispiele muss nicht in den Beispielordner gewechselt werden.
+
+Folgende Befehle sind für die SpeakService-Beispiele einzugeben:
+
+    $ npm run speak
+
+für die TextToSpeech-Version oder
+
+    $ npm run speak-offline
+
+für die Audio-Version.
+
+Für das ListenService-Beispiel ist folgender Befehl einzugeben:
+
+    § npm run listen
+
+und für das ActionService-Beispiel ist folgender Befehl einzugeben:
+
+    § npm run action
+
+Der BotService kann mit folgenden Befehlen gestartet werden:
+
+    $ npm run bot
+
+für die TextToSpeech-Version oder
+
+    $ npm run bot-offline
+
+für die Audio-Version.
 
 
 ## Projektverantwortliche (LinguaLogic Team)

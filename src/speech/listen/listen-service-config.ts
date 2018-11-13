@@ -26,6 +26,6 @@ export const ListenServiceConfig: ListenServiceOptionInterface = {
     /** setzt die Sprache fuer die Spracheingabe ( 'de', 'en' )*/
     listenLanguage: LISTEN_DE_LANGUAGE,
     /** legt fest, ob die Fehlermeldungen zusaetzlich auf der Konsole ausgegeben werden */
-    errorOutputFlag: true
+    errorOutputFlag: false
 };
 

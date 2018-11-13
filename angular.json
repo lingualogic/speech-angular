@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-app": {
+    "speech-angular-app": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-app",
+            "outputPath": "dist-app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -23,9 +23,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/speech.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
-            "scripts": []
+            "scripts": [
+                "node_modules/jquery/dist/jquery.slim.min.js",
+                "node_modules/popper.js/dist/umd/popper.min.js",
+                "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -50,18 +56,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-app:build"
+            "browserTarget": "speech-angular-app:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-app:build:production"
+              "browserTarget": "speech-angular-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-app:build"
+            "browserTarget": "speech-angular-app:build"
           }
         },
         "test": {
@@ -96,7 +102,7 @@
         }
       }
     },
-    "angular-app-e2e": {
+    "speech-angular-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -104,11 +110,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-app:serve"
+            "devServerTarget": "speech-angular-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-app:serve:production"
+              "devServerTarget": "speech-angular-app:serve:production"
             }
           }
         },
@@ -124,5 +130,5 @@
       }
     }
   },
-  "defaultProject": "angular-app"
+  "defaultProject": "speech-angular-app"
 }

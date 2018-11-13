@@ -1,11 +1,19 @@
 /**
  * Unit-Test von ActionService
  *
- * Letzter Aenderung: 15.09.2018
+ * Letzter Aenderung: 08.11.2018
+ * Status: gelb
+ *
+ * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
  *
  * @module speech/action
  * @author SB
  */
+
+
+// speech
+
+import { SpeechMain } from './../speech';
 
 
 // action
@@ -40,7 +48,7 @@ class TestActionService extends ActionService {
     }
 
     addAllEvent(): number {
-        return this._addAllEvent();
+        return this._addAllEvent( this.getName());
     }
 
     get errorOutputFlag() {
@@ -57,6 +65,11 @@ describe('ActionService', () => {
 
     beforeAll(() => {
         console.log('ActionService Unit-Tests gestartet...');
+        SpeechMain.init();
+    });
+
+    afterAll(() => {
+        SpeechMain.done();
     });
 
     beforeEach(() => {
@@ -169,256 +182,6 @@ describe('ActionService', () => {
 
     });
 
-    // init
-
-    describe('Funktion init', () => {
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isActive()).toBe( true );
-            expect(actionService.getActionName()).toBe('');
-            expect(actionService.getElementType()).toBe('');
-            expect(actionService.getElementName()).toBe('');
-        });
-
-        it('sollte 0 zurueckgeben, wenn init zweimal aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.init()).toBe(0);
-        });
-
-    });
-
-    // reset
-
-    describe('Funktion reset', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError: any) => {
-                errorEvent.unsubscribe();
-                expect(aError.message).toEqual('ActionService.reset: Action nicht vorhanden');
-                done();
-            });
-            expect(actionService.reset()).toBe( -1 );
-            expect(actionService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.reset()).toBe(0);
-            expect(actionService.isActive()).toBe( true );
-            expect(actionService.getActionName()).toBe('');
-            expect(actionService.getElementType()).toBe('');
-            expect(actionService.getElementName()).toBe('');
-        });
-
-    });
-
-    // isInit
-
-    describe('Funktion istInit', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect(actionService.isInit()).toBe(false);
-        });
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde sondern nur reset', () => {
-            expect(actionService.reset()).toBe(-1);
-            expect(actionService.isInit()).toBe(false);
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isInit()).toBe(true);
-        });
-
-        it('sollte true zurueckgeben, wenn init und reset aufgerufen wurden', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isInit()).toBe(true);
-            expect(actionService.reset()).toBe(0);
-            expect(actionService.isInit()).toBe(true);
-        });
-
-    });
-
-    // isActive
-
-    describe('Funktion istActive', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect(actionService.isActive()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isActive()).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde und active aus ist', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.setActiveOff()).toBe(0);
-            expect(actionService.isActive()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde und active an ist', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.setActiveOff()).toBe(0);
-            expect(actionService.setActiveOn()).toBe(0);
-            expect(actionService.isActive()).toBe( true );
-        });
-
-    });
-
-    // setActiveOn
-
-    describe('Funktion setActiveOn', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect(actionService.setActiveOn()).toBe(-1);
-            expect(actionService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.setActiveOn()).toBe(0);
-            expect(actionService.isActive()).toBe( true );
-        });
-
-    });
-
-    // setActiveOff
-
-    describe('Funktion setActiveOff', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect(actionService.setActiveOff()).toBe(-1);
-            expect(actionService.isActive()).toBe( false );
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.setActiveOff()).toBe(0);
-            expect(actionService.isActive()).toBe( false );
-        });
-
-    });
-
-    // active
-
-    describe('Eigenschaft active', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und auf true gesetzt wurde', () => {
-            actionService.active = true;
-            expect( actionService.active ).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen und auf true gesetzt wurde', () => {
-            expect( actionService.init()).toBe( 0 );
-            actionService.active = true;
-            expect( actionService.active ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen und auf false gesetzt wurde', () => {
-            expect( actionService.init()).toBe( 0 );
-            actionService.active = false;
-            expect( actionService.active ).toBe( false );
-        });
-
-    });
-
-    // isErrorOutput
-
-    describe('Funktion isErrorOutput', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect(actionService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn initaufgrufen wurde und error output an ist', () => {
-            expect(actionService.init()).toBe(0);
-            actionService.setErrorOutputOn();
-            expect(actionService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde und error output aus ist', () => {
-            expect(actionService.init()).toBe(0);
-            actionService.setErrorOutputOn();
-            actionService.setErrorOutputOff();
-            expect(actionService.isErrorOutput()).toBe( false );
-        });
-
-    });
-
-    // setErrorOutputOn
-
-    describe('Funktion setErrorOutputOn', () => {
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            actionService.setErrorOutputOn();
-            expect(actionService.isErrorOutput()).toBe( true );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            actionService.setErrorOutputOn();
-            expect(actionService.isErrorOutput()).toBe( true );
-        });
-
-    });
-
-    // setErrorOutputOff
-
-    describe('Funktion setErrorOutputOff', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            actionService.setErrorOutputOff();
-            expect(actionService.isErrorOutput()).toBe( false );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            actionService.setErrorOutputOff();
-            expect(actionService.isErrorOutput()).toBe( false );
-        });
-
-    });
-
-    // errorOutput
-
-    describe('Eigenschaft errorOutput', () => {
-
-        it('sollte true zurueckgeben, wenn init nicht aufgerufen und auf true gesetzt wurde', () => {
-            actionService.errorOutput = true;
-            expect( actionService.errorOutput ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen und auf false gesetzt wurde', () => {
-            actionService.errorOutput = false;
-            expect( actionService.errorOutput ).toBe( false );
-        });
-
-        it('sollte true zurueckgeben, wenn init aufgerufen und auf true gesetzt wurde', () => {
-            expect( actionService.init()).toBe( 0 );
-            actionService.errorOutput = true;
-            expect( actionService.errorOutput ).toBe( true );
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen und auf false gesetzt wurde', () => {
-            expect( actionService.init()).toBe( 0 );
-            actionService.errorOutput = false;
-            expect( actionService.errorOutput ).toBe( false );
-        });
-
-    });
-
-    // _error
-
-    // _exception
-
     // _addAllEvent
 
     describe('Funktion _addAllEvent', () => {
@@ -426,7 +189,7 @@ describe('ActionService', () => {
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
             const errorEvent = actionService.errorEvent.subscribe((aError) => {
                 errorEvent.unsubscribe();
-                expect(aError.message).toEqual('ActionService._addAllEvent: keine Action-Komponente vorhanden');
+                expect(aError.message).toEqual('ActionService._addAllEvent: keine Komponente vorhanden');
                 done();
             });
             expect(actionService.addAllEvent()).toBe(-1);
@@ -665,116 +428,22 @@ describe('ActionService', () => {
 
     });
 
-    // isRunning
-
-    describe('Funktion isRunning', () => {
-
-        it('sollte false zurueckgeben, wenn init nicht aufgerufen wurde', () => {
-            expect(actionService.isRunning()).toBe(false);
-        });
-
-        it('sollte false zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-        });
-
-        it('sollte true zurueckgeben, wenn init und start aufgerufen wurden', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-            expect(actionService.setActionName( 'TestAction' )).toBe(0);
-            expect(actionService.setElementName( 'TestElement' )).toBe(0);
-            expect(actionService.start()).toBe(0);
-            expect(actionService.isRunning()).toBe(true);
-            expect(actionService.stop()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-        });
-
-    });
-
-    // start
-
-    describe('Funktion start', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION ActionService.start: Cannot read property 'startAction' of null");
-                done();
-            });
-            expect(actionService.start()).toBe(-1);
-        });
-
-        it('sollte -1 zurueckgeben, wenn init aufgerufen wurde und kein action name', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-            expect(actionService.start()).toBe(-1);
-            expect(actionService.isRunning()).toBe(false);
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und ein action name', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-            expect(actionService.setActionName( 'TestAction' )).toBe(0);
-            expect(actionService.setElementName( 'TestElement' )).toBe(0);
-            expect(actionService.start()).toBe(0);
-            expect(actionService.isRunning()).toBe(true);
-            expect(actionService.stop()).toBe(0);
-        });
-
-    });
-
-    // stop
-
-    describe('Funktion stop', () => {
-
-        it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError) => {
-                errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION ActionService.stop: Cannot read property 'stopAction' of null");
-                done();
-            });
-            expect(actionService.stop()).toBe(-1);
-        });
-
-        it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und kein start', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-            expect(actionService.stop()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-        });
-
-        it('sollte 0 zurueckgeben, wenn init und start aufgerufen wurden', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-            expect(actionService.setActionName( 'TestAction' )).toBe(0);
-            expect(actionService.setElementName( 'TestElement' )).toBe(0);
-            expect(actionService.start()).toBe(0);
-            expect(actionService.isRunning()).toBe(true);
-            expect(actionService.stop()).toBe(0);
-            expect(actionService.isRunning()).toBe(false);
-        });
-
-    });
-
     // addFunction
 
     describe('Funktion addFunction', () => {
 
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError) => {
+            const errorEvent = actionService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION ActionService.addFunction: Cannot read property 'addFunction' of null");
+                expect( aError.message ).toBe( 'ActionService.addFunction: keine Action-Komponente vorhanden' );
                 done();
             });
-            expect(actionService.addFunction( '', null, null )).toBe(-1);
+            expect( actionService.addFunction( '', null, null )).toBe( -1 );
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.addFunction( 'TestFunction', () => 0, () => 0)).toBe(0);
+            expect( actionService.init()).toBe( 0 );
+            expect( actionService.addFunction( 'TestFunction', () => 0, () => 0 )).toBe( 0 );
         });
 
     });
@@ -784,18 +453,17 @@ describe('ActionService', () => {
     describe('Funktion removeFunction', () => {
 
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError) => {
+            const errorEvent = actionService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION ActionService.removeFunction: Cannot read property 'removeFunction' of null");
+                expect( aError.message ).toBe( 'ActionService.removeFunction: keine Action-Komponente vorhanden' );
                 done();
             });
-            expect(actionService.removeFunction( '' )).toBe(-1);
+            expect( actionService.removeFunction( '' )).toBe( -1 );
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.removeFunction( 'TestFunction')).toBe(0);
+            expect( actionService.init()).toBe( 0 );
+            expect( actionService.removeFunction( 'TestFunction' )).toBe( 0 );
         });
 
     });
@@ -805,18 +473,17 @@ describe('ActionService', () => {
     describe('Funktion addElement', () => {
 
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError) => {
+            const errorEvent = actionService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION ActionService.addElement: Cannot read property 'addElement' of null");
+                expect( aError.message ).toBe( 'ActionService.addElement: keine Action-Komponente vorhanden' );
                 done();
             });
-            expect(actionService.addElement( '', null, null )).toBe(-1);
+            expect( actionService.addElement( '', null, null )).toBe( -1 );
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.addElement( 'TestElement', () => 0, () => 0)).toBe(0);
+            expect( actionService.init()).toBe( 0 );
+            expect( actionService.addElement( 'TestElement', () => 0, () => 0 )).toBe( 0 );
         });
 
     });
@@ -826,18 +493,17 @@ describe('ActionService', () => {
     describe('Funktion removeElement', () => {
 
         it('sollte -1 zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
-            const errorEvent = actionService.errorEvent.subscribe((aError) => {
+            const errorEvent = actionService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                // tslint:disable-next-line
-                expect(aError.message).toEqual("EXCEPTION ActionService.removeElement: Cannot read property 'removeElement' of null");
+                expect( aError.message ).toBe( 'ActionService.removeElement: keine Action-Komponente vorhanden' );
                 done();
             });
-            expect(actionService.removeElement( '' )).toBe(-1);
+            expect( actionService.removeElement( '' )).toBe( -1 );
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
-            expect(actionService.init()).toBe(0);
-            expect(actionService.removeElement( 'TestElement')).toBe(0);
+            expect( actionService.init()).toBe( 0 );
+            expect( actionService.removeElement( 'TestElement' )).toBe( 0 );
         });
 
     });

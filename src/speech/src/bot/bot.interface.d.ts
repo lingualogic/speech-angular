@@ -1,67 +1,23 @@
 /**
  * Oeffentliche Bot Schnittstelle, beinhaltet die Dialog Schnittstelle
  *
- * API-Version: 1.0
- * Datum:       11.09.2018
+ * API-Version: 1.1
+ * Datum:       18.10.2018
  *
- * Letzte Aenderung: 11.09.2018
- * Status: gruen
+ * Letzte Aenderung: 18.10.2018
+ * Status: gelb
  *
  * @module bot
  * @author SB
  */
-import { OnSpeakStartFunc, OnSpeakStopFunc } from './../speak/speak-function.type';
 import { SpeakInterface } from './../speak/speak.interface';
 import { ListenInterface } from './../listen/listen.interface';
 import { ActionInterface } from './../action/action.interface';
 import { DialogInterface } from './../dialog/dialog.interface';
-export { OnSpeechErrorFunc } from '../interface/speech-function.interface';
-export { OnSpeakStartFunc, OnSpeakStopFunc } from './../speak/speak-function.type';
-export { SpeakInterface } from './../speak/speak.interface';
-export { ListenInterface } from './../listen/listen.interface';
-export { ActionInterface } from './../action/action.interface';
-export { OnDialogSetFunc, OnDialogStartFunc, OnDialogStopFunc, OnDialogStateSetFunc, OnDialogActionFunc, OnDialogActionStopFunc, OnDialogSpeakFunc, OnDialogSpeakStartFunc, OnDialogSpeakStopFunc, DialogStartActionFunc, DialogStopActionFunc } from './../dialog/dialog-function.type';
-export { BotOptionInterface } from './bot-option.interface';
 /**
  * Bot Schnittstelle
  */
 export interface BotInterface extends DialogInterface {
-    /**
-     * Traegt eine Ereignisfunktion in das SpeakStart Ereignis ein.
-     * SpeakStart wird ausgeloest, wenn die Sprachausgabe beginnt.
-     *
-     * @param {string} aPluginName - Name des Plugins, welches die Funktion eintragt
-     * @param {OnDialogParseFunc} aEventFunc - Funktion, die Ereignis verarbeitet
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    addSpeakStartEvent(aPluginName: string, aEventFunc: OnSpeakStartFunc): number;
-    /**
-     * Traegt eine Ereignisfunktion in das SpeakStop Ereignis ein.
-     * SpeakStop wird ausgeloest, wenn die Sprachausgabe beendet wurde.
-     *
-     * @param {string} aPluginName - Name des Plugins, welches die Funktion eintragt
-     * @param {OnDialogParseFunc} aEventFunc - Funktion, die Ereignis verarbeitet
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    addSpeakStopEvent(aPluginName: string, aEventFunc: OnSpeakStopFunc): number;
-    /**
-     * Entfernt die Ereignisfunktion aus dem SpeakStart Ereignis.
-     *
-     * @param aPluginName - Name des Plugins, von dem die Funktion entfernt werden soll
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    removeSpeakStartEvent(aPluginName: string): number;
-    /**
-     * Entfernt die Ereignisfunktion aus dem SpeakStop Ereignis.
-     *
-     * @param aPluginName - Name des Plugins, von dem die Funktion entfernt werden soll
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    removeSpeakStopEvent(aPluginName: string): number;
     /**
      * Prueft, ob die Speak-Komponente eingeschaltet ist. Nur dann wird sie
      * vom Bot auch verwendet.

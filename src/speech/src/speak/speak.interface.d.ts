@@ -1,139 +1,20 @@
 /**
  * Oeffentliche Speak Schnittstelle als Teil des Speak-API
  *
- * API-Version: 1.0
- * Datum:       05.09.2018
+ * API-Version: 1.1
+ * Datum:       18.10.2018
  *
- * Letzte Aenderung: 03.09.2018
+ * Letzte Aenderung: 18.10.2018
  * Status: gruen
  *
  * @module speak
  * @author SB
  */
-import { OnSpeechErrorFunc } from '../interface/speech-function.interface';
-import { OnSpeakStartFunc, OnSpeakStopFunc } from './speak-function.type';
-export { OnSpeechErrorFunc } from '../interface/speech-function.interface';
-export { OnSpeakStartFunc, OnSpeakStopFunc } from './speak-function.type';
-export { SpeakOptionInterface } from './speak-option.interface';
+import { BaseInterface } from './../base/base.interface';
 /** @export
  * Speak Schnittstelle
  */
-export interface SpeakInterface {
-    /**
-     * Komponente auf initialen Zustand zuruecksetzen
-     *
-     * @param {*} aOption - optionale Parameter
-     */
-    reset(aOption?: any): number;
-    /**
-     * Typ des Komponenten-Interfaces zurueckgeben
-     *
-     * @return {string} typeName
-     */
-    getType(): string;
-    /**
-     * Name der konkreten Komponente zurueckgeben
-     *
-     * @return {string} componentName
-     */
-    getName(): string;
-    /**
-     * Version der Komponente zurueckgeben
-     *
-     * @return {string} componentVersion
-     */
-    getVersion(): string;
-    /**
-     * pruefen auf aktive Komponente
-     *
-     * @return {boolean} activeFlag
-     */
-    isActive(): boolean;
-    /**
-     * Komponente aktivieren
-     *
-     * @return {number} Fehercode 0 oder -1
-     */
-    setActiveOn(): number;
-    /**
-     * Komponente daktivieren
-     *
-     * @return {number} Fehlercode oder -1
-     */
-    setActiveOff(): number;
-    /**
-     * pruefen auf Fehlerausgabe auf die Konsole
-     *
-     * @return {boolean} errorOutputFlag
-     */
-    isErrorOutput(): boolean;
-    /**
-     * Fehlerausgabe auf Konsole einschalten
-     */
-    setErrorOutputOn(): void;
-    /**
-     * Fehlerausgabe auf Konsole ausschalten
-     */
-    setErrorOutputOff(): void;
-    /**
-     * Anmelden einer Ereignis Callback-Funktion fuer den Start der Sprachausgabe
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     * @param {OnSpeakStartFunc} aEventFunc - Ereignis Callback Funktion
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    addSpeakStartEvent(aPluginName: string, aEventFunc: OnSpeakStartFunc): number;
-    /**
-     * Anmelden einer Ereignis Callback-Funktion fuer den Stop der Sprachausgabe
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     * @param {OnSpeakStopFunc} aEventFunc - Ereignis Callback Funktion
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    addSpeakStopEvent(aPluginName: string, aEventFunc: OnSpeakStopFunc): number;
-    /**
-     * Anmelden einer Ereignis Callback-Funktion fuer die Fehler der Sprachausgabe
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     * @param {OnSpeechErrorFunc} aEventFunc - Ereignis Callback Funktion
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    addErrorEvent(aPluginName: string, aEventFunc: OnSpeechErrorFunc): number;
-    /**
-     * Entfernen der Ereignisfunktion fuer den Start der Sprachausgabe
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    removeSpeakStartEvent(aPluginName: string): number;
-    /**
-     * Entfernen der Ereignisfunktion fuer den Stop der Sprachausgabe
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    removeSpeakStopEvent(aPluginName: string): number;
-    /**
-     * Entfernen der Ereignisfunktion fuer die Fehler der Sprachausgabe
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    removeErrorEvent(aPluginName: string): number;
-    /**
-     * Entfernen aller angemeldeten Ereignisfunktionen
-     *
-     * @param {string} aPluginName - Name des Beobachter-Plugins
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    removeAllEvent(aPluginName: string): number;
+export interface SpeakInterface extends BaseInterface {
     /**
      * Prueft, ob Audioausgabe oder Sprachsynthese eingeschaltet ist
      *
@@ -161,7 +42,7 @@ export interface SpeakInterface {
     /**
      * Eintragen des Audioformats (AUDIO_MP3_FORMAT, AUDIO_WAV_FORMAT)
      *
-     * @param aAudioFormat - Name des Formates ('de', 'en')
+     * @param aAudioFormat - Name des Formates
      *
      * @return {number} Fehlercode 0 oder -1
      */
@@ -201,6 +82,26 @@ export interface SpeakInterface {
      */
     getAudioFileName(): string;
     /**
+     * Setzen der aktuellen TTS ueber ihren Namen
+     *
+     * @param {string} aTTSName - Name der TTS
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+    setTTS(aTTSName: string): number;
+    /**
+     * Rueckgabe des eingestellten TTS-Namens
+     *
+     * @returns {string} Name der aktuellen TTS
+     */
+    getTTS(): string;
+    /**
+     * Rueckgabe aller vorhandenen TTS-Namen
+     *
+     * @return {Array<string>} Liste der TTS-Namen
+     */
+    getTTSList(): Array<string>;
+    /**
      * Aendern der Sprache
      *
      * @param {string} aLanguage - Kurzzeichen fuer Sprache ( de, en )
@@ -211,9 +112,35 @@ export interface SpeakInterface {
     /**
      * aktuell eingestellte Sprache zurueckgeben
      *
-     * @returns {string} language - Kurzzeichenstring fuer Sprache ( de, en )
+     * @return {string} language - Kurzzeichenstring fuer Sprache ( de, en )
      */
     getLanguage(): string;
+    /**
+     * Rueckgabe aller vorhandenen Language-Namen
+     *
+     * @return {Array<string>} Liste der Language-Namen
+     */
+    getLanguageList(): Array<string>;
+    /**
+     * Aendern der Stimme
+     *
+     * @param {string} aVoice - Name fuer die Stimme
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+    setVoice(aVoice: string): number;
+    /**
+     * aktuell eingestellte Stimme zurueckgeben
+     *
+     * @returns {string} Rueckgabe fuer Name der Stimme
+     */
+    getVoice(): string;
+    /**
+     * Rueckgabe aller vorhandenen Voice-Namen
+     *
+     * @return {Array<string>} Liste der Voice-Namen
+     */
+    getVoiceList(): Array<string>;
     /**
      * Eintragen des zu sprechenden Textes
      *
@@ -228,22 +155,4 @@ export interface SpeakInterface {
      * @return {string} zu sprechender Text
      */
     getSpeakText(): string;
-    /**
-     * pruefen, ob Sprachausgabe gerade laeuft
-     *
-     * @return {boolean} True, Sprachausgabe aktiv, False sonst
-     */
-    isSpeakRunning(): boolean;
-    /**
-     * Startet die Sprachausgabe.
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    startSpeak(): number;
-    /**
-     * Stoppt die Sprachausgabe
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-    stopSpeak(): number;
 }

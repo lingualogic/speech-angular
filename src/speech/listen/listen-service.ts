@@ -2,9 +2,9 @@
  * ListenService fuer die Integration von Listen in Angular
  *
  * API-Version: 1.0
- * Datum:       11.10.2018
+ * Datum:       15.09.2018
  *
- * Letzte Aenderung: 11.10.2018
+ * Letzte Aenderung: 18.10.2018
  * Status: gelb
  *
  * @module speech/listen
@@ -22,14 +22,18 @@ import { EventEmitter, Injectable } from '@angular/core';
 import {
     LISTEN_COMPONENT_NAME,
     ListenFactory,
-    ListenInterface,
-    ListenOptionInterface
+    ListenInterface
 } from './../speech';
 
 
-// service
+// base
 
-import { LISTEN_SERVICE_NAME, LISTEN_DE_LANGUAGE } from './listen-service-const';
+import { BaseService } from './../base/base-service';
+
+
+// listen
+
+import { LISTEN_SERVICE_NAME } from './listen-service-const';
 import { LISTENSERVICE_API_VERSION } from './listen-service-version';
 import { ListenServiceConfig } from './listen-service-config';
 import { ListenServiceOptionInterface } from './listen-service-option.interface';
@@ -46,13 +50,6 @@ const LISTEN_ASYNC_EVENT = false;
 
 
 /**
- * Setzt den Daufaultwert fuer Fehlerausgaben auf der Konsole
- */
-
-const LISTEN_ERROR_OUTPUT = false;
-
-
-/**
  * ListenService Klasse
  *
  * @export
@@ -62,11 +59,11 @@ const LISTEN_ERROR_OUTPUT = false;
 @Injectable({
   providedIn: 'root',
 })
-export class ListenService {
+export class ListenService extends BaseService {
 
-    /** definiert die Konfiguration des BotService */
+    /** definiert die Konfiguration des Service */
 
-    protected static listenServiceConfig = ListenServiceConfig;
+    private static listenServiceConfig = ListenServiceConfig;
 
     /** legt fest, ob die Initialisierung im Konstruktor bereits erfolgt */
 
@@ -78,23 +75,14 @@ export class ListenService {
 
     // Service-Events
 
-    private mListenStartEvent = new EventEmitter( LISTEN_ASYNC_EVENT );
-    private mListenStopEvent = new EventEmitter( LISTEN_ASYNC_EVENT );
     private mListenResultEvent = new EventEmitter<any>( LISTEN_ASYNC_EVENT );
-    private mErrorEvent = new EventEmitter<any>( LISTEN_ASYNC_EVENT );
-
-    /**
-     * Fehlerausgabe fuer Konsole festlegen
-     */
-
-    protected mErrorOutputFlag = LISTEN_ERROR_OUTPUT;
 
 
     /**
      * pruefen auf ConstructorInitFlag fuer Festlegung, ob der Konstructor init aufruft.
      *
      * @static
-     * @return {boolean} ConstructorInitFlag - True, Konstructor initialisiert den BotService, False sonst
+     * @return {boolean} ConstructorInitFlag - True, Konstructor initialisiert den Service, False sonst
      */
 
     static isConstructorInit(): boolean {
@@ -132,7 +120,7 @@ export class ListenService {
      * Uebergabe der Optionen verwendet werden.
      *
      * @static
-     * @return {ListenServiceOptionInterface} ServiceOption - dient zur Einstellung der otionalen Parameter
+     * @return {ListenServiceOptionInterface} BaseServiceOptions - dient zur Einstellung der otionalen Parameter
      */
 
     static getConfig(): ListenServiceOptionInterface {
@@ -140,11 +128,13 @@ export class ListenService {
     }
 
 
+
     /**
      * Konstruktor fuer Initialisierung des Listen-Service
      */
 
     constructor() {
+        super( LISTEN_COMPONENT_NAME, LISTEN_SERVICE_NAME, LISTENSERVICE_API_VERSION );
         // console.log('ListenService.constructor: initFlag = ', ListenService.isConstructorInit(), ListenService.getConfig());
         if ( ListenService.isConstructorInit()) {
             if ( this.init( ListenService.getConfig()) !== 0 ) {
@@ -164,24 +154,17 @@ export class ListenService {
      * @param {ListenServiceOptionInterface} aOption - optionale Parameter
      */
 
-    protected _setOption( aOption: ListenServiceOptionInterface ): void {
-        // console.log('ActionService._setOption:', aOption);
-        if ( !aOption ) {
-            return;
-        }
-        // ActiveFlag uebertragen
-        if ( typeof aOption.activeFlag === 'boolean' ) {
-            this.active = aOption.activeFlag;
+    protected _setOption( aOption: ListenServiceOptionInterface ): number {
+        // console.log('ListenService._setOption:', aOption);
+        if ( super._setOption( aOption ) !== 0 ) {
+            return -1;
         }
         // Sprache uebertragen
         if ( typeof aOption.listenLanguage === 'string' ) {
             // console.log('ListenService._setOption:', aOption.listenLanguage);
             this.language = aOption.listenLanguage;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            this.errorOutput = aOption.errorOutputFlag;
-        }
+        return 0;
     }
 
 
@@ -195,9 +178,7 @@ export class ListenService {
 
     protected _mapOption( aOption: ListenServiceOptionInterface ): any {
         // Optionen uebertragen
-        const option: ListenOptionInterface = {
-            errorOutputFlag: this.mErrorOutputFlag
-        };
+        const option = super._mapOption( aOption ) as ListenServiceOptionInterface;
         if ( !aOption ) {
             return option;
         }
@@ -205,12 +186,25 @@ export class ListenService {
         if ( typeof aOption.listenLanguage === 'string' ) {
             option.listenLanguage = aOption.listenLanguage;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            option.errorOutputFlag = aOption.errorOutputFlag;
-            this.mErrorOutputFlag = aOption.errorOutputFlag;
-        }
         return option;
+    }
+
+
+    /**
+     * Hier wird die Komponente erzeugt.
+     *
+     * @protected
+     * @param aComponentName - Name der zu erzeugenden Komponente
+     * @param aOption - optionale Parameter fuer die Initialisierung der Komponente
+     *
+     * @return {*} Rueckgabe der Listen-Instanz
+     */
+
+    protected _createComponent( aComponentName: string, aOption: any ): any {
+        // console.log('ListenService._createComponent:', aComponentName);
+        this.mListen = ListenFactory.create( aComponentName, aOption );
+        // console.log('ListenService._createComponent:', typeof this.mListen);
+        return this.mListen;
     }
 
 
@@ -223,28 +217,7 @@ export class ListenService {
      */
 
     init( aOption?: ListenServiceOptionInterface ): number {
-        // pruefen auf bereits initialisiert
-        if ( this.mListen ) {
-            // console.log('BotService.init: Bot exisitiert bereits', aOption);
-            this._setOption( aOption );
-            return 0;
-        }
-        // Optionen uebertragen (BotService->Bot)
-        const option = this._mapOption( aOption ) as ListenOptionInterface;
-        // Bot erzeugen
-        this.mListen = ListenFactory.create( LISTEN_COMPONENT_NAME, option );
-        if ( !this.mListen ) {
-            this._error('init', 'Listen nicht erzeugt');
-            return -1;
-        }
-        // Optionen eintragen in ListenService
-        this._setOption( aOption );
-        if ( this.mErrorOutputFlag ) {
-            console.log( 'ListenService Version:', LISTENSERVICE_API_VERSION );
-        }
-        // ListenEvents auf EventEmitter mappen
-        return this._addAllEvent();
-
+        return super.init( aOption );
     }
 
 
@@ -257,194 +230,7 @@ export class ListenService {
      */
 
     reset( aOption?: ListenServiceOptionInterface ): number {
-        if ( !this.mListen ) {
-            this._error('reset', 'Listen nicht vorhanden');
-            return -1;
-        }
-        // Optionen uebertragen (ListenService->Listen)
-        const option = this._mapOption( aOption ) as ListenOptionInterface;
-        const result = this.mListen.reset( option );
-        this._setOption( aOption );
-        return result;
-    }
-
-
-    /**
-     * pruefen auf initialisierten Service
-     *
-     * @return {boolean} Rueckgabe, ob Service initialisiert ist
-     */
-
-    isInit(): boolean {
-        if ( this.mListen ) {
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * pruefen auf aktive Komponente
-     *
-     * @return {boolean} aktivFlag
-     */
-
-    isActive(): boolean {
-        if ( this.mListen ) {
-            return this.mListen.isActive();
-        }
-        return false;
-    }
-
-
-    /**
-     * Komponente aktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOn(): number {
-        if ( this.mListen ) {
-            return this.mListen.setActiveOn();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Komponente daaktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOff(): number {
-        if ( this.mListen ) {
-            return this.mListen.setActiveOff();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente setzen
-     *
-     * @param {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    set active( aActiveFlag: boolean ) {
-        if ( aActiveFlag ) {
-            this.setActiveOn();
-        } else {
-            this.setActiveOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    get active() {
-        return this.isActive();
-    }
-
-
-    // Fehler-Funktionen
-
-
-    /**
-     * pruefen auf Konsolen-Ausgabe von Fehlermeldungen
-     */
-
-    isErrorOutput(): boolean {
-        if ( this.mListen ) {
-            return this.mListen.isErrorOutput();
-        }
-        return this.mErrorOutputFlag;
-    }
-
-
-    /**
-     * Konsolen-Ausgabe von Fehlermeldungen einschalten
-     */
-
-    setErrorOutputOn(): void {
-        this.mErrorOutputFlag = true;
-        if ( this.mListen ) {
-            this.mListen.setErrorOutputOn();
-        }
-    }
-
-
-    /**
-     * Konsolen-Ausgabe von Fehlermeldungen ausschalten
-     */
-
-    setErrorOutputOff(): void {
-        this.mErrorOutputFlag = false;
-        if ( this.mListen ) {
-            this.mListen.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Fehlerausgabe auf der Konsole setzen
-     *
-     * @param {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    set errorOutput( aErrorOutputFlag: boolean ) {
-        if ( aErrorOutputFlag ) {
-            this.setErrorOutputOn();
-        } else {
-            this.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Konsolenausgabe zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    get errorOutput() {
-        return this.isErrorOutput();
-    }
-
-
-    /**
-     * Fehler ausgeben
-     *
-     * @param aFuncName - Name der Funktion, in der der Fehler vorkam
-     * @param aErrorText - Fehlertext
-     */
-
-    protected _error( aFuncName: string, aErrorText: string ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> ERROR ListenService.' + aFuncName + ':', aErrorText);
-        }
-        this.mErrorEvent.emit(new Error( 'ListenService.' + aFuncName + ': ' + aErrorText ));
-    }
-
-
-    /**
-     * Exception ausgeben
-     *
-     * @param {string} aFuncName - Name der Funktion, in der die Exception vorkam
-     * @param {Exception} aException - Exception-Objekt
-     */
-
-    protected _exception( aFuncName: string, aException?: any ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> EXCEPTION ListenService.' + aFuncName + ':', aException.message);
-        }
-        this.mErrorEvent.emit(new Error( 'EXCEPTION ListenService.' + aFuncName + ': ' + aException.message ));
+        return super.reset( aOption );
     }
 
 
@@ -455,63 +241,22 @@ export class ListenService {
      * Anbindung der Events
      *
      * @protected
+     * @param {string} aServiceName - Name  des Services
+     *
      * @return {number} Fehlercode 0 oder -1
      */
 
-    protected _addAllEvent(): number {
-        if ( !this.mListen ) {
-            this._error('_addAllEvent', 'keine Listen-Komponente vorhanden');
+    protected _addAllEvent( aServiceName: string ): number {
+        if ( super._addAllEvent( aServiceName ) !== 0 ) {
             return -1;
         }
 
-        // alle alten Events loeschen
-
-        this.mListen.removeAllEvent( LISTEN_SERVICE_NAME );
-
-        this.mListen.addListenStartEvent( LISTEN_SERVICE_NAME, () => {
-            this.mListenStartEvent.emit();
-            return 0;
-        });
-
-        this.mListen.addListenStopEvent( LISTEN_SERVICE_NAME, () => {
-            this.mListenStopEvent.emit();
-            return 0;
-        });
-
-        this.mListen.addListenResultEvent( LISTEN_SERVICE_NAME, (aResult: string) => {
+        this.mListen.addListenResultEvent( aServiceName, (aResult: string) => {
             this.mListenResultEvent.emit(aResult);
             return 0;
         });
 
-        this.mListen.addErrorEvent( LISTEN_SERVICE_NAME, (aError: any) => {
-            this.mErrorEvent.emit(aError);
-            return 0;
-        });
         return 0;
-    }
-
-
-    /**
-     * Ereignis fuer Spracheingabe gestartet
-     *
-     * @readonly
-     * @return {EventEmitter} listenStartEvent
-     */
-
-    get startEvent() {
-        return this.mListenStartEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Spracheingabe gestoppt
-     *
-     * @readonly
-     * @return {EventEmitter} listenStopEvent
-     */
-
-    get stopEvent() {
-        return this.mListenStopEvent;
     }
 
 
@@ -524,18 +269,6 @@ export class ListenService {
 
     get resultEvent() {
         return this.mListenResultEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Fehler aufgetreten
-     *
-     * @readonly
-     * @return {EventEmitter} errorEvent
-     */
-
-    get errorEvent() {
-        return this.mErrorEvent;
     }
 
 
@@ -600,71 +333,17 @@ export class ListenService {
 
 
     /**
-     * pruefen auf laufende Spracheingabe
-     *
-     * @return {boolean} runningFlag
-     */
-
-    isRunning(): boolean {
-        if ( !this.mListen ) {
-            this._error('isRunning', 'keine Listen-Komponente vorhanden');
-            return false;
-        }
-        return this.mListen.isListenRunning();
-    }
-
-
-    /**
-     * Spracheingabe gestartet, es wird auf Spracheingabe gewartet
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    start(): number {
-        try {
-            // console.log('ListenService.start');
-            return this.mListen.startListen();
-        } catch ( aException ) {
-            this._exception('start', aException);
-            return -1;
-        }
-    }
-
-
-    /**
-     * Spracheingabe stoppen
+     * Spracheingabe abbrechen
      *
      * @returns {number} Fehlercode 0 oder -1
      */
 
-    stop(): number {
-        try {
-            return this.mListen.stopListen();
-        } catch ( aException ) {
-            this._exception('stop', aException);
+    abort(): number {
+        if ( !this.mListen ) {
+            this._error('abort', 'keine Listen-Komponente vorhanden');
             return -1;
         }
-    }
-
-
-    // Test-Funktionen
-
-
-    /**
-     * Testfunktionen aufrufen
-     * @param aTestCommand - Name des Testbefehls
-     * @param aTestData - optionale Daten fuer den Test
-     *
-     * @return {*} Rueckgabe der Testergebnisse { result: 0 }
-     */
-
-    test( aTestCommand: string, aTestData?: any): any {
-        try {
-            return this.mListen.test( aTestCommand, aTestData );
-        } catch ( aException ) {
-            this._exception('test', aException);
-            return -1;
-        }
+        return this.mListen.abort();
     }
 
 }

@@ -9,16 +9,17 @@
  */
 
 
+// base
+
+import { BaseServiceOptionInterface } from './../base/base-service-option.interface';
+
+
 /** @export
  * ListenServiceOption Schnittstelle fuer optionale Konfigurationsparameter des ListenService bei der Initialisierung
  */
 
-export interface ListenServiceOptionInterface {
-    /** ein/ausschalten der Listenkomponente */
-    activeFlag?: boolean;
-    /** setzt die Sprache fuer die Spracheingabe ( 'de', 'en' )*/
+export interface ListenServiceOptionInterface extends BaseServiceOptionInterface {
+    /** setzt die Sprache fuer die Sprachausgabe ( 'de', 'en' )*/
     listenLanguage?: string;
-    /** legt fest, ob die Fehlermeldungen zusaetzlich auf der Konsole ausgegeben werden */
-    errorOutputFlag?: boolean;
 }
 

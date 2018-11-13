@@ -1,21 +1,24 @@
 /**
  * BotServiceOption Schnittstelle
  *
- * API-Version: 1.0
- * Datum:       15.09.2018
+ * API-Version: 1.1
+ * Datum:       19.10.2018
  *
  * @module speech/bot
  * @author SB
  */
 
 
+// base
+
+import { BaseServiceOptionInterface } from './../base/base-service-option.interface';
+
+
 /** @export
  * BotServiceOption Schnittstelle fuer optionale Konfigurationsparameter des BotService bei der Initialisierung
  */
 
-export interface BotServiceOptionInterface {
-    /** ein/ausschalten des Bot */
-    activeFlag?: boolean;
+export interface BotServiceOptionInterface extends BaseServiceOptionInterface {
     /** ein/ausschalten der Sprachausgabe */
     speakFlag?: boolean;
     /** ein/ausschalten der Aktionsverarbeitung */
@@ -30,7 +33,5 @@ export interface BotServiceOptionInterface {
     dialogFilePath?: string;
     /** Dialogdefinitionsdateiname fuer die erste zu ladende Dialogdefinitonsdatei */
     dialogFileName?: string;
-    /** legt fest, ob die Fehlermeldungen zusaetzlich auf der Konsole ausgegeben werden */
-    errorOutputFlag?: boolean;
 }
 

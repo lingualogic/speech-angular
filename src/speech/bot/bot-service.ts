@@ -1,11 +1,11 @@
 /**
  * BotService zur Anbindung des Bot an Angular.
  *
- * API-Version: 1.1
- * Datum:       21.09.2018
+ * API-Version: 1.0
+ * Datum:       15.09.2018
  *
- * Letzte Aenderung: 21.09.2018
- * Status:           gruen
+ * Letzte Aenderung: 08.11.2018
+ * Status:           gelb
  *
  * @module speech/bot
  * @author SB
@@ -23,10 +23,14 @@ import {
     BOT_COMPONENT_NAME,
     BotFactory,
     BotInterface,
-    BotOptionInterface,
     DialogActionInterface,
     DialogSpeakInterface
 } from './../speech';
+
+
+// base
+
+import { BaseService } from './../base/base-service';
 
 
 // bot
@@ -48,13 +52,6 @@ import { BotServiceOptionInterface } from './bot-service-option.interface';
 const BOT_ASYNC_EVENT = true;
 
 
-/**
- * Setzt den Daufaultwert fuer Fehlerausgaben auf der Konsole
- */
-
-const BOT_ERROR_OUTPUT = false;
-
-
 // Action-Funktionen
 
 
@@ -71,11 +68,11 @@ export type BotServiceActionStopFunc = () => void;
 @Injectable({
   providedIn: 'root',
 })
-export class BotService {
+export class BotService extends BaseService {
 
     /** definiert die Konfiguration des BotService */
 
-    protected static botServiceConfig = BotServiceConfig;
+    private static botServiceConfig = BotServiceConfig;
 
     /** legt fest, ob die Initialisierung im Konstruktor bereits erfolgt */
 
@@ -96,14 +93,6 @@ export class BotService {
     private mDialogActionStopEvent = new EventEmitter( BOT_ASYNC_EVENT );
     private mDialogSpeakEvent = new EventEmitter<string>( BOT_ASYNC_EVENT );
     private mDialogSpeakStopEvent = new EventEmitter( BOT_ASYNC_EVENT );
-    private mErrorEvent = new EventEmitter<any>( BOT_ASYNC_EVENT );
-
-
-    /**
-     * Fehlerausgabe fuer Konsole festlegen
-     */
-
-    protected mErrorOutputFlag = BOT_ERROR_OUTPUT;
 
 
     /**
@@ -161,6 +150,7 @@ export class BotService {
      */
 
     constructor() {
+        super( BOT_COMPONENT_NAME, BOT_SERVICE_NAME, BOTSERVICE_API_VERSION );
         // console.log('BotService.constructor: initFlag = ', BotService.isConstructorInit(), BotService.getConfig());
         if ( BotService.isConstructorInit()) {
             if ( this.init( BotService.getConfig()) !== 0 ) {
@@ -180,14 +170,10 @@ export class BotService {
      * @param {BotServiceOptionInterface} aOption - optionale Parameter
      */
 
-    protected _setOption( aOption: BotServiceOptionInterface ): void {
+    protected _setOption( aOption: BotServiceOptionInterface ): number {
         // console.log('BotService._setOption:', aOption);
-        if ( !aOption ) {
-            return;
-        }
-        // ActiveFlag uebertragen
-        if ( typeof aOption.activeFlag === 'boolean' ) {
-            this.active = aOption.activeFlag;
+        if ( super._setOption( aOption ) !== 0 ) {
+            return -1;
         }
         // SpeakFlag uebertragen
         if ( typeof aOption.speakFlag === 'boolean' ) {
@@ -213,10 +199,7 @@ export class BotService {
         if ( typeof aOption.dialogFileName === 'string' ) {
             this.file = aOption.dialogFileName;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            this.errorOutput = aOption.errorOutputFlag;
-        }
+        return 0;
     }
 
 
@@ -230,9 +213,7 @@ export class BotService {
 
     protected _mapOption( aOption: BotServiceOptionInterface ): any {
         // Optionen uebertragen
-        const option: BotOptionInterface = {
-            errorOutputFlag: this.mErrorOutputFlag
-        };
+        const option = super._mapOption( aOption ) as BotServiceOptionInterface;
         if ( !aOption ) {
             return option;
         }
@@ -256,12 +237,25 @@ export class BotService {
         if ( typeof aOption.dialogFileName === 'string' ) {
             option.dialogFileName = aOption.dialogFileName;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            option.errorOutputFlag = aOption.errorOutputFlag;
-            this.mErrorOutputFlag = aOption.errorOutputFlag;
-        }
         return option;
+    }
+
+
+    /**
+     * Hier wird die Komponente erzeugt.
+     *
+     * @protected
+     * @param aComponentName - Name der zu erzeugenden Komponente
+     * @param aOption - optionale Parameter fuer die Initialisierung der Komponente
+     *
+     * @return {*} Rueckgabe der Action-Instanz
+     */
+
+    protected _createComponent( aComponentName: string, aOption: any ): any {
+        // console.log('BotService._createComponent:', aComponentName);
+        this.mBot = BotFactory.create( aComponentName, aOption );
+        // console.log('BotService._createComponent:', this.mBot !== null );
+        return this.mBot;
     }
 
 
@@ -274,27 +268,7 @@ export class BotService {
      */
 
     init( aOption?: BotServiceOptionInterface ): number {
-        // pruefen auf bereits initialisiert
-        if ( this.mBot ) {
-            // console.log('BotService.init: Bot exisitiert bereits', aOption);
-            this._setOption( aOption );
-            return 0;
-        }
-        // Optionen uebertragen (BotService->Bot)
-        const option = this._mapOption( aOption ) as BotOptionInterface;
-        // Bot erzeugen
-        this.mBot = BotFactory.create( BOT_COMPONENT_NAME, option );
-        if ( !this.mBot ) {
-            this._error('init', 'Bot nicht erzeugt');
-            return -1;
-        }
-        // Optionen eintragen in BotService
-        this._setOption( aOption );
-        if ( this.mErrorOutputFlag ) {
-            console.log( 'BotService Version:', BOTSERVICE_API_VERSION );
-        }
-        // BotEvents auf EventEmitter mappen
-        return this._addAllEvent();
+        return super.init( aOption );
     }
 
 
@@ -307,196 +281,7 @@ export class BotService {
      */
 
     reset( aOption?: BotServiceOptionInterface ): number {
-        if ( !this.mBot ) {
-            this._error('reset', 'Bot nicht vorhanden');
-            return -1;
-        }
-        // Optionen uebertragen (BotService->Bot)
-        const option = this._mapOption( aOption ) as BotOptionInterface;
-        const result = this.mBot.reset( option );
-        this._setOption( aOption );
-        return result;
-    }
-
-
-    /**
-     * pruefen auf initialisierten Service
-     *
-     * @return {boolean} Rueckgabe, ob Service initialisiert ist
-     */
-
-    isInit(): boolean {
-        if ( this.mBot ) {
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * pruefen auf aktive Komponente
-     *
-     * @return {boolean} aktivFlag
-     */
-
-    isActive(): boolean {
-        if ( this.mBot ) {
-            return this.mBot.isActive();
-        }
-        return false;
-    }
-
-
-    /**
-     * Komponente aktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOn(): number {
-        if ( this.mBot ) {
-            return this.mBot.setActiveOn();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Komponente daaktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOff(): number {
-        if ( this.mBot ) {
-            return this.mBot.setActiveOff();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente setzen
-     *
-     * @param {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    set active( aActiveFlag: boolean ) {
-        if ( aActiveFlag ) {
-            this.setActiveOn();
-        } else {
-            this.setActiveOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    get active() {
-        return this.isActive();
-    }
-
-
-    // Fehler-Funktionen
-
-
-    /**
-     * pruefen auf Konsolen-Ausgabe von Fehlermeldungen
-     */
-
-    isErrorOutput(): boolean {
-        if ( this.mBot ) {
-            return this.mBot.isErrorOutput();
-        }
-        return this.mErrorOutputFlag;
-    }
-
-
-    /**
-     * Einschalten der Konsolen-Fehlerausgabe
-     */
-
-    setErrorOutputOn(): void {
-        this.mErrorOutputFlag = true;
-        if ( this.mBot ) {
-            this.mBot.setErrorOutputOn();
-        }
-    }
-
-
-    /**
-     * Ausschalten der Konsolen-Fehlerausgabe
-     */
-
-    setErrorOutputOff(): void {
-        this.mErrorOutputFlag = false;
-        if ( this.mBot ) {
-            this.mBot.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Fehlerausgabe auf der Konsole setzen
-     *
-     * @param {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    set errorOutput( aErrorOutputFlag: boolean ) {
-        if ( aErrorOutputFlag ) {
-            this.setErrorOutputOn();
-        } else {
-            this.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Konsolenausgabe zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    get errorOutput() {
-        return this.isErrorOutput();
-    }
-
-
-    /**
-     * Ausgabe eines Fehlers
-     *
-     * @protected
-     * @param {string} aFuncName - Name der Funktion, wo der Fehler auftrat
-     * @param {string} aErrorText - Fehlertext
-     */
-
-    protected _error( aFuncName: string, aErrorText: string ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> ERROR BotService.' + aFuncName + ':', aErrorText);
-        }
-        this.mErrorEvent.emit(new Error( 'BotService.' + aFuncName + ': ' + aErrorText ));
-    }
-
-
-    /**
-     * Ausgabe einer Exception
-     *
-     * @protected
-     * @param {string} aFuncName - Name der Funktion, in der die Exception auftrat
-     * @param {Exception} aException - Exception-Objekt
-     */
-
-    protected _exception( aFuncName: string, aException: any ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> EXCEPTION BotService' + aFuncName + ':', aException.message);
-        }
-        this.mErrorEvent.emit(new Error( 'EXCEPTION BotService.' + aFuncName + ': ' + aException.message ));
+        return super.reset( aOption );
     }
 
 
@@ -507,50 +292,47 @@ export class BotService {
      * Anbindung der Bot-Events an die EventEmitter von Angular
      *
      * @protected
+     * @param {string} aServiceName - Name  des Services
+     *
      * @return {number} Fehlercode 0 oder 1
      */
 
-    protected _addAllEvent(): number {
-        if ( !this.mBot ) {
-            this._error('_addAllEvent', 'keine Bot-Komponente vorhanden');
+    protected _addAllEvent( aServiceName: string ): number {
+        if ( super._addAllEvent( aServiceName ) !== 0 ) {
             return -1;
         }
 
-        // alle alten Events loeschen
-
-        this.mBot.removeAllEvent( BOT_SERVICE_NAME );
-
-        this.mBot.addDialogSetEvent( BOT_SERVICE_NAME, (aDialogName: string) => {
+        this.mBot.addDialogSetEvent( aServiceName, (aDialogName: string) => {
             // console.log('BotService._initAllEvent: dialog start event:');
             this.mDialogSetEvent.emit(aDialogName);
             return 0;
         });
 
-        this.mBot.addDialogParseEvent( BOT_SERVICE_NAME, () => {
+        this.mBot.addDialogParseEvent( aServiceName, () => {
             // console.log('BotService._initAllEvent: dialog start event:');
             this.mDialogParseEvent.emit();
             return 0;
         });
 
-        this.mBot.addDialogStartEvent( BOT_SERVICE_NAME, () => {
+        this.mBot.addDialogStartEvent( aServiceName, () => {
             // console.log('BotService._initAllEvent: dialog start event:');
             this.mDialogStartEvent.emit();
             return 0;
         });
 
-        this.mBot.addDialogStopEvent( BOT_SERVICE_NAME, () => {
+        this.mBot.addDialogStopEvent( aServiceName, () => {
             // console.log('BotService._initAllEvent: dialog stop event:');
             this.mDialogStopEvent.emit();
             return 0;
         });
 
-        this.mBot.addDialogStateSetEvent( BOT_SERVICE_NAME, (aStateName: string) => {
+        this.mBot.addDialogStateSetEvent( aServiceName, (aStateName: string) => {
             // console.log('BotService._initAllEvent: dialog state changed event:');
             this.mDialogStateSetEvent.emit(aStateName);
             return 0;
         });
 
-        this.mBot.addDialogActionEvent( BOT_SERVICE_NAME, (aAction: DialogActionInterface) => {
+        this.mBot.addDialogActionEvent( aServiceName, (aAction: DialogActionInterface) => {
             // Mapping zwischen Bot und BotService
             const action: BotServiceActionInterface = {
                 state: aAction.state,
@@ -563,29 +345,22 @@ export class BotService {
             return 0;
         });
 
-        this.mBot.addDialogActionStopEvent( BOT_SERVICE_NAME, () => {
+        this.mBot.addDialogActionStopEvent( aServiceName, () => {
             // console.log('BotService._initAllEvent: action stop event:');
             this.mDialogActionStopEvent.emit();
             return 0;
         });
 
-        this.mBot.addDialogSpeakEvent( BOT_SERVICE_NAME, (aSpeakData: DialogSpeakInterface) => {
+        this.mBot.addDialogSpeakEvent( aServiceName, (aSpeakData: DialogSpeakInterface) => {
             // console.log('BotService._initAllEvent: speak start event:');
             const text = aSpeakData.text || '';
             this.mDialogSpeakEvent.emit( text );
             return 0;
         });
 
-        this.mBot.addDialogSpeakStopEvent( BOT_SERVICE_NAME, () => {
+        this.mBot.addDialogSpeakStopEvent( aServiceName, () => {
             // console.log('BotService._initAllEvent: speak stop event:');
             this.mDialogSpeakStopEvent.emit();
-            return 0;
-        });
-
-        // ErrorEvent wird automatisch auch fuer Dialog und Speak eingetragen !
-        this.mBot.addErrorEvent( BOT_SERVICE_NAME, ( aError: any) => {
-            // console.log('BotService._initAllEvent: _error event:', aError);
-            this.mErrorEvent.emit( aError );
             return 0;
         });
         return 0;
@@ -688,17 +463,6 @@ export class BotService {
 
     get speakStopEvent() {
         return this.mDialogSpeakStopEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Fehler
-     *
-     * @readonly
-     */
-
-    get errorEvent() {
-        return this.mErrorEvent;
     }
 
 
@@ -974,12 +738,11 @@ export class BotService {
      */
 
     clearDialog(): number {
-        try {
-            return this.mBot.clearDialog();
-        } catch ( aException ) {
-            this._exception( 'clearDialog', aException );
+        if ( !this.mBot ) {
+            this._error('clearDialog', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.clearDialog();
     }
 
 
@@ -992,12 +755,11 @@ export class BotService {
      */
 
     setDialog( aDialogName: string ): number {
-        try {
-            return this.mBot.setDialog( aDialogName );
-        } catch ( aException ) {
-            this._exception( 'setDialog', aException );
+        if ( !this.mBot ) {
+            this._error('setDialog', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.setDialog( aDialogName );
     }
 
 
@@ -1008,12 +770,11 @@ export class BotService {
      */
 
     getDialog(): string {
-        try {
-            return this.mBot.getDialog();
-        } catch ( aException ) {
-            this._exception( 'getDialog', aException );
+        if ( !this.mBot ) {
+            this._error('getDialog', 'keine Bot-Komponente vorhanden');
             return '';
         }
+        return this.mBot.getDialog();
     }
 
 
@@ -1048,12 +809,11 @@ export class BotService {
      */
 
     parse( aDialogData: string ): number {
-        try {
-            return this.mBot.writeDialogData( aDialogData );
-        } catch ( aException ) {
-            this._exception( 'parse', aException );
+        if ( !this.mBot ) {
+            this._error('parse', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.writeDialogData( aDialogData );
     }
 
 
@@ -1066,60 +826,11 @@ export class BotService {
      */
 
     parseFile( aDialogFileName?: string ): number {
-        try {
-            return this.mBot.loadDialogFile( aDialogFileName );
-        } catch ( aException ) {
-            this._exception( 'parseFile', aException );
+        if ( !this.mBot ) {
+            this._error('parseFile', 'keine Bot-Komponente vorhanden');
             return -1;
         }
-    }
-
-
-    /**
-     * Pruefen, ob ein Dialog gerade laeuft
-     *
-     * @return {boolean} True, wenn Dialog laeuft, False sonst
-     */
-
-    isRunning(): boolean {
-        try {
-            return this.mBot.isDialogRunning();
-        } catch ( aException ) {
-            this._exception( 'isRunning', aException );
-            return false;
-        }
-    }
-
-
-    /**
-     * Eingestellten Dialog mit eingestelltem Dialogzustand starten
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    start(): number {
-        try {
-            return this.mBot.startDialog();
-        } catch ( aException ) {
-            this._exception( 'start', aException );
-            return -1;
-        }
-    }
-
-
-    /**
-     * Dialog beenden
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    stop(): number {
-        try {
-            return this.mBot.stopDialog();
-        } catch ( aException ) {
-            this._exception( 'stop', aException );
-            return -1;
-        }
+        return this.mBot.loadDialogFile( aDialogFileName );
     }
 
 
@@ -1130,12 +841,11 @@ export class BotService {
      */
 
     toggle(): number {
-        try {
-            return this.mBot.toggleDialog();
-        } catch ( aException ) {
-            this._exception( 'toggle', aException );
+        if ( !this.mBot ) {
+            this._error('toggle', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.toggleDialog();
     }
 
 
@@ -1151,12 +861,11 @@ export class BotService {
      */
 
     setState( aStateName: string ): number {
-        try {
-            return this.mBot.setDialogState( aStateName );
-        } catch ( aException ) {
-            this._exception( 'setState', aException );
+        if ( !this.mBot ) {
+            this._error('setState', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.setDialogState( aStateName );
     }
 
 
@@ -1167,12 +876,11 @@ export class BotService {
      */
 
     getState(): string {
-        try {
-            return this.mBot.getDialogState();
-        } catch ( aException ) {
-            this._exception( 'getState', aException );
+        if ( !this.mBot ) {
+            this._error('getState', 'keine Bot-Komponente vorhanden');
             return '';
         }
+        return this.mBot.getDialogState();
     }
 
 
@@ -1207,12 +915,11 @@ export class BotService {
      */
 
     setStateContext( aStateContext: any ): number {
-        try {
-            return this.mBot.setDialogStateContext( aStateContext );
-        } catch ( aException ) {
-            this._exception( 'setStateContext', aException );
+        if ( !this.mBot ) {
+            this._error('setStateContext', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.setDialogStateContext( aStateContext );
     }
 
 
@@ -1237,12 +944,11 @@ export class BotService {
      */
 
     clearContext(): number {
-        try {
-            return this.mBot.clearContext();
-        } catch ( aException ) {
-            this._exception( 'clearContext', aException );
+        if ( !this.mBot ) {
+            this._error('clearContext', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.clearContext();
     }
 
 
@@ -1256,12 +962,11 @@ export class BotService {
      */
 
     addContextElement( aElementName: string, aContextName: string ): number {
-        try {
-            return this.mBot.addContextElement( aElementName, aContextName );
-        } catch ( aException ) {
-            this._exception( 'addContextElement', aException );
+        if ( !this.mBot ) {
+            this._error('addContextElement', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.addContextElement( aElementName, aContextName );
     }
 
 
@@ -1275,12 +980,11 @@ export class BotService {
      */
 
     removeContextElement( aElementName: string, aContextName: string ): number {
-        try {
-            return this.mBot.removeContextElement( aElementName, aContextName );
-        } catch ( aException ) {
-            this._exception( 'removeContextElement', aException );
+        if ( !this.mBot ) {
+            this._error('removeContextElement', 'keine Bot-Komponente vorhanden');
             return -1;
         }
+        return this.mBot.removeContextElement( aElementName, aContextName );
     }
 
 }

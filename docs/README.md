@@ -8,6 +8,8 @@ Die Dokumentation des Speech-Angular SDK:
 
 ## [Grundlagen](./design/README.md)
 
+## [Plattformen](./platform/README.md)
+
 ## [API-Referenz](https://lingualogic.de/speech-angular/docs/latest/api)
 
 ## [Roadmap](./roadmap/Roadmap-2018.md)

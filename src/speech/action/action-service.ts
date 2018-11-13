@@ -4,8 +4,8 @@
  * API-Version: 1.0
  * Datum:       15.09.2018
  *
- * Letzte Aenderung: 15.09.2018
- * Status:           gruen
+ * Letzte Aenderung: 08.11.2018
+ * Status:           gelb
  *
  * @module speech/action
  * @author SB
@@ -14,7 +14,7 @@
 
 // angular
 
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 
 // speech
@@ -22,9 +22,13 @@ import { EventEmitter, Injectable } from '@angular/core';
 import {
     ACTION_COMPONENT_NAME,
     ActionFactory,
-    ActionInterface,
-    ActionOptionInterface
+    ActionInterface
 } from './../speech';
+
+
+// base
+
+import { BaseService } from './../base/base-service';
 
 
 // action
@@ -37,20 +41,6 @@ import { ActionServiceOptionInterface } from './action-service-option.interface'
 
 
 // Konstanten
-
-
-/**
- * Stellt ein, ob die Events synchron oder asynchron ausgeliefert werden
- */
-
-const ACTION_ASYNC_EVENT = true;
-
-
-/**
- * Setzt den Daufaultwert fuer Fehlerausgaben auf der Konsole
- */
-
-export const ACTION_ERROR_OUTPUT = false;
 
 
 // Action-Funktionen
@@ -70,11 +60,11 @@ export type ActionStopFunc = () => number;
 @Injectable({
   providedIn: 'root',
 })
-export class ActionService {
+export class ActionService extends BaseService {
 
     /** definiert die Konfiguration des Service */
 
-    protected static actionServiceConfig = ActionServiceConfig;
+    private static actionServiceConfig = ActionServiceConfig;
 
     /** legt fest, ob die Initialisierung im Konstruktor bereits erfolgt */
 
@@ -83,18 +73,6 @@ export class ActionService {
     // Action-Komponente
 
     private mAction: ActionInterface = null;
-
-    // Service-Events
-
-    private mActionStartEvent = new EventEmitter( ACTION_ASYNC_EVENT );
-    private mActionStopEvent = new EventEmitter( ACTION_ASYNC_EVENT );
-    private mErrorEvent = new EventEmitter<any>( ACTION_ASYNC_EVENT );
-
-    /**
-     * Fehlerausgabe fuer Konsole festlegen
-     */
-
-    protected mErrorOutputFlag = ACTION_ERROR_OUTPUT;
 
 
     /**
@@ -148,10 +126,11 @@ export class ActionService {
 
 
     /**
-     * Konstruktor
+     * Konstruktor fuer die Initialisierung des ActionService
      */
 
     constructor() {
+        super( ACTION_COMPONENT_NAME, ACTION_SERVICE_NAME, ACTIONSERVICE_API_VERSION );
         // console.log('ActionService.constructor: initFlag = ', ActionService.isConstructorInit(), ActionService.getConfig());
         if ( ActionService.isConstructorInit()) {
             if ( this.init( ActionService.getConfig()) !== 0 ) {
@@ -171,19 +150,12 @@ export class ActionService {
      * @param {ActionServiceOptionInterface} aOption - optionale Parameter
      */
 
-    protected _setOption( aOption: ActionServiceOptionInterface ): void {
+    protected _setOption( aOption: ActionServiceOptionInterface ): number {
         // console.log('ActionService._setOption:', aOption);
-        if ( !aOption ) {
-            return;
+        if ( super._setOption( aOption ) !== 0 ) {
+            return -1;
         }
-        // ActiveFlag uebertragen
-        if ( typeof aOption.activeFlag === 'boolean' ) {
-            this.active = aOption.activeFlag;
-        }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            this.errorOutput = aOption.errorOutputFlag;
-        }
+        // hier kommen die individuellen Parameter von ActionService hin
     }
 
 
@@ -197,18 +169,30 @@ export class ActionService {
 
     protected _mapOption( aOption: ActionServiceOptionInterface ): any {
         // Optionen uebertragen
-        const option: ActionOptionInterface = {
-            errorOutputFlag: this.mErrorOutputFlag
-        };
+        const option = super._mapOption( aOption ) as ActionServiceOptionInterface;
         if ( !aOption ) {
             return option;
         }
-        // Fehlerausgabeflag uebergeben
-        if ( typeof aOption.errorOutputFlag === 'boolean' ) {
-            option.errorOutputFlag = aOption.errorOutputFlag;
-            this.mErrorOutputFlag = aOption.errorOutputFlag;
-        }
+        // hier kommen die individuellen Parameter von ActionService hin
         return option;
+    }
+
+
+    /**
+     * Hier wird die Komponente erzeugt.
+     *
+     * @protected
+     * @param aComponentName - Name der zu erzeugenden Komponente
+     * @param aOption - optionale Parameter fuer die Initialisierung der Komponente
+     *
+     * @return {*} Rueckgabe der Action-Instanz
+     */
+
+    protected _createComponent( aComponentName: string, aOption: any ): any {
+        // console.log('ActionService._createComponent:', aComponentName);
+        this.mAction = ActionFactory.create( aComponentName, aOption );
+        // console.log('ActionService._createComponent:', typeof this.mAction);
+        return this.mAction;
     }
 
 
@@ -221,25 +205,7 @@ export class ActionService {
      */
 
     init( aOption?: ActionServiceOptionInterface ): number {
-        // pruefen auf bereits initialisiert
-        if ( this.mAction ) {
-            this._setOption( aOption );
-            return 0;
-        }
-        // Optionen uebertragen (BotService->Bot)
-        const option = this._mapOption( aOption ) as ActionOptionInterface;
-        // Action erzeugen
-        this.mAction = ActionFactory.create( ACTION_COMPONENT_NAME, option );
-        if ( !this.mAction ) {
-            this._error('init', 'Action nicht erzeugt');
-            return -1;
-        }
-        // Optionen eintragen in BotService
-        this._setOption( aOption );
-        if ( this.mErrorOutputFlag ) {
-            console.log( 'ActionService Version:', ACTIONSERVICE_API_VERSION );
-        }
-        return this._addAllEvent();
+        return super.init( aOption );
     }
 
 
@@ -252,273 +218,7 @@ export class ActionService {
      */
 
     reset( aOption?: ActionServiceOptionInterface ): number {
-        if ( !this.mAction ) {
-            this._error('reset', 'Action nicht vorhanden');
-            return -1;
-        }
-        // Optionen uebertragen (ActionService->Action)
-        const option = this._mapOption( aOption ) as ActionOptionInterface;
-        const result = this.mAction.reset( option );
-        this._setOption( aOption );
-        return result;
-    }
-
-
-    /**
-     * pruefen auf initialisierten Service
-     *
-     * @return {boolean} Rueckgabe, ob Service initialisiert ist
-     */
-
-    isInit(): boolean {
-        if ( this.mAction ) {
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * pruefen auf aktive Komponente
-     *
-     * @return {boolean} aktivFlag
-     */
-
-    isActive(): boolean {
-        if ( this.mAction ) {
-            return this.mAction.isActive();
-        }
-        return false;
-    }
-
-
-    /**
-     * Komponente aktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOn(): number {
-        if ( this.mAction ) {
-            return this.mAction.setActiveOn();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Komponente daaktivieren
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    setActiveOff(): number {
-        if ( this.mAction ) {
-            return this.mAction.setActiveOff();
-        }
-        return -1;
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente setzen
-     *
-     * @param {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    set active( aActiveFlag: boolean ) {
-        if ( aActiveFlag ) {
-            this.setActiveOn();
-        } else {
-            this.setActiveOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft aktive Komponente zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aActiveFlag - True, wenn aktive, False sonst
-     */
-
-    get active() {
-        return this.isActive();
-    }
-
-
-    // Fehler-Funktionen
-
-
-    /**
-     * pruefen auf Konsolen-Ausgabe von Fehlermeldungen
-     */
-
-    isErrorOutput(): boolean {
-        if ( this.mAction ) {
-            return this.mAction.isErrorOutput();
-        }
-        return this.mErrorOutputFlag;
-    }
-
-
-    /**
-     * Einschalten der Konsolen-Fehlerausgabe
-     */
-
-    setErrorOutputOn(): void {
-        this.mErrorOutputFlag = true;
-        if ( this.mAction ) {
-            this.mAction.setErrorOutputOn();
-        }
-    }
-
-
-    /**
-     * Ausschalten der Konsolen-Fehlerausgabe
-     */
-
-    setErrorOutputOff(): void {
-        this.mErrorOutputFlag = false;
-        if ( this.mAction ) {
-            this.mAction.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Fehlerausgabe auf der Konsole setzen
-     *
-     * @param {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    set errorOutput( aErrorOutputFlag: boolean ) {
-        if ( aErrorOutputFlag ) {
-            this.setErrorOutputOn();
-        } else {
-            this.setErrorOutputOff();
-        }
-    }
-
-
-    /**
-     * Eigenschaft fuer Konsolenausgabe zurueckgeben
-     *
-     * @readonly
-     * @return {boolean} aErrorOutputFlag - True, wenn Konsolenausgabe erfolgen soll, False sonst
-     */
-
-    get errorOutput() {
-        return this.isErrorOutput();
-    }
-
-
-    /**
-     * Ausgabe eines Fehlers
-     *
-     * @param {string} aFuncName - Name der Funktion, wo der Fehler auftrat
-     * @param {string} aErrorText - Fehlertext
-     */
-
-    protected _error( aFuncName: string, aErrorText: string ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> ERROR ActionService.' + aFuncName + ':', aErrorText);
-        }
-        this.mErrorEvent.emit(new Error( 'ActionService.' + aFuncName + ': ' + aErrorText ));
-    }
-
-
-    /**
-     * Ausgabe einer Exception
-     *
-     * @param {string} aFuncName - Name der Funktion, in der die Exception auftrat
-     * @param {Exception} aException - Exception-Objekt
-     */
-
-    protected _exception( aFuncName: string, aException: any ): void {
-        if ( this.mErrorOutputFlag ) {
-            console.log('===> EXCEPTION ActionService' + aFuncName + ':', aException.message);
-        }
-        this.mErrorEvent.emit(new Error( 'EXCEPTION ActionService.' + aFuncName + ': ' + aException.message ));
-    }
-
-
-    // Event-Funktionen
-
-
-    /**
-     * Anbindung der Events
-     *
-     * @private
-     * @return {number} errorCode(0,-1)
-     */
-
-    protected _addAllEvent(): number {
-        if ( !this.mAction ) {
-            this._error('_addAllEvent', 'keine Action-Komponente vorhanden');
-            return -1;
-        }
-
-        // alle alten Events loeschen
-
-        this.mAction.removeAllEvent( ACTION_SERVICE_NAME );
-
-        // neue Events eintragen
-
-        this.mAction.addActionStartEvent( ACTION_SERVICE_NAME, () => {
-            this.mActionStartEvent.emit();
-            return 0;
-        });
-
-        this.mAction.addActionStopEvent( ACTION_SERVICE_NAME, () => {
-            this.mActionStopEvent.emit();
-            return 0;
-        });
-
-        this.mAction.addErrorEvent( ACTION_SERVICE_NAME, ( aError: any) => {
-            this.mErrorEvent.emit( aError );
-            return 0;
-        });
-        return 0;
-    }
-
-
-    // Rueckgabe der globalen Events
-
-
-    /**
-     * Ereignis fuer Aktion gestartet
-     *
-     * @readonly
-     * @return {EventEmitter} actionStartEvent
-     */
-
-    get startEvent() {
-        return this.mActionStartEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Aktion gestoppt
-     *
-     * @readonly
-     * @return {EventEmitter} actionStopEvent
-     */
-
-    get stopEvent() {
-        return this.mActionStopEvent;
-    }
-
-
-    /**
-     * Ereignis fuer Fehler aufgetreten
-     *
-     * @readonly
-     * @return {EventEmitter} errorEvent
-     */
-
-    get errorEvent() {
-        return this.mErrorEvent;
+        return super.reset( aOption );
     }
 
 
@@ -687,52 +387,6 @@ export class ActionService {
     }
 
 
-    /**
-     * pruefen auf laufende Aktion
-     *
-     * @return {boolean} runningFlag
-     */
-
-    isRunning(): boolean {
-        if ( !this.mAction ) {
-            return false;
-        }
-        return this.mAction.isActionRunning();
-    }
-
-
-    /**
-     * Aktion starten. Vorher muessen die Aktionsdaten eingetragen sein.
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    start(): number {
-        try {
-            return this.mAction.startAction();
-        } catch ( aException ) {
-            this._exception( 'start', aException );
-            return -1;
-        }
-    }
-
-
-    /**
-     * Aktion stoppen.
-     *
-     * @return {number} Fehlercode 0 oder -1
-     */
-
-    stop(): number {
-        try {
-            return this.mAction.stopAction();
-        } catch ( aException ) {
-            this._exception( 'stop', aException );
-            return -1;
-        }
-    }
-
-
     // Aktionsfunktion-Funktionen
 
 
@@ -748,12 +402,11 @@ export class ActionService {
      */
 
     addFunction( aFunctionName: string, aStartActionFunc: ActionStartFunc, aStopActionFunc: ActionStopFunc ): number {
-        try {
-            return this.mAction.addFunction( aFunctionName, aStartActionFunc, aStopActionFunc );
-        } catch ( aException ) {
-            this._exception( 'addFunction', aException );
+        if ( !this.mAction ) {
+            this._error( 'addFunction', 'keine Action-Komponente vorhanden' );
             return -1;
         }
+        return this.mAction.addFunction( aFunctionName, aStartActionFunc, aStopActionFunc );
     }
 
 
@@ -766,12 +419,11 @@ export class ActionService {
      */
 
     removeFunction( aFunctionName: string ): number {
-        try {
-            return this.mAction.removeFunction( aFunctionName );
-        } catch ( aException ) {
-            this._exception( 'removeFunction', aException );
+        if ( !this.mAction ) {
+            this._error( 'removeFunction', 'keine Action-Komponente vorhanden' );
             return -1;
         }
+        return this.mAction.removeFunction( aFunctionName );
     }
 
 
@@ -790,12 +442,11 @@ export class ActionService {
      */
 
     addElement( aElementName: string, aStartActionFunc: ActionStartFunc, aStopActionFunc: ActionStopFunc ): number {
-        try {
-            return this.mAction.addElement( aElementName, aStartActionFunc, aStopActionFunc );
-        } catch ( aException ) {
-            this._exception( 'addElement', aException );
+        if ( !this.mAction ) {
+            this._error( 'addElement', 'keine Action-Komponente vorhanden' );
             return -1;
         }
+        return this.mAction.addElement( aElementName, aStartActionFunc, aStopActionFunc );
     }
 
 
@@ -808,12 +459,11 @@ export class ActionService {
      */
 
     removeElement( aElementName: string ): number {
-        try {
-            return this.mAction.removeElement( aElementName );
-        } catch ( aException ) {
-            this._exception( 'removeElement', aException );
+        if ( !this.mAction ) {
+            this._error( 'removeElement', 'keine Action-Komponente vorhanden' );
             return -1;
         }
+        return this.mAction.removeElement( aElementName );
     }
 
 }
