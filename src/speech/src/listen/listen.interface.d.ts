@@ -1,10 +1,10 @@
 /**
  * Listen Interface
  *
- * API-Version: 1.1
- * Datum: 11.10.2018
+ * API-Version: 1.2
+ * Datum: 02.12.2018
  *
- * Letzte Aenderung: 11.10.2018
+ * Letzte Aenderung: 02.12.2018
  * Status: gelb
  *
  * @module listen
@@ -35,6 +35,26 @@ export interface ListenInterface extends BaseInterface {
      */
     removeListenResultEvent(aPluginName: string): number;
     /**
+     * Setzen der aktuellen ASR ueber ihren Namen
+     *
+     * @param {string} aASRName - Name der ASR
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+    setASR(aASRName: string): number;
+    /**
+     * Rueckgabe des eingestellten ASR-Namens
+     *
+     * @returns {string} Name der aktuellen ASR
+     */
+    getASR(): string;
+    /**
+     * Rueckgabe aller vorhandenen ASR-Namen
+     *
+     * @return {Array<string>} Liste der ASR-Namen
+     */
+    getASRList(): Array<string>;
+    /**
      * Aendern der Sprache
      *
      * @param {string} aLanguage - Kurzzeichen fuer Sprache ( de, en )
@@ -48,6 +68,12 @@ export interface ListenInterface extends BaseInterface {
      * @returns {string} language - Kurzzeichenstring fuer Sprache ( de, en )
      */
     getLanguage(): string;
+    /**
+     * Rueckgabe aller vorhandenen Language-Namen
+     *
+     * @return {Array<string>} Liste der Language-Namen
+     */
+    getLanguageList(): Array<string>;
     /**
      * Sofortiger Abbruch der Spracheingabe ohne Resultate zurueckzugeben
      *

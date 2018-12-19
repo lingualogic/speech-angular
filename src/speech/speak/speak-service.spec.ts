@@ -1,7 +1,7 @@
 /**
  * Unit-Test von SpeakService
  *
- * Letzte Aenderung: 08.11.2018
+ * Letzte Aenderung: 16.12.2018
  * Status: gelb
  *
  * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
@@ -11,16 +11,33 @@
  */
 
 
+// TODO: Umfangreiches Mock zum Nuance-WebSocketServer schreiben, um keine echten Nuance-Credentials
+//       einsetzen zu muessen. Die Tests muessen immer lauffaehig sein.
+
+
 // speech
 
-import { SpeechMain } from './../speech';
-
+import {
+    SpeechMain
+} from './../speech';
 
 // speak
 
-import { SPEAK_DE_LANGUAGE, SPEAK_EN_LANGUAGE, SPEAK_MP3_AUDIOFORMAT, SPEAK_WAV_AUDIOFORMAT } from './speak-service-const';
+import {
+    SPEAK_HTML5_TTS,
+    SPEAK_NUANCE_TTS,
+    SPEAK_DE_LANGUAGE,
+    SPEAK_EN_LANGUAGE,
+    SPEAK_MP3_AUDIOFORMAT,
+    SPEAK_WAV_AUDIOFORMAT
+} from './speak-service-const';
 import { SpeakServiceConfig } from './speak-service-config';
 import { SpeakService } from './speak-service';
+
+
+// test
+
+import { initNuance, doneNuance } from './../test/nuance-helper';
 
 
 // Testklasse
@@ -64,19 +81,25 @@ describe('SpeakService', () => {
 
     const jasmineTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     let speakService: TestSpeakService;
+    let nuanceFlag = false;
 
-    beforeAll(() => {
+    beforeAll((done) => {
         console.log('SpeakService Unit-Tests gestartet...');
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
-        SpeechMain.init();
+        // starten von Nuance
+        initNuance((aNuanceFlag: boolean) => {
+            nuanceFlag = aNuanceFlag;
+            done();
+        });
     });
 
     afterAll(() => {
-        SpeechMain.done();
         jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmineTimeout;
+        doneNuance();
     });
 
     beforeEach(() => {
+        SpeakServiceConfig.errorOutputFlag = false;
         speakService = new TestSpeakService();
         speakService.setErrorOutputOff();
     });
@@ -85,6 +108,7 @@ describe('SpeakService', () => {
         speakService.setErrorOutputOff();
         speakService.reset();
         speakService = null;
+        SpeechMain.done();
     });
 
     // setConstructorInitOn/Off
@@ -729,6 +753,156 @@ describe('SpeakService', () => {
 
     });
 
+    // setTTS
+
+    describe('Funktion setTTS', () => {
+
+        it('sollte TTS nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'SpeakService.setTTS: keine Speak-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            expect( speakService.setTTS('')).toBe( -1 );
+        });
+
+        it('sollte Html5-TTS setzen, wenn init aufgerufen wurde', () => {
+            expect( speakService.init()).toBe( 0 );
+            expect( speakService.setTTS( SPEAK_HTML5_TTS )).toBe( 0 );
+            expect( speakService.getTTS()).toBe( SPEAK_HTML5_TTS );
+        });
+
+        it('sollte Nuance-TTS setzen, wenn Nuance vorhanden ist', () => {
+            expect( speakService.init()).toBe( 0 );
+            if ( nuanceFlag ) {
+                expect( speakService.setTTS( SPEAK_NUANCE_TTS )).toBe( 0 );
+                expect( speakService.getTTS()).toBe( SPEAK_NUANCE_TTS );
+            } else {
+                const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                    errorEvent.unsubscribe();
+                    expect( aError.message ).toBe( 'TTSGroup.setTTS: Keine TTS vorhanden' );
+                    return 0;
+                });
+                expect( speakService.setTTS( SPEAK_NUANCE_TTS )).toBe( -1 );
+                expect( speakService.getTTS()).toBe( SPEAK_HTML5_TTS );
+            }
+        });
+
+    });
+
+    // getTTS
+
+    describe('Funktion getTTS', () => {
+
+        it('sollte ein leeren String zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'SpeakService.getTTS: keine Speak-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            expect( speakService.getTTS()).toBe( '' );
+        });
+
+        it('sollte Html5-TTS zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect( speakService.init()).toBe( 0 );
+            expect( speakService.getTTS()).toBe( SPEAK_HTML5_TTS );
+        });
+
+    });
+
+    // tts
+
+    describe('Eigenschaft tts', () => {
+
+        it('sollte tts nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'SpeakService.setTTS: keine Speak-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            speakService.tts = '';
+        });
+
+        it('sollte leere tts zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'SpeakService.getTTS: keine Speak-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            expect( speakService.tts ).toBe( '' );
+        });
+
+        it('sollte tts setzen, wenn init aufgerufen wurde', () => {
+            expect( speakService.init()).toBe( 0 );
+            speakService.tts = SPEAK_HTML5_TTS;
+            expect( speakService.tts ).toBe( SPEAK_HTML5_TTS );
+        });
+
+    });
+
+    // getTTSList
+
+    describe('Funktion getTTSList', () => {
+
+        it('sollte leere TTS liste zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'SpeakService.getTTSList: keine Speak-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            const ttsList = speakService.getTTSList();
+            expect( ttsList.length ).toBe( 0 );
+        });
+
+        it('sollte komplette TTS liste zurueckgeben, wenn Nuance vorhanden ist', () => {
+            expect( speakService.init()).toBe( 0 );
+            const ttsList = speakService.getTTSList();
+            if ( nuanceFlag ) {
+                expect( ttsList.length ).toBe( 2 );
+                expect( ttsList[ 0 ]).toEqual( SPEAK_HTML5_TTS );
+                expect( ttsList[ 1 ]).toEqual( SPEAK_NUANCE_TTS );
+            } else {
+                expect( ttsList.length ).toBe( 1 );
+                expect( ttsList[ 0 ]).toEqual( SPEAK_HTML5_TTS );
+            }
+        });
+
+    });
+
+    // ttses
+
+    describe('Eigenschaft ttses', () => {
+
+        it('sollte leere TTS liste zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect(aError.message).toEqual('SpeakService.getTTSList: keine Speak-Komponente vorhanden');
+                done();
+                return 0;
+            });
+            expect( speakService.ttses.length ).toBe( 0 );
+        });
+
+        it('sollte TTS liste zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect( speakService.init()).toBe( 0 );
+            const ttses = speakService.ttses;
+            if ( nuanceFlag ) {
+                expect( ttses.length ).toBe( 2 );
+                expect( ttses[ 0 ]).toBe( SPEAK_HTML5_TTS );
+                expect( ttses[ 1 ]).toBe( SPEAK_NUANCE_TTS );
+            } else {
+                expect( ttses.length ).toBe( 1 );
+                expect( ttses[ 0 ]).toBe( SPEAK_HTML5_TTS );
+            }
+        });
+
+    });
+
     // setLanguage
 
     describe('Funktion setLanguage', () => {
@@ -1069,6 +1243,7 @@ describe('SpeakService', () => {
     describe('Funktion start TTS', () => {
 
         it('sollte 0 zurueckgeben und mit Googles deutscher Stimme sprechen, wenn init aufgerufen wurde und Netzwerkverbindung', (done) => {
+            pending('Aenderung der Audioplay Policy in Chrome 71');
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 console.log('SpeakService.Test: start TTS ', aError);
@@ -1095,6 +1270,42 @@ describe('SpeakService', () => {
             expect( speakService.isRunning()).toBe( true );
         });
 
+        it('sollte 0 zurueckgeben und mit Nuance Stimme sprechen, wenn init aufgerufen wurde und Netzwerkverbindung', (done) => {
+            const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                if ( !nuanceFlag ) {
+                    expect( aError.message ).toBe( 'TTSGroup.setTTS: Keine TTS vorhanden' );
+                    done();
+                } else {
+                    done.fail( 'Test Error: ' + aError.message );
+                }
+                return 0;
+            });
+            let callStart = false;
+            const startEvent = speakService.startEvent.subscribe(() => {
+                startEvent.unsubscribe();
+                callStart = true;
+                return 0;
+            });
+            const stopEvent = speakService.stopEvent.subscribe(() => {
+                errorEvent.unsubscribe();
+                stopEvent.unsubscribe();
+                expect( callStart ).toBe( true );
+                done();
+                return 0;
+            });
+            expect( speakService.init()).toBe( 0 );
+            expect( speakService.setVoice( 'Yannick' )).toBe ( 0 );
+            expect( speakService.setText( 'Dies ist ein Testtext mit Nuance deutscher Stimme' )).toBe( 0 );
+            if ( nuanceFlag ) {
+                expect( speakService.setTTS( SPEAK_NUANCE_TTS )).toBe( 0 );
+                expect( speakService.start()).toBe( 0 );
+                expect( speakService.isRunning()).toBe( true );
+            } else {
+                expect( speakService.setTTS( SPEAK_NUANCE_TTS )).toBe( -1 );
+            }
+        });
+
     });
 
     // stop TTS
@@ -1113,6 +1324,7 @@ describe('SpeakService', () => {
         });
 
         it('sollte 0 zurueckgeben, wenn init und start aufgerufen wurden', (done) => {
+            pending('Aenderung der Audioplay Policy in Chrome 71');
             const errorEvent = speakService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 console.log('SpeakService.Test: stop TTS ', aError);

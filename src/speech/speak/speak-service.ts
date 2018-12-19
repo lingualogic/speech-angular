@@ -1,11 +1,11 @@
 /**
  * Speak-Service fuer die Integration von Speak in Angular
  *
- * API-Version: 1.1
- * Datum:       08.11.2018
+ * API-Version: 1.2
+ * Datum:       03.12.2018
  *
- * Letzte Aenderung: 08.11.2018
- * Status:           gelb
+ * Letzte Aenderung: 03.12.2018
+ * Status:           grot
  *
  * @module speech/speak
  * @author SB
@@ -472,6 +472,90 @@ export class SpeakService extends BaseService {
 
     get file(): string {
         return this.getAudioFileName();
+    }
+
+
+    // TTS-Funktionen
+
+
+    /**
+     * TTS fuer die Sprachausgabe einstellen
+     *
+     * @param {string} aTTSName - einzustellende TTS
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+
+    setTTS( aTTSName: string ): number {
+        if ( !this.mSpeak ) {
+            this._error('setTTS', 'keine Speak-Komponente vorhanden');
+            return -1;
+        }
+        return this.mSpeak.setTTS( aTTSName );
+    }
+
+
+    /**
+     * Rueckgabe der eingestellten TTS
+     *
+     * @return {string} eingestellte TTS
+     */
+
+    getTTS(): string {
+        if ( !this.mSpeak ) {
+            this._error('getTTS', 'keine Speak-Komponente vorhanden');
+            return '';
+        }
+        return this.mSpeak.getTTS();
+    }
+
+
+    /**
+     * Eigenschaft TTS eintragen fuer die Sprachausgabe.
+     *
+     * @param {string} aTTSName - Name der TTS
+     */
+
+    set tts( aTTSName: string ) {
+        this.setTTS( aTTSName );
+    }
+
+
+    /**
+     * Eigenschaft TTS zurueckgeben.
+     *
+     * @return {string} Name der TTS
+     */
+
+    get tts(): string {
+        return this.getTTS();
+    }
+
+
+    /**
+     * Liste aller verfuegbaren TTS zurueckgeben
+     *
+     * @return {Array<string>} Liste der vorhandenen TTS zurueckgeben oder leere Liste
+     */
+
+    getTTSList(): Array<string> {
+        if ( !this.mSpeak ) {
+            this._error('getTTSList', 'keine Speak-Komponente vorhanden');
+            return [];
+        }
+        return this.mSpeak.getTTSList();
+    }
+
+
+    /**
+     * Eigenschaft alle verfuegbaren TTS zurueckgeben
+     *
+     * @return {Array<string>} Liste aller TTS zurueckgeben
+     */
+
+
+    get ttses(): Array<string> {
+        return this.getTTSList();
     }
 
 

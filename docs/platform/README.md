@@ -21,3 +21,10 @@ Mac OS X und der Chrome-Browser werden vollständig unterstützt.
 Cordova wird unter Mac OS X >= 10.11 vollständig unterstützt.
 
 * **[Cordova](./Cordova.md)** >= 8.0 (WebView) für Android und iOS
+
+
+## Schnelleinstieg
+
+Um Cordova schnell mal in seinem Projekt auszuprobieren:
+
+[**Schnelleinstieg in Cordova**](./Quickstart-Cordova.md)

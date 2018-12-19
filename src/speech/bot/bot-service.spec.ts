@@ -1,7 +1,7 @@
 /**
  * Unit-Test von BotService
  *
- * Letzte Aenderung: 08.11.2018
+ * Letzte Aenderung: 16.12.2018
  *
  * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
  *
@@ -12,7 +12,9 @@
 
 // speech
 
-import { SpeechMain } from './../speech';
+import {
+    SpeechMain
+} from './../speech';
 
 
 // speech
@@ -93,18 +95,20 @@ class TestBotService extends BotService {
 
 describe('BotService', () => {
 
+    const jasmineTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     let botService: TestBotService = null;
 
     beforeAll(() => {
         console.log('BotService Unit-Tests gestartet...');
-        SpeechMain.init();
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
     });
 
     afterAll(() => {
-        SpeechMain.done();
+        jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmineTimeout;
     });
 
     beforeEach(() => {
+        BotServiceConfig.errorOutputFlag = false;
         botService = new TestBotService();
         botService.setErrorOutputOff();
     });
@@ -113,6 +117,7 @@ describe('BotService', () => {
         botService.setErrorOutputOff();
         botService.reset();
         botService = null;
+        SpeechMain.done();
     });
 
     // setConstructorInitOn/Off

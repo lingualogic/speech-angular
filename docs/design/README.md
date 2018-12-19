@@ -13,6 +13,8 @@ Hier werden die Grundlagen des Speech-Angular SDKs behandelt:
 
 [**ListenService**](./ListenService.md) - dient zur Spracheingabe
 
+[**IntentService**](./IntentService.md) - dient zur Sprachanalyse
+
 [**ActionService**](./ActionService.md) - dient zur Ausführung von Aktionen
 
 [**BotService**](./BotService.md) - dient zur Ausführung von Dialogen

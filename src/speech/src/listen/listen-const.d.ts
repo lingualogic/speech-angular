@@ -18,6 +18,8 @@ export declare const LISTEN_COMPONENTFACTORY_NAME = "ListenComponentFactory";
 export declare const LISTEN_COMPONENT_NAME = "ListenComponent";
 export declare const LISTEN_PLUGIN_NAME = "ListenComponent";
 export declare const LISTEN_MOCK_NAME = "ListenMock";
+export declare const LISTEN_HTML5_ASR = "ASRHtml5";
+export declare const LISTEN_NUANCE_ASR = "ASRNuance";
 /** Deutsch */
 export declare const LISTEN_DE_LANGUAGE = "de";
 /** Englisch */

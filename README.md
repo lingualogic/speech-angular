@@ -1,11 +1,20 @@
 # Speech-Angular
 
-Speech-Angular ist eine Bibliothek zur Integration von Sprachdiensten, wie Sprachein- und ausgabe, Dialogverarbeitung und Aktionsausführung als Angular-Services in eine Angular Web-Seite oder Web-App. Kern von Speech-Angular ist ein Bot, der Dialoge eines Dialogskripts ausführen kann.
+Das Speech-Framework ist eine Typescript-Bibliothek zur Integration von Sprachdiensten, wie Sprachausgabe (TTS), Spracherkennung (ASR), Sprachverstehen (NLU), Dialogverarbeitung (NLP) und Aktionsausführung in eine Web-Seite oder Web-App. Kern des Speech-Frameworks ist ein **Bot**, der Dialoge eines Dialogskripts ausführen kann.
+
+Daneben git es einzeln verwendbare Dienste: 
+
+* **Speak** für die Sprachausgabe
+* **Listen** für die Spracherennung
+* **Intent** für das Sprachverstehen
+* **Action** für die Aktionserzeugung
+
+Im Speech-Framework kann für die Sprachausgabe (TTS) und das Sprachverstehen (NLU) auch der Nuance-Clouddienst verwendet werden. Dazu wird ein eigener Nuance-Mix Account benötigt.
 
 
 ## Letzte Version
 
-* 0.5.2.0018 Alpha vom 11.11.2018 [Release Notizen](./CHANGELOG.md)
+* 0.5.3.0019 Alpha vom 17.12.2018 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 
@@ -40,6 +49,8 @@ Als weitere Plattformen können Android und iOS mit Cordova verwendet werden:
 Für Cordova müssen weitere Programme zur Entwicklung von Android- und iOS-Apps installiert werden.
 Informationen hierzu finden sich unter [docs/platform/Cordova.md](./docs/platform/Cordova.md).
 
+Will man den Nuance-Clouddienst verwenden, muss ein eigener Nuance-Mix Account eingerichtet werden und die Nuance-Komponente des Speech-Frameworks separat in die eigene App eingebunden werden.
+
 
 ## Installation
 
@@ -61,11 +72,11 @@ zum Schluß wird das NPM-Paket für Speech-Angular im dist/ Ordner erzeugt:
     $ npm run build
     $ cd dist
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.2.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.3.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.2.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
+Die Installation des 'speech-angular-0.5.3.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install --save speech-angular-0.5.2.tgz
+    $ npm install --save speech-angular-0.5.3.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit unserem [Schnelleinstieg](./docs/QuickStart.md) aus.
 
@@ -85,7 +96,11 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 [**Schnelleinstieg für Listen**](./docs/QuickStart-Listen.md)
 
+[**Schnelleinstieg für Intent**](./docs/QuickStart-Intent.md)
+
 [**Grundlagen**](./docs/design/README.md)
+
+[**Cloud-Dienste**](./docs/cloud/README.md)
 
 [**Plattformen**](./docs/platform/README.md)
 
@@ -113,11 +128,15 @@ für die Audio-Version.
 
 Für das ListenService-Beispiel ist folgender Befehl einzugeben:
 
-    § npm run listen
+    $ npm run listen
 
-und für das ActionService-Beispiel ist folgender Befehl einzugeben:
+Für das IntentService-Beispiel ist folgender Befehl einzugeben:
 
-    § npm run action
+    $ npm run intent
+
+Für für das ActionService-Beispiel ist folgender Befehl einzugeben:
+
+    $ npm run action
 
 Der BotService kann mit folgenden Befehlen gestartet werden:
 
@@ -139,6 +158,9 @@ Technische Entwicklung: **Stefan Brauer** (stefan@lingualogic.de)
 
 ## Mitwirkende
 
+## In Projekten verwendet
+
+* [**whoelse-Prototyp**](https://whoelse.xyz) - Beispiel für den IntentService von [uns.ai](https://uns.ai)
 
 ## Danksagung
 

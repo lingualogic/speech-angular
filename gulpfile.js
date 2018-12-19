@@ -77,7 +77,7 @@ const settings = {
 
 // Gulp-Skripte
 
-
+require('./gulp/gulp-install')(settings);
 require('./gulp/gulp-docs')(settings);
 require('./gulp/gulp-dist')(settings);
 require('./gulp/gulp-test')(settings);

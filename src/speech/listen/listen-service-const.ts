@@ -26,6 +26,12 @@ export const LISTEN_SERVICE_NAME = 'ListenService';
 export const LISTEN_SERVICEMOCK_NAME = 'ListenServiceMock';
 
 
+// ASR-Plugins
+
+export const LISTEN_HTML5_ASR = 'ASRHtml5';
+export const LISTEN_NUANCE_ASR = 'ASRNuance';
+
+
 // Sprach-Konstanten fuer Deutsch und Englisch
 
 export const LISTEN_DE_LANGUAGE = 'de';

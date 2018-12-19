@@ -71,7 +71,7 @@ Die Funktion 'start()' soll die Spracherkennung starten.
         templateUrl: './app.component.html',
         styleUrls: ['./app.component.css']
     })
-    export class AppComponent {
+    export class AppComponent implements OnInit {
 
         title = 'mySpeech';
 

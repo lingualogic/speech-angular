@@ -2,8 +2,8 @@
 /**
  * Globale Export-Datei fuer Speech-Framework (Speech NPM-Module)
  *
- * Version: 1.2
- * Datum:   18.10.2018
+ * Version: 1.4
+ * Datum:   16.12.2018
  * Autor:   SB
  *
  * Definiert das gesamte Speech-Framework-API:
@@ -14,8 +14,10 @@
  *      speak  - Speak API fuer Sprachausgabe
  *      listen - Listen API fuer Spracheingabe
  *      dialog - Dialog API fuer Dialogmanager
+ *      intent - Intent API fuer Dialogmanager
  *      bot    - Bot API fuer Bot-Controller
- *      speech - Hauptprogramm von Speech-Framework
+ *      nuance  - Hauptprogramm NUance fuer die Initialisierung des Nuance-Clouddienstes
+ *      speech - Hauptprogramm von Speech-Framework fuer die Initialisierung aller Builder
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 // Global API
@@ -43,6 +45,8 @@ exports.SPEAK_TYPE_NAME = speak_const_1.SPEAK_TYPE_NAME;
 exports.SPEAK_COMPONENT_NAME = speak_const_1.SPEAK_COMPONENT_NAME;
 exports.SPEAK_DE_LANGUAGE = speak_const_1.SPEAK_DE_LANGUAGE;
 exports.SPEAK_EN_LANGUAGE = speak_const_1.SPEAK_EN_LANGUAGE;
+exports.SPEAK_HTML5_TTS = speak_const_1.SPEAK_HTML5_TTS;
+exports.SPEAK_NUANCE_TTS = speak_const_1.SPEAK_NUANCE_TTS;
 var speak_factory_1 = require("./speech.bundle");
 exports.SpeakFactory = speak_factory_1.SpeakFactory;
 // listen
@@ -51,8 +55,20 @@ exports.LISTEN_TYPE_NAME = listen_const_1.LISTEN_TYPE_NAME;
 exports.LISTEN_COMPONENT_NAME = listen_const_1.LISTEN_COMPONENT_NAME;
 exports.LISTEN_DE_LANGUAGE = listen_const_1.LISTEN_DE_LANGUAGE;
 exports.LISTEN_EN_LANGUAGE = listen_const_1.LISTEN_EN_LANGUAGE;
+exports.LISTEN_HTML5_ASR = listen_const_1.LISTEN_HTML5_ASR;
+exports.LISTEN_NUANCE_ASR = listen_const_1.LISTEN_NUANCE_ASR;
 var listen_factory_1 = require("./speech.bundle");
 exports.ListenFactory = listen_factory_1.ListenFactory;
+// intent
+var intent_const_1 = require("./speech.bundle");
+exports.INTENT_TYPE_NAME = intent_const_1.INTENT_TYPE_NAME;
+exports.INTENT_COMPONENT_NAME = intent_const_1.INTENT_COMPONENT_NAME;
+exports.INTENT_DE_LANGUAGE = intent_const_1.INTENT_DE_LANGUAGE;
+exports.INTENT_EN_LANGUAGE = intent_const_1.INTENT_EN_LANGUAGE;
+exports.INTENT_HTML5_NLU = intent_const_1.INTENT_HTML5_NLU;
+exports.INTENT_NUANCE_NLU = intent_const_1.INTENT_NUANCE_NLU;
+var intent_factory_1 = require("./speech.bundle");
+exports.IntentFactory = intent_factory_1.IntentFactory;
 // dialog
 var dialog_const_1 = require("./speech.bundle");
 exports.DIALOG_TYPE_NAME = dialog_const_1.DIALOG_TYPE_NAME;
@@ -67,6 +83,9 @@ exports.BOT_TYPE_NAME = bot_const_1.BOT_TYPE_NAME;
 exports.BOT_COMPONENT_NAME = bot_const_1.BOT_COMPONENT_NAME;
 var bot_factory_1 = require("./speech.bundle");
 exports.BotFactory = bot_factory_1.BotFactory;
+// nuance
+var nuance_1 = require("./speech.bundle");
+exports.Nuance = nuance_1.Nuance;
 // speech
 var speech_main_1 = require("./speech.bundle");
 exports.SpeechMain = speech_main_1.SpeechMain;

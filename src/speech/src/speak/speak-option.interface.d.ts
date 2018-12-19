@@ -25,4 +25,8 @@ export interface SpeakOptionInterface extends BaseOptionInterface {
     audioFilePath?: string;
     /** True, wenn Audiodateien abgespielt werden sollen */
     audioFlag?: boolean;
+    /** legt die App-ID fuer die Verbindung zum Server fest */
+    nuanceAppId?: string;
+    /** legt den App-Key fuer die Verbindung zum Server fest */
+    nuanceAppKey?: string;
 }

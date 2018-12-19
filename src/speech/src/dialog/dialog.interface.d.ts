@@ -4,13 +4,13 @@
  * API-Version: 1.1
  * Datum:   18.10.2018
  *
- * Letzte Aenderung: 18.10.2018
+ * Letzte Aenderung: 15.12.2018
  * Status: gelb
  *
  * @module dialog
  * @author SB
  */
-import { OnSpeechErrorFunc } from '../interface/speech-function.interface';
+import { OnSpeechErrorFunc } from '../interface/speech-function.type';
 import { BaseInterface } from './../base/base.interface';
 import { OnDialogParseFunc, OnDialogSetFunc, OnDialogStartFunc, OnDialogStopFunc, OnDialogStateSetFunc, OnDialogActionFunc, OnDialogActionStopFunc, OnDialogSpeakFunc, OnDialogSpeakStartFunc, OnDialogSpeakStopFunc } from './dialog-function.type';
 import { DialogStateContextInterface } from './dialog-state-context.interface';

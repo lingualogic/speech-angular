@@ -201,7 +201,7 @@ export class ListenService extends BaseService {
      */
 
     protected _createComponent( aComponentName: string, aOption: any ): any {
-        // console.log('ListenService._createComponent:', aComponentName);
+        // console.log('ListenService._createComponent:', aComponentName, aOption);
         this.mListen = ListenFactory.create( aComponentName, aOption );
         // console.log('ListenService._createComponent:', typeof this.mListen);
         return this.mListen;
@@ -272,6 +272,91 @@ export class ListenService extends BaseService {
     }
 
 
+    // ASR-Funktionen
+
+
+    /**
+     * ASR fuer die Spracheingabe einstellen
+     *
+     * @param {string} aASRName - einzustellende TTS
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+
+    setASR( aASRName: string ): number {
+        // console.log('ListenService.setASR:', aASRName);
+        if ( !this.mListen ) {
+            this._error('setASR', 'keine Listen-Komponente vorhanden');
+            return -1;
+        }
+        return this.mListen.setASR( aASRName );
+    }
+
+
+    /**
+     * Rueckgabe der eingestellten ASR
+     *
+     * @return {string} eingestellte ASR
+     */
+
+    getASR(): string {
+        if ( !this.mListen ) {
+            this._error('getASR', 'keine Listen-Komponente vorhanden');
+            return '';
+        }
+        return this.mListen.getASR();
+    }
+
+
+    /**
+     * Eigenschaft ASR eintragen fuer die Spracheingabe.
+     *
+     * @param {string} aASRName - Name der ASR
+     */
+
+    set asr( aASRName: string ) {
+        this.setASR( aASRName );
+    }
+
+
+    /**
+     * Eigenschaft ASR zurueckgeben.
+     *
+     * @return {string} Name der ASR
+     */
+
+    get asr(): string {
+        return this.getASR();
+    }
+
+
+    /**
+     * Liste aller verfuegbaren ASRs zurueckgeben
+     *
+     * @return {Array<string>} Liste der vorhandenen ASRs zurueckgeben oder leere Liste
+     */
+
+    getASRList(): Array<string> {
+        if ( !this.mListen ) {
+            this._error('getASRList', 'keine Listen-Komponente vorhanden');
+            return [];
+        }
+        return this.mListen.getASRList();
+    }
+
+
+    /**
+     * Eigenschaft alle verfuegbaren ASR zurueckgeben
+     *
+     * @return {Array<string>} Liste aller ASR zurueckgeben
+     */
+
+
+    get asrs(): Array<string> {
+        return this.getASRList();
+    }
+
+
     // Language-Funktionen
 
 
@@ -326,6 +411,33 @@ export class ListenService extends BaseService {
 
     get language(): string {
         return this.getLanguage();
+    }
+
+
+    /**
+     * Liste aller verfuegbaren Sprachen (de, en) zurueckgeben
+     *
+     * @return {Array<string>} Liste Kurzform der Sprache zurueckgeben (de, en) oder leere Liste
+     */
+
+    getLanguageList(): Array<string> {
+        if ( !this.mListen ) {
+            this._error('getLanguageList', 'keine Listen-Komponente vorhanden');
+            return [];
+        }
+        return this.mListen.getLanguageList();
+    }
+
+
+    /**
+     * Eigenschaft alle verfuegbaren Sprachen (de, en) zurueckgeben
+     *
+     * @return {Array<string>} Liste Kurzform der Sprache zurueckgeben (de, en)
+     */
+
+
+    get languages(): Array<string> {
+        return this.getLanguageList();
     }
 
 

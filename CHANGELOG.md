@@ -1,6 +1,15 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.3.0019 Alpha (17.12.2018)
+
+### Features
+
+* **SpeakService:** Erweiterung der Sprachausgabe um die Nuance-TTS
+* **IntentService:** Einbau des Sprachverstehens mit der Nuance-NLU
+* **NuanceModule:** Einbau des Nuance-CloudService
+
+
 ## 0.5.2.0018 Alpha (11.11.2018)
 
 ### Features

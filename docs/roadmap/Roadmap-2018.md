@@ -6,14 +6,23 @@ Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versi
 ## Geplante Versionen
 
 
+### Januar: Version 0.5.4
+
+beinhaltet:
+
+* **ListenService:** erlaubt die Spracherkennung über den Nuance-Cloudservice (ASR)
+
+
+## Veröffendlichte Versionen
+
+
 ### Dezember: Version 0.5.3
 
 beinhaltet:
 
-* **SpeakService:** erlaubt die Sprachausgabe über den Nuance-Cloudservice
-
-
-## Veröffendlichte Versionen
+* **SpeakService:** erlaubt die Sprachausgabe über den Nuance-Cloudservice (TTS)
+* **IntentService:** erlaubt die Sprachanalyse für Intents über den Nuance-Cloudservice (NLU)
+* **NuanceModule:** erlaubt die Einbindung des Nuance-Cloudservice in die eigene App
 
 
 ### November: Version 0.5.2

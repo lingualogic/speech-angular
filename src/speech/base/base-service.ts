@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       16.10.2018
  *
- * Letzte Aenderung: 08.11.2018
+ * Letzte Aenderung: 15.12.2018
  * Status: gelb
  *
  * @module speech/base
@@ -75,6 +75,7 @@ export class BaseService {
 
     // Service-Events
 
+    protected mInitEvent = new EventEmitter( BASE_ASYNC_EVENT );
     protected mStartEvent = new EventEmitter( BASE_ASYNC_EVENT );
     protected mStopEvent = new EventEmitter( BASE_ASYNC_EVENT );
     protected mErrorEvent = new EventEmitter<any>( BASE_ASYNC_EVENT );
@@ -91,6 +92,7 @@ export class BaseService {
      */
 
     constructor( aComponentName: string, aServiceName: string, aServiceVersion: string ) {
+        // console.log('BaseService.constructor');
         this.mComponentName = aComponentName;
         this.mServiceName = aServiceName;
         this.mServiceVersion = aServiceVersion;
@@ -194,7 +196,7 @@ export class BaseService {
             this._setOption( aOption );
             return 0;
         }
-        // Optionen uebertragen (BotService->Bot)
+        // Optionen uebertragen
         const option = this._mapOption( aOption );
         // Komponente erzeugen
         this.mComponent = this._createComponent( this.getComponentName(), option ) as BaseInterface;
@@ -434,6 +436,11 @@ export class BaseService {
 
         // neue Events eintragen
 
+        this.mComponent.addInitEvent( aServiceName, () => {
+            this.mInitEvent.emit();
+            return 0;
+        });
+
         this.mComponent.addStartEvent( aServiceName, () => {
             this.mStartEvent.emit();
             return 0;
@@ -453,6 +460,18 @@ export class BaseService {
 
 
     // Rueckgabe der globalen Events
+
+
+    /**
+     * Ereignis fuer Init
+     *
+     * @readonly
+     * @return {EventEmitter} initEvent
+     */
+
+    get initEvent() {
+        return this.mInitEvent;
+    }
 
 
     /**

@@ -147,6 +147,33 @@ module.exports = ({ gulp, exec, distAppDir, appDir, cordovaRootDir, cordovaAppDi
     });
 
 
+    // Bilden der Cordova-App
+
+
+    gulp.task('cordova-compile-android', (done) => {
+        exec(`cd ${cordovaAppDir} && cordova build android --debug`, done);
+    });
+
+
+    gulp.task('cordova-build-android', (done) => {
+        runSquence(
+            'cordova-generate',
+            'cordova-compile-android',
+            (err) => {
+                if(err) {
+                    // eslint-disable-next-line
+                    console.log('failed to build dist to cordova project');
+                    done(err);
+                    return;
+                }
+                // eslint-disable-next-line
+                console.log('DONE!');
+                done();
+            }
+        );
+    });
+
+
     // Starten der Cordova-App
 
 

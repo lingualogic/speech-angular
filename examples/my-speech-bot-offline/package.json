@@ -1,6 +1,6 @@
 {
     "name": "my-speech-bot-offline",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "description": "MySpeechBotOffline",
     "author": "Lingualogic Team",
     "license": "MIT",
@@ -25,7 +25,7 @@
         "@angular/router": "^6.1.10",
         "core-js": "^2.5.7",
         "rxjs": "^6.3.3",
-        "speech-angular": "file:./../../dist/speech-angular-0.5.2.tgz",
+        "speech-angular": "file:./../../dist/speech-angular-0.5.3.tgz",
         "zone.js": "~0.8.26"
     },
     "devDependencies": {

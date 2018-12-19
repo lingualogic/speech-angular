@@ -1,7 +1,7 @@
 /**
  * Unit-Test von ListenService
  *
- * Letzter Aenderung: 08.11.2018
+ * Letzter Aenderung: 03.12.2018
  * Status: gelb
  *
  * getestet unter:  Chrome(Mac)
@@ -11,6 +11,13 @@
  */
 
 
+// TODO: Umfangreiches Mock zum Nuance-WebSocketServer schreiben, um keine echten Nuance-Credentials
+//       einsetzen zu muessen. Die Tests muessen immer lauffaehig sein.
+
+
+// TODO: NuanceASR ist nicht vorhanden!
+
+
 // Definiert die Mock-Bibliothek fuer SpeechRecognition
 
 declare var Corti;
@@ -18,12 +25,14 @@ declare var Corti;
 
 // speech
 
-import { SpeechMain } from './../speech';
+import {
+    SpeechMain
+} from './../speech';
 
 
 // listen
 
-import { LISTEN_DE_LANGUAGE, LISTEN_EN_LANGUAGE } from './listen-service-const';
+import { LISTEN_HTML5_ASR, LISTEN_NUANCE_ASR, LISTEN_DE_LANGUAGE, LISTEN_EN_LANGUAGE } from './listen-service-const';
 import { ListenServiceConfig } from './listen-service-config';
 import { ListenService } from './listen-service';
 
@@ -83,16 +92,10 @@ describe('ListenService', () => {
 
     beforeAll(() => {
         console.log('ListenService Unit-Tests gestartet...');
-        SpeechMain.init();
-    });
-
-    afterAll(() => {
-        SpeechMain.done();
     });
 
     beforeEach(() => {
         listenService = new TestListenService();
-        expect( listenService ).toBeTruthy();
         listenService.setErrorOutputOff();
     });
 
@@ -100,6 +103,7 @@ describe('ListenService', () => {
         listenService.setErrorOutputOff();
         listenService.reset();
         listenService = null;
+        SpeechMain.done();
     });
 
     // setConstructorInitOn/Off
@@ -421,6 +425,144 @@ describe('ListenService', () => {
 
     });
 
+    // setASR
+
+    describe('Funktion setASR', () => {
+
+        it('sollte ASR nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.setASR: keine Listen-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            expect( listenService.setASR('')).toBe( -1 );
+        });
+
+        it('sollte ASR setzen, wenn init aufgerufen wurde', () => {
+            expect( listenService.init( ListenService.getConfig())).toBe( 0 );
+            expect( listenService.setASR( LISTEN_HTML5_ASR )).toBe( 0 );
+            expect( listenService.getASR()).toBe( LISTEN_HTML5_ASR );
+        });
+
+        it('sollte ASR nicht setzen, wenn init ohne NuanceOptionen aufgerufen wurde', () => {
+            expect( listenService.init()).toBe( 0 );
+            expect( listenService.setASR( LISTEN_NUANCE_ASR )).toBe( -1 );
+            expect( listenService.getASR()).toBe( LISTEN_HTML5_ASR );
+        });
+
+    });
+
+    // getASR
+
+    describe('Funktion getASR', () => {
+
+        it('sollte ein leeren String zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.getASR: keine Listen-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            expect( listenService.getASR()).toBe( '' );
+        });
+
+        it('sollte Html5-ASR zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect( listenService.init()).toBe( 0 );
+            expect( listenService.getASR()).toBe( LISTEN_HTML5_ASR );
+        });
+
+    });
+
+    // asr
+
+    describe('Eigenschaft asr', () => {
+
+        it('sollte asr nicht setzen, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.setASR: keine Listen-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            listenService.asr = '';
+        });
+
+        it('sollte leere asr zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.getASR: keine Listen-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            expect( listenService.asr ).toBe( '' );
+        });
+
+        it('sollte asr setzen, wenn init aufgerufen wurde', () => {
+            expect( listenService.init()).toBe( 0 );
+            listenService.asr = LISTEN_HTML5_ASR;
+            expect( listenService.asr ).toBe( LISTEN_HTML5_ASR );
+        });
+
+    });
+
+    // getASRList
+
+    describe('Funktion getASRList', () => {
+
+        it('sollte leere ASR liste zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.getASRList: keine Listen-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            const asrList = listenService.getASRList();
+            expect( asrList.length ).toBe( 0 );
+        });
+
+        it('sollte ASR liste zurueckgeben, wenn init mit NuanceOptionen aufgerufen wurde', () => {
+            expect( listenService.init( ListenService.getConfig())).toBe( 0 );
+            const asrList = listenService.getASRList();
+            /* NuanceASR ist nicht vorhanden
+            expect( asrList.length ).toBe( 2 );
+            expect( asrList[ 0 ]).toEqual( LISTEN_HTML5_ASR );
+            expect( asrList[ 1 ]).toEqual( LISTEN_NUANCE_ASR );
+            */
+           expect( asrList.length ).toBe( 1 );
+           expect( asrList[ 0 ]).toEqual( LISTEN_HTML5_ASR );
+       });
+
+    });
+
+    // asrs
+
+    describe('Eigenschaft asrs', () => {
+
+        it('sollte leere asr liste zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect(aError.message).toEqual('ListenService.getASRList: keine Listen-Komponente vorhanden');
+                done();
+                return 0;
+            });
+            expect( listenService.asrs.length ).toBe( 0 );
+        });
+
+        it('sollte asr liste zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect( listenService.init( ListenService.getConfig())).toBe( 0 );
+            const asrs = listenService.asrs;
+            /* NuanceASR ist nicht vorhanden
+            expect( asrs.length ).toBe( 2 );
+            expect( asrs[ 0 ]).toBe( LISTEN_HTML5_ASR );
+            expect( asrs[ 1 ]).toBe( LISTEN_NUANCE_ASR );
+            */
+           expect( asrs.length ).toBe( 1 );
+           expect( asrs[ 0 ]).toBe( LISTEN_HTML5_ASR );
+       });
+
+    });
+
     // setLanguage
 
     describe('Funktion setLanguage', () => {
@@ -492,6 +634,55 @@ describe('ListenService', () => {
             expect( listenService.init()).toBe( 0 );
             listenService.language = LISTEN_EN_LANGUAGE;
             expect( listenService.language ).toBe( LISTEN_EN_LANGUAGE );
+        });
+
+    });
+
+    // getLanguageList
+
+    describe('Funktion getLanguageList', () => {
+
+        it('sollte leere language liste zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect( aError.message ).toBe( 'ListenService.getLanguageList: keine Listen-Komponente vorhanden' );
+                done();
+                return 0;
+            });
+            const languageList = listenService.getLanguageList();
+            expect( languageList.length ).toBe( 0 );
+        });
+
+        it('sollte language liste zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect( listenService.init()).toBe( 0 );
+            const languageList = listenService.getLanguageList();
+            expect( languageList.length ).toBe( 2 );
+            expect( languageList[ 0 ]).toEqual( LISTEN_DE_LANGUAGE );
+            expect( languageList[ 1 ]).toEqual( LISTEN_EN_LANGUAGE );
+        });
+
+    });
+
+    // languages
+
+    describe('Eigenschaft languages', () => {
+
+        it('sollte leere language liste zurueckgeben, wenn init nicht aufgerufen wurde', (done) => {
+            const errorEvent = listenService.errorEvent.subscribe((aError: any) => {
+                errorEvent.unsubscribe();
+                expect(aError.message).toEqual('ListenService.getLanguageList: keine Listen-Komponente vorhanden');
+                done();
+                return 0;
+            });
+            expect( listenService.languages.length ).toBe( 0 );
+        });
+
+        it('sollte language liste zurueckgeben, wenn init aufgerufen wurde', () => {
+            expect( listenService.init()).toBe( 0 );
+            const languages = listenService.languages;
+            expect( languages.length ).toBe( 2 );
+            expect( languages[ 0 ]).toBe( LISTEN_DE_LANGUAGE );
+            expect( languages[ 1 ]).toBe( LISTEN_EN_LANGUAGE );
         });
 
     });

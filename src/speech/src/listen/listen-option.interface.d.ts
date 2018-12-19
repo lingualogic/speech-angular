@@ -17,4 +17,10 @@ import { BaseOptionInterface } from './../base/base-option.interface';
 export interface ListenOptionInterface extends BaseOptionInterface {
     /** setzt die Sprache fuer die Spracheingabe ( de, en )*/
     listenLanguage?: string;
+    /** legt die App-ID fuer die Verbindung zum Server fest */
+    nuanceAppId?: string;
+    /** legt den App-Key fuer die Verbindung zum Server fest */
+    nuanceAppKey?: string;
+    /** legt den NLU-TAG fuer die Verbindung zum Server fest */
+    nuanceNluTag?: string;
 }

@@ -6,7 +6,11 @@ Die Dokumentation des Speech-Angular SDK:
 
 ## [Schnelleinstieg für Listen](./QuickStart-Listen.md)
 
+## [Schnelleinstieg für Intent](./QuickStart-Intent.md)
+
 ## [Grundlagen](./design/README.md)
+
+## [Cloud-Dienste](./cloud/README.md)
 
 ## [Plattformen](./platform/README.md)
 

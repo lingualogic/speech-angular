@@ -45,3 +45,9 @@ typings/
 Thumbs.db
 package-lock.json
 .angulardoc.json
+
+
+# Konfigdateien
+
+nuance-credentials*
+!nuance-credentials.default*

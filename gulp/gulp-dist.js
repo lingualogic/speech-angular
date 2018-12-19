@@ -54,6 +54,19 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
 
 
     /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von NuanceModule
+     */
+
+    gulp.task('dist-copy-nuance-module', function() {
+        return gulp.src([
+            `${speechDir}/nuance/nuance-module.d.ts`,
+            `${speechDir}/nuance/nuance-module-option.interface.d.ts`,
+        ])
+        .pipe( gulp.dest( `${distDir}/nuance` ));
+    });
+
+
+    /**
      * Kopiert die Sourcedateien aus build/src nach dist/src/ von BaseService
      */
 
@@ -92,6 +105,21 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
             `${speechDir}/listen/listen-service.d.ts`
         ])
         .pipe( gulp.dest( `${distDir}/listen` ));
+    });
+
+
+    /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von IntentService
+     */
+
+    gulp.task('dist-copy-intent-service', function() {
+        return gulp.src([
+            `${speechDir}/intent/intent-service-const.d.ts`,
+            `${speechDir}/intent/intent-service-data.interface.d.ts`,
+            `${speechDir}/intent/intent-service-option.interface.d.ts`,
+            `${speechDir}/intent/intent-service.d.ts`
+        ])
+        .pipe( gulp.dest( `${distDir}/intent` ));
     });
 
 
@@ -160,9 +188,11 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
         runSequence(
             'dist-copy-index',
             'dist-copy-const',
+            'dist-copy-nuance-module',
             'dist-copy-base-service',
             'dist-copy-speak-service',
             'dist-copy-listen-service',
+            'dist-copy-intent-service',
             'dist-copy-action-service',
             'dist-copy-bot-service',
             'dist-copy-bundle',

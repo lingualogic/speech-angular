@@ -9,6 +9,7 @@
  *          listen      - Spracheingabe
  *          action      - Aktionsausfuehrung
  *          dialog      - Dialogsteuerung
+ *          intent      - Intentinterpreter
  *          bot         - Assistent
  */
 /**

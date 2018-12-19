@@ -23,6 +23,10 @@ import { SpeakComponent } from './speak/speak.component';
 import { ListenService } from './../speech/listen/listen-service';
 import { ListenComponent } from './listen/listen.component';
 
+// intent
+
+import { IntentService } from './../speech/intent/intent-service';
+import { IntentComponent } from './intent/intent.component';
 
 
 @NgModule({
@@ -31,12 +35,13 @@ import { ListenComponent } from './listen/listen.component';
     SpeakComponent,
     ActionComponent,
     BotComponent,
-    ListenComponent
+    ListenComponent,
+    IntentComponent
   ],
   imports: [
     BrowserModule
   ],
-  providers: [BotService, ActionService, SpeakService, ListenService],
+  providers: [BotService, ActionService, SpeakService, ListenService, IntentService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
@@ -55,6 +60,9 @@ export class AppModule {
         // ListenService-Konfiguration
         const listenServiceConfig = ListenService.getConfig();
         listenServiceConfig.errorOutputFlag = true;
+        // IntentService-Konfiguration
+        const intentServiceConfig = ListenService.getConfig();
+        intentServiceConfig.errorOutputFlag = true;
     }
 
 }

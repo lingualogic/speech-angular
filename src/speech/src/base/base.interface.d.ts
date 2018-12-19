@@ -4,13 +4,13 @@
  * API-Version: 1.0
  * Datum:       11.10.2018
  *
- * Letzte Aenderung: 11.10.2018
+ * Letzte Aenderung: 15.12.2018
  * Status: gruen
  *
  * @module base
  * @author SB
  */
-import { OnSpeechInitFunc, OnSpeechErrorFunc } from '../interface/speech-function.interface';
+import { OnSpeechInitFunc, OnSpeechErrorFunc } from '../interface/speech-function.type';
 import { OnBaseStartFunc, OnBaseStopFunc } from './base-function.type';
 /**
  * Base Schnittstelle

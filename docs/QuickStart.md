@@ -126,6 +126,18 @@ Herzlichen Glückwunsch. Eure App kann jetzt sprechen.
 
 Den Code zu diesem Teil findet ihr unter examples/my-speech-speak.
 
+## Weitere Stimmen
+
+Für weitere Stimmen können auch Sprachsynthesen von Cloud-Diensten genutzt werden. Seit 0.5.3 steht in Speech-Angular der [Nuance Cloud-Dienst](./cloud/Nuance.md) zur Verfügung. Wenn man die Voraussetzungen erfüllt hat, können in der Funktion *start()* die TTS, Sprache und Stimme geändert werden.
+
+    start(): void {
+        this.speakService.tts = 'TTSNuance';  // Default: 'TTSHtml5'
+        this.speakService.language = 'de';    // Default: 'de' Option: 'en'
+        this.speakService.voice = 'Anna-ML';  // Default: 'Anna'
+        ...
+    }
+
+Hinweis: Die Stimmenauswahl hängt von der gesetzten TTS und Sprache ab. Mit der *getVoiceList()* Funktion des SpeakService kann man eine dynamisch Liste der gültigen Stimmen zur Laufzeit erzeugen.
 
 ## Abspielen von Audiodateien
 
