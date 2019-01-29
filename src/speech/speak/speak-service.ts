@@ -4,7 +4,7 @@
  * API-Version: 1.2
  * Datum:       03.12.2018
  *
- * Letzte Aenderung: 03.12.2018
+ * Letzte Aenderung: 23.01.2019
  * Status:           grot
  *
  * @module speech/speak
@@ -12,18 +12,18 @@
  */
 
 
-// extern
+// angular
 
 import { Injectable } from '@angular/core';
 
 
-// speech
+// speech-framework
 
 import {
     SPEAK_COMPONENT_NAME,
     SpeakFactory,
     SpeakInterface
-} from './../speech';
+} from 'speech-framework';
 
 
 // base

@@ -1,7 +1,7 @@
 /**
  * Unit-Test von BaseService
  *
- * Letzter Aenderung: 08.11.2018
+ * Letzter Aenderung: 23.01.2019
  * Status: gelb
  *
  * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
@@ -10,9 +10,10 @@
  * @author SB
  */
 
-// speech
 
-import { BASE_COMPONENT_NAME, BaseInterface } from './../speech';
+// speech-framework
+
+import { BASE_COMPONENT_NAME, BaseInterface } from 'speech-framework';
 
 // base
 

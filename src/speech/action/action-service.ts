@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       15.09.2018
  *
- * Letzte Aenderung: 08.11.2018
+ * Letzte Aenderung: 23.01.2019
  * Status:           gelb
  *
  * @module speech/action
@@ -17,13 +17,13 @@
 import { Injectable } from '@angular/core';
 
 
-// speech
+// speech-framework
 
 import {
     ACTION_COMPONENT_NAME,
     ActionFactory,
     ActionInterface
-} from './../speech';
+} from 'speech-framework';
 
 
 // base

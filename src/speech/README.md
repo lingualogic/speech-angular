@@ -1,6 +1,6 @@
 # Speech-Angular Quellcode
 
-**Version:** **0.5.3**
+**Version:** **0.5.4**
 
 Der Quellcode von Speech-Angular ist vollständig im Verzeichnis src/speech untergebracht, und besteht aus zwei großen Teilen. Der erste Teil ist das Speech-Framework, welches den gesamten Code für die Speech-Funktionalität beinhaltet. Der zweite Teil ist das Speech-Angular SDK, welches das Speech-Framework in Angular einbettet.
 

@@ -18,8 +18,20 @@
       "dom"
     ]
   },
+  "angularCompilerOptions": {
+    "genDir": "compiled"
+  },  
   "include": [
-    "src/**/*.ts"
+    "src/app/**/*.ts",
+    // action entfernt,
+    "src/speech/base/*.ts",
+    // bot entfernt,
+    "src/speech/const/*.ts",
+    "src/speech/intent/*.ts",
+    // listen entfernt,
+    "src/speech/nuance/*.ts",
+    // speak entfernt,
+    "src/speech/*.ts",
   ],
   "exclude": [
     "examples",

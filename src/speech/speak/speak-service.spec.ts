@@ -1,7 +1,7 @@
 /**
  * Unit-Test von SpeakService
  *
- * Letzte Aenderung: 16.12.2018
+ * Letzte Aenderung: 23.01.2019
  * Status: gelb
  *
  * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
@@ -15,11 +15,12 @@
 //       einsetzen zu muessen. Die Tests muessen immer lauffaehig sein.
 
 
-// speech
+// speech-framework
 
 import {
     SpeechMain
-} from './../speech';
+} from 'speech-framework';
+
 
 // speak
 

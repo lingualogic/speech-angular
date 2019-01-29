@@ -1,6 +1,16 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.4.0020 Alpha (29.01.2019)
+
+### Features
+
+* **ListenService:** Erweiterung der Spracherkennung um die Nuance-ASR
+* **Browser:** Erweiterung auf Firefox, Opera, Safari und Edge
+* **Plattform:** Erweiterung auf Windows und Linux
+* **NPM-Package:** Aufteilung in Speech-Framework und Speech-Angular
+
+
 ## 0.5.3.0019 Alpha (17.12.2018)
 
 ### Features

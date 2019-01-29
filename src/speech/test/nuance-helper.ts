@@ -3,11 +3,11 @@
  */
 
 
-// speech
+// speech-framework
 
 import {
     Nuance
- } from './../speech';
+ } from 'speech-framework';
 
 
 // Nuance-Credentials

@@ -26,27 +26,27 @@ Jetzt kann man in das Cordova-Verzeichnis gehen:
 
 Optional muss eventuell die JAVA_HOME Environment-Variable gesetzt werden, falls Java nicht gefunden wird:
 
-	$ echo $JAVA_HOME
-	$ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home
+	$	echo $JAVA_HOME
+	$	export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home
 
 
 Dann  installiert man die Plattformen in Cordova, für die eine App erzeugt werden sollen:
 
-	$ cordova platform add android
-	$ cordova platform add ios
-	$ cordova platform add browser
+	$	cordova platform add android
+	$	cordova platform add ios
+	$	cordova platform add browser
 
 Nun kann man die Cordova-App für die jeweilige Plattform erzeugen. Für den Browser:
 
-	$ cordova run browser	
+	$	cordova run browser	
 
 oder für Android (vorher sollte ein Android-Gerät an den Computer angeschlossen werden)
 
-	$ cordova run android
+	$	cordova run android
 
 oder für iOS (vorher sollte ein iOS-Gerät an den Computer angeschlossen wereden)
 
-	$ cordova run ios
+	$	cordova run ios
 
 
 

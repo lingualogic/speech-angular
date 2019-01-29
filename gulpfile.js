@@ -13,12 +13,13 @@ const runSequence = require('run-sequence');
 const rootDir = path.resolve( __dirname );
 const docsDir = 'docs';
 const srcDir = 'src';
+const srcSpeechDir = 'src/speech';
 const appDir = 'app';
 const examplesDir = 'examples';
 const assetsDir = 'src/assets';
 const bundleDir = 'bundle';
 const buildDir = 'build';
-const speechDir = 'build/speech';
+const speechDir = 'build/src/speech';
 const distDir = 'dist';
 const distAppDir = 'dist-app';
 const e2eDir = 'e2e';
@@ -58,6 +59,7 @@ const settings = {
     rootDir,
     docsDir,
     srcDir,
+    srcSpeechDir,
     appDir,
     examplesDir,
     assetsDir,
@@ -95,7 +97,7 @@ gulp.task('build', function(callback) {
     runSequence(
         // 'test-unit',
         'dist-build',
-        'docs-dist-typedoc',
+        // 'docs-dist-typedoc',
         // 'test-e2e',
         'dist-pack',
         callback);

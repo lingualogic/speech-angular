@@ -1,7 +1,7 @@
 /**
  * Unit-Test von BotService
  *
- * Letzte Aenderung: 16.12.2018
+ * Letzte Aenderung: 23.01.2019
  *
  * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
  *
@@ -10,16 +10,12 @@
  */
 
 
-// speech
+// speech-framework
 
 import {
+    BotFactory,
     SpeechMain
-} from './../speech';
-
-
-// speech
-
-import { BotFactory } from './../speech';
+} from 'speech-framework';
 
 
 // bot

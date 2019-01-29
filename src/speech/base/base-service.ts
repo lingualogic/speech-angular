@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       16.10.2018
  *
- * Letzte Aenderung: 15.12.2018
+ * Letzte Aenderung: 23.01.2019
  * Status: gelb
  *
  * @module speech/base
@@ -17,13 +17,13 @@
 import { EventEmitter } from '@angular/core';
 
 
-// speech
+// speech-framework
 
 import {
     SpeechMain,
     BaseInterface,
     BaseOptionInterface
-} from './../speech';
+} from 'speech-framework';
 
 
 // base

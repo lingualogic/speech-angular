@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       29.11.2018
  *
- * Letzte Aenderung: 29.11.2018
+ * Letzte Aenderung: 23.01.2019
  * Status: rot
  *
  * @module speech/intent
@@ -17,14 +17,14 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 
-// speech
+// speech-framework
 
 import {
     INTENT_COMPONENT_NAME,
     IntentFactory,
     IntentDataInterface,
     IntentInterface
-} from './../speech';
+} from 'speech-framework';
 
 
 // base
@@ -254,11 +254,13 @@ export class IntentService extends BaseService {
         }
 
         this.mIntent.addListenResultEvent( aServiceName, (aResult: string) => {
+            console.log('IntentService.ListenResultEvent:', aResult);
             this.mListenResultEvent.emit( aResult );
             return 0;
         });
 
         this.mIntent.addIntentResultEvent( aServiceName, (aIntentData: IntentDataInterface) => {
+            console.log('IntentService.IntentResultEvent:', aIntentData);
             this.mIntentResultEvent.emit( aIntentData );
             return 0;
         });

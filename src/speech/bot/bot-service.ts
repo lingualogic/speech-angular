@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       15.09.2018
  *
- * Letzte Aenderung: 08.11.2018
+ * Letzte Aenderung: 23.01.2019
  * Status:           gelb
  *
  * @module speech/bot
@@ -17,7 +17,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 
-// speech
+// speech-framework
 
 import {
     BOT_COMPONENT_NAME,
@@ -25,7 +25,7 @@ import {
     BotInterface,
     DialogActionInterface,
     DialogSpeakInterface
-} from './../speech';
+} from 'speech-framework';
 
 
 // base

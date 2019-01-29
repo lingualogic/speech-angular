@@ -5,15 +5,17 @@ Hier werden alle unterstützten Plattformen zusammen mit den empfohlenen Browser
 
 ## Desktop Betriebssysteme
 
-Mac OS X und der Chrome-Browser werden vollständig unterstützt.
+Folgende Betriebssysteme und Browser werden vollständig unterstützt:
 
-* **Mac OSX** >= 10.11 (Chrome)
+* **Mac OSX** >= 10.11 (Chrome, Firefox, Opera, Safari)
+* **Windows** >= 10 (Chrome, Firefox, Opera, Edge)
+* **Linux** >= Ubuntu 18.04 und aktuelle Linuxe (Chrome, Firefox, Opera)
 
 
 ## Mobile Betriebssysteme
 
 * **Android** >= 5.1 (WebView, Chrome)
-* **iOS** >= 10 (WebView, Chrome)
+* **iOS** >= 10 (WebView, Chrome, Safari)
 
 
 ## Cross Plattformen

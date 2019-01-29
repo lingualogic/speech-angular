@@ -1,7 +1,7 @@
 /**
  * Unit-Test von IntentService
  *
- * Letzter Aenderung: 16.12.2018
+ * Letzter Aenderung: 23.01.2019
  * Status: rot
  *
  * getestet unter:  Chrome(Mac)
@@ -19,11 +19,11 @@
 declare var Corti;
 
 
-// speech
+// speech-framework
 
 import {
     SpeechMain
-} from './../speech';
+} from 'speech-framework';
 
 
 // intent
@@ -162,8 +162,13 @@ describe('IntentService', () => {
             const service = new IntentService();
             expect( service ).toBeTruthy();
             expect( service.isInit()).toBeTruthy();
-            expect( service.active ).toBe( IntentServiceConfig.activeFlag );
-            expect( service.language ).toBe( IntentServiceConfig.intentLanguage );
+            if ( nuanceFlag ) {
+                expect( service.active ).toBe( IntentServiceConfig.activeFlag );
+                expect( service.language ).toBe( IntentServiceConfig.intentLanguage );
+            } else {
+                expect( service.active ).toBe( false );
+                expect( service.language ).toBe( '' );
+            }
             expect( service.errorOutput ).toEqual( IntentServiceConfig.errorOutputFlag );
             service.reset();
             service.setErrorOutputOff();
@@ -177,8 +182,13 @@ describe('IntentService', () => {
             const service = new IntentService();
             expect( service ).toBeTruthy();
             expect( service.isInit()).toBeTruthy();
-            expect( service.active ).toBe( true );
-            expect( service.language ).toBe( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( service.active ).toBe( true );
+                expect( service.language ).toBe( INTENT_EN_LANGUAGE );
+            } else {
+                expect( service.active ).toBe( false );
+                expect( service.language ).toBe( '' );
+            }
             expect( service.errorOutput ).toEqual( true );
             service.reset();
             service.setErrorOutputOff();
@@ -194,16 +204,28 @@ describe('IntentService', () => {
             expect( intentService.init()).toBe( 0 );
             intentService.setOption({ activeFlag: false });
             expect( intentService.active ).toBe( false );
-            intentService.setOption({ activeFlag: true });
-            expect( intentService.active ).toBe( true );
+            if ( nuanceFlag ) {
+                intentService.setOption({ activeFlag: true });
+                expect( intentService.active ).toBe( true );
+            } else {
+                intentService.setOption({ activeFlag: true });
+                expect( intentService.active ).toBe( false );
+            }
         });
 
         it('sollte language setzen, wenn option language gesetzt', () => {
             expect( intentService.init()).toBe( 0 );
-            intentService.setOption({ intentLanguage: INTENT_EN_LANGUAGE });
-            expect( intentService.language ).toBe( INTENT_EN_LANGUAGE );
-            intentService.setOption({ intentLanguage: INTENT_DE_LANGUAGE });
-            expect( intentService.language ).toBe( INTENT_DE_LANGUAGE );
+            if ( nuanceFlag ) {
+                intentService.setOption({ intentLanguage: INTENT_EN_LANGUAGE });
+                expect( intentService.language ).toBe( INTENT_EN_LANGUAGE );
+                intentService.setOption({ intentLanguage: INTENT_DE_LANGUAGE });
+                expect( intentService.language ).toBe( INTENT_DE_LANGUAGE );
+            } else {
+                intentService.setOption({ intentLanguage: INTENT_EN_LANGUAGE });
+                expect( intentService.language ).toBe( '' );
+                intentService.setOption({ intentLanguage: INTENT_DE_LANGUAGE });
+                expect( intentService.language ).toBe( '' );
+            }
         });
 
         it('sollte errorOutput auf true setzen, wenn option errorOutput true', () => {
@@ -251,13 +273,22 @@ describe('IntentService', () => {
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
-            expect( intentService.getLanguage()).toBe( INTENT_DE_LANGUAGE );
-            expect( intentService.isActive()).toBe( true );
+            if ( nuanceFlag ) {
+                expect( intentService.getLanguage()).toBe( INTENT_DE_LANGUAGE );
+                expect( intentService.isActive()).toBe( true );
+            } else {
+                expect( intentService.getLanguage()).toBe( '' );
+                expect( intentService.isActive()).toBe( false );
+            }
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option speakLanguage gesetzt ist', () => {
             expect( intentService.init({ intentLanguage: INTENT_EN_LANGUAGE })).toBe( 0 );
-            expect( intentService.getLanguage()).toEqual( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( intentService.getLanguage()).toEqual( INTENT_EN_LANGUAGE );
+            } else {
+                expect( intentService.getLanguage()).toEqual( '' );
+            }
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option errorOutputFlag gesetzt ist', () => {
@@ -275,14 +306,23 @@ describe('IntentService', () => {
             expect( intentService.init( IntentService.getConfig())).toBe( 0 );
             expect( intentService.reset()).toBe( 0 );
             // expect( intentService.isErrorOutput()).toBe( false );
-            expect( intentService.isActive()).toBe( true );
-            expect( intentService.getLanguage()).toBe( INTENT_DE_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( intentService.isActive()).toBe( true );
+                expect( intentService.getLanguage()).toBe( INTENT_DE_LANGUAGE );
+            } else {
+                expect( intentService.isActive()).toBe( false );
+                expect( intentService.getLanguage()).toBe( '' );
+            }
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option speakLanguage gesetzt ist', () => {
             expect( intentService.init( IntentService.getConfig())).toBe( 0 );
             expect( intentService.reset({ intentLanguage: INTENT_EN_LANGUAGE })).toBe( 0 );
-            expect( intentService.getLanguage()).toBe( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( intentService.getLanguage()).toBe( INTENT_EN_LANGUAGE );
+            } else {
+                expect( intentService.getLanguage()).toBe( '' );
+            }
         });
 
         it('sollte 0 zurueckgeben, wenn init aufgerufen wurde und option errorOutputFlag gesetzt ist', () => {
@@ -368,7 +408,11 @@ describe('IntentService', () => {
             const errorEvent = intentService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 console.log('===> ListenServiceSpec.errorEvent: Error=', aError.message);
-                expect(aError.message).toBe( 'IntentComponent.start: Keinen Text zur Sprachanalyse uebergeben' );
+                if ( nuanceFlag ) {
+                    expect(aError.message).toBe( 'IntentComponent.start: Keinen Text zur Sprachanalyse uebergeben' );
+                } else {
+                    expect(aError.message).toBe( 'IntentComponent.start: keine NLU vorhanden' );
+                }
                 done();
                 return 0;
             });
@@ -392,7 +436,8 @@ describe('IntentService', () => {
             expect( intentService.setNLU('')).toBe( -1 );
         });
 
-        it('sollte NLU auf Html5 setzen, wenn init aufgerufen wurde', () => {
+        // TODO: wenn Html5 eingebaut ist
+        xit('sollte NLU auf Html5 setzen, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
             expect( intentService.setNLU( INTENT_HTML5_NLU )).toBe( 0 );
             expect( intentService.getNLU()).toBe( INTENT_HTML5_NLU );
@@ -410,7 +455,9 @@ describe('IntentService', () => {
                     return 0;
                 });
                 expect( intentService.setNLU( INTENT_NUANCE_NLU )).toBe( -1 );
-                expect( intentService.getNLU()).toBe( INTENT_HTML5_NLU );
+                // TODO: wenn Html5 eingebaut ist
+                // expect( intentService.getNLU()).toBe( INTENT_HTML5_NLU );
+                expect( intentService.getNLU()).toBe( '' );
             }
         });
 
@@ -435,7 +482,9 @@ describe('IntentService', () => {
             if ( nuanceFlag ) {
                 expect( intentService.getNLU()).toBe( INTENT_NUANCE_NLU );
             } else {
-                expect( intentService.getNLU()).toBe( INTENT_HTML5_NLU );
+                // TODO: wenn Html5 eingebaut ist
+                // expect( intentService.getNLU()).toBe( INTENT_HTML5_NLU );
+                expect( intentService.getNLU()).toBe( '' );
             }
         });
 
@@ -470,11 +519,14 @@ describe('IntentService', () => {
             if ( nuanceFlag ) {
                 expect( intentService.nlu ).toBe( INTENT_NUANCE_NLU );
             } else {
-                expect( intentService.nlu ).toBe( INTENT_HTML5_NLU );
+                // TODO: wenn Html5 eingebaut ist
+                // expect( intentService.nlu ).toBe( INTENT_HTML5_NLU );
+                expect( intentService.nlu ).toBe( '' );
             }
         });
 
-        it('sollte NLU setzen, wenn init aufgerufen wurde', () => {
+        // TODO: wenn HTML5 eingebaut ist
+        xit('sollte NLU setzen, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
             intentService.nlu = INTENT_HTML5_NLU;
             expect( intentService.nlu ).toBe( INTENT_HTML5_NLU );
@@ -501,12 +553,16 @@ describe('IntentService', () => {
             expect( intentService.init()).toBe( 0 );
             const nluList = intentService.getNLUList();
             if ( nuanceFlag ) {
-                expect( nluList.length ).toBe( 2 );
-                expect( nluList[ 0 ]).toEqual( INTENT_NUANCE_NLU );
-                expect( nluList[ 1 ]).toEqual( INTENT_HTML5_NLU );
-            } else {
+                // TODO: wenn Html5 eingebaut ist
+                // expect( nluList.length ).toBe( 2 );
                 expect( nluList.length ).toBe( 1 );
-                expect( nluList[ 0 ]).toEqual( INTENT_HTML5_NLU );
+                expect( nluList[ 0 ]).toEqual( INTENT_NUANCE_NLU );
+                // expect( nluList[ 1 ]).toEqual( INTENT_HTML5_NLU );
+            } else {
+                // TODO: wenn Html5 eingebaut ist
+                // expect( nluList.length ).toBe( 1 );
+                // expect( nluList[ 0 ]).toEqual( INTENT_HTML5_NLU );
+                expect( nluList.length ).toBe( 0 );
             }
         });
 
@@ -530,12 +586,16 @@ describe('IntentService', () => {
             expect( intentService.init()).toBe( 0 );
             const nlus = intentService.nlus;
             if ( nuanceFlag ) {
-                expect( nlus.length ).toBe( 2 );
-                expect( nlus[ 0 ]).toBe( INTENT_NUANCE_NLU );
-                expect( nlus[ 1 ]).toBe( INTENT_HTML5_NLU );
-            } else {
+                // TODO: wenn Html5 eingebaut ist
+                // expect( nlus.length ).toBe( 2 );
                 expect( nlus.length ).toBe( 1 );
-                expect( nlus[ 0 ]).toBe( INTENT_HTML5_NLU );
+                expect( nlus[ 0 ]).toBe( INTENT_NUANCE_NLU );
+                // expect( nlus[ 1 ]).toBe( INTENT_HTML5_NLU );
+            } else {
+                // TODO: wenn Html5 eingebaut ist
+                // expect( nlus.length ).toBe( 1 );
+                // expect( nlus[ 0 ]).toBe( INTENT_HTML5_NLU );
+                expect( nlus.length ).toBe( 0 );
             }
         });
 
@@ -558,7 +618,11 @@ describe('IntentService', () => {
         it('sollte language setzen, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe(0);
             expect( intentService.setLanguage( INTENT_EN_LANGUAGE )).toBe( 0 );
-            expect( intentService.getLanguage()).toBe( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( intentService.getLanguage()).toBe( INTENT_EN_LANGUAGE );
+            } else {
+                expect( intentService.getLanguage()).toBe( '' );
+            }
         });
 
     });
@@ -579,7 +643,11 @@ describe('IntentService', () => {
 
         it('sollte language de zurueckgeben, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
-            expect( intentService.getLanguage()).toBe( INTENT_DE_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( intentService.getLanguage()).toBe( INTENT_DE_LANGUAGE );
+            } else {
+                expect( intentService.getLanguage()).toBe( '' );
+            }
         });
 
     });
@@ -611,7 +679,11 @@ describe('IntentService', () => {
         it('sollte language setzen, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
             intentService.language = INTENT_EN_LANGUAGE;
-            expect( intentService.language ).toBe( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( intentService.language ).toBe( INTENT_EN_LANGUAGE );
+            } else {
+                expect( intentService.language ).toBe( '' );
+            }
         });
 
     });
@@ -634,9 +706,13 @@ describe('IntentService', () => {
         it('sollte language liste zurueckgeben, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
             const languageList = intentService.getLanguageList();
-            expect( languageList.length ).toBe( 2 );
-            expect( languageList[ 0 ]).toEqual( INTENT_DE_LANGUAGE );
-            expect( languageList[ 1 ]).toEqual( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( languageList.length ).toBe( 2 );
+                expect( languageList[ 0 ]).toEqual( INTENT_DE_LANGUAGE );
+                expect( languageList[ 1 ]).toEqual( INTENT_EN_LANGUAGE );
+            } else {
+                expect( languageList.length ).toBe( 0 );
+            }
         });
 
     });
@@ -658,9 +734,13 @@ describe('IntentService', () => {
         it('sollte language liste zurueckgeben, wenn init aufgerufen wurde', () => {
             expect( intentService.init()).toBe( 0 );
             const languages = intentService.languages;
-            expect( languages.length ).toBe( 2 );
-            expect( languages[ 0 ]).toBe( INTENT_DE_LANGUAGE );
-            expect( languages[ 1 ]).toBe( INTENT_EN_LANGUAGE );
+            if ( nuanceFlag ) {
+                expect( languages.length ).toBe( 2 );
+                expect( languages[ 0 ]).toBe( INTENT_DE_LANGUAGE );
+                expect( languages[ 1 ]).toBe( INTENT_EN_LANGUAGE );
+            } else {
+                expect( languages.length ).toBe( 0 );
+            }
         });
 
     });

@@ -22,9 +22,9 @@ Als Ausgangspunkt wird ein neues Projekt für die *mySpeech* App erzeugt.
 
 Um die App um Sprachdienste erweitern zu können, installieren wir speech-angular.
 
-Das NPM-Paket *speech-angular-0.5.3.tgz* kopieren oder verschieben wir dafür in den Order von *mySpeech*. Dann können wir die Installation vornehmen.
+Das NPM-Paket *speech-angular-0.5.4.tgz* kopieren oder verschieben wir dafür in den Order von *mySpeech*. Dann können wir die Installation vornehmen.
 
-    $ npm install speech-angular-0.5.3.tgz
+    $ npm install speech-angular-0.5.4.tgz
 
 Weiter geht es in der App. Zur Programmierung können wir [VScode](https://code.visualstudio.com/) empfehlen.
 

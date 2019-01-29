@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       15.09.2018
  *
- * Letzte Aenderung: 18.10.2018
+ * Letzte Aenderung: 23.01.2019
  * Status: gelb
  *
  * @module speech/listen
@@ -17,13 +17,13 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 
-// speech
+// speech-framework
 
 import {
     LISTEN_COMPONENT_NAME,
     ListenFactory,
     ListenInterface
-} from './../speech';
+} from 'speech-framework';
 
 
 // base

@@ -1,7 +1,7 @@
 /**
  * Unit-Test von ListenService
  *
- * Letzter Aenderung: 03.12.2018
+ * Letzter Aenderung: 23.01.2019
  * Status: gelb
  *
  * getestet unter:  Chrome(Mac)
@@ -23,11 +23,11 @@
 declare var Corti;
 
 
-// speech
+// speech-framework
 
 import {
     SpeechMain
-} from './../speech';
+} from 'speech-framework';
 
 
 // listen

@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       16.12.2018
  *
- * Letzte Aenderung: 16.12.2018
+ * Letzte Aenderung: 23.01.2019
  * Status: rot
  *
  * @module speech/nuance
@@ -12,11 +12,11 @@
  */
 
 
-// speech
+// speech-framework
 
 import {
     Nuance
- } from './../speech';
+ } from 'speech-framework';
 
 
 // nuance

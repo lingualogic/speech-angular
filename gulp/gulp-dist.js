@@ -13,7 +13,7 @@ const del = require('del');
 const runSequence = require('run-sequence');
 
 
-module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) => {
+module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir, distDir }) => {
 
 
     // Hilfe-Funktionen
@@ -34,8 +34,10 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
 
     gulp.task('dist-copy-index', function() {
         return gulp.src([
+            `${speechDir}/index.js`,
             `${speechDir}/index.d.ts`,
-            `${buildDir}/speech-angular.js`
+            `${speechDir}/index.metadata.json`,
+            `${srcSpeechDir}/speech-service-version.json`
         ])
             .pipe( gulp.dest( distDir ));
     });
@@ -47,7 +49,10 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
 
     gulp.task('dist-copy-const', function() {
         return gulp.src([
-            `${speechDir}/const/speech-service-version.d.ts`
+            `${speechDir}/const/speech-service-const.d.ts`,
+            `${speechDir}/const/speech-service-version.d.ts`,
+            `${speechDir}/const/*.metadata.json`,
+            `${speechDir}/const/*.js`
         ])
             .pipe( gulp.dest(`${distDir}/const`));
     });
@@ -59,8 +64,10 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
 
     gulp.task('dist-copy-nuance-module', function() {
         return gulp.src([
-            `${speechDir}/nuance/nuance-module.d.ts`,
             `${speechDir}/nuance/nuance-module-option.interface.d.ts`,
+            `${speechDir}/nuance/nuance-module.d.ts`,
+            `${speechDir}/nuance/*.metadata.json`,
+            `${speechDir}/nuance/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/nuance` ));
     });
@@ -74,7 +81,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
         return gulp.src([
             `${speechDir}/base/base-service-const.d.ts`,
             `${speechDir}/base/base-service-option.interface.d.ts`,
-            `${speechDir}/base/base-service.d.ts`
+            `${speechDir}/base/base-service.d.ts`,
+            `${speechDir}/base/*.metadata.json`,
+            `${speechDir}/base/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/base` ));
     });
@@ -88,7 +97,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
         return gulp.src([
             `${speechDir}/speak/speak-service-const.d.ts`,
             `${speechDir}/speak/speak-service-option.interface.d.ts`,
-            `${speechDir}/speak/speak-service.d.ts`
+            `${speechDir}/speak/speak-service.d.ts`,
+            `${speechDir}/speak/*.metadata.json`,
+            `${speechDir}/speak/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/speak` ));
     });
@@ -102,7 +113,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
         return gulp.src([
             `${speechDir}/listen/listen-service-const.d.ts`,
             `${speechDir}/listen/listen-service-option.interface.d.ts`,
-            `${speechDir}/listen/listen-service.d.ts`
+            `${speechDir}/listen/listen-service.d.ts`,
+            `${speechDir}/listen/*.metadata.json`,
+            `${speechDir}/listen/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/listen` ));
     });
@@ -117,7 +130,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
             `${speechDir}/intent/intent-service-const.d.ts`,
             `${speechDir}/intent/intent-service-data.interface.d.ts`,
             `${speechDir}/intent/intent-service-option.interface.d.ts`,
-            `${speechDir}/intent/intent-service.d.ts`
+            `${speechDir}/intent/intent-service.d.ts`,
+            `${speechDir}/intent/*.metadata.json`,
+            `${speechDir}/intent/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/intent` ));
     });
@@ -132,7 +147,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
             `${speechDir}/action/action-service-const.d.ts`,
             `${speechDir}/action/action-service-data.interface.d.ts`,
             `${speechDir}/action/action-service-option.interface.d.ts`,
-            `${speechDir}/action/action-service.d.ts`
+            `${speechDir}/action/action-service.d.ts`,
+            `${speechDir}/action/*.metadata.json`,
+            `${speechDir}/action/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/action` ));
     });
@@ -147,7 +164,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
             `${speechDir}/bot/bot-service-const.d.ts`,
             `${speechDir}/bot/bot-service-action.interface.d.ts`,
             `${speechDir}/bot/bot-service-option.interface.d.ts`,
-            `${speechDir}/bot/bot-service.d.ts`
+            `${speechDir}/bot/bot-service.d.ts`,
+            `${speechDir}/bot/*.metadata.json`,
+            `${speechDir}/bot/*.js`
         ])
         .pipe( gulp.dest( `${distDir}/bot` ));
     });
@@ -301,19 +320,6 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
 
 
     /**
-     * Kopiert alle benoetigten Dateien aus bundle/ nach dist/
-     */
-
-    gulp.task('dist-copy', (callback) => {
-        runSequence(
-            'dist-copy-src',
-            'dist-copy-docs',
-            callback
-        );
-    });
-
-
-    /**
      * Loeschen der temporaeren Build-Verzeichnisse
      */
 
@@ -338,7 +344,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
      * Typescript transpilieren in build-Ordner
      */
 
-    gulp.task('dist-transpile', shell.task('tsc -p src/speech'));
+    gulp.task('dist-transpile', shell.task('cd src/speech && ngc'));
 
 
     /**
@@ -364,8 +370,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, speechDir, distDir }) =>
             'dist-clean',
             'dist-dir',
             'dist-transpile',
-            'dist-rollup',
-            'dist-copy',
+            // 'dist-rollup',
+            'dist-copy-src',
+            // 'dist-copy-docs',
             callback
         );
     });

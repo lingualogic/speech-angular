@@ -1,7 +1,7 @@
 /**
  * Unit-Test von ActionService
  *
- * Letzter Aenderung: 08.11.2018
+ * Letzter Aenderung: 23.01.2019
  * Status: gelb
  *
  * getestet unter:  Chrome(Mac), Firefox(Mac), Opera(Mac), Safari(Mac)
@@ -11,9 +11,9 @@
  */
 
 
-// speech
+// speech-framework
 
-import { SpeechMain } from './../speech';
+import { SpeechMain } from 'speech-framework';
 
 
 // action
