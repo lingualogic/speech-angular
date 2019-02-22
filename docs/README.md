@@ -2,13 +2,11 @@
 
 Die Dokumentation des Speech-Angular SDK:
 
-## [Schnelleinstieg für Speak, Action und Bot](./QuickStart.md)
+## [Schnelleinstieg](./quickstart/README.md)
 
-## [Schnelleinstieg für Listen](./QuickStart-Listen.md)
+## [Architektur](./design/Design.md)
 
-## [Schnelleinstieg für Intent](./QuickStart-Intent.md)
-
-## [Grundlagen](./design/README.md)
+## [Services](./service/Service.md)
 
 ## [Cloud-Dienste](./cloud/README.md)
 
@@ -16,4 +14,4 @@ Die Dokumentation des Speech-Angular SDK:
 
 ## [API-Referenz](https://lingualogic.de/speech-angular/docs/latest/api)
 
-## [Roadmap](./roadmap/Roadmap-2018.md)
+## [Roadmap](./roadmap/README.md)

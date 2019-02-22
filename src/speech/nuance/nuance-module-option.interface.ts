@@ -25,6 +25,8 @@ export interface NuanceModuleOptionInterface {
     nuanceUserId?: string;
     /** legt den NLU-TAG fuer die Verbindung zum Server fest */
     nuanceNluTag?: string;
+    /** legt fest, ob Port oder Mock geladen werden */
+    nuanceMockFlag?: boolean;
     /** legt die Fehlerausgabe fest */
     errorOutputFlag?: boolean;
 }

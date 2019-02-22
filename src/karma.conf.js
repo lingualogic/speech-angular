@@ -52,6 +52,8 @@ module.exports = function (config) {
     // only for mac
     // browsers: ['Chrome', 'Firefox', 'Opera', 'Safari'],
 
+    // browsers: ['ChromeHeadless'],
+
     browsers: ['Chrome'],
     // browsers: ['Firefox'],
     // browsers: ['Opera'],
@@ -63,6 +65,6 @@ module.exports = function (config) {
 
     browserNoActivityTimeout: 100000,
 
-    singleRun: true
+    singleRun: false
   });
 };

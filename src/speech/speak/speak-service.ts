@@ -1,11 +1,11 @@
 /**
  * Speak-Service fuer die Integration von Speak in Angular
  *
- * API-Version: 1.2
- * Datum:       03.12.2018
+ * API-Version: 1.3
+ * Datum:       21.02.2019
  *
- * Letzte Aenderung: 23.01.2019
- * Status:           grot
+ * Letzte Aenderung: 21.02.2019
+ * Status:           rot
  *
  * @module speech/speak
  * @author SB
@@ -14,7 +14,7 @@
 
 // angular
 
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 
 // speech-framework
@@ -39,6 +39,16 @@ import { SpeakServiceConfig } from './speak-service-config';
 import { SpeakServiceOptionInterface } from './speak-service-option.interface';
 
 
+// Konstante
+
+
+/**
+ * Stellt ein, ob die Events synchron oder asynchron ausgeliefert werden
+ */
+
+const SPEAK_ASYNC_EVENT = false;
+
+
 /** @export
  * SpeakService Klasse
  */
@@ -59,6 +69,10 @@ export class SpeakService extends BaseService {
     // Speak-Komponente
 
     private mSpeak: SpeakInterface = null;
+
+    // Service-Events
+
+    private mSpeakAudioUnlockEvent = new EventEmitter<boolean>( SPEAK_ASYNC_EVENT );
 
 
     /**
@@ -239,7 +253,71 @@ export class SpeakService extends BaseService {
     }
 
 
+    // Event-Funktionen
+
+
+    /**
+     * Anbindung der Events
+     *
+     * @protected
+     * @param {string} aServiceName - Name  des Services
+     *
+     * @return {number} Fehlercode 0 oder -1
+     */
+
+    protected _addAllEvent( aServiceName: string ): number {
+        if ( super._addAllEvent( aServiceName ) !== 0 ) {
+            return -1;
+        }
+
+        this.mSpeak.addAudioUnlockEvent( aServiceName, (aUnlockFlag: boolean) => {
+            this.mSpeakAudioUnlockEvent.emit( aUnlockFlag );
+            return 0;
+        });
+
+        return 0;
+    }
+
+
+    /**
+     * Ereignis fuer Audio-Unlock
+     *
+     * @readonly
+     * @return {EventEmitter} audioUnlockEvent
+     */
+
+    get audioUnlockEvent() {
+        return this.mSpeakAudioUnlockEvent;
+    }
+
+
     // Audio-Funktionen
+
+
+    /**
+     * AudioContext entsperren
+     */
+
+    unlockAudio(): number {
+        if ( !this.mSpeak ) {
+            this._error('unlockAudio', 'keine Speak-Komponente vorhanden');
+            return -1;
+        }
+        return this.mSpeak.unlockAudio();
+    }
+
+
+    /**
+     * pruefen auf entsperrten AudioContext
+     */
+
+    isUnlockAudio(): boolean {
+        if ( !this.mSpeak ) {
+            this._error('isUnlockAudio', 'keine Speak-Komponente vorhanden');
+            return false;
+        }
+        return this.mSpeak.isUnlockAudio();
+    }
 
 
     /**
@@ -476,6 +554,18 @@ export class SpeakService extends BaseService {
 
 
     // TTS-Funktionen
+
+
+    /**
+     * pruefen, ob TTS vorhanden ist
+     */
+
+    isTTS(): boolean {
+        if ( !this.mSpeak ) {
+            return false;
+        }
+        return this.mSpeak.isTTS();
+    }
 
 
     /**

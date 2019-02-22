@@ -18,12 +18,12 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.4.tgz
+    $ npm install speech-framework-0.5.5.tgz
 
 
 ## Letzte Version
 
-* 0.5.4.0020 Alpha vom 29.01.2019 [Release Notizen](./CHANGELOG.md)
+* 0.5.5.0021 Alpha vom 22.02.2019 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 
@@ -61,7 +61,7 @@ Als weitere Plattformen können Android und iOS mit Cordova verwendet werden:
 Für Cordova müssen weitere Programme zur Entwicklung von Android- und iOS-Apps installiert werden.
 Informationen hierzu finden sich unter [docs/platform/Cordova.md](./docs/platform/Cordova.md).
 
-Will man den Nuance-Clouddienst verwenden, muss ein eigener Nuance-Mix Account eingerichtet werden und die Nuance-Komponente des Speech-Frameworks separat in die eigene App eingebunden werden.
+Will man den Nuance-Clouddienst verwenden, muss ein eigener Nuance-Mix Account eingerichtet werden und die Nuance-Komponente des Speech-Frameworks separat in die eigene App eingebunden werden. Wie man dies macht, steht unter [docs/cloud/Nuance.md](./docs/cloud/Nuance.md)
 
 
 ## Installation
@@ -87,13 +87,13 @@ Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
 
     $ npm run docs
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.4.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.5.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.4.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
+Die Installation des 'speech-angular-0.5.5.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install speech-angular-0.5.4.tgz
+    $ npm install speech-angular-0.5.5.tgz
 
-Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit unserem [Schnelleinstieg](./docs/QuickStart.md) aus.
+Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit unserem [Schnelleinstieg](./docs/quickstart/QuickStart.md) aus.
 
 Alternativ kann das fertige Speech-Angular npm-Paket auch von der [LinguaLogic-Webseite](https://lingualogic.de) heruntergeladen werden.
 
@@ -107,18 +107,16 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 ## Bekannte Probleme
 
-* Unter Safari MacOS/iOS funktioniert die Nuance-TTS im SpeakService zur Zeit nicht
+* Unter Chrome in iOS funktioniert die Spracheingabe nicht
 
 
 ## Dokumentation
 
-[**Schnelleinstieg für Speak, Action und Bot**](./docs/QuickStart.md)
+[**Schnelleinstieg**](./docs/quickstart/README.md)
 
-[**Schnelleinstieg für Listen**](./docs/QuickStart-Listen.md)
+[**Architektur**](./docs/design/Design.md)
 
-[**Schnelleinstieg für Intent**](./docs/QuickStart-Intent.md)
-
-[**Grundlagen**](./docs/design/README.md)
+[**Services**](./docs/service/Service.md)
 
 [**Cloud-Dienste**](./docs/cloud/README.md)
 
@@ -126,7 +124,7 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 [**API-Referenz**](https://lingualogic.de/speech-angular/docs/latest/api)
 
-[**Roadmap**](./docs/roadmap/Roadmap-2018.md)
+[**Roadmap**](./docs/roadmap/README.md)
 
 [**Release Notizen**](./CHANGELOG.md)
 
@@ -177,6 +175,7 @@ Technische Entwicklung: **Stefan Brauer** (stefan@lingualogic.de)
 
 
 ## Mitwirkende
+
 
 ## In Projekten verwendet
 

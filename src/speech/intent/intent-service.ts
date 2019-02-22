@@ -1,11 +1,11 @@
 /**
  * IntentService fuer die Integration von Listen in Angular
  *
- * API-Version: 1.0
- * Datum:       29.11.2018
+ * API-Version: 1.1
+ * Datum:       21.02.2019
  *
- * Letzte Aenderung: 23.01.2019
- * Status: rot
+ * Letzte Aenderung: 21.02.2019
+ * Status: gelb
  *
  * @module speech/intent
  * @author SB
@@ -254,13 +254,13 @@ export class IntentService extends BaseService {
         }
 
         this.mIntent.addListenResultEvent( aServiceName, (aResult: string) => {
-            console.log('IntentService.ListenResultEvent:', aResult);
+            // console.log('IntentService.ListenResultEvent:', aResult);
             this.mListenResultEvent.emit( aResult );
             return 0;
         });
 
         this.mIntent.addIntentResultEvent( aServiceName, (aIntentData: IntentDataInterface) => {
-            console.log('IntentService.IntentResultEvent:', aIntentData);
+            // console.log('IntentService.IntentResultEvent:', aIntentData);
             this.mIntentResultEvent.emit( aIntentData );
             return 0;
         });
@@ -295,6 +295,17 @@ export class IntentService extends BaseService {
 
     // NLU-Funktionen
 
+
+    /**
+     * pruefen auf NLU
+     */
+
+    isNLU(): boolean {
+        if ( !this.mIntent ) {
+            return false;
+        }
+        return this.mIntent.isNLU();
+    }
 
     /**
      * NLU fuer die Sprachanalyse einstellen

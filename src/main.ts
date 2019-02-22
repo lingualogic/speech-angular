@@ -14,7 +14,7 @@ import { NuanceModule } from './speech/nuance/nuance-module';
 
 // TODO: Hier muessen die echten Zugangsdaten eingetragen werden
 // import { APP_ID, APP_KEY, NLU_TAG } from './config/nuance-credentials';
-import { APP_ID, APP_KEY, NLU_TAG } from './config/nuance-credentials.default';
+import { APP_ID, APP_KEY, NLU_TAG } from './../credentials/nuance-credentials';
 const nuanceOption = {
   nuanceAppId: APP_ID,
   nuanceAppKey: APP_KEY,
@@ -26,6 +26,8 @@ const nuanceOption = {
 
 NuanceModule.init( nuanceOption, (aNuanceFlag: boolean) => {
   console.log('Nuance:', aNuanceFlag);
+
+  environment.nuance = aNuanceFlag;
 
   if (environment.production) {
     enableProdMode();

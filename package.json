@@ -1,6 +1,6 @@
 {
     "name": "speech-angular",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "description": "Speech-Angular",
     "author": "LinguaLogic Team",
     "license": "MIT",
@@ -46,7 +46,7 @@
         "popper": "^1.0.1",
         "popper.js": "^1.14.4",
         "rxjs": "^6.3.3",
-        "speech-framework": "file:speech-framework-0.5.4.tgz",
+        "speech-framework": "file:speech-framework-0.5.5.tgz",
         "tslib": "^1.9.0",
         "zone.js": "~0.8.26"
     },
@@ -83,7 +83,7 @@
         "tslint": "^5.11.0",
         "typedoc": "^0.14.2",
         "typedoc-plugin-external-module-name": "^2.0.0",
-        "typescript": "^3.2.2",
+        "typescript": "3.2.2",
         "uglify-es": "^3.3.9"
     }
 }

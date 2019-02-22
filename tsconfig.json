@@ -22,15 +22,16 @@
     "genDir": "compiled"
   },  
   "include": [
+    "src/*.ts",
     "src/app/**/*.ts",
-    // action entfernt,
+    "src/speech/action/*.ts",
     "src/speech/base/*.ts",
-    // bot entfernt,
+    "src/speech/bot/*.ts",
     "src/speech/const/*.ts",
     "src/speech/intent/*.ts",
-    // listen entfernt,
+    "src/speech/listen/*.ts",
     "src/speech/nuance/*.ts",
-    // speak entfernt,
+    "src/speech/speak/*.ts",
     "src/speech/*.ts",
   ],
   "exclude": [

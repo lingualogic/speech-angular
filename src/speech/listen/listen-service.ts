@@ -1,10 +1,10 @@
 /**
  * ListenService fuer die Integration von Listen in Angular
  *
- * API-Version: 1.0
- * Datum:       15.09.2018
+ * API-Version: 1.1
+ * Datum:       21.02.2019
  *
- * Letzte Aenderung: 23.01.2019
+ * Letzte Aenderung: 21.02.2019
  * Status: gelb
  *
  * @module speech/listen
@@ -274,6 +274,18 @@ export class ListenService extends BaseService {
 
     // ASR-Funktionen
 
+
+    /**
+     * pruefen auf vorhandene ASR
+     */
+
+    isASR(): boolean {
+        // console.log('ListenService.setASR:', aASRName);
+        if ( !this.mListen ) {
+            return false;
+        }
+        return this.mListen.isASR();
+    }
 
     /**
      * ASR fuer die Spracheingabe einstellen

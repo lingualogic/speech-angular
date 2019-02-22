@@ -1,28 +1,10 @@
-# Speech-Angular Roadmap 2019
+# Speech-Angular Roadmap 2018
 
 Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versionen und deren Features.
 
 
-## Geplante Versionen
-
-
-### Februar: Version 0.5.5
-
-beinhaltet:
-
-* **Speech-Framework:** Aktualisierung auf die Speech-Framework Version 0.5.5
-
 
 ## Veröffendlichte Versionen
-
-
-### Januar: Version 0.5.4
-
-beinhaltet:
-
-* **Nuance ASR:** erlaubt die Spracheingabe über den Nuance-Cloudservice, erweitert Listen und Intent
-* **Browser:** erlaubt die Nutzung auch von Firefox, Opera, Safari und Edge
-* **Plattform:** erlaubt die Verwendung auch unter Windows und Linux
 
 
 ### Dezember: Version 0.5.3

@@ -1,8 +1,8 @@
 /**
  * Unit-Test von IntentService
  *
- * Letzter Aenderung: 23.01.2019
- * Status: rot
+ * Letzter Aenderung: 21.02.2019
+ * Status: gelb
  *
  * getestet unter:  Chrome(Mac)
  *
@@ -26,17 +26,30 @@ import {
 } from 'speech-framework';
 
 
+// Nuance-Credentials
+
+// TODO: Hier muessen die echten Zugangsdaten eingetragen werden
+// import { APP_ID, APP_KEY, NLU_TAG } from './../../config/nuance-credentials';
+import { APP_ID, APP_KEY, NLU_TAG } from './../../../credentials/nuance-credentials';
+const nuanceOption = {
+    nuanceAppId: APP_ID,
+    nuanceAppKey: APP_KEY,
+    nuanceNluTag: NLU_TAG,
+    errorOutputFlag: false
+};
+
+
+// nuance
+
+import { NuanceModule } from './../nuance/nuance-module';
+
+
 // intent
 
 import { INTENT_NUANCE_NLU, INTENT_HTML5_NLU, INTENT_DE_LANGUAGE, INTENT_EN_LANGUAGE } from './intent-service-const';
 import { IntentServiceDataInterface } from './intent-service-data.interface';
 import { IntentServiceConfig } from './intent-service-config';
 import { IntentService } from './intent-service';
-
-
-// test
-
-import { initNuance, doneNuance } from './../test/nuance-helper';
 
 
 // legt fest, ob SpeechRecognition gemockt wird oder nicht.
@@ -93,12 +106,18 @@ describe('IntentService', () => {
     const jasmineTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
     let intentService: TestIntentService;
     let nuanceFlag = false;
+    let nuanceMockFlag = false;
 
     beforeAll((done) => {
         console.log('IntentService Unit-Tests gestartet...');
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+        // pruefen, ob NUance-Parameter vorhanden sind
+        if ( !nuanceOption.nuanceAppId || !nuanceOption.nuanceAppKey ) {
+            nuanceOption['nuanceMockFlag'] = true;
+            nuanceMockFlag = true;
+        }
         // starten von Nuance
-        initNuance((aNuanceFlag: boolean) => {
+        NuanceModule.init( nuanceOption, (aNuanceFlag: boolean) => {
             nuanceFlag = aNuanceFlag;
             done();
         });
@@ -106,7 +125,7 @@ describe('IntentService', () => {
 
     afterAll(() => {
         jasmine.DEFAULT_TIMEOUT_INTERVAL = jasmineTimeout;
-        doneNuance();
+        NuanceModule.done();
     });
 
     beforeEach(() => {
@@ -375,14 +394,18 @@ describe('IntentService', () => {
             const errorEvent = intentService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
                 resultEvent.unsubscribe();
-                console.log('===> IntentServiceSpec.reusltEvent: Error = ', aError.message);
+                console.log('===> IntentServiceSpec.resultEvent: Error = ', aError.message);
                 done.fail( 'sollte nicht aufgerufen werden' );
                 return 0;
             });
             resultEvent = intentService.resultEvent.subscribe((aIntentData: IntentServiceDataInterface) => {
                 errorEvent.unsubscribe();
                 resultEvent.unsubscribe();
-                expect( aIntentData.intent ).toBe( 'NewMail' );
+                if ( nuanceMockFlag ) {
+                    expect( aIntentData.intent ).toBe( 'TestIntent' );
+                } else {
+                    expect( aIntentData.intent ).toBe( 'NewMail' );
+                }
                 done();
                 return 0;
             });
@@ -407,9 +430,14 @@ describe('IntentService', () => {
         it('sollte error zurueckgeben, wenn kein Text angegeben wurde', (done) => {
             const errorEvent = intentService.errorEvent.subscribe((aError: any) => {
                 errorEvent.unsubscribe();
-                console.log('===> ListenServiceSpec.errorEvent: Error=', aError.message);
+                console.log('===> IntentServiceSpec.errorEvent: Error=', aError.message);
                 if ( nuanceFlag ) {
-                    expect(aError.message).toBe( 'IntentComponent.start: Keinen Text zur Sprachanalyse uebergeben' );
+                    // tslint:disable-next-line
+                    if ( aError.message === 'ASR-Error.query_error: Die Aufnahme wurde leider nicht erkannt. Bitte versuchen Sie es erneut.' || 
+                         aError.message === 'ASR-Error: kein UserMedia erzeugt' ) {
+                    } else {
+                        done.fail('IntentServiceSpec.errorEvent: Error = ' + aError.message);
+                    }
                 } else {
                     expect(aError.message).toBe( 'IntentComponent.start: keine NLU vorhanden' );
                 }
@@ -417,7 +445,14 @@ describe('IntentService', () => {
                 return 0;
             });
             expect( intentService.init()).toBe( 0 );
-            expect( intentService.start()).toBe( -1 );
+            if ( nuanceFlag ) {
+                expect( intentService.start()).toBe( 0 );
+                if ( nuanceMockFlag ) {
+                    done();
+                }
+            } else {
+                expect( intentService.start()).toBe( -1 );
+            }
         });
 
     });
@@ -825,10 +860,13 @@ describe('IntentService', () => {
     describe('Funktion start', () => {
 
         it('sollte gueltigen Intent als Ergebnis der Sprachanalyse zurueckgeben', (done) => {
-            // pending('gibt keinen ResultEvent zurueck');
             const resultEvent = intentService.resultEvent.subscribe((aIntentData: IntentServiceDataInterface) => {
                 resultEvent.unsubscribe();
-                expect( aIntentData.intent ).toBe( 'NewMail' );
+                if ( nuanceMockFlag ) {
+                    expect( aIntentData.intent ).toBe( 'TestIntent' );
+                } else {
+                    expect( aIntentData.intent ).toBe( 'NewMail' );
+                }
                 done();
                 return 0;
             });
@@ -864,6 +902,15 @@ describe('IntentService', () => {
             const resultEvent = intentService.resultEvent.subscribe((aText) => {
                 resultEvent.unsubscribe();
                 console.log('===> StopTest Intent result:', aText);
+                done();
+                return 0;
+            });
+            const errorEvent = intentService.errorEvent.subscribe((aError: any) => {
+                listenResultEvent.unsubscribe();
+                resultEvent.unsubscribe();
+                errorEvent.unsubscribe();
+                console.log('===> StopTest intent errorEvent:', aError.message);
+                expect(aError.message).toEqual('NuanceMock.start: andere Transaktion laeuft noch');
                 done();
                 return 0;
             });

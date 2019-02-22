@@ -51,6 +51,10 @@ export class NuanceModule {
         } else {
             Nuance.setErrorOutputOff();
         }
+        // pruefen auf Mock einschalten
+        if ( aNuanceOption && aNuanceOption.nuanceMockFlag ) {
+            aNuanceOption['nuancePortName'] = 'NuanceMock';
+        }
         // starten von Nuance
         let nuanceFlag = false;
         if ( Nuance.init( aNuanceOption ) === 0 ) {

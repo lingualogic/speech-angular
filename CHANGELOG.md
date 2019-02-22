@@ -1,6 +1,15 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.5.0021 Alpha (22.02.2019)
+
+### Features
+
+* **Speech-Framework:** komplett neue Integration von Speech-Framework als unabhängiges NPM-Package
+* **Dokumentation:** Dokumentation überarbeitet
+* **Testen:** Unit-Tests überarbeitet
+
+
 ## 0.5.4.0020 Alpha (29.01.2019)
 
 ### Features

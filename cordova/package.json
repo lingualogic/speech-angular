@@ -1,7 +1,7 @@
 {
     "name": "speechangularapp",
     "displayName": "SpeechAngularApp",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "description": "Test-App fuer Speech-Angular SDK",
     "main": "index.js",
     "scripts": {
