@@ -4,7 +4,7 @@
  * API-Version: 1.1
  * Datum:       21.02.2019
  *
- * Letzte Aenderung: 21.02.2019
+ * Letzte Aenderung: 28.02.2019
  * Status: gelb
  *
  * @module speech/listen
@@ -46,7 +46,7 @@ import { ListenServiceOptionInterface } from './listen-service-option.interface'
  * Stellt ein, ob die Events synchron oder asynchron ausgeliefert werden
  */
 
-const LISTEN_ASYNC_EVENT = false;
+const LISTEN_ASYNC_EVENT = true;
 
 
 /**

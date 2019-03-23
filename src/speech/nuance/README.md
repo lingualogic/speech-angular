@@ -9,5 +9,7 @@ Hier ist der gesamte Quelltext von NuanceModule untergebracht.
 
 Das NuanceModule API besteht aus folgenden Dateien:
 
+* **nuance-module-config.interface.ts:** Konfigurationsparameter zum Unkonfigurieren von NuanceModule
 * **nuance-module-option.interface.ts:** Optionale Parameter zur Initialisierung von NuanceModule
-* **nuance-module.ts:** NuanceModule API  und Wrapper für die speech-framework.Nuance Komponente
+* **nuance-module.ts:** NuanceModule API und Wrapper für die speech-framework.Nuance Komponente
+* **nuance-service.ts:** NuanceService zum dynamischen Setzen der Nuance-Credentials

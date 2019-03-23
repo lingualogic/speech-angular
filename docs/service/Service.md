@@ -13,18 +13,30 @@ In der folgenden Grafik werden die Vererbungsbeziehungen der Speech-Service Klas
 ![Service-Architektur](Service-2.gif)
 
 
-Die gemeinsame Grundfunktionalität aller Speech-Angular Services wird in [BaseService](./base/BaseService.md) implementiert.
+Folgende Speech-Services gibt es:
 
-Folgende Speech-Angular Services gibt es:
 
-* [**ActionService**](./action/ActionService.md) - erlaubt die Fernsteuerung der Web-App über Aktionen
+* **[ActionService](./action/ActionService.md):** erlaubt die Fernsteuerung der Web-App über Aktionen
 
-* [**BotService**](./bot/BotService.md) - erlaubt die Ausführung eines Dialogs über die [Dialog-Skriptsprache](./bot/DialogScript.md)
+* **[BotService](./bot/BotService.md):** erlaubt die Ausführung eines Dialogs über die [Dialog-Skriptsprache](./bot/DialogScript.md)
 
-* [**IntentService**](./intent/IntentService.md) - erlaubt die Intentanalyse eines Textes
+* **[IntentService](./intent/IntentService.md):** erlaubt die Intentanalyse eines Textes
 
-* [**ListenService**](./listen/ListenService.md) - erlaubt die Spracheingabe und Umwandlung in Text
+* **[ListenService](./listen/ListenService.md):** erlaubt die Spracheingabe und Umwandlung in Text
 
-* [**SpeakService**](./speak/SpeakService.md) - erlaubt die Sprachausgabe eines kurzen Textes
+* **[SpeakService](./speak/SpeakService.md):** erlaubt die Sprachausgabe eines kurzen Textes
 
+
+Folgende Basis-Services gibt es:
+
+
+* **[BaseService](./base/BaseService.md):** beinhaltet die gemeinsame Grundfunktionalität der Speech-Services
+
+* **[NuanceService](./nuance/NuanceService.md):** erlaubt die Änderung der Nuance-Credentials
+
+
+Folgende Module gibt es:
+
+
+* **[NuanceModule](./../cloud/nuance/Nuance.md):** verwaltet die Nuance Cloud-Dienstanbindung
 

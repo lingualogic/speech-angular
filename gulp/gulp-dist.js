@@ -64,8 +64,10 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
     gulp.task('dist-copy-nuance-module', function() {
         return gulp.src([
+            `${speechDir}/nuance/nuance-module-config.interface.d.ts`,
             `${speechDir}/nuance/nuance-module-option.interface.d.ts`,
             `${speechDir}/nuance/nuance-module.d.ts`,
+            `${speechDir}/nuance/nuance.service.d.ts`,
             `${speechDir}/nuance/*.metadata.json`,
             `${speechDir}/nuance/*.js`
         ])

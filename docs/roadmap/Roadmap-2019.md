@@ -6,21 +6,28 @@ Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versi
 ## Geplante Versionen
 
 
+### April: Version 0.5.7
+
+beinhaltet:
+
+* **Amazon:** Integration des Amazon Polly Cloud-Dienstes für eine TTS
+
+
+## Veröffentlichte Versionen
+
+
 ### März: Version 0.5.6
 
 beinhaltet:
 
-* **AudioService** erlaubt das abspielen und Aufnehmen von Audiodaten
-
-
-## Veröffentlichte Versionen
+* **NuanceService:** erlaubt das nachträgliche Eintragen von Nuance-Credentials
 
 
 ### Februar: Version 0.5.5
 
 beinhaltet:
 
-* **Speech-Framework** komplett neue Einbindung von Speech-Framework als externes NPM-Package
+* **Speech-Framework:** komplett neue Einbindung von Speech-Framework als externes NPM-Package
 * **Dokumentation:** überarbeitete Dokumentation
 
 

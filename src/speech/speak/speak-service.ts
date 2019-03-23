@@ -4,8 +4,8 @@
  * API-Version: 1.3
  * Datum:       21.02.2019
  *
- * Letzte Aenderung: 21.02.2019
- * Status:           rot
+ * Letzte Aenderung: 28.02.2019
+ * Status:           gelb
  *
  * @module speech/speak
  * @author SB
@@ -46,7 +46,7 @@ import { SpeakServiceOptionInterface } from './speak-service-option.interface';
  * Stellt ein, ob die Events synchron oder asynchron ausgeliefert werden
  */
 
-const SPEAK_ASYNC_EVENT = false;
+const SPEAK_ASYNC_EVENT = true;
 
 
 /** @export

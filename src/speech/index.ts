@@ -10,8 +10,10 @@ export { SPEECHSERVICE_API_VERSION } from './const/speech-service-version';
 
 // nuance-modul
 
+export { NuanceModuleConfigInterface } from './nuance/nuance-module-config.interface';
 export { NuanceModuleOptionInterface } from './nuance/nuance-module-option.interface';
 export { NuanceModule } from './nuance/nuance-module';
+export { NuanceService } from './nuance/nuance.service';
 
 
 // base-service

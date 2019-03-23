@@ -1,6 +1,6 @@
 {
     "name": "speech-angular",
-    "version": "0.5.5",
+    "version": "0.5.6",
     "description": "Speech-Angular",
     "author": "LinguaLogic Team",
     "license": "MIT",
@@ -46,7 +46,7 @@
         "popper": "^1.0.1",
         "popper.js": "^1.14.4",
         "rxjs": "^6.3.3",
-        "speech-framework": "file:speech-framework-0.5.5.tgz",
+        "speech-framework": "file:speech-framework-0.5.6.tgz",
         "tslib": "^1.9.0",
         "zone.js": "~0.8.26"
     },
@@ -66,6 +66,7 @@
         "gulp-replace": "^1.0.0",
         "gulp-shell": "^0.6.5",
         "gulp-typedoc": "^2.2.0",
+        "highlight.js": "9.13.1",
         "jasmine": "^3.1.0",
         "jasmine-core": "^3.1.0",
         "jasmine-spec-reporter": "~4.2.1",

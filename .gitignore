@@ -12,8 +12,12 @@ old/
 docs/api/
 docs/html/
 documentation/
-**/cordova/app
-**/electron/www
+/cordova-app/app/
+/electron-app/www/
+/electron-app/app/
+**/cordova/app/
+**/electron/www/
+**/electron/app/
 /compiled
 
 # dependencies

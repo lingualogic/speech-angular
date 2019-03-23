@@ -8,7 +8,7 @@ Die Dokumentation des Speech-Angular SDK:
 
 ## [Services](./service/Service.md)
 
-## [Cloud-Dienste](./cloud/README.md)
+## [Cloud-Dienste](./cloud/Cloud.md)
 
 ## [Plattformen](./platform/README.md)
 

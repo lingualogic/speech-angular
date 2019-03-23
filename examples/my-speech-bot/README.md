@@ -4,7 +4,7 @@ Schnelleinstieg Beispiel zur Nutzung des Speech-Angular BotService und ActionSer
 
 ## Installation
 
-Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-angular-0.5.3.tgz erzeugt werden.
+Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-angular-X.Y.Z.tgz erzeugt werden.
 
     $ npm install
 

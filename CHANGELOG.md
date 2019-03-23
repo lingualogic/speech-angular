@@ -1,6 +1,13 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.6.0022 Alpha (22.03.2019)
+
+### Features
+
+* **NuanceService:** es wurde der NuanceService eingebaut, um nachträglich Credentials zu ändern
+
+
 ## 0.5.5.0021 Alpha (22.02.2019)
 
 ### Features

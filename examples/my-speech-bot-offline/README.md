@@ -5,7 +5,7 @@ Es werden statische Audiodateien verwendet, um die Offline-Funktionalität zu si
 
 ## Installation
 
-Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-angular-0.5.3.tgz erzeugt werden.
+Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-angular-X.Y.Z.tgz erzeugt werden.
 
     $ npm install
 

@@ -7,6 +7,7 @@ import { environment } from './environments/environment';
 
 // nuance
 
+import { NuanceModuleOptionInterface } from './speech/nuance/nuance-module-option.interface';
 import { NuanceModule } from './speech/nuance/nuance-module';
 
 
@@ -15,26 +16,28 @@ import { NuanceModule } from './speech/nuance/nuance-module';
 // TODO: Hier muessen die echten Zugangsdaten eingetragen werden
 // import { APP_ID, APP_KEY, NLU_TAG } from './config/nuance-credentials';
 import { APP_ID, APP_KEY, NLU_TAG } from './../credentials/nuance-credentials';
-const nuanceOption = {
-  nuanceAppId: APP_ID,
-  nuanceAppKey: APP_KEY,
-  nuanceNluTag: NLU_TAG
+const nuanceOption: NuanceModuleOptionInterface = {
+    // nachtraegliches Eintragen von Nuance-Credentials moeglich
+    nuanceDynamicCredentialsFlag: true,
+    nuanceAppId: APP_ID,
+    nuanceAppKey: APP_KEY,
+    nuanceNluTag: NLU_TAG
 };
 
 
 // Initialisierung des Nuance Cloud-Dienstes
 
 NuanceModule.init( nuanceOption, (aNuanceFlag: boolean) => {
-  console.log('Nuance:', aNuanceFlag);
+    console.log('Nuance:', aNuanceFlag);
 
-  environment.nuance = aNuanceFlag;
+    environment.nuance = aNuanceFlag;
 
-  if (environment.production) {
-    enableProdMode();
-  }
+    if (environment.production) {
+        enableProdMode();
+    }
 
-  platformBrowserDynamic().bootstrapModule(AppModule)
-    .catch(err => console.log(err));
+    platformBrowserDynamic().bootstrapModule(AppModule)
+        .catch(err => console.log(err));
 
 });
 

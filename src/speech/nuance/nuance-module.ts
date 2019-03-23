@@ -1,10 +1,10 @@
 /**
  * NuanceModul zur Initialisierung von Nuance mit den Credentials
  *
- * API-Version: 1.0
- * Datum:       16.12.2018
+ * API-Version: 1.1
+ * Datum:       13.03.2019
  *
- * Letzte Aenderung: 23.01.2019
+ * Letzte Aenderung: 13.03.2019
  * Status: rot
  *
  * @module speech/nuance
@@ -21,6 +21,7 @@ import {
 
 // nuance
 
+import { NuanceModuleConfigInterface } from './nuance-module-config.interface';
 import { NuanceModuleOptionInterface } from './nuance-module-option.interface';
 
 
@@ -80,8 +81,35 @@ export class NuanceModule {
     }
 
 
+    /**
+     * Freigabe des Nuance-Moduls
+     */
+
     static done() {
         Nuance.done();
+    }
+
+
+    /**
+     * Eintragen neuer Nuance-Credentials, wenn Nuance mit danamischen Credetials initialsiert wurde
+     *
+     * @param aConfigData - neue Credentials fuer Nuance eintragen
+     *
+     * @return Fehlercode 0 oder -1
+     */
+
+    static setConfig( aConfigData: NuanceModuleConfigInterface ): number {
+        return Nuance.setConfig( aConfigData );
+    }
+
+    /**
+     * Rueckgabe der eingetragenen Nuance-Credentials, wenn Nuance mit danamischen Credetials initialsiert wurde
+     *
+     * @return aConfigData - neue Credentials fuer Nuance eintragen
+     */
+
+    static getConfig(): NuanceModuleConfigInterface {
+        return Nuance.getConfig();
     }
 
 }

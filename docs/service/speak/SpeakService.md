@@ -11,7 +11,7 @@ In der folgenden Grafik werden die einzelnen Schichten, angefangen von der Angul
 ![SpeakService-Architektur](SpeakService-1.gif)
 
 
-Ganz oben sind die für den SpeakService notwendigen Nuance-Credentials dargestellt, die der AngularApp übergeben werden müssen, wenn Nuance als TTS zum Einsatz kommen soll. Eine Anleitung für die Erstellung der Nuance-Credentials und die Einbindung des NuanceModule in die AngularApp zur Aktivierung des Nuance Cloud-Service findet man unter [docs/cloud/Nuance.md](./../../cloud/Nuance.md)
+Ganz oben sind die für den SpeakService notwendigen Nuance-Credentials dargestellt, die der AngularApp übergeben werden müssen, wenn Nuance als TTS zum Einsatz kommen soll. Eine Anleitung für die Erstellung der Nuance-Credentials und die Einbindung des NuanceModule in die AngularApp zur Aktivierung des Nuance Cloud-Service findet man unter [docs/cloud/nuance/Nuance.md](./../../cloud/nuance/Nuance.md)
 
 Die nächste Grafik zeigt die konkrete Vererbungsbeziehung zu BaseService, sowie die Einbindung von SpeakFactory und SpeakInterface aus dem Speech-Framework. SpeakFactory ist eine statische Klasse und erzeugt das Speak-Objekt zum SpeakInterface. Auf der linken Seite ist das NuanceModule dargestellt, welches als statische Klasse implementiert ist und das Nuance Singleton aus dem Speech-Framework einbindet.
 Damit Nuance funktioniert, müssen die Nuance-Credentials vom NuanceModule an das Nuance Singleton weitergereicht werden. 

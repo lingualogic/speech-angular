@@ -4,7 +4,7 @@
  * API-Version: 1.0
  * Datum:       16.10.2018
  *
- * Letzte Aenderung: 23.01.2019
+ * Letzte Aenderung: 28.02.2019
  * Status: gelb
  *
  * @module speech/base

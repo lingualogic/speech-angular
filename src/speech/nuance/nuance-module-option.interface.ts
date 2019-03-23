@@ -1,10 +1,10 @@
 /**
  * NuanceModuleOption Schnittstelle
  *
- * API-Version: 1.0
- * Datum:       16.12.2018
+ * API-Version: 1.1
+ * Datum:       13.03.2019
  *
- * Letzte Aenderung: 16.12.2018
+ * Letzte Aenderung: 13.03.2019
  * Status: rot
  *
  * @module speech/nuance
@@ -17,6 +17,8 @@
  */
 
 export interface NuanceModuleOptionInterface {
+    /** legt dynamische Konfigurierbarkeit fest */
+    nuanceDynamicCredentialsFlag?: boolean;
     /** legt die App-ID fuer die Verbindung zum Server fest */
     nuanceAppId?: string;
     /** legt den App-Key fuer die Verbindung zum Server fest */

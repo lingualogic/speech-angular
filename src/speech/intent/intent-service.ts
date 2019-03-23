@@ -4,7 +4,7 @@
  * API-Version: 1.1
  * Datum:       21.02.2019
  *
- * Letzte Aenderung: 21.02.2019
+ * Letzte Aenderung: 28.02.2019
  * Status: gelb
  *
  * @module speech/intent
@@ -48,7 +48,7 @@ import { IntentServiceOptionInterface } from './intent-service-option.interface'
  * Stellt ein, ob die Events synchron oder asynchron ausgeliefert werden
  */
 
-const INTENT_ASYNC_EVENT = false;
+const INTENT_ASYNC_EVENT = true;
 
 
 /**

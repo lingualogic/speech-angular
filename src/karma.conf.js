@@ -1,13 +1,15 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+
 module.exports = function (config) {
   config.set({
 
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
+
     files: [
-        {pattern: 'test/lib/corti.js', watched: false, included: true, served: true, nocache: false}
+      {pattern: 'test/lib/corti.js', watched: false, included: true, served: true, nocache: false}
     ],
 
     plugins: [
@@ -52,9 +54,16 @@ module.exports = function (config) {
     // only for mac
     // browsers: ['Chrome', 'Firefox', 'Opera', 'Safari'],
 
-    // browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessCI'],
 
-    browsers: ['Chrome'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
+
+    // browsers: ['Chrome'],
     // browsers: ['Firefox'],
     // browsers: ['Opera'],
     // browsers: ['Safari'],
@@ -65,6 +74,6 @@ module.exports = function (config) {
 
     browserNoActivityTimeout: 100000,
 
-    singleRun: false
+    singleRun: true
   });
 };
