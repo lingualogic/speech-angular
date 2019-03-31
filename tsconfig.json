@@ -28,6 +28,7 @@
     "src/speech/base/*.ts",
     "src/speech/bot/*.ts",
     "src/speech/const/*.ts",
+    "src/speech/dialog/*.ts",
     "src/speech/intent/*.ts",
     "src/speech/listen/*.ts",
     "src/speech/nuance/*.ts",

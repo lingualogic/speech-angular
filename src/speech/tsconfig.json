@@ -61,6 +61,7 @@
     "base/*.ts",
     "bot/*.ts",
     "const/*.ts",
+    "dialog/*.ts",
     "intent/*.ts",
     "listen/*.ts",
     "nuance/*.ts",

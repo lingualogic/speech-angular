@@ -25,7 +25,6 @@ import {
 // Nuance-Credentials
 
 // TODO: Hier muessen die echten Zugangsdaten eingetragen werden
-// import { APP_ID, APP_KEY, NLU_TAG } from './../../config/nuance-credentials';
 import { APP_ID, APP_KEY, NLU_TAG } from './../../../credentials/nuance-credentials';
 const nuanceOption = {
     nuanceAppId: APP_ID,

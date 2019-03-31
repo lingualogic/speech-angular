@@ -11,6 +11,7 @@ const runSequence = require('run-sequence');
 // Konstanten fuer Verzeichnisse
 
 const rootDir = path.resolve( __dirname );
+const credentialsDir = 'credentials';
 const docsDir = 'docs';
 const srcDir = 'src';
 const srcSpeechDir = 'src/speech';
@@ -57,6 +58,7 @@ const settings = {
     gulp,
     exec,
     rootDir,
+    credentialsDir,
     docsDir,
     srcDir,
     srcSpeechDir,
@@ -95,7 +97,7 @@ require('./gulp/gulp-cordova')(settings);
 
 gulp.task('build', function(callback) {
     runSequence(
-        // 'test-unit',
+        'test-unit',
         'dist-build',
         // 'docs-dist-typedoc',
         // 'test-e2e',

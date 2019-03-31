@@ -1,8 +1,8 @@
 /**
  * IntentServiceOption Schnittstelle
  *
- * API-Version: 1.0
- * Datum:       17.12.2018
+ * API-Version: 1.1
+ * Datum:       29.03.2019
  *
  * @module speech/intent
  * @author SB
@@ -18,6 +18,8 @@ export interface IntentServiceDataInterface {
     intent: string;
     /** definiert die Wahrscheinlichkeit fuer den Intent */
     confidence: number;
+    /** defniert moegliche Konzepte */
+    conceptList: any;
     /** Text zum Intent */
     literal: string;
     /** aufgetretene Fehler */

@@ -1,6 +1,13 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.7.0023 Alpha (31.03.2019)
+
+### Features
+
+* **DialogService:** es wurde der DialogService eingebaut, um Dialoge fuer Textausgaben ablaufen zu lassen
+
+
 ## 0.5.6.0022 Alpha (22.03.2019)
 
 ### Features

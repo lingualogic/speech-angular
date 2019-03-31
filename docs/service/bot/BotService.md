@@ -83,25 +83,25 @@ Beispielkomponente zum manuellen Einlesen einer Dialogskriptdatei:
 		templateUrl: './bot.component.html',
 		styleUrls: ['./bot.component.css']
 	})
-	export class SpeakComponent implements OnInit, OnDestroy {
+	export class BotComponent implements OnInit, OnDestroy {
 	
-		botParseEvent = null;
-		botErrorEvent = null;
+		parseEvent = null;
+		errorEvent = null;
 	
 		constructor( private botService: BotService ) {}
 		
 		// Bot-Ereignisse eintragen
 				
 		ngOnInit() {
-			this.botParseEvent = speakService.errorEvent.subscribe(aError => console.log('Dialogskript komplett eingelesen'));
-			this.botErrorEvent = speakService.errorEvent.subscribe(aError => console.log('Fehler:', aError.message));
+			this.parseEvent = botService.errorEvent.subscribe(aError => console.log('Dialogskript komplett eingelesen'));
+			this.errorEvent = botService.errorEvent.subscribe(aError => console.log('Fehler:', aError.message));
 		}
 
 		// Bot-Ereignisse freigeben
 		
 		ngOnDestroy() {
-			this.botParseEvent.unsubscribe();
-			this.botErrorEvent.unsubscribe();
+			this.parseEvent.unsubscribe();
+			this.errorEvent.unsubscribe();
 		}
 
 		// eigene Funktionen fuer das parsen eines Dialogskriptes in einer eigenen Angular-Komponente
@@ -135,26 +135,26 @@ Beispiel-Komponente für das ausführen eines Dialogs:
 	})
 	export class BotComponent implements OnInit, OnDestroy {
 	
-		botStartEvent = null;
-		botStopEvent = null;
-		botErrorEvent = null;
+		startEvent = null;
+		stopEvent = null;
+		errorEvent = null;
 	
 		constructor( private botService: BotService ) {}
 		
 		// Bot-Ereignisse eintragen
 				
 		ngOnInit() {
-			this.botStartEvent = speakService.startEvent.subscribe(() => console.log('Dialog gestartet'));
-			this.botStopEvent = speakService.stopEvent.subscribe(() => console.log('Dialog beendet'));
-			this.botErrorEvent = speakService.errorEvent.subscribe(aError => console.log('Dialog Fehler:', aError.message));
+			this.startEvent = botService.startEvent.subscribe(() => console.log('Dialog gestartet'));
+			this.stopEvent = botService.stopEvent.subscribe(() => console.log('Dialog beendet'));
+			this.errorEvent = botService.errorEvent.subscribe(aError => console.log('Dialog Fehler:', aError.message));
 		}
 
 		// Bot-Ereignisse freigeben
 		
 		ngOnDestroy() {
-			this.botStartEvent.unsubscribe();
-			this.botStopEvent.unsubscribe();
-			this.botErrorEvent.unsubscribe();
+			this.startEvent.unsubscribe();
+			this.stopEvent.unsubscribe();
+			this.errorEvent.unsubscribe();
 		}
 
 		// eigene Funktionen fuer die Dialogausfuehrung in einer eigenen Angular-Komponente

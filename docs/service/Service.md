@@ -18,7 +18,9 @@ Folgende Speech-Services gibt es:
 
 * **[ActionService](./action/ActionService.md):** erlaubt die Fernsteuerung der Web-App über Aktionen
 
-* **[BotService](./bot/BotService.md):** erlaubt die Ausführung eines Dialogs über die [Dialog-Skriptsprache](./bot/DialogScript.md)
+* **[BotService](./bot/BotService.md):** erlaubt die Ausführung eines Dialogs mit Sprachausgabe und Aktionen
+
+* **[DialogService](./dialog/DialogService.md):** erlaubt die Ausführung eines Dialogs über die [Dialog-Skriptsprache](./bot/DialogScript.md)
 
 * **[IntentService](./intent/IntentService.md):** erlaubt die Intentanalyse eines Textes
 

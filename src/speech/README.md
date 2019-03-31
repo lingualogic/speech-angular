@@ -1,6 +1,6 @@
 # Speech-Angular Quellcode
 
-**Version:** **0.5.6**
+**Version:** **0.5.7**
 
 Der Quellcode von Speech-Angular ist vollständig im Verzeichnis src/speech untergebracht, und baut auf dem Speech-Framework auf. Es sollten keine direkten Zugriffe auf das Speech-Framework genutzt werden, da sich das Speech-Framework API noch stark ändern kann. Alle Zugriffe sollten nur über die Services des Speech-Angular SDK im eigenen Code erfolgen.
 
@@ -15,6 +15,8 @@ Das Speech-Angular SDK besteht aus folgenden Services:
 * **IntentService**: dient zur Bedeutungsermittlung mittels Sprachanalyse (Natural Language Understandig)
 
 * **ActionService**: dient zur Weitergabe von Aktionen aus dem Bot
+
+* **DialogService**: dient zum Abspielen von Dialogen
 
 * **BotService**: dient zum Abspielen von Dialogen für die Sprachausgabe und Aktionen
 

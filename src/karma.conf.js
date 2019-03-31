@@ -3,77 +3,84 @@
 
 
 module.exports = function (config) {
-  config.set({
+    config.set({
 
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+        basePath: '',
+        frameworks: ['jasmine', '@angular-devkit/build-angular'],
 
-    files: [
-      {pattern: 'test/lib/corti.js', watched: false, included: true, served: true, nocache: false}
-    ],
+        files: [
+            {pattern: 'test/lib/corti.js', watched: false, included: true, served: true, nocache: false}
+        ],
 
-    plugins: [
-        require('karma-jasmine'),
-        require('karma-chrome-launcher'),
-        require('karma-safari-launcher'),
-        require('karma-firefox-launcher'),
-        require('karma-opera-launcher'),
-        require('karma-jasmine-html-reporter'),
-        require('karma-coverage-istanbul-reporter'),
-        require('@angular-devkit/build-angular/plugins/karma')
-    ],
+        plugins: [
+            require('karma-jasmine'),
+            require('karma-chrome-launcher'),
+            require('karma-safari-launcher'),
+            require('karma-firefox-launcher'),
+            require('karma-opera-launcher'),
+            require('karma-jasmine-html-reporter'),
+            require('karma-coverage-istanbul-reporter'),
+            require('@angular-devkit/build-angular/plugins/karma')
+        ],
 
-    client: {
-        clearContext: false // leave Jasmine Spec Runner output visible in browser
-    },
+        client: {
+            clearContext: false // leave Jasmine Spec Runner output visible in browser
+        },
 
-    coverageIstanbulReporter: {
-        dir: require('path').join(__dirname, '../coverage'),
-        // reports: ['html', 'lcovonly', 'text', 'text-summary'],
-        reports: ['json', 'html', 'lcovonly', 'text', 'text-summary'],
-        combineBrowserReports: true,
-        fixWebpackSourcePaths: true,
-        skipFilesWithNoCoverage: true
-    },
+        coverageIstanbulReporter: {
+            dir: require('path').join(__dirname, '../coverage'),
+            // reports: ['html', 'lcovonly', 'text', 'text-summary'],
+            reports: ['json', 'html', 'lcovonly', 'text', 'text-summary'],
+            combineBrowserReports: true,
+            fixWebpackSourcePaths: true,
+            skipFilesWithNoCoverage: true
+        },
 
-    // reporters: ['coverage-istanbul'],
-    // reporters: ['progress', 'kjhtml', 'coverage-istanbul' ],
-    reporters: ['progress', 'kjhtml' ],
+        // reporters: ['coverage-istanbul'],
+        // reporters: ['progress', 'kjhtml', 'coverage-istanbul' ],
+        reporters: ['progress', 'kjhtml' ],
 
-    port: 9876,
+        port: 9876,
 
-    colors: true,
+        colors: true,
 
-    logLevel: config.LOG_INFO,
+        logLevel: config.LOG_INFO,
 
-    autoWatch: true,
+        autoWatch: true,
 
-    // for all platforms
-    // browsers: ['Chrome', 'Firefox', 'Opera'],
+        // for all platforms
+        // browsers: ['Chrome', 'Firefox', 'Opera'],
 
-    // only for mac
-    // browsers: ['Chrome', 'Firefox', 'Opera', 'Safari'],
+        // only for mac
+        // browsers: ['Chrome', 'Firefox', 'Opera', 'Safari'],
 
-    browsers: ['ChromeHeadlessCI'],
+        browsers: ['ChromeHeadlessCI'],
 
-    customLaunchers: {
-      ChromeHeadlessCI: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
-    },
+        // browsers: ['ChromeHeadless'],
+        // browsers: ['Chrome'],
+        // browsers: ['Firefox'],
+        // browsers: ['Opera'],
+        // browsers: ['OperaWindows'],
+        // browsers: ['Safari'],
+        // browsers: ['Edge'],
 
-    // browsers: ['Chrome'],
-    // browsers: ['Firefox'],
-    // browsers: ['Opera'],
-    // browsers: ['Safari'],
+        customLaunchers: {
+            ChromeHeadlessCI: {
+                base: 'ChromeHeadless',
+                flags: ['--no-sandbox']
+            },
+            OperaWindows: {
+                base: 'Opera',
+                flags: ['--ran-launcher']
+            }
+        },
 
-    // Concurrency level
-    // how many browser should be started simultaneous
-    concurrency: 1,
+        // Concurrency level
+        // how many browser should be started simultaneous
+        concurrency: 1,
 
-    browserNoActivityTimeout: 100000,
+        browserNoActivityTimeout: 100000,
 
-    singleRun: true
-  });
+        singleRun: true
+    });
 };

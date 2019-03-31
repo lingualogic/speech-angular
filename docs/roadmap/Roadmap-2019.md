@@ -6,7 +6,7 @@ Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versi
 ## Geplante Versionen
 
 
-### April: Version 0.5.7
+### April: Version 0.5.8
 
 beinhaltet:
 
@@ -14,6 +14,13 @@ beinhaltet:
 
 
 ## Veröffentlichte Versionen
+
+
+### März: Version 0.5.7
+
+beinhaltet:
+
+* **DialogService:** erlaubt die Ausführung von Dialogskripten
 
 
 ### März: Version 0.5.6

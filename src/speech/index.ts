@@ -51,6 +51,14 @@ export { ActionServiceOptionInterface } from './action/action-service-option.int
 export { ActionService } from './action/action-service';
 
 
+// dialog-service
+
+export { DialogServiceActionInterface } from './dialog/dialog-service-action.interface';
+export { DialogServiceSpeakInterface } from './dialog/dialog-service-speak.interface';
+export { DialogServiceOptionInterface } from './dialog/dialog-service-option.interface';
+export { DialogService } from './dialog/dialog-service';
+
+
 // bot-service
 
 export { BotServiceActionInterface } from './bot/bot-service-action.interface';

@@ -158,6 +158,24 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von DialogService
+     */
+
+    gulp.task('dist-copy-dialog-service', function() {
+        return gulp.src([
+            `${speechDir}/dialog/dialog-service-const.d.ts`,
+            `${speechDir}/dialog/dialog-service-action.interface.d.ts`,
+            `${speechDir}/dialog/dialog-service-option.interface.d.ts`,
+            `${speechDir}/dialog/dialog-service-speak.interface.d.ts`,
+            `${speechDir}/dialog/dialog-service.d.ts`,
+            `${speechDir}/dialog/*.metadata.json`,
+            `${speechDir}/dialog/*.js`
+        ])
+        .pipe( gulp.dest( `${distDir}/dialog` ));
+    });
+
+
+    /**
      * Kopiert die Sourcedateien aus build/src nach dist/src/ von BotService
      */
 
@@ -215,6 +233,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             'dist-copy-listen-service',
             'dist-copy-intent-service',
             'dist-copy-action-service',
+            'dist-copy-dialog-service',
             'dist-copy-bot-service',
             'dist-copy-bundle',
             'dist-copy-original',
@@ -295,6 +314,19 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
      * Kopiert die Docsdateien aus docs/ nach dist/docs
      */
 
+    gulp.task('dist-copy-docs-service', function() {
+        return gulp.src([
+            `${docsDir}/service/**/*.md`,
+            `${docsDir}/service/**/*.gif`
+        ])
+            .pipe( gulp.dest( `${distDir}/${docsDir}/service` ));
+    });
+
+
+    /**
+     * Kopiert die Docsdateien aus docs/ nach dist/docs
+     */
+
     gulp.task('dist-copy-docs-tutorial', function() {
         return gulp.src([
             `${docsDir}/tutorial/*.md`,
@@ -315,6 +347,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             'dist-copy-docs-design',
             'dist-copy-docs-platform',
             'dist-copy-docs-roadmap',
+            'dist-copy-docs-service',
             'dist-copy-docs-tutorial',
             callback
         );
