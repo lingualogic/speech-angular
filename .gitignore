@@ -61,4 +61,5 @@ package-lock.json
 
 nuance-credentials*
 !nuance-credentials.default*
+amazon-credentials*
 

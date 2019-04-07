@@ -16,6 +16,14 @@ export { NuanceModule } from './nuance/nuance-module';
 export { NuanceService } from './nuance/nuance.service';
 
 
+// amazon-modul
+
+export { AmazonModuleConfigInterface } from './amazon/amazon-module-config.interface';
+export { AmazonModuleOptionInterface } from './amazon/amazon-module-option.interface';
+export { AmazonModule } from './amazon/amazon-module';
+export { AmazonService } from './amazon/amazon.service';
+
+
 // base-service
 
 export { BaseServiceOptionInterface } from './base/base-service-option.interface';

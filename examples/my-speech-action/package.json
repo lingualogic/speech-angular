@@ -1,6 +1,6 @@
 {
   "name": "my-speech-action",
-  "version": "0.5.6",
+  "version": "0.5.8",
   "description": "MySpeechAction",
   "author": "Lingualogic Team",
   "license": "MIT",
@@ -8,46 +8,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "@angular/animations": "~7.2.0",
-    "@angular/common": "~7.2.0",
-    "@angular/compiler": "~7.2.0",
-    "@angular/core": "~7.2.0",
-    "@angular/forms": "~7.2.0",
-    "@angular/http": "^7.2.0",
-    "@angular/platform-browser": "~7.2.0",
-    "@angular/platform-browser-dynamic": "~7.2.0",
-    "@angular/router": "~7.2.0",
-    "core-js": "^2.5.7",
-    "rxjs": "^6.3.3",
-    "speech-framework": "file:./../../speech-framework-0.5.4.tgz",
-    "speech-angular": "file:./../../dist/speech-angular-0.5.4.tgz",
-    "zone.js": "~0.8.26"
+    "speech-angular": "file:./../../dist/speech-angular-0.5.8.tgz"
   },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "~0.12.0",
-    "@angular/cli": "~7.2.2",
-    "@angular/compiler-cli": "~7.2.0",
-    "@angular/language-service": "~7.2.0",
-    "@types/jasmine": "~2.8.8",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
-    "codelyzer": "~4.4.2",
-    "jasmine-core": "^3.1.0",
-    "jasmine-spec-reporter": "~4.2.1",
-    "karma": "^3.0.0",
-    "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~1.1.1",
-    "karma-jasmine-html-reporter": "^1.0.0",
-    "protractor": "^5.4.1",
-    "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
-    "typescript": "~3.2.2"
-  }
+  "devDependencies": {}
 }

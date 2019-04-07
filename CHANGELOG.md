@@ -1,6 +1,14 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.8.0024 Alpha (07.04.2019)
+
+### Features
+
+* **AmazonService:** es wurde der AmazonService eingebaut, um nachtraeglich Credentials zu aendern
+* **AmazonModule:** es wurde AmazonModule eingebaut, um den Amazon Cloud-Dienst einzubinden
+
+
 ## 0.5.7.0023 Alpha (31.03.2019)
 
 ### Features

@@ -13,7 +13,7 @@
 
 
 /** @export
- * ActionOption Schnittstelle fuer optionale Konfigurationsparameter von Action bei der Initialisierung
+ * NuanceOption Schnittstelle fuer optionale Konfigurationsparameter von Nuance bei der Initialisierung
  */
 
 export interface NuanceModuleOptionInterface {

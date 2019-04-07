@@ -24,4 +24,3 @@ export interface NuanceModuleConfigInterface {
     /** legt den NLU-TAG fuer die Verbindung zum Server fest */
     nuanceNluTag?: string;
 }
-

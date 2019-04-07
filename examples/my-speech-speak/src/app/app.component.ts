@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, LOCALE_ID, Inject } from '@angular/core';
 import { SpeakService } from 'speech-angular'; // <== Import SpeakService
 
 @Component({
@@ -9,10 +9,16 @@ import { SpeakService } from 'speech-angular'; // <== Import SpeakService
 export class AppComponent {
     title = 'mySpeech';
 
-    constructor( private speakService: SpeakService ) { }    // <== Dependency Injection
+    constructor( private speakService: SpeakService,                // <== Dependency Injection
+                 @Inject(LOCALE_ID) private localeId: string) { }
 
     start(): void {
-        this.speakService.text = 'Hallo Welt!';
+        if (this.localeId === 'en') {
+            this.speakService.text = 'Hello World!';
+            this.speakService.language = 'en';
+        } else {
+            this.speakService.text = 'Hallo Welt!';
+        }
         this.speakService.start();
     }
 }

@@ -10,4 +10,10 @@ Vor der Installation des Beispiels muss im Speech-Angular Projekt das speech-ang
 
 ## Start
 
-    $ npm start
+    $ ng serve
+    $ ng serve --configuration=en
+
+## Build
+
+    $ ng build --prod
+    $ ng build --prod --i18n-file src/locale/messages.en.xlf --i18n-format xlf --i18n-locale en

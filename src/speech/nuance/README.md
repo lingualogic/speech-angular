@@ -1,4 +1,4 @@
-# MuanceModule
+# NuanceModule
 
 Das NuanceModule dient zur Initialisierung des NuancePorts zur Verbindung mit dem Nuance Cloud-Server.
 Es ist eine Singleton in Form einer statischen Klasse und wird in main.ts eingegbaut.

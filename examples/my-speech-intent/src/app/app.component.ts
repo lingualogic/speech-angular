@@ -75,8 +75,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
     ngOnDestroy(): void {
-        this.intentResultEvent.unsubscribe();
-        this.errorEvent.unsubscribe();
+        if ( this.intentResultEvent ) {
+            this.intentResultEvent.unsubscribe();
+            this.intentResultEvent = null;
+        }
+        if ( this.errorEvent ) {
+            this.errorEvent.unsubscribe();
+            this.errorEvent = null;
+        }
     }
 
 

@@ -76,6 +76,23 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von AmazonModule
+     */
+
+    gulp.task('dist-copy-amazon-module', function() {
+        return gulp.src([
+            `${speechDir}/amazon/amazon-module-config.interface.d.ts`,
+            `${speechDir}/amazon/amazon-module-option.interface.d.ts`,
+            `${speechDir}/amazon/amazon-module.d.ts`,
+            `${speechDir}/amazon/amazon.service.d.ts`,
+            `${speechDir}/amazon/*.metadata.json`,
+            `${speechDir}/amazon/*.js`
+        ])
+        .pipe( gulp.dest( `${distDir}/amazon` ));
+    });
+
+
+    /**
      * Kopiert die Sourcedateien aus build/src nach dist/src/ von BaseService
      */
 
@@ -228,6 +245,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             'dist-copy-index',
             'dist-copy-const',
             'dist-copy-nuance-module',
+            'dist-copy-amazon-module',
             'dist-copy-base-service',
             'dist-copy-speak-service',
             'dist-copy-listen-service',
@@ -355,6 +373,18 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Kopiert Seech-Framework
+     */
+
+    gulp.task('dist-copy-speech-framework', function() {
+        return gulp.src([
+            `speech-framework-*.tgz`
+        ])
+        .pipe( gulp.dest( distDir ));
+    });
+
+
+    /**
      * Loeschen der temporaeren Build-Verzeichnisse
      */
 
@@ -408,6 +438,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             // 'dist-rollup',
             'dist-copy-src',
             // 'dist-copy-docs',
+            // 'dist-copy-speech-framework',
             callback
         );
     });

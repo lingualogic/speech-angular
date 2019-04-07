@@ -58,6 +58,7 @@
   "include": [
     "index.ts",
     "action/*.ts",
+    "amazon/*.ts",
     "base/*.ts",
     "bot/*.ts",
     "const/*.ts",

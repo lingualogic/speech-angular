@@ -34,11 +34,15 @@ Folgende Basis-Services gibt es:
 
 * **[BaseService](./base/BaseService.md):** beinhaltet die gemeinsame Grundfunktionalität der Speech-Services
 
+* **[AmazonService](./amazon/AmazonService.md):** erlaubt die Änderung der Amazon-Credentials
+
 * **[NuanceService](./nuance/NuanceService.md):** erlaubt die Änderung der Nuance-Credentials
 
 
 Folgende Module gibt es:
 
+
+* **[AmazonModule](./../cloud/amazon/Amazon.md):** verwaltet die Amazon Cloud-Dienstanbindung
 
 * **[NuanceModule](./../cloud/nuance/Nuance.md):** verwaltet die Nuance Cloud-Dienstanbindung
 

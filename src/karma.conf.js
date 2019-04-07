@@ -1,6 +1,24 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+console.log('**************************************************');
+console.log('*                 Karma Unit-Tests               *');
+console.log('*                                                *');
+
+// Browser-Konfiguration
+
+const browserConfig = require( './../config/karma-browser-list.json');
+const browserList = [];
+console.log('*       Browser:                                 *');
+
+if ( browserConfig.CHROME )  { browserList.push( 'ChromeHeadlessCI' );    console.log('*                   Chrome                       *'); }
+if ( browserConfig.FIREFOX ) { browserList.push( 'Firefox' );   console.log('*                   Firefox                      *'); }
+if ( browserConfig.OPERA )   { browserList.push( 'Opera' );     console.log('*                   Opera                        *'); }
+if ( browserConfig.SAFARI )  { browserList.push( 'Safari' );    console.log('*                   Safari                       *'); }
+if ( browserConfig.EDGE )    { browserList.push( 'Edge' );      console.log('*                   Edge                         *'); }
+console.log('*                                                *');
+console.log('**************************************************');
+
 
 module.exports = function (config) {
     config.set({
@@ -54,7 +72,7 @@ module.exports = function (config) {
         // only for mac
         // browsers: ['Chrome', 'Firefox', 'Opera', 'Safari'],
 
-        browsers: ['ChromeHeadlessCI'],
+        // browsers: ['ChromeHeadlessCI'],
 
         // browsers: ['ChromeHeadless'],
         // browsers: ['Chrome'],
@@ -63,6 +81,8 @@ module.exports = function (config) {
         // browsers: ['OperaWindows'],
         // browsers: ['Safari'],
         // browsers: ['Edge'],
+
+        browsers: browserList,
 
         customLaunchers: {
             ChromeHeadlessCI: {

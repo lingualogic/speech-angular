@@ -38,6 +38,7 @@ module.exports = ({ gulp, srcDir, docsDir, distDir }) => {
         return gulp
             .src([
                 `${srcDir}/speech/action/*.ts`,
+                `${srcDir}/speech/amazon/*.ts`,
                 `${srcDir}/speech/base/*.ts`,
                 `${srcDir}/speech/bot/*.ts`,
                 `${srcDir}/speech/const/*.ts`,
