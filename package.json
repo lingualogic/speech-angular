@@ -21,12 +21,12 @@
         "action": "cd ./examples/my-speech-action && npm install && npm start",
         "bot": "cd ./examples/my-speech-bot && npm install && npm start",
         "bot-offline": "cd ./examples/my-speech-bot-offline && npm install && npm start",
-        "install:cordova": "gulp cordova-install",
+        "install:cordova": "gulp install-cordova",
         "install:cordova:ios": "gulp cordova-install-ios",
-        "build:cordova:android": "gulp cordova-build-android",
-        "cordova": "gulp cordova-browser",
-        "cordova:android": "gulp cordova-android",
-        "cordova:ios": "gulp cordova-ios"
+        "build:cordova:android": "ng build && gulp cordova-build-android",
+        "cordova": "ng build && gulp cordova-browser",
+        "cordova:android": "ng build && gulp cordova-android",
+        "cordova:ios": "ng build && gulp cordova-ios"
     },
     "dependencies": {
         "@angular/animations": "~7.2.0",

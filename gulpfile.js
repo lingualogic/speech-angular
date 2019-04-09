@@ -7,6 +7,8 @@ const gulp = require('gulp');
 const path = require('path');
 const childProcess = require('child_process');
 const runSequence = require('run-sequence');
+const shell = require('gulp-shell');
+
 
 // Konstanten fuer Verzeichnisse
 
@@ -89,6 +91,25 @@ require('./gulp/gulp-cordova')(settings);
 
 
 // Gulp-Task
+
+
+/**
+ * Installiert Cordova-NPM-Package
+ */
+
+gulp.task('install-cordova-npm', shell.task('npm install --save-dev cordova'));
+
+
+/**
+ * Erzeugt das oeffentliche Speech-Framework
+ */
+
+gulp.task('install-cordova', function(callback) {
+	runSequence(
+		'install-cordova-npm',
+		'cordova-install',
+		callback);
+});
 
 
 /**
