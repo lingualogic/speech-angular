@@ -136,8 +136,8 @@ gulp.task('build', function(callback) {
 
 gulp.task('build-examples', function(callback) {
     runSequence(
-        'test-example-unit',
-        'test-example-e2e',
-        'test-example-lint',
+        'test-examples-unit',
+        'test-examples-e2e',
+        'test-examples-lint',
         callback);
 });
