@@ -892,6 +892,7 @@ describe('IntentService', () => {
             expect( intentService.stop()).toBe( 0 );
         });
 
+        // TODO: Raice Condition, es wird kein Event erzeugt, wenn Nuance eingeschaltet ist, muss noch untersucht werden!
         xit('sollte 0 zurueckgeben wenn init und start aufgerufen wurden', (done) => {
             // pending('gibt keinen initEvent zurueck');
             const listenResultEvent = intentService.listenResultEvent.subscribe((aText) => {

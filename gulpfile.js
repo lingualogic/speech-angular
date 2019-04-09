@@ -123,6 +123,21 @@ gulp.task('build', function(callback) {
         // 'docs-dist-typedoc',
         // 'test-e2e',
         'dist-pack',
+        // 'test-examples-lint',
+        // 'test-examples-unit',
+        // 'test-examples-e2e',
         callback);
 });
 
+
+/**
+ * Erzeugt die lauffaehige Speech-Angular Bibliothek speech-angular.js aus dem API-Quellcode
+ */
+
+gulp.task('build-examples', function(callback) {
+    runSequence(
+        'test-example-unit',
+        'test-example-e2e',
+        'test-example-lint',
+        callback);
+});

@@ -10,6 +10,7 @@
         "docs": "gulp docs-build",
         "start": "ng serve --open",
         "build": "gulp build",
+        "build:examples": "gulp build-examples",
         "lint": "ng lint",
         "test": "ng test",
         "e2e": "ng e2e",
@@ -25,7 +26,7 @@
         "install:cordova:ios": "gulp cordova-install-ios",
         "build:cordova:android": "ng build && gulp cordova-build-android",
         "cordova": "ng build && gulp cordova-browser",
-        "cordova:android": "ng build && gulp cordova-android",
+        "cordova:android": "ng build&& gulp cordova-android",
         "cordova:ios": "ng build && gulp cordova-ios"
     },
     "dependencies": {
