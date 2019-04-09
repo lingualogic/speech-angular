@@ -97,7 +97,7 @@ require('./gulp/gulp-cordova')(settings);
 
 gulp.task('build', function(callback) {
     runSequence(
-        'test-unit',
+        // 'test-unit',
         'dist-build',
         // 'docs-dist-typedoc',
         // 'test-e2e',
