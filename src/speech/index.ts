@@ -24,6 +24,14 @@ export { AmazonModule } from './amazon/amazon-module';
 export { AmazonService } from './amazon/amazon.service';
 
 
+// google-modul
+
+export { GoogleModuleConfigInterface } from './google/google-module-config.interface';
+export { GoogleModuleOptionInterface } from './google/google-module-option.interface';
+export { GoogleModule } from './google/google-module';
+export { GoogleService } from './google/google.service';
+
+
 // base-service
 
 export { BaseServiceOptionInterface } from './base/base-service-option.interface';

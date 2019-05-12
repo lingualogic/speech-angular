@@ -296,6 +296,8 @@ export class SpeakService extends BaseService {
 
     /**
      * AudioContext entsperren
+     *
+     * @deprecated
      */
 
     unlockAudio(): number {

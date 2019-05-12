@@ -60,6 +60,5 @@ package-lock.json
 # Konfigdateien
 
 nuance-credentials*
-!nuance-credentials.default*
 amazon-credentials*
-
+google-credentials*

@@ -1,6 +1,6 @@
 # Speech-Angular Quellcode
 
-**Version:** **0.5.8**
+**Version:** **0.5.9**
 
 Der Quellcode von Speech-Angular ist vollständig im Verzeichnis src/speech untergebracht, und baut auf dem Speech-Framework auf. Es sollten keine direkten Zugriffe auf das Speech-Framework genutzt werden, da sich das Speech-Framework API noch stark ändern kann. Alle Zugriffe sollten nur über die Services des Speech-Angular SDK im eigenen Code erfolgen.
 
@@ -20,9 +20,11 @@ Das Speech-Angular SDK besteht aus folgenden Services:
 
 * **BotService**: dient zum Abspielen von Dialogen für die Sprachausgabe und Aktionen
 
-* **NuanceService**: dient zum eintragen von Nuance-Credentials
-
 * **AmazonService**: dient zum eintragen von Amazon-Credentials
+
+* **GoogleService**: dient zum eintragen von Google-Credentials
+
+* **NuanceService**: dient zum eintragen von Nuance-Credentials
 
 
 Jeder Service hat sein eigenes Verzeichnis, in dem der Code des Service untergebracht ist.
@@ -30,6 +32,8 @@ Jeder Service hat sein eigenes Verzeichnis, in dem der Code des Service untergeb
 
 Zusätzlich gibt des noch Module, die für die Initialsierung von optionalen Subsystemen verantwortlich sind:
 
-* **NuanceModule**: dient zur Initialisierung des Nuance Cloud-Service
-
 * **AmazonModule**: dient zur Initialisierung des Amazon Cloud-Service
+
+* **GoogleModule**: dient zur Initialisierung des Google Cloud-Service
+
+* **NuanceModule**: dient zur Initialisierung des Nuance Cloud-Service

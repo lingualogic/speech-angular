@@ -36,6 +36,8 @@ Folgende Basis-Services gibt es:
 
 * **[AmazonService](./amazon/AmazonService.md):** erlaubt die Änderung der Amazon-Credentials
 
+* **[GoogleService](./google/GoogleService.md):** erlaubt die Änderung der Google-Credentials
+
 * **[NuanceService](./nuance/NuanceService.md):** erlaubt die Änderung der Nuance-Credentials
 
 
@@ -43,6 +45,8 @@ Folgende Module gibt es:
 
 
 * **[AmazonModule](./../cloud/amazon/Amazon.md):** verwaltet die Amazon Cloud-Dienstanbindung
+
+* **[GoogleModule](./../cloud/google/Google.md):** verwaltet die Google Cloud-Dienstanbindung
 
 * **[NuanceModule](./../cloud/nuance/Nuance.md):** verwaltet die Nuance Cloud-Dienstanbindung
 

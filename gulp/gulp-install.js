@@ -84,6 +84,30 @@ module.exports = ({ gulp, credentialsDir }) => {
 
 
     /**
+     * Erzeugt google-credentials.ts in credentials/
+     */
+
+    gulp.task('install-google-credentials', function() {
+        try {
+            // pruefen auf vorhandene Google-Credentials Datei
+            fs.accessSync( `${credentialsDir}/google-credentials.ts` );
+        } catch (e) {
+            // Datei ist nicht vorhanden und kann erzeugt werden
+            return gulp.src([ `${credentialsDir}/google-credentials.ts` ])
+                .pipe( file( 'google-credentials.ts', ''))
+                .pipe(inject.append( "/**\n" ))
+                .pipe(inject.append( " * Google Credentials\n" ))
+                .pipe(inject.append( " */\n" ))
+                .pipe(inject.append( "\n" ))
+                .pipe(inject.append( "\n" ))
+                .pipe(inject.append( "export const GOOGLE_APP_KEY = '';\n" ))
+                .pipe( gulp.dest(  credentialsDir ));
+        }
+        return gulp.src( '' ); // empty stream
+    });
+
+
+    /**
      * Installiert die WebDriver-Treiber fuer die  Protractor-Tests
      */
 
@@ -98,6 +122,7 @@ module.exports = ({ gulp, credentialsDir }) => {
         runSequence(
             'install-nuance-credentials',
             'install-amazon-credentials',
+            'install-google-credentials',
             'install-webdriver',
             callback
         );

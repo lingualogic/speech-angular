@@ -1,6 +1,15 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.9.0025 Alpha (12.05.2019)
+
+### Features
+
+* **IntentService:** beinhaltet jetzt die Google Dialogflow-NLU
+* **GoogleService:** es wurde der GoogleService eingebaut, um nachtraeglich Credentials zu aendern
+* **GoogleModule:** es wurde GoogleModule eingebaut, um den Google Cloud-Dienst einzubinden
+
+
 ## 0.5.8.0024 Alpha (07.04.2019)
 
 ### Features

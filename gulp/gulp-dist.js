@@ -93,6 +93,23 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von GoogleModule
+     */
+
+    gulp.task('dist-copy-google-module', function() {
+        return gulp.src([
+            `${speechDir}/google/google-module-config.interface.d.ts`,
+            `${speechDir}/google/google-module-option.interface.d.ts`,
+            `${speechDir}/google/google-module.d.ts`,
+            `${speechDir}/google/google.service.d.ts`,
+            `${speechDir}/google/*.metadata.json`,
+            `${speechDir}/google/*.js`
+        ])
+        .pipe( gulp.dest( `${distDir}/google` ));
+    });
+
+
+    /**
      * Kopiert die Sourcedateien aus build/src nach dist/src/ von BaseService
      */
 
@@ -246,6 +263,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             'dist-copy-const',
             'dist-copy-nuance-module',
             'dist-copy-amazon-module',
+            'dist-copy-google-module',
             'dist-copy-base-service',
             'dist-copy-speak-service',
             'dist-copy-listen-service',
