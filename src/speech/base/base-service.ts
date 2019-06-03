@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { EventEmitter } from '@angular/core';
 

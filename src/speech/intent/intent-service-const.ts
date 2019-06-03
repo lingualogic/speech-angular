@@ -28,7 +28,9 @@ export const INTENT_SERVICEMOCK_NAME = 'IntentServiceMock';
 
 // NLU-Plugins
 
-export const INTENT_NUANCE_NLU = 'NLUNuance';
+
+export const INTENT_NUANCE_NLU = 'NLUNuance'; // deprecated
+export const INTENT_GOOGLE_NLU = 'NLUGoogle';
 export const INTENT_HTML5_NLU = 'NLUHtml5';
 
 

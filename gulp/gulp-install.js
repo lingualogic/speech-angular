@@ -123,7 +123,7 @@ module.exports = ({ gulp, credentialsDir }) => {
             'install-nuance-credentials',
             'install-amazon-credentials',
             'install-google-credentials',
-            'install-webdriver',
+            // 'install-webdriver',
             callback
         );
     });

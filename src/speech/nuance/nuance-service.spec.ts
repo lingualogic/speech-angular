@@ -15,7 +15,7 @@
 
 import { NuanceModuleOptionInterface } from './nuance-module-option.interface';
 import { NuanceModule } from './nuance-module';
-import { NuanceService } from './nuance.service';
+import { NuanceService } from './nuance-service';
 
 
 // Konstanten

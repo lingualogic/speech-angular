@@ -11,6 +11,9 @@
  * @author SB
  */
 
+
+// extern
+
 import { Injectable } from '@angular/core';
 
 
@@ -18,15 +21,21 @@ import { Injectable } from '@angular/core';
 
 import { GoogleModule } from './google-module';
 import { GoogleModuleConfigInterface } from './google-module-config.interface';
-import { config } from 'rxjs';
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class GoogleService {
 
-    constructor() {}
+    
+    /**
+     * Dummy-Initfunktion fuer Service-Manager
+     * 
+     * @param aOption 
+     */
+
+    init( aOption: any ): number {
+        return 0;
+    }
 
 
     /**

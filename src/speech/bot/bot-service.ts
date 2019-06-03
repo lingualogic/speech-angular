@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -65,9 +65,7 @@ export type BotServiceActionStopFunc = () => void;
  * BotService Klasse fuer Speech-Angular. Definiert einen Bot mit Aktionen und Sprachausgabe
  */
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class BotService extends BaseService {
 
     /** definiert die Konfiguration des BotService */

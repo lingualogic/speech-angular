@@ -15,7 +15,7 @@
 
 import { GoogleModuleOptionInterface } from './google-module-option.interface';
 import { GoogleModule } from './google-module';
-import { GoogleService } from './google.service';
+import { GoogleService } from './google-service';
 
 
 // Konstanten

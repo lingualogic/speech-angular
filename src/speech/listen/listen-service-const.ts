@@ -29,7 +29,7 @@ export const LISTEN_SERVICEMOCK_NAME = 'ListenServiceMock';
 // ASR-Plugins
 
 export const LISTEN_HTML5_ASR = 'ASRHtml5';
-export const LISTEN_NUANCE_ASR = 'ASRNuance';
+export const LISTEN_NUANCE_ASR = 'ASRNuance'; // deprecated
 
 
 // Sprach-Konstanten fuer Deutsch und Englisch

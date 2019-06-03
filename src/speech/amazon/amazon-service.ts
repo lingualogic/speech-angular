@@ -1,16 +1,19 @@
 /**
  * AmazonService zur Aenderung der Credentials
  *
- * API-Version: 1.0
- * Datum:       03.04.2019
+ * API-Version: 1.1
+ * Datum:       24.05.2019
  *
- * Letzte Aenderung: 03.04.2019
+ * Letzte Aenderung: 24.05.2019
  * Status: rot
  *
  * @module speech/amazon
  * @author SB
  */
 
+
+ // extern
+ 
 import { Injectable } from '@angular/core';
 
 
@@ -18,15 +21,21 @@ import { Injectable } from '@angular/core';
 
 import { AmazonModule } from './amazon-module';
 import { AmazonModuleConfigInterface } from './amazon-module-config.interface';
-import { config } from 'rxjs';
 
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AmazonService {
 
-    constructor() {}
+    
+    /**
+     * Dummy-Initfunktion fuer Service-Manager
+     *
+     * @param aOption
+     */
+
+    init( aOption: any ): number {
+        return 0;
+    }
 
 
     /**

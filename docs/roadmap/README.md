@@ -1,6 +1,6 @@
-# Speech-Framework Roadmaps
+# Speech-Angular Roadmaps
 
-Hier werden die Jahres-Roadmaps des Speech-Frameworks aufgelistet:
+Hier werden die Jahres-Roadmaps des Speech-Angular SDKs aufgelistet:
 
 
 * **[Roadmap 2019](./Roadmap-2019.md)**

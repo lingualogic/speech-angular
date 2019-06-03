@@ -15,7 +15,7 @@
 
 import { AmazonModuleOptionInterface } from './amazon-module-option.interface';
 import { AmazonModule } from './amazon-module';
-import { AmazonService } from './amazon.service';
+import { AmazonService } from './amazon-service';
 
 
 // Konstanten

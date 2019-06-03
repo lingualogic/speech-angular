@@ -67,7 +67,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/nuance/nuance-module-config.interface.d.ts`,
             `${speechDir}/nuance/nuance-module-option.interface.d.ts`,
             `${speechDir}/nuance/nuance-module.d.ts`,
-            `${speechDir}/nuance/nuance.service.d.ts`,
+            `${speechDir}/nuance/nuance-service.d.ts`,
             `${speechDir}/nuance/*.metadata.json`,
             `${speechDir}/nuance/*.js`
         ])
@@ -84,7 +84,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/amazon/amazon-module-config.interface.d.ts`,
             `${speechDir}/amazon/amazon-module-option.interface.d.ts`,
             `${speechDir}/amazon/amazon-module.d.ts`,
-            `${speechDir}/amazon/amazon.service.d.ts`,
+            `${speechDir}/amazon/amazon-service.d.ts`,
             `${speechDir}/amazon/*.metadata.json`,
             `${speechDir}/amazon/*.js`
         ])
@@ -101,7 +101,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/google/google-module-config.interface.d.ts`,
             `${speechDir}/google/google-module-option.interface.d.ts`,
             `${speechDir}/google/google-module.d.ts`,
-            `${speechDir}/google/google.service.d.ts`,
+            `${speechDir}/google/google-service.d.ts`,
             `${speechDir}/google/*.metadata.json`,
             `${speechDir}/google/*.js`
         ])

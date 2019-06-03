@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -53,9 +53,7 @@ const SPEAK_ASYNC_EVENT = true;
  * SpeakService Klasse
  */
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class SpeakService extends BaseService {
 
     /** definiert die Konfiguration des Service */

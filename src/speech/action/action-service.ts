@@ -1,10 +1,10 @@
 /**
- * ActionService zur Anbindung der Action-Komponente an Angular
+ * ActionService zur Anbindung der Action-Komponente
  *
  * API-Version: 1.0
  * Datum:       15.09.2018
  *
- * Letzte Aenderung: 28.02.2019
+ * Letzte Aenderung: 24.05.2019
  * Status:           gelb
  *
  * @module speech/action
@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { Injectable } from '@angular/core';
 
@@ -57,9 +57,7 @@ export type ActionStopFunc = () => number;
  * in der WebApp.
  */
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ActionService extends BaseService {
 
     /** definiert die Konfiguration des Service */

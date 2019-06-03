@@ -13,7 +13,7 @@ export { SPEECHSERVICE_API_VERSION } from './const/speech-service-version';
 export { NuanceModuleConfigInterface } from './nuance/nuance-module-config.interface';
 export { NuanceModuleOptionInterface } from './nuance/nuance-module-option.interface';
 export { NuanceModule } from './nuance/nuance-module';
-export { NuanceService } from './nuance/nuance.service';
+export { NuanceService } from './nuance/nuance-service';
 
 
 // amazon-modul
@@ -21,7 +21,7 @@ export { NuanceService } from './nuance/nuance.service';
 export { AmazonModuleConfigInterface } from './amazon/amazon-module-config.interface';
 export { AmazonModuleOptionInterface } from './amazon/amazon-module-option.interface';
 export { AmazonModule } from './amazon/amazon-module';
-export { AmazonService } from './amazon/amazon.service';
+export { AmazonService } from './amazon/amazon-service';
 
 
 // google-modul
@@ -29,7 +29,7 @@ export { AmazonService } from './amazon/amazon.service';
 export { GoogleModuleConfigInterface } from './google/google-module-config.interface';
 export { GoogleModuleOptionInterface } from './google/google-module-option.interface';
 export { GoogleModule } from './google/google-module';
-export { GoogleService } from './google/google.service';
+export { GoogleService } from './google/google-service';
 
 
 // base-service

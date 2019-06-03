@@ -20,12 +20,12 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.9.tgz
+    $ npm install speech-framework-0.5.10.tgz
 
 
 ## Letzte Version
 
-* 0.5.9.0025 Alpha vom 12.05.2019 [Release Notizen](./CHANGELOG.md)
+* 0.5.10.0026 Alpha vom 02.06.2019 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 
@@ -109,6 +109,7 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 ## Bekannte Probleme
 
+* Nuance hat seine Sprachdienste abgeschaltet und steht als Cloud-Dienst nicht mehr zur Verfügung
 * Unter Chrome in iOS funktioniert die Spracheingabe nicht
 
 

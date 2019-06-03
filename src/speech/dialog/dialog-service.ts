@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -66,9 +66,7 @@ export type DialogServiceActionStopFunc = () => void;
  * DialogService Klasse fuer Speech-Angular.
  */
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class DialogService extends BaseService {
 
     /** definiert die Konfiguration des DialogService */

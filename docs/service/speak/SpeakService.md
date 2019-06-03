@@ -73,7 +73,7 @@ Beispiel-Komponente für die Integration von Sprache:
 
 	// SpeakService 
 		
-	import { SpeakService, SPEAK_DE_LANGUAGE, SPEAK_EN_ALANGUAGE } from 'speech-angular';
+	import { SpeakService, SPEAK_DE_LANGUAGE, SPEAK_EN_LANGUAGE } from 'speech-angular';
 
 	
 	@Component({
@@ -136,7 +136,7 @@ Beispiel-Komponente für die Integration von Sprache:
 
 	// SpeakService 
 		
-	import { SpeakService, SPEAK_DE_LANGUAGE, SPEAK_EN_ALANGUAGE } from 'speech-angular';
+	import { SpeakService, SPEAK_DE_LANGUAGE, SPEAK_EN_LANGUAGE } from 'speech-angular';
 
 	
 	@Component({

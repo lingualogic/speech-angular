@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -58,9 +58,7 @@ const INTENT_ASYNC_EVENT = true;
  * @class IntentService
  */
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class IntentService extends BaseService {
 
     /** definiert die Konfiguration des Service */

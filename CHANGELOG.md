@@ -1,6 +1,13 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.10.0026 Alpha (27.05.2019)
+
+### Fixes
+
+* **NuanceService:** wurde als Deprecated markiert, fällt ab Version 0.6 weg
+
+
 ## 0.5.9.0025 Alpha (12.05.2019)
 
 ### Features

@@ -12,7 +12,7 @@
  */
 
 
-// angular
+// extern
 
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -56,9 +56,7 @@ const LISTEN_ASYNC_EVENT = true;
  * @class ListenService
  */
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ListenService extends BaseService {
 
     /** definiert die Konfiguration des Service */

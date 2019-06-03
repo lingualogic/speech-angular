@@ -18,7 +18,7 @@ BaseService verbindet sich mit dem SpeechMain Singleton und bindet die Schnittst
 
 ## API
 
-Jeder Speech-Angular Service besitzt die gleiche Schnittstelle für die hier vorgestellte Grundfunktionalität. Die folgende Grafik zeigt einen Überblick über die gesamte API jedes Speech-Angualr Services. Die API teilt sich auf in statische Klassenfunktionen, Objektfunktionen, Objektereignisse und Objekteigenschaften. Die API verfügt über eine auf Funktionen und eine auf Eigenschaften basierende Schnittstelle. Die gleiche Aufgabe kann über Funktionsaufrufe oder über das Setzen von Eigenschaften erledigt werden.
+Jeder Speech-Angular Service besitzt die gleiche Schnittstelle für die hier vorgestellte Grundfunktionalität. Die folgende Grafik zeigt einen Überblick über die gesamte API jedes Speech-Angular Services. Die API teilt sich auf in statische Klassenfunktionen, Objektfunktionen, Objektereignisse und Objekteigenschaften. Die API verfügt über eine auf Funktionen und eine auf Eigenschaften basierende Schnittstelle. Die gleiche Aufgabe kann über Funktionsaufrufe oder über das Setzen von Eigenschaften erledigt werden.
 
 
 ![Service-API](BaseService-3.gif)
@@ -141,11 +141,11 @@ Auszug aus der Datei: src/app/app.component.ts:
 	
 	  title = 'Speech-Angular-App';
 	
-	  constructor() {}
+	  constructor( private service: XxxService ) {}
 	
 		ngOnInit(): void {
 			// Hier wird der XxxService manuell mit optionalen Parametern initialisiert
-	  		XxxService.init({ errorOutputFlag: true });
+	  		service.init({ errorOutputFlag: true });
 	  	}
 	
 	}
