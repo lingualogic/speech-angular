@@ -42,8 +42,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.intentResultEvent = this.intentService.resultEvent.subscribe((aIntent: any) => {
-            console.log('===> Intent:', aIntent.intent, ' Confidence:', aIntent.confidence);
-            this.intentName = aIntent.intent + ' (Confidence = ' + aIntent.confidence + ')';
+            console.log('===> Intent:', aIntent.intent ); // , ' Confidence:', aIntent.confidence);
+            this.intentName = aIntent.intent; // + ' (Confidence = ' + aIntent.confidence + ')';
             this.errorText = '';
             this.ref.detectChanges();
         });
@@ -54,9 +54,9 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.ref.detectChanges();
             }
         });
-        // pruefen auf vorhandene Nuance-NLU
-        if ( this.intentService.setNLU( 'NLUNuance' ) === 0 ) {
-            console.log('Nuance Cloud-Dienst ist bereit');
+        // pruefen auf vorhandene Google-NLU
+        if ( this.intentService.setNLU( 'NLUGoogle' ) === 0 ) {
+            console.log('Google Cloud-Dienst ist bereit');
             this.intentActiveFlag = true;
             this.errorText = '';
             // Sprache einstellen
@@ -67,9 +67,9 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.languageText = 'englische';
             }
         } else {
-            console.log('Nuance Cloud-Dienst ist nicht bereit');
+            console.log('Google Cloud-Dienst ist nicht bereit');
             this.intentActiveFlag = false;
-            this.errorText = 'Der Nuance Cloud-Dienst ist nicht bereit, bitte die Nuance-Credentials prüfen!';
+            this.errorText = 'Der Google Cloud-Dienst ist nicht bereit, bitte die Nuance-Credentials prüfen!';
         }
     }
 

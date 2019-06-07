@@ -89,11 +89,11 @@ Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
 
     $ npm run docs
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.9.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.10.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.9.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
+Die Installation des 'speech-angular-0.5.10.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install speech-angular-0.5.9.tgz
+    $ npm install speech-angular-0.5.10.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit einem unserer [Schnelleinstiege](./docs/quickstart/README.md) aus.
 
