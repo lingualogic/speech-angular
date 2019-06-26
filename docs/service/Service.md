@@ -38,7 +38,9 @@ Folgende Basis-Services gibt es:
 
 * **[GoogleService](./google/GoogleService.md):** erlaubt die Änderung der Google-Credentials
 
-* **[NuanceService](./nuance/NuanceService.md):** erlaubt die Änderung der Nuance-Credentials
+* **[MicrosoftService](./microsoft/MicrosoftService.md):** erlaubt die Änderung der Microsoft-Credentials
+
+* **[NuanceService](./nuance/NuanceService.md):** erlaubt die Änderung der Nuance-Credentials (deprecated)
 
 
 Folgende Module gibt es:
@@ -48,5 +50,7 @@ Folgende Module gibt es:
 
 * **[GoogleModule](./../cloud/google/Google.md):** verwaltet die Google Cloud-Dienstanbindung
 
-* **[NuanceModule](./../cloud/nuance/Nuance.md):** verwaltet die Nuance Cloud-Dienstanbindung
+* **[MicrosoftModule](./../cloud/microsoft/Microsoft.md):** verwaltet die Microsoft Cloud-Dienstanbindung
+
+* **[NuanceModule](./../cloud/nuance/Nuance.md):** verwaltet die Nuance Cloud-Dienstanbindung (deprecated)
 

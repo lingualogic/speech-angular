@@ -27,6 +27,8 @@ import { NuanceModuleOptionInterface } from './nuance-module-option.interface';
 
 /**
  * Klasse NuanceModul zur Initialisierung des Nuance Cloud-Services
+ *
+ * @deprecated
  */
 
 export class NuanceModule {

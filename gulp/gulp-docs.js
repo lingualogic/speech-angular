@@ -45,6 +45,7 @@ module.exports = ({ gulp, srcDir, docsDir, distDir }) => {
                 `${srcDir}/speech/dialog/*.ts`,
                 `${srcDir}/speech/intent/*.ts`,
                 `${srcDir}/speech/listen/*.ts`,
+                `${srcDir}/speech/microsoft/*.ts`,
                 `${srcDir}/speech/nuance/*.ts`,
                 `${srcDir}/speech/speak/*.ts`
             ])

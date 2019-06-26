@@ -20,6 +20,10 @@ import { NuanceModule } from './nuance-module';
 import { NuanceModuleConfigInterface } from './nuance-module-config.interface';
 
 
+/**
+ * @deprecated
+ */
+
 @Injectable({
     providedIn: 'root'
 })

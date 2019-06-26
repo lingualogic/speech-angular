@@ -1,6 +1,13 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.11.0027 Alpha (25.06.2019)
+
+### Features
+
+* **Microsoft:** der Microsoft Cloud-Dienst für die ASR wurde eingebaut, um Microsofts ASR für die Spracherkennung verwenden zu können
+
+
 ## 0.5.10.0026 Alpha (27.05.2019)
 
 ### Fixes

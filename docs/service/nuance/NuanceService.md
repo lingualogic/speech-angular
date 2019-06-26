@@ -1,4 +1,4 @@
-# NuanceService
+# NuanceService (deprecated)
 
 Der NuanceService dient zur dynamischen Änderung der Nuance-Credentials. damit wird es möglich Nuance-Credentials über ein Formular einzugeben und dann erst einzutragen.
 

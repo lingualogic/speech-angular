@@ -110,6 +110,23 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von MicrosoftModule
+     */
+
+    gulp.task('dist-copy-microsoft-module', function() {
+        return gulp.src([
+            `${speechDir}/microsoft/microsoft-module-config.interface.d.ts`,
+            `${speechDir}/microsoft/microsoft-module-option.interface.d.ts`,
+            `${speechDir}/microsoft/microsoft-module.d.ts`,
+            `${speechDir}/microsoft/microsoft-service.d.ts`,
+            `${speechDir}/microsoft/*.metadata.json`,
+            `${speechDir}/microsoft/*.js`
+        ])
+        .pipe( gulp.dest( `${distDir}/microsoft` ));
+    });
+
+
+    /**
      * Kopiert die Sourcedateien aus build/src nach dist/src/ von BaseService
      */
 
@@ -264,6 +281,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             'dist-copy-nuance-module',
             'dist-copy-amazon-module',
             'dist-copy-google-module',
+            'dist-copy-microsoft-module',
             'dist-copy-base-service',
             'dist-copy-speak-service',
             'dist-copy-listen-service',

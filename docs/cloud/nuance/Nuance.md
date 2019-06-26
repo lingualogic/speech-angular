@@ -1,4 +1,4 @@
-# NuanceModule Cloud-Dienst
+# NuanceModule Cloud-Dienst (deprecated)
 
 Die NuanceModule Cloud-Dienstanbindung von Speech-Angular erlaubt die Nutzung der Nuance-TTS im SpeakService, die Nutzung der Nuance-ASR im ListenService und die Nutzung der Nuance-NLU im IntentService.
 

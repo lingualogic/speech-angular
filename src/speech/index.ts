@@ -32,6 +32,14 @@ export { GoogleModule } from './google/google-module';
 export { GoogleService } from './google/google-service';
 
 
+// microsoft-modul
+
+export { MicrosoftModuleConfigInterface } from './microsoft/microsoft-module-config.interface';
+export { MicrosoftModuleOptionInterface } from './microsoft/microsoft-module-option.interface';
+export { MicrosoftModule } from './microsoft/microsoft-module';
+export { MicrosoftService } from './microsoft/microsoft-service';
+
+
 // base-service
 
 export { BaseServiceOptionInterface } from './base/base-service-option.interface';
