@@ -13,7 +13,7 @@ import { MicrosoftModule } from 'speech-angular';
 // Microsoft-Credentials
 
 // TODO: Hier muessen die echten Zugangsdaten eingetragen werden
-import { MICROSOFT_REGION, MICROSOFT_SUBSCRIPTION_KEY } from './../../../credentials/microsoft-credentials';
+import { MICROSOFT_REGION, MICROSOFT_SUBSCRIPTION_KEY } from './../credentials/microsoft-credentials';
 const microsoftOption = {
     microsoftDynamicCredentialsFlag: true,
     microsoftRegion: MICROSOFT_REGION,

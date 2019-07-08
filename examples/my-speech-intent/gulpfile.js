@@ -13,6 +13,7 @@
 const fs = require('fs');
 const gulp = require('gulp');
 const file = require('gulp-file');
+const inject = require('gulp-inject-string');
 const runSequence = require('run-sequence');
 
 

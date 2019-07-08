@@ -1,11 +1,12 @@
 {
     "name": "my-speech-listen",
-    "version": "0.5.11",
+    "version": "0.5.12",
     "description": "MySpeechListen",
     "author": "Lingualogic Team",
     "license": "MIT",
     "private": true,
     "scripts": {
+        "postinstall": "gulp install",
         "ng": "ng",
         "start": "ng serve --open",
         "build": "ng build --prod",
