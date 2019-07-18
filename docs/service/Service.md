@@ -40,6 +40,8 @@ Folgende Basis-Services gibt es:
 
 * **[MicrosoftService](./microsoft/MicrosoftService.md):** erlaubt die Änderung der Microsoft-Credentials
 
+* **[RasaService](./rasa/RasaService.md):** erlaubt die Änderung der Rasa-Credentials
+
 * **[NuanceService](./nuance/NuanceService.md):** erlaubt die Änderung der Nuance-Credentials (deprecated)
 
 
@@ -51,6 +53,8 @@ Folgende Module gibt es:
 * **[GoogleModule](./../cloud/google/Google.md):** verwaltet die Google Cloud-Dienstanbindung
 
 * **[MicrosoftModule](./../cloud/microsoft/Microsoft.md):** verwaltet die Microsoft Cloud-Dienstanbindung
+
+* **[RasaModule](./../cloud/rasa/Rasa.md):** verwaltet die Rasa Cloud-Dienstanbindung
 
 * **[NuanceModule](./../cloud/nuance/Nuance.md):** verwaltet die Nuance Cloud-Dienstanbindung (deprecated)
 

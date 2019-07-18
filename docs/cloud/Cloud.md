@@ -8,6 +8,8 @@ Hier werden die in Speech-Angular integrierten Cloud-Dienste aufgelistet:
 
 * **[MicrosoftModule](./microsoft/Microsoft.md):** erlaubt die Nutzung von Microsoft-ASR
 
+* **[RasaModule](./rasa/Rasa.md):** erlaubt die Nutzung von Rasa-NLU mit eigenem Rasa-Server
+
 * **[NuanceModule](./nuance/Nuance.md):** erlaubt die Nutzung von Nuance-TTS, Nuance-ASR und Nuance-NLU (deprecated)
 
 

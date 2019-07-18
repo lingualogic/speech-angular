@@ -81,7 +81,7 @@ Das GoogleModule initialisiert den Google Cloud-Service. Die Initialisierung der
 
 Will man die Google-Credetials nicht bei der Initialisierung übergeben, sondern erst später durch ein Formular, so kann dies mit dem optionalen Paramter:
 
-	const amazonOption = {
+	const googleOption = {
 		googleDynamicCredentialsFlag: true
 	};
 	

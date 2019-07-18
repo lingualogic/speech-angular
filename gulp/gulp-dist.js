@@ -127,6 +127,23 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Kopiert die Sourcedateien aus build/src nach dist/src/ von RasaModule
+     */
+
+    gulp.task('dist-copy-rasa-module', function() {
+        return gulp.src([
+            `${speechDir}/rasa/rasa-module-config.interface.d.ts`,
+            `${speechDir}/rasa/rasa-module-option.interface.d.ts`,
+            `${speechDir}/rasa/rasa-module.d.ts`,
+            `${speechDir}/rasa/rasa-service.d.ts`,
+            `${speechDir}/rasa/*.metadata.json`,
+            `${speechDir}/rasa/*.js`
+        ])
+        .pipe( gulp.dest( `${distDir}/rasa` ));
+    });
+
+
+    /**
      * Kopiert die Sourcedateien aus build/src nach dist/src/ von BaseService
      */
 
@@ -282,6 +299,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             'dist-copy-amazon-module',
             'dist-copy-google-module',
             'dist-copy-microsoft-module',
+            'dist-copy-rasa-module',
             'dist-copy-base-service',
             'dist-copy-speak-service',
             'dist-copy-listen-service',

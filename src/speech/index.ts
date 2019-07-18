@@ -40,6 +40,14 @@ export { MicrosoftModule } from './microsoft/microsoft-module';
 export { MicrosoftService } from './microsoft/microsoft-service';
 
 
+// rasa-modul
+
+export { RasaModuleConfigInterface } from './rasa/rasa-module-config.interface';
+export { RasaModuleOptionInterface } from './rasa/rasa-module-option.interface';
+export { RasaModule } from './rasa/rasa-module';
+export { RasaService } from './rasa/rasa-service';
+
+
 // base-service
 
 export { BaseServiceOptionInterface } from './base/base-service-option.interface';

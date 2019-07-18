@@ -62,3 +62,4 @@ package-lock.json
 nuance-credentials*
 amazon-credentials*
 google-credentials*
+rasa-credentials*
