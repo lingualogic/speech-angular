@@ -7,9 +7,10 @@ Infos zu Rasa unter [rasa.com](https://rasa.com/).
 
 ## Voraussetzungen
 
-Um die RasaModule Cloud-Dienstanbindung nutzen zu können, muss ein Rasa-Server mit einem Zugriffstoken eingerichtet sein. Dann legt man die Datei rasa-credentials.ts im Unterverzeichnis credentials des eigenen Projektes an und trägt folgende Konstante ein:
+Um die RasaModule Cloud-Dienstanbindung nutzen zu können, muss ein Rasa-Server mit einem Zugriffstoken eingerichtet sein. Dann legt man die Datei rasa-credentials.ts im Unterverzeichnis credentials des eigenen Projektes an und trägt folgende Konstanten ein:
 
-* **RASA_APP_KEY** - Rasas Access Token, welches beim Rasa-Server vergeben wurde!
+* **RASA_SERVER_URL** - Rasas- Server URL, unter der der Rasa-Server läuft
+* **RASA_APP_KEY** - Rasas Access Token, welches beim Rasa-Server vergeben wurde
 
 
 Die Datei credentials/rasa-credentials.ts sollte folgendes beinhalten:
@@ -18,6 +19,7 @@ Die Datei credentials/rasa-credentials.ts sollte folgendes beinhalten:
 	 * Rasa Credentials
 	 */
 	
+	export const RASA_SERVER_URL = ''; 			// <--- Hier die URL des eigenen Rasa-Servers eintragen
 	export const RASA_APP_KEY = ''; 			// <--- Hier das eigene Rasa Access Token eintragen
 	
 
@@ -51,8 +53,9 @@ eigenes Projektverzeichnis/src/main.ts:
 	// Rasa-Credentials
 	
 	// TODO: Hier muessen die echten Zugangsdaten eingetragen werden
-	import { RASA_APP_KEY } from './../credentials/rasa-credentials';
+	import { RASA_SERVER_URL, RASA_APP_KEY } from './../credentials/rasa-credentials';
 	const rasaOption = {
+	  rasaServerUrl: RASA_SERVER_URL;
 	  rasaAppKey: RASA_APP_KEY
 	};
 	

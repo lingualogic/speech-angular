@@ -25,7 +25,7 @@ Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framew
 
 ## Letzte Version
 
-* 0.5.13.0029 Alpha vom 18.07.2019 [Release Notizen](./CHANGELOG.md)
+* 0.5.13.0030 Alpha vom 23.07.2019 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 
@@ -135,7 +135,8 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 ## Beispiel-Apps
 
 Im examples Ordner sind mehrere kleine Beispiele für die einzelnen Services von Speech-Angular zu finden.
-Zum Ausführen der Beispiele muss nicht in den Beispielordner gewechselt werden.
+Zum Ausführen der Beispiele darf nicht in den Beispielordner gewechselt werden. Von dort aus funktioniert
+der Start der jeweiligen Beispiel-App nicht, da globale NPM-Packages aus dem Projektverzeichnis benötigt werden.
 
 Folgende Befehle sind für die SpeakService-Beispiele einzugeben:
 
