@@ -2,7 +2,7 @@
 
 Speech-Angular ist eine Angular Typescript-Bibliothek zur Integration von Sprachdiensten, wie Sprachausgabe (TTS), Spracherkennung (ASR), Sprachverstehen (NLU), Dialogverarbeitung (NLP) und Aktionsausführung in eine Angular Web-Seite oder Web-App. Kern von Speech-Angular ist ein **BotService**, der Dialoge eines Dialogskripts ausführen kann.
 
-Daneben git es folgende einzeln verwendbare Dienste: 
+Daneben git es folgende einzeln verwendbare Dienste:
 
 * **SpeakService** für die Sprachausgabe
 * **ListenService** für die Spracherennung
@@ -25,7 +25,7 @@ Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framew
 
 ## Letzte Version
 
-* 0.5.13.0030 Alpha vom 23.07.2019 [Release Notizen](./CHANGELOG.md)
+* 0.5.13.0031 Alpha vom 10.08.2019 [Release Notizen](./CHANGELOG.md)
 
 Speech-Angular ist noch in einem frühen Entwicklungsstadium und sollte noch nicht für den produktiven Einsatz verwendet werden.
 

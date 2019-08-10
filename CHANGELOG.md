@@ -1,11 +1,18 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.13.0031 Alpha (10.08.2019)
+
+### Fix
+
+kleinere Korrekturen
+
+
 ## 0.5.13.0030 Alpha (23.07.2019)
 
 ### Features
 
-* **Rasa:** due URL des Rasa-Servers wird jetzt in den rasa-credentials mit eingetragen
+* **Rasa:** die URL des Rasa-Servers wird jetzt in den rasa-credentials mit eingetragen
 
 
 ## 0.5.13.0029 Alpha (18.07.2019)
