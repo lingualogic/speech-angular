@@ -1,6 +1,6 @@
 {
     "name": "my-speech-bot-offline",
-    "version": "0.5.13",
+    "version": "0.5.14",
     "description": "MySpeechBotOffline",
     "author": "Lingualogic Team",
     "license": "MIT",
@@ -14,7 +14,7 @@
         "e2e": "ng e2e"
     },
     "dependencies": {
-        "speech-angular": "file:../../dist/speech-angular-0.5.13.tgz"
+        "speech-angular": "file:../../dist/speech-angular-0.5.14.tgz"
     },
     "devDependencies": {}
 }

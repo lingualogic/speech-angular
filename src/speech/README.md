@@ -1,6 +1,6 @@
 # Speech-Angular SDK Quellcode
 
-**Version:** **0.5.13**
+**Version:** **0.5.14**
 
 Der Quellcode von Speech-Angular ist vollständig im Verzeichnis src/speech untergebracht, und baut auf dem Speech-Framework auf. Es sollten keine direkten Zugriffe auf das Speech-Framework genutzt werden, da sich das Speech-Framework API noch stark ändern kann. Alle Zugriffe sollten nur über die Services des SDK im eigenen Code erfolgen.
 
@@ -28,6 +28,8 @@ Das Speech-Angular SDK besteht aus folgenden Services:
 
 * **NuanceService**: dient zum eintragen von Nuance-Credentials (deprecated)
 
+* **RasaService**: dient zum eintragen von Rasa-Credentials
+
 
 Jeder Service hat sein eigenes Verzeichnis, in dem der Code des Service untergebracht ist.
 
@@ -41,3 +43,5 @@ Zusätzlich gibt des noch Module, die für die Initialsierung von optionalen Sub
 * **MicrosoftModule**: dient zur Initialisierung des Microsoft Cloud-Service
 
 * **NuanceModule**: dient zur Initialisierung des Nuance Cloud-Service (deprecated)
+
+* **RasaModule**: dient zur Initialisierung des Rasa Cloud-Service (benötigt eigenen Rasa-Server)

@@ -7,9 +7,9 @@ Der MicrosoftService dient zur dynamischen Änderung der Microsoft-Credentials. 
 
 Der Microsoft-Service hat nur eine Funktion:
 
-	const result = microsoftService.setCredentials( region, subscriptionKey ): number;
+	const result = microsoftService.setCredentials( region, subscriptionKey, [luisEndpoint] ): number;
 	
-mit der die Region und der Subscription Key jeweils als Strings übergeben und als neue Microsoft-Credentials im MicrosoftModule eingetragen werden.
+mit der die Region, der Subscription Key und optional der Luis Endpunkt jeweils als Strings übergeben und als neue Microsoft-Credentials im MicrosoftModule eingetragen werden.
  
 
 
