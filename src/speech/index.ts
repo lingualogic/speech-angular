@@ -88,6 +88,7 @@ export { ActionService } from './action/action-service';
 export { DialogServiceActionInterface } from './dialog/dialog-service-action.interface';
 export { DialogServiceSpeakInterface } from './dialog/dialog-service-speak.interface';
 export { DialogServiceOptionInterface } from './dialog/dialog-service-option.interface';
+export { DialogServiceDataInterface } from './dialog/dialog-service-data.interface';
 export { DialogService } from './dialog/dialog-service';
 
 
@@ -95,6 +96,7 @@ export { DialogService } from './dialog/dialog-service';
 
 export { BotServiceActionInterface } from './bot/bot-service-action.interface';
 export { BotServiceOptionInterface } from './bot/bot-service-option.interface';
+export { BotServiceDataInterface, BotServiceStateInterface, BotServiceIntentInterface, BotServiceCommandInterface, BotServiceTextInterface } from './bot/bot-service-data.interface';
 export { BotService } from './bot/bot-service';
 
 
