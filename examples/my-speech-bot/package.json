@@ -1,6 +1,6 @@
 {
   "name": "my-speech-bot",
-  "version": "0.5.15",
+  "version": "0.5.16",
   "description": "MySpeechBot",
   "author": "Lingualogic Team",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "speech-angular": "file:../../dist/speech-angular-0.5.15.tgz"
+    "speech-angular": "file:../../dist/speech-angular-0.5.16.tgz"
   },
   "devDependencies": {}
 }

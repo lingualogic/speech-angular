@@ -20,12 +20,12 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.15.tgz
+    $ npm install speech-framework-0.5.16.tgz
 
 
 ## Letzte Version
 
-* 0.5.15.0033 Beta vom 19.10.2019 [Release Notizen](./CHANGELOG.md)
+* 0.5.16.0034 Beta vom 17.12.2019 [Release Notizen](./CHANGELOG.md)
 
 
 ## Voraussetzungen
@@ -69,7 +69,8 @@ Will man den Nuance-Clouddienst verwenden, muss ein eigener Nuance-Mix Account e
 Zuerst muss das Speech-Angular Github-Repsitory unter [https://github.com/lingualogic/speech-angular](https://github.com/lingualogic/speech-angular) mit folgendem Befehl geklont werden:
 
     $ git clone https://github.com/lingualogic/speech-angular
-    $ cd speech-angular
+    $ cd speech-angular#
+    $ git checkout 0.5.x
 
 danach werden alle NPM-Pakete für Speech-Angular mit folgendem Befehl installiert:
 
@@ -87,11 +88,11 @@ Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
 
     $ npm run docs
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.15.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.16.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.15.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
+Die Installation des 'speech-angular-0.5.16.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install speech-angular-0.5.15.tgz
+    $ npm install speech-angular-0.5.16.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit einem unserer [Schnelleinstiege](./docs/quickstart/README.md) aus.
 
@@ -103,6 +104,11 @@ Alternativ kann das fertige Speech-Angular npm-Paket auch von der [LinguaLogic-W
 Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
     $ npm uninstall speech-angular
+
+
+## gebrochener Code gegenüber der Vorversion
+
+* wird das Google-Module eingebunden, muss jetzt auch der Parameter googleServerUrl bei den googleCredentials eingetragen und der Konfiguration mitübergeben werden.
 
 
 ## Bekannte Probleme
