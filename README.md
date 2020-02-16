@@ -10,8 +10,7 @@ Daneben git es folgende einzeln verwendbare Dienste:
 * **ActionService** für die Aktionserzeugung
 * **DialogService** für die Dialogausführung
 
-
-In Speech-Angular kann für die Sprachausgabe (TTS) und das Sprachverstehen (NLU) auch der Nuance-Clouddienst verwendet werden. Dazu wird ein eigener Nuance-Mix Account benötigt.
+In Speech-Angular kann für die Sprachausgabe (TTS) und das Sprachverstehen (NLU) auch ein Clouddienst von Amazon, Google oder Microsoft verwendet werden. Dazu wird ein eigener Clouddienst Account des jeweiligen Clouddienst-Anbieters benötigt.
 
 
 ## Speech-Framework
@@ -20,12 +19,12 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.16.tgz
+    $ npm install speech-framework-0.5.17.tgz
 
 
 ## Letzte Version
 
-* 0.5.16.0034 Beta vom 17.12.2019 [Release Notizen](./CHANGELOG.md)
+* 0.5.17.0035 Release vom 16.02.2020 [Release Notizen](./CHANGELOG.md)
 
 
 ## Voraussetzungen
@@ -61,7 +60,7 @@ Als weitere Plattformen können Android und iOS mit Cordova verwendet werden:
 Für Cordova müssen weitere Programme zur Entwicklung von Android- und iOS-Apps installiert werden.
 Informationen hierzu finden sich unter [docs/platform/Cordova.md](./docs/platform/Cordova.md).
 
-Will man den Nuance-Clouddienst verwenden, muss ein eigener Nuance-Mix Account eingerichtet werden und die Nuance-Komponente des Speech-Frameworks separat in die eigene App eingebunden werden. Wie man dies macht, findet man unter [docs/cloud/Cloud.md](./docs/cloud/Cloud.md)
+Will man den Clouddienst verwenden, muss ein eigener Clouddienst Account eingerichtet werden und die Clouddienst-Komponente des Speech-Frameworks separat in die eigene App eingebunden werden. Wie man dies macht, findet man unter [docs/cloud/Cloud.md](./docs/cloud/Cloud.md)
 
 
 ## Installation
@@ -69,8 +68,7 @@ Will man den Nuance-Clouddienst verwenden, muss ein eigener Nuance-Mix Account e
 Zuerst muss das Speech-Angular Github-Repsitory unter [https://github.com/lingualogic/speech-angular](https://github.com/lingualogic/speech-angular) mit folgendem Befehl geklont werden:
 
     $ git clone https://github.com/lingualogic/speech-angular
-    $ cd speech-angular#
-    $ git checkout 0.5.x
+    $ cd speech-angular
 
 danach werden alle NPM-Pakete für Speech-Angular mit folgendem Befehl installiert:
 
@@ -88,11 +86,11 @@ Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
 
     $ npm run docs
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.16.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.17.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
-Die Installation des 'speech-angular-0.5.16.tgz' npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
+Die Installation des speech-angular npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install speech-angular-0.5.16.tgz
+    $ npm install speech-angular-0.5.17.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit einem unserer [Schnelleinstiege](./docs/quickstart/README.md) aus.
 
@@ -187,6 +185,7 @@ Technische Entwicklung: **Stefan Brauer** (stefan@lingualogic.de)
 
 ## In Projekten verwendet
 
+* [**Nepos-App**](https://nepos.app) - Beispiel für den SpeakService und Dialog von [nepos.de](https://nepos.de)
 * [**whoelse-Prototyp**](https://app.whoelse.ai) - Beispiel für den IntentService von [uns.ai](https://uns.ai)
 
 ## Danksagung

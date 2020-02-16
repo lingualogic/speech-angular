@@ -3,16 +3,6 @@
 Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versionen und deren Features.
 
 
-## Geplante Versionen
-
-
-### Dezember: Version 0.5.17
-
-beinhaltet:
-
-* **Google:** Server-Funktion für sicheren Google-Cloud Zugriff für die ASR
-
-
 ## Veröffentlichte Versionen
 
 

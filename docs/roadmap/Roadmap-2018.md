@@ -3,7 +3,6 @@
 Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versionen und deren Features.
 
 
-
 ## Veröffendlichte Versionen
 
 

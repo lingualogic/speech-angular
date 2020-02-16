@@ -1,12 +1,18 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.17.0035 Release (16.02.2020)
+
+### Features
+
+* **Google:** Erweiterung der Google-Komponente um ASR mit Verbindung zum Google Token-Server.
+
+
 ## 0.5.16.0034 Beta (17.12.2019)
 
 ### Features
 
 * **Google:** Erweiterung der Google-Komponente um TTS mit Verbindung zum Google Token-Server.
-
 
 
 ## 0.5.15.0033 Beta (19.10.2019)
@@ -17,13 +23,11 @@
 * **Google:** Erweiterung der Google-Komponente um Dialogflow Version 2.
 
 
-
 ## 0.5.14.0032 Beta (31.08.2019)
 
 ### Features
 
 * **Microsoft:** der Microsoft Cloud-Dienst (LUIS) für die NLU wurde eingebaut, um Microsofts NLU für die Sprachanalyse verwenden zu können
-
 
 
 ## 0.5.13.0031 Alpha (10.08.2019)
