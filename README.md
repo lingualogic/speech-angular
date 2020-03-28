@@ -19,12 +19,12 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.17.tgz
+    $ npm install speech-framework-0.5.18.tgz
 
 
 ## Letzte Version
 
-* 0.5.17.0035 Release vom 16.02.2020 [Release Notizen](./CHANGELOG.md)
+* 0.5.18.0036 Release vom 28.03.2020 [Release Notizen](./CHANGELOG.md)
 
 
 ## Voraussetzungen
@@ -65,6 +65,17 @@ Will man den Clouddienst verwenden, muss ein eigener Clouddienst Account eingeri
 
 ## Installation
 
+Die Installation kann vom globalen NPM-Repository aus erfolgen, oder als lokale Installation erzeugt man sich sein NPM-Package selbst.
+
+### NPM-Package
+
+Zur Installation von Speech-Angular ins eigene Projekt, im Projektverzeichnis folgenden Befehl eingeben:
+
+    $ npm install speech-angular
+
+
+### lokales Package
+
 Zuerst muss das Speech-Angular Github-Repsitory unter [https://github.com/lingualogic/speech-angular](https://github.com/lingualogic/speech-angular) mit folgendem Befehl geklont werden:
 
     $ git clone https://github.com/lingualogic/speech-angular
@@ -86,11 +97,11 @@ Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
 
     $ npm run docs
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.17.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.18.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
 Die Installation des speech-angular npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install speech-angular-0.5.17.tgz
+    $ npm install speech-angular-0.5.18.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit einem unserer [Schnelleinstiege](./docs/quickstart/README.md) aus.
 

@@ -483,6 +483,13 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
 
     /**
+     * Verpackt die auszuliefernde Client-Bibliothek
+     */
+
+    gulp.task('dist-publish', shell.task('cd dist && npm publish'));
+
+
+    /**
      * Erzeugt die lauffaehige Speech-Bibliothek speech.js aus dem API-Quellcode
      */
 
