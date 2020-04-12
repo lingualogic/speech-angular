@@ -1,20 +1,20 @@
 # IntentService
 
-Der IntentService dient zur Sprachanalyse von Texten zur Erzeugung eines Intents. Für die Sprachanalyse wird die NLU des Nuance Cloud-Dienstes verwendet. Der gesamte Code läuft komplett im Browser und verbindet sich per WebSocket mit dem Nuance Cloud-Dienst. Der intentService erbt vom abstrakten [BaseService](./../base/BaseService.md).
+Der IntentService dient zur Sprachanalyse von Texten zur Erzeugung eines Intents. Für die Sprachanalyse wird die NLU der Cloud-Dienste von Google und Microsoft verwendet. Mit Rasa kann ein eigener Cloud-Dienst für eine NLU eingebunden werden. Der gesamte Code läuft komplett im Browser und verbindet sich mit dem jeweiligen Cloud-Dienst. Der intentService erbt vom abstrakten [BaseService](./../base/BaseService.md).
 
 
 ## Architektur
 
-In der folgenden Grafik werden die einzelnen Schichten, angefangen von der AngularApp, über den IntentService und das NuanceModule von Speech-Angular, die Intent-Komponente, das Plugin für die NLU (Natural Language Understanding), sowie die verschiedenen Nuance-Komponenten im Speech-Framework, bis hinunter zum Nuance Cloud-Dienst, dargestellt. 
+In der folgenden Grafik werden die einzelnen Schichten, angefangen von der AngularApp, über den IntentService und die verschiedenen Cloud-Module von Speech-Angular, die Intent-Komponente, die Plugins für die NLU (Natural Language Understanding), sowie die verschiedenen Cloud-Komponenten im Speech-Framework, bis hinunter zum jeweiligen Cloud-Dienst, dargestellt. 
 
 
 ![IntentService-Architektur](IntentService-1.gif)
 
 
-Ganz oben sind die für den IntentService notwendigen Nuance-Credentials dargestellt, die der AngularApp übergeben werden müssen. Eine Anleitung für die Erstellung der Nuance-Credentials und die Einbindung des NuanceModule in die AngularApp zur Aktivierung des Nuance Cloud-Service findet man unter [docs/cloud/Nuance.md](./../../cloud/Nuance.md)
+Ganz oben sind die für den IntentService notwendigen Credentials dargestellt, die der AngularApp übergeben werden müssen. Eine Anleitung für die Erstellung der Credentials und die Einbindung der Cloud-Module in die AngularApp zur Aktivierung des jeweiligen Cloud-Service findet man unter [docs/cloud/Cloud.md](./../../cloud/Cloud.md)
 
-Die nächste Grafik zeigt die konkrete Vererbungsbeziehung zu BaseService, sowie die Einbindung von IntentFactory und IntentInterface aus dem Speech-Framework. IntentFactory ist eine statische Klasse und erzeugt das Intent-Objekt zum IntentInterface. Auf der linken Seite ist das NuanceModule dargestellt, welches als statische Klasse implementiert ist und das Nuance Singleton aus dem Speech-Framework einbindet.
-Damit Nuance funktioniert, müssen die Nuance-Credentials vom NuanceModule an das Nuance Singleton weitergereicht werden. 
+Die nächste Grafik zeigt die konkrete Vererbungsbeziehung zu BaseService, sowie die Einbindung von IntentFactory und IntentInterface aus dem Speech-Framework. IntentFactory ist eine statische Klasse und erzeugt das Intent-Objekt zum IntentInterface. Auf der linken Seite sind die Cloud-Module dargestellt, welche als statische Klassen implementiert sind und das jeweilige Cloud-Singleton aus dem Speech-Framework einbinden.
+Damit die Cloud-Dienste funktionieren, müssen die jeweiligen Credentials vom Cloud-Module an das Cloud-Singleton (Google, Microsoft oder Rasa) weitergereicht werden. 
 
 
 ![IntentService-Struktur](IntentService-2.gif)
@@ -37,7 +37,11 @@ Dazu müssen das Speech-Framework und das Speech-Angular npm-Paket in der gleich
 
 	$ npm install speech-framework-<version>.tgz
 	$ npm install speech-angular-<version>.tgz
-	 
+
+Alternativ kann man Speech-Angular aus dem globalen NPM-Repository installieren. Dann wird Speech-Framework automatisch mitinstalliert.
+
+	$ npm install speech-angular
+		 
 
 ## Konfiguration
 

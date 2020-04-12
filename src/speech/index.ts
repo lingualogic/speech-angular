@@ -56,21 +56,21 @@ export { BaseService } from './base/base-service';
 
 // speak-service
 
-export { SPEAK_HTML5_TTS, SPEAK_AMAZON_TTS, SPEAK_MICROSOFT_TTS, SPEAK_NUANCE_TTS, SPEAK_DE_LANGUAGE, SPEAK_EN_LANGUAGE } from './speak/speak-service-const';
+export { SPEAK_HTML5_TTS, SPEAK_AMAZON_TTS, SPEAK_GOOGLE_TTS, SPEAK_MICROSOFT_TTS, SPEAK_NUANCE_TTS, SPEAK_DE_LANGUAGE, SPEAK_EN_LANGUAGE } from './speak/speak-service-const';
 export { SpeakServiceOptionInterface } from './speak/speak-service-option.interface';
 export { SpeakService } from './speak/speak-service';
 
 
 // listen-service
 
-export { LISTEN_HTML5_ASR, LISTEN_MICROSOFT_ASR, LISTEN_NUANCE_ASR, LISTEN_DE_LANGUAGE, LISTEN_EN_LANGUAGE } from './listen/listen-service-const';
+export { LISTEN_HTML5_ASR, LISTEN_GOOGLE_ASR, LISTEN_MICROSOFT_ASR, LISTEN_NUANCE_ASR, LISTEN_DE_LANGUAGE, LISTEN_EN_LANGUAGE, LISTEN_COMMAND_MODE, LISTEN_DICTATE_MODE } from './listen/listen-service-const';
 export { ListenServiceOptionInterface } from './listen/listen-service-option.interface';
 export { ListenService } from './listen/listen-service';
 
 
 // intent-service
 
-export { INTENT_GOOGLE_NLU, INTENT_MICROSOFT_NLU, INTENT_RASA_NLU, INTENT_DE_LANGUAGE, INTENT_EN_LANGUAGE } from './intent/intent-service-const';
+export { INTENT_GOOGLE_NLU, INTENT_MICROSOFT_NLU, INTENT_RASA_NLU, INTENT_NUANCE_NLU, INTENT_DE_LANGUAGE, INTENT_EN_LANGUAGE } from './intent/intent-service-const';
 export { IntentServiceDataInterface } from './intent/intent-service-data.interface';
 export { IntentServiceOptionInterface } from './intent/intent-service-option.interface';
 export { IntentService } from './intent/intent-service';

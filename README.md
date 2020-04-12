@@ -19,12 +19,18 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.18.tgz
+    $ npm install speech-framework-0.5.19.tgz
+
+Alternativ kann das Speech-Framework auch über das offizielle globale NPM-Repository installiert werden:
+
+    $ npm install speech-framework
+
+Wird speech-angular aus dem globalen NPM-Repository installert, wird speech-framework automatisch mitinstalliert.
 
 
 ## Letzte Version
 
-* 0.5.18.0036 Release vom 28.03.2020 [Release Notizen](./CHANGELOG.md)
+* 0.5.19.0037 Release vom 11.04.2020 [Release Notizen](./CHANGELOG.md)
 
 
 ## Voraussetzungen
@@ -73,6 +79,7 @@ Zur Installation von Speech-Angular ins eigene Projekt, im Projektverzeichnis fo
 
     $ npm install speech-angular
 
+Installiert man speech-angular auf diese Art, wird speech-framework automatisch mitinstalliert.
 
 ### lokales Package
 

@@ -1,6 +1,6 @@
 {
   "name": "my-speech-speak-offline",
-  "version": "0.5.18",
+  "version": "0.5.19",
   "description": "MySpeechSpeakOffline",
   "author": "Lingualogic Team",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "speech-angular": "file:../../dist/speech-angular-0.5.18.tgz"
+    "speech-angular": "file:../../dist/speech-angular-0.5.19.tgz"
   },
   "devDependencies": {}
 }

@@ -1,20 +1,20 @@
 # SpeakService
 
-Der SpeakService dient zur Sprachsynthese von Texten und zum Abspielen von Audiosprachdateien. Für die Sprachsynthese wird das HTML5 SpeechSynthesis Web-API verwendet. Es kann auch der Nuance Cloud-Service verwendet werden. Für das Abspielen der Audiodateien wird das HTML5 Audio Web-API verwendet. Der gesamte Code läuft komplett im Browser. Der SpeakService erbt vom abstrakten [BaseService](./../base/BaseService.md).
+Der SpeakService dient zur Sprachsynthese von Texten und zum Abspielen von Audiosprachdateien. Für die Sprachsynthese wird das HTML5 SpeechSynthesis Web-API verwendet. Es kann auch ein Cloud-Service verwendet werden. Für das Abspielen der Audiodateien wird das HTML5 Audio Web-API verwendet. Der gesamte Code läuft komplett im Browser. Der SpeakService erbt vom abstrakten [BaseService](./../base/BaseService.md).
 
 
 ## Architektur
 
-In der folgenden Grafik werden die einzelnen Schichten, angefangen von der AngularApp, über den SpeakService von Speech-Angular, die Speak-Komponente in Speech-Framework, die Plugins für TTS (Text-to-Speech) und AudioPlayer, bis hinunter zu den Standardschnittstellen des Browsers für SpeechSynthesis und Audio, sowie dem Nuance-Mix Server, dargestellt. 
+In der folgenden Grafik werden die einzelnen Schichten, angefangen von der AngularApp, über den SpeakService von Speech-Angular, die Speak-Komponente in Speech-Framework, die Plugins für TTS (Text-to-Speech) und AudioPlayer, bis hinunter zu den Standardschnittstellen des Browsers für SpeechSynthesis und Audio, sowie den verschiedenen Cloud-Servern, dargestellt. 
 
 
 ![SpeakService-Architektur](SpeakService-1.gif)
 
 
-Ganz oben sind die für den SpeakService notwendigen Nuance-Credentials dargestellt, die der AngularApp übergeben werden müssen, wenn Nuance als TTS zum Einsatz kommen soll. Eine Anleitung für die Erstellung der Nuance-Credentials und die Einbindung des NuanceModule in die AngularApp zur Aktivierung des Nuance Cloud-Service findet man unter [docs/cloud/nuance/Nuance.md](./../../cloud/nuance/Nuance.md)
+Ganz oben sind die für den SpeakService notwendigen Credentials dargestellt, die der AngularApp übergeben werden müssen, wenn ein Cloud-Dienst als TTS zum Einsatz kommen soll. Eine Anleitung für die Erstellung der Credentials und die Einbindung des jeweiligen Cloud-Module in die AngularApp zur Aktivierung des Cloud-Service findet man unter [docs/cloud/Cloud.md](./../../cloud/Cloud.md)
 
-Die nächste Grafik zeigt die konkrete Vererbungsbeziehung zu BaseService, sowie die Einbindung von SpeakFactory und SpeakInterface aus dem Speech-Framework. SpeakFactory ist eine statische Klasse und erzeugt das Speak-Objekt zum SpeakInterface. Auf der linken Seite ist das NuanceModule dargestellt, welches als statische Klasse implementiert ist und das Nuance Singleton aus dem Speech-Framework einbindet.
-Damit Nuance funktioniert, müssen die Nuance-Credentials vom NuanceModule an das Nuance Singleton weitergereicht werden. 
+Die nächste Grafik zeigt die konkrete Vererbungsbeziehung zu BaseService, sowie die Einbindung von SpeakFactory und SpeakInterface aus dem Speech-Framework. SpeakFactory ist eine statische Klasse und erzeugt das Speak-Objekt zum SpeakInterface. Auf der linken Seite sind die Cloud-Module dargestellt, welche als statische Klassen implementiert sind und das jeweilige Cloud-Singleton (Amazon, Google oder Microsoft) aus dem Speech-Framework einbindet.
+Damit ein Cloud-Service funktioniert, müssen seine Credentials vom jeweiligen Cloud-Module an das Cloud-Singleton weitergereicht werden.
 
 
 ![SpeakService-Struktur](SpeakService-2.gif)
@@ -39,6 +39,10 @@ Dazu müssen das Spech-Framework und das Speech-Angular npm-Paket in der gleiche
 	$ npm install speech-framework-<version>.tgz
 	$ npm install speech-angular-<version>.tgz
 	 
+Alternativ kann man Speech-Angular aus dem globalen NPM-Repository installieren. Dann wird Speech-Framework automatisch mitinstalliert.
+
+	$ npm install speech-angular	 
+
 
 ## Konfiguration
 
