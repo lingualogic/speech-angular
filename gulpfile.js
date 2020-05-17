@@ -6,7 +6,7 @@
 const gulp = require('gulp');
 const path = require('path');
 const childProcess = require('child_process');
-const runSequence = require('run-sequence');
+const runSequence = require('gulp4-run-sequence');
 const shell = require('gulp-shell');
 
 
@@ -118,14 +118,14 @@ gulp.task('install-cordova', function(callback) {
 
 gulp.task('build', function(callback) {
     runSequence(
-        // 'test-unit',
+        'test-unit',
         'dist-build',
-        // 'docs-dist-typedoc',
-        // 'test-e2e',
+        'docs-dist-typedoc',
+        'test-e2e',
         'dist-pack',
-        // 'test-examples-lint',
-        // 'test-examples-unit',
-        // 'test-examples-e2e',
+        'test-examples-lint',
+        'test-examples-unit',
+        'test-examples-e2e',
         callback);
 });
 

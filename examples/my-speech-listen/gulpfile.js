@@ -2,7 +2,7 @@
  * Automatisierung des Installprozesses fuer Speech-Angular
  * Hier werden folgende Dinge nach der Installation der NPM-Packete durchgefuehrt:
  * 
- *      - google.credentials.ts wird als leere Datei in credentials erzeugt
+ *      - microsoft-credentials.ts wird als leere Datei in credentials erzeugt
  */
 
 'use strict';
@@ -27,8 +27,8 @@ const credentialsDir = 'credentials';
 
 gulp.task('install-help', () => {
     console.log('Install-Kommandos');
-    console.log('   install-google-credentials  - Erzeugen einer leeren Google-Credentials-Datei');
-    console.log('   install                     - Erzeugt alle Dateien');
+    console.log('   install-microsoft-credentials  - Erzeugen einer leeren Microsoft-Credentials-Datei');
+    console.log('   install                        - Erzeugt alle Dateien');
     console.log();
 });
 
@@ -37,24 +37,25 @@ gulp.task('install-help', () => {
 
 
 /**
- * Erzeugt google-credentials.ts in credentials/
+ * Erzeugt microsoft-credentials.ts in credentials/
  */
 
-gulp.task('install-google-credentials', function() {
+gulp.task('install-microsoft-credentials', function() {
     try {
-        // pruefen auf vorhandene Google-Credentials Datei
-        fs.accessSync( `${credentialsDir}/google-credentials.ts` );
+        // pruefen auf vorhandene Microsoft-Credentials Datei
+        fs.accessSync( `${credentialsDir}/microsoft-credentials.ts` );
         return gulp.src( '*' ); // empty stream
     } catch (e) {
         // Datei ist nicht vorhanden und kann erzeugt werden
-        return gulp.src([ `${credentialsDir}/google-credentials.ts` ], { allowEmpty: true })
-            .pipe( file( 'google-credentials.ts', ''))
+        return gulp.src([ `${credentialsDir}/microsoft-credentials.ts` ], { allowEmpty: true })
+            .pipe( file( 'microsoft-credentials.ts', ''))
             .pipe(inject.append( "/**\n" ))
-            .pipe(inject.append( " * Google Credentials\n" ))
+            .pipe(inject.append( " * Microsoft Credentials\n" ))
             .pipe(inject.append( " */\n" ))
             .pipe(inject.append( "\n" ))
             .pipe(inject.append( "\n" ))
-            .pipe(inject.append( "export const GOOGLE_APP_KEY = '';\n" ))
+            .pipe(inject.append( "export const MICROSOFT_REGION = '';\n" ))
+            .pipe(inject.append( "export const MICROSOFT_SUBSCRIPTION_KEY = '';\n" ))
             .pipe( gulp.dest(  credentialsDir ));
     }
 });
@@ -66,7 +67,7 @@ gulp.task('install-google-credentials', function() {
 
 gulp.task('install', (callback) => {
     runSequence(
-        'install-google-credentials',
+        'install-microsoft-credentials',
         callback
     );
 });

@@ -14,7 +14,7 @@ const fs = require('fs');
 const file = require('gulp-file');
 const shell = require('gulp-shell');
 const inject = require('gulp-inject-string');
-const runSequence = require('run-sequence');
+const runSequence = require('gulp4-run-sequence');
 
 
 module.exports = ({ gulp, credentialsDir }) => {
@@ -40,9 +40,10 @@ module.exports = ({ gulp, credentialsDir }) => {
         try {
             // pruefen auf vorhandene Nuance-Credentials Datei
             fs.accessSync( `${credentialsDir}/nuance-credentials.ts` );
+            return gulp.src( '*' ); // empty stream
         } catch (e) {
             // Datei ist nicht vorhanden und kann erzeugt werden
-            return gulp.src([ `${credentialsDir}/nuance-credentials.ts` ])
+            return gulp.src([ `${credentialsDir}/nuance-credentials.ts` ], { allowEmpty: true })
                 .pipe( file( 'nuance-credentials.ts', ''))
                 .pipe(inject.append( "/**\n" ))
                 .pipe(inject.append( " * Nuance Credentials\n" ))
@@ -54,7 +55,6 @@ module.exports = ({ gulp, credentialsDir }) => {
                 .pipe(inject.append( "export const NLU_TAG = '';\n" ))
                 .pipe( gulp.dest(  credentialsDir ));
         }
-        return gulp.src( '' ); // empty stream
     });
 
 
@@ -66,9 +66,10 @@ module.exports = ({ gulp, credentialsDir }) => {
         try {
             // pruefen auf vorhandene Amazon-Credentials Datei
             fs.accessSync( `${credentialsDir}/amazon-credentials.ts` );
+            return gulp.src( '*' ); // empty stream
         } catch (e) {
             // Datei ist nicht vorhanden und kann erzeugt werden
-            return gulp.src([ `${credentialsDir}/amazon-credentials.ts` ])
+            return gulp.src([ `${credentialsDir}/amazon-credentials.ts` ], { allowEmpty: true })
                 .pipe( file( 'amazon-credentials.ts', ''))
                 .pipe(inject.append( "/**\n" ))
                 .pipe(inject.append( " * Amazon Credentials\n" ))
@@ -79,7 +80,6 @@ module.exports = ({ gulp, credentialsDir }) => {
                 .pipe(inject.append( "export const IDENTITY_POOL_ID = '';\n" ))
                 .pipe( gulp.dest(  credentialsDir ));
         }
-        return gulp.src( '' ); // empty stream
     });
 
 
@@ -91,9 +91,10 @@ module.exports = ({ gulp, credentialsDir }) => {
         try {
             // pruefen auf vorhandene Google-Credentials Datei
             fs.accessSync( `${credentialsDir}/google-credentials.ts` );
+            return gulp.src( '*' ); // empty stream
         } catch (e) {
             // Datei ist nicht vorhanden und kann erzeugt werden
-            return gulp.src([ `${credentialsDir}/google-credentials.ts` ])
+            return gulp.src([ `${credentialsDir}/google-credentials.ts` ], { allowEmpty: true })
                 .pipe( file( 'google-credentials.ts', ''))
                 .pipe( inject.append( "/**\n" ))
                 .pipe( inject.append( " * Google Credentials\n" ))
@@ -106,7 +107,6 @@ module.exports = ({ gulp, credentialsDir }) => {
                 .pipe( inject.append( "export const DIALOGFLOW_PROJECT_ID = '';\n" ))
                 .pipe( gulp.dest(  credentialsDir ));
         }
-        return gulp.src( '' ); // empty stream
     });
 
 
@@ -118,9 +118,10 @@ module.exports = ({ gulp, credentialsDir }) => {
         try {
             // pruefen auf vorhandene Microsoft-Credentials Datei
             fs.accessSync( `${credentialsDir}/microsoft-credentials.ts` );
+            return gulp.src( '*' ); // empty stream
         } catch (e) {
             // Datei ist nicht vorhanden und kann erzeugt werden
-            return gulp.src([ `${credentialsDir}/microsoft-credentials.ts` ])
+            return gulp.src([ `${credentialsDir}/microsoft-credentials.ts` ], { allowEmpty: true })
                 .pipe( file( 'microsoft-credentials.ts', ''))
                 .pipe(inject.append( "/**\n" ))
                 .pipe(inject.append( " * Microsoft Credentials\n" ))
@@ -132,7 +133,6 @@ module.exports = ({ gulp, credentialsDir }) => {
                 .pipe(inject.append( "export const MICROSOFT_LUIS_ENDPOINT = '';\n" ))
                 .pipe( gulp.dest(  credentialsDir ));
         }
-        return gulp.src( '' ); // empty stream
     });
 
 
@@ -144,9 +144,10 @@ module.exports = ({ gulp, credentialsDir }) => {
         try {
             // pruefen auf vorhandene Rasa-Credentials Datei
             fs.accessSync( `${credentialsDir}/rasa-credentials.ts` );
+            return gulp.src( '*' ); // empty stream
         } catch (e) {
             // Datei ist nicht vorhanden und kann erzeugt werden
-            return gulp.src([ `${credentialsDir}/rasa-credentials.ts` ])
+            return gulp.src([ `${credentialsDir}/rasa-credentials.ts` ], { allowEmpty: true })
                 .pipe( file( 'rasa-credentials.ts', ''))
                 .pipe( inject.append( "/**\n" ))
                 .pipe( inject.append( " * Rasa Credentials\n" ))
@@ -157,7 +158,6 @@ module.exports = ({ gulp, credentialsDir }) => {
                 .pipe( inject.append( "export const RASA_APP_KEY = '';\n" ))
                 .pipe( gulp.dest(  credentialsDir ));
         }
-        return gulp.src( '' ); // empty stream
     });
 
 
@@ -179,7 +179,7 @@ module.exports = ({ gulp, credentialsDir }) => {
             'install-google-credentials',
             'install-microsoft-credentials',
             'install-rasa-credentials',
-            // 'install-webdriver',
+            'install-webdriver',
             callback
         );
     });

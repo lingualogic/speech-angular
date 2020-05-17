@@ -36,35 +36,3 @@ GoogleModule.init( googleOption, (aGoogleFlag: boolean) => {
     .catch(err => console.error(err));
 
 });
-
-
-/**** TODO: Nuance ist nicht mehr verwendbar
-
-// Nuance-Credentials
-
-// TODO: Hier muessen die echten Zugangsdaten eingetragen werden
-import { APP_ID, APP_KEY, NLU_TAG } from './config/nuance-credentials';
-const nuanceOption = {
-  nuanceAppId: APP_ID,
-  nuanceAppKey: APP_KEY,
-  nuanceNluTag: NLU_TAG
-};
-
-
-// Initialisierung des Nuance Cloud-Dienstes
-
-NuanceModule.init( nuanceOption, (aNuanceFlag: boolean) => {
-  console.log('Nuance:', aNuanceFlag);
-
-  // Initialisierung der Angular-Anwendung
-
-  if (environment.production) {
-    enableProdMode();
-  }
-
-  platformBrowserDynamic().bootstrapModule(AppModule)
-    .catch(err => console.log(err));
-
-});
-
-****/

@@ -24,7 +24,6 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/speech.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
@@ -77,7 +76,6 @@
             "codeCoverage": true,
             "styles": [
               "src/styles.css",
-              "src/speech.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [

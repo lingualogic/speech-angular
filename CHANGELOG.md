@@ -1,6 +1,17 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.20.0038 Release (17.05.2020)
+
+### Features
+
+* **Google:** In Google kann zwischen verschiedenen Servern über setConfig umgeschaltet werden.
+
+### Fix
+
+* **Gulp:** Umstellung auf Gulp4, um kompatibel zu Node12 zu sein.
+
+
 ## 0.5.19.0037 Release (11.04.2020)
 
 ### Features

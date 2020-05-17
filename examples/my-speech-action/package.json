@@ -1,6 +1,6 @@
 {
   "name": "my-speech-action",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "description": "MySpeechAction",
   "author": "Lingualogic Team",
   "license": "MIT",
@@ -14,7 +14,8 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "speech-angular": "file:../../dist/speech-angular-0.5.19.tgz"
+    "speech-framework": "file:../../speech-framework-0.5.20.tgz",
+    "speech-angular": "file:../../dist/speech-angular-0.5.20.tgz"
   },
   "devDependencies": {}
 }

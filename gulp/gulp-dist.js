@@ -10,7 +10,7 @@
 
 const shell = require('gulp-shell');
 const del = require('del');
-const runSequence = require('run-sequence');
+const runSequence = require('gulp4-run-sequence');
 
 
 module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir, distDir }) => {
@@ -37,7 +37,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/index.js`,
             `${speechDir}/index.d.ts`,
             `${speechDir}/index.metadata.json`,
-            `${srcSpeechDir}/speech-service-version.json`
+            // `${srcSpeechDir}/speech-service-version.json`
         ])
             .pipe( gulp.dest( distDir ));
     });
@@ -70,7 +70,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/nuance/nuance-service.d.ts`,
             `${speechDir}/nuance/*.metadata.json`,
             `${speechDir}/nuance/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/nuance` ));
     });
 
@@ -87,7 +87,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/amazon/amazon-service.d.ts`,
             `${speechDir}/amazon/*.metadata.json`,
             `${speechDir}/amazon/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/amazon` ));
     });
 
@@ -104,7 +104,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/google/google-service.d.ts`,
             `${speechDir}/google/*.metadata.json`,
             `${speechDir}/google/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/google` ));
     });
 
@@ -121,7 +121,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/microsoft/microsoft-service.d.ts`,
             `${speechDir}/microsoft/*.metadata.json`,
             `${speechDir}/microsoft/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/microsoft` ));
     });
 
@@ -138,7 +138,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/rasa/rasa-service.d.ts`,
             `${speechDir}/rasa/*.metadata.json`,
             `${speechDir}/rasa/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/rasa` ));
     });
 
@@ -154,7 +154,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/base/base-service.d.ts`,
             `${speechDir}/base/*.metadata.json`,
             `${speechDir}/base/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/base` ));
     });
 
@@ -170,7 +170,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/speak/speak-service.d.ts`,
             `${speechDir}/speak/*.metadata.json`,
             `${speechDir}/speak/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/speak` ));
     });
 
@@ -186,9 +186,9 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/listen/listen-service.d.ts`,
             `${speechDir}/listen/*.metadata.json`,
             `${speechDir}/listen/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/listen` ));
-    });
+    }, { allowEmpty: true });
 
 
     /**
@@ -203,7 +203,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/intent/intent-service.d.ts`,
             `${speechDir}/intent/*.metadata.json`,
             `${speechDir}/intent/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/intent` ));
     });
 
@@ -220,7 +220,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/action/action-service.d.ts`,
             `${speechDir}/action/*.metadata.json`,
             `${speechDir}/action/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/action` ));
     });
 
@@ -239,7 +239,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/dialog/dialog-service.d.ts`,
             `${speechDir}/dialog/*.metadata.json`,
             `${speechDir}/dialog/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/dialog` ));
     });
 
@@ -257,7 +257,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
             `${speechDir}/bot/bot-service.d.ts`,
             `${speechDir}/bot/*.metadata.json`,
             `${speechDir}/bot/*.js`
-        ])
+        ], { allowEmpty: true })
         .pipe( gulp.dest( `${distDir}/bot` ));
     });
 
@@ -268,7 +268,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
 
     gulp.task('dist-copy-bundle', function() {
         return gulp.src([
-            `${bundleDir}/index.js`,
+            // `${bundleDir}/index.js`,
             `${bundleDir}/package.json`,
         ])
             .pipe( gulp.dest( distDir ));
