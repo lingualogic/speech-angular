@@ -1,6 +1,6 @@
 {
     "name": "speech-angular",
-    "version": "0.5.20",
+    "version": "0.5.21",
     "description": "Speech-Angular",
     "author": "LinguaLogic Team",
     "license": "MIT",
@@ -46,7 +46,7 @@
         "jquery": "^3.2.1",
         "popper.js": "^1.14.4",
         "rxjs": "^6.3.3",
-        "speech-framework": "file:speech-framework-0.5.20.tgz",
+        "speech-framework": "file:speech-framework-0.5.21.tgz",
         "tslib": "^1.9.0",
         "zone.js": "~0.8.26"
     },

@@ -6,6 +6,13 @@ Die Roadmap zeigt die Reihenfolge der Veröffentlichung von Speech-Angular Versi
 ## Veröffentlichte Versionen
 
 
+### Juni: Version 0.5.21
+
+beinhaltet:
+
+* **Google:** Verbesserung der Intent-Anbindung an Dialogflow.
+
+
 ### Mai: Version 0.5.20
 
 beinhaltet:
