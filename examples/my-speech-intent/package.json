@@ -1,6 +1,6 @@
 {
   "name": "my-speech-intent",
-  "version": "0.5.22",
+  "version": "0.5.23",
   "description": "MySpeechIntent",
   "author": "Lingualogic Team",
   "license": "MIT",
@@ -15,8 +15,8 @@
     "e2e": "ng e2e"
   },
   "dependencies": {
-    "speech-framework": "file:../../speech-framework-0.5.22.tgz",
-    "speech-angular": "file:../../dist/speech-angular-0.5.22.tgz"
+    "speech-framework": "file:../../speech-framework-0.5.23.tgz",
+    "speech-angular": "file:../../dist/speech-angular-0.5.23.tgz"
   },
   "devDependencies": {}
 }

@@ -120,12 +120,12 @@ gulp.task('build', function(callback) {
     runSequence(
         'test-unit',
         'dist-build',
-        'docs-dist-typedoc',
-        'test-e2e',
+        // 'docs-dist-typedoc',
+        // 'test-e2e',
         'dist-pack',
-        'test-examples-lint',
-        'test-examples-unit',
-        'test-examples-e2e',
+        // 'test-examples-lint',
+        // 'test-examples-unit',
+        // 'test-examples-e2e',
         callback);
 });
 

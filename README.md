@@ -19,7 +19,7 @@ Die Speech-Angular Bibliothek benötigt das Speech-Framework, welches unter [htt
 
 Um in eigenen Projekten Speech-Angular nutzen zu können, muss das Speech-Framework NPM-Package von der [LinguaLogic-Seite](https://lingualogic.de) heruntergeladen werden, in den eigenen Projektordner kopiert werden und vor Speech-Angular installiert sein. Das Speech-Framework NPM-Package wird mit folgendem Befehl installiert:
 
-    $ npm install speech-framework-0.5.22.tgz
+    $ npm install speech-framework-0.5.23.tgz
 
 Alternativ kann das Speech-Framework auch über das offizielle globale NPM-Repository installiert werden:
 
@@ -30,38 +30,38 @@ Wird speech-angular aus dem globalen NPM-Repository installert, wird speech-fram
 
 ## Letzte Version
 
-* 0.5.22.0040 Release vom 31.08.2020 [Release Notizen](./CHANGELOG.md)
+* 0.5.23.0041 Release vom 10.07.2021 [Release Notizen](./CHANGELOG.md)
 
 
 ## Voraussetzungen
 
-Wir haben Speech-Angular auf Mac OS X 10.11, Mac OS X 10.13, Win 10 und Ubuntu 18.04 getestet. Als Plattformen können eingesetzt werden:
+Wir haben Speech-Angular auf Mac OS X 10.14, Win 10 und Ubuntu 20.04 getestet. Als Plattformen können eingesetzt werden:
 
-* Mac OS X >= 10.9
-* Windows >= 7
-* aktuelles Linux (z.B. Ubuntu 18.04)
+* Mac OS X >= 10.14
+* Windows >= 10
+* aktuelles Linux (z.B. Ubuntu 20.04)
 
 Es wird die aktuellste Angular-Version empfohlen
 
-* Angular >= 7.2
+* Angular >= 12.x
 
 
 Grundsätzlich ist das Speech-Framework in Chrome, Firefox, Opera, Safari und Edge nutzbar, allerdings hängt die Sprachausgabe unter diesen Browsern von der zugrunde liegenden Text-to-Speech Engine der jeweiligen Plattformen ab. Die Spracheingabe funktioniert bisher nur in Chrome ohne die Nutzung von Nuance. Mit Nuance kann die Spracheingabe in allen hier aufgeführten Browsern verwendet werden.
 
-* Chrome >= 71   Windows/Linux/MacOS (Html5: TTS, ASR)(Nuance: TTS, ASR, NLU)
-* Firefox >= 64  Windows/Linux/MacOS (Html5: TTS)(Nuance: TTS, ASR, NLU) 
-* Opera >= 58    Windows/MacOS (Html5: TTS)(Nuance: TTS, ASR, NLU) Linux (kein Html5)
-* Safari >= 12   MacOS/iOS (Html5: TTS)(Nuance: ASR, NLU) 
-* Edge >= 42     Windows (Html5: TTS)(Nuance: TTS, ASR, NLU)
+* Chrome >= 80   Windows/Linux/MacOS (Html5: TTS, ASR)(Nuance: TTS, ASR, NLU)
+* Firefox >= 80  Windows/Linux/MacOS (Html5: TTS)(Nuance: TTS, ASR, NLU) 
+* Opera >= 70    Windows/MacOS (Html5: TTS)(Nuance: TTS, ASR, NLU) Linux (kein Html5)
+* Safari >= 14   MacOS/iOS (Html5: TTS)(Nuance: ASR, NLU) 
+* Edge >= 80     Windows (Html5: TTS)(Nuance: TTS, ASR, NLU)
 
 
 NodeJS muss installiert sein.
 
-* NodeJS >= 10.X (LTS-Version)
+* NodeJS >= 12.X  <= 14.x (NodeJS 14.x LTS-Version wird empfohlen)
 
 Als weitere Plattformen können Android und iOS mit Cordova verwendet werden:
 
-* Cordova >= 8 für Android  >= 5.1 und iOS >= 10
+* Cordova >= 10 für Android  >= 5.1 und iOS >= 10
 
 Für Cordova müssen weitere Programme zur Entwicklung von Android- und iOS-Apps installiert werden.
 Informationen hierzu finden sich unter [docs/platform/Cordova.md](./docs/platform/Cordova.md).
@@ -104,11 +104,11 @@ Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
 
     $ npm run docs
 
-Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.22.tgz' kann in den eigenen Angular Projektordner kopiert werden.
+Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.23.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
 Die Installation des speech-angular npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
 
-    $ npm install speech-angular-0.5.22.tgz
+    $ npm install speech-angular-0.5.23.tgz
 
 Danach kann Speech-Angular im eigenen Angular-Projekt verwendet werden. Probiert es einfach mit einem unserer [Schnelleinstiege](./docs/quickstart/README.md) aus.
 

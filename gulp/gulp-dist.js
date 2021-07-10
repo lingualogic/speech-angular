@@ -36,7 +36,7 @@ module.exports = ({ gulp, docsDir, bundleDir, buildDir, srcSpeechDir, speechDir,
         return gulp.src([
             `${speechDir}/index.js`,
             `${speechDir}/index.d.ts`,
-            `${speechDir}/index.metadata.json`,
+            // `${speechDir}/index.metadata.json`,
             // `${srcSpeechDir}/speech-service-version.json`
         ])
             .pipe( gulp.dest( distDir ));

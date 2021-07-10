@@ -24,7 +24,6 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
             ]
@@ -76,7 +75,6 @@
             "codeCoverage": true,
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
             ],

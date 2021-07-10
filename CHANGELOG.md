@@ -1,6 +1,15 @@
 # Speech-Angular Release Notizen
 
 
+## 0.5.23.0041 Release (10.07.2021)
+
+### Fix
+
+Aktualisierung aller NPM-Packages.
+Aktualisierung auf Angular 12.
+
+
+
 ## 0.5.22.0040 Release (31.08.2020)
 
 ### Fix
