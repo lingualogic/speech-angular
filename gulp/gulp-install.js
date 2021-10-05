@@ -179,7 +179,7 @@ module.exports = ({ gulp, credentialsDir }) => {
             'install-google-credentials',
             'install-microsoft-credentials',
             'install-rasa-credentials',
-            'install-webdriver',
+            // 'install-webdriver',
             callback
         );
     });

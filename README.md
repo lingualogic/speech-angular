@@ -30,7 +30,7 @@ Wird speech-angular aus dem globalen NPM-Repository installert, wird speech-fram
 
 ## Letzte Version
 
-* 0.5.23.0041 Release vom 10.07.2021 [Release Notizen](./CHANGELOG.md)
+* 0.5.23.0041 Release vom 05.10.2021 [Release Notizen](./CHANGELOG.md)
 
 
 ## Voraussetzungen
@@ -100,10 +100,6 @@ zum Schluß wird das NPM-Paket für Speech-Angular im dist/ Ordner erzeugt:
 
     $ npm run build
 
-Die API-Dokumentation kann mit folgenden Befehl in docs/api erzeugt werden:
-
-    $ npm run docs
-
 Das im dist/ Ordner erzeugte npm-Paket 'speech-angular-0.5.23.tgz' kann in den eigenen Angular Projektordner kopiert werden.
 
 Die Installation des speech-angular npm-Paketes erfolgt im eigenen Angular Projektordner mit folgendem Befehl:
@@ -145,7 +141,7 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 [**Plattformen**](./docs/platform/README.md)
 
-[**API-Referenz**](https://lingualogic.de/speech-angular/docs/latest/api)
+[**API-Referenz**](https://lingualogic.github.io/speech-angular/api)
 
 [**Roadmap**](./docs/roadmap/README.md)
 

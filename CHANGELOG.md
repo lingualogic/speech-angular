@@ -1,7 +1,7 @@
 # Speech-Angular Release Notizen
 
 
-## 0.5.23.0041 Release (10.07.2021)
+## 0.5.23.0041 Release (05.10.2021)
 
 ### Fix
 
