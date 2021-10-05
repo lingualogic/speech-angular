@@ -141,7 +141,7 @@ Speech-Angular kann mit folgendem Befehl wieder deinstalliert werden:
 
 [**Plattformen**](./docs/platform/README.md)
 
-[**API-Referenz**](https://lingualogic.github.io/speech-angular/api)
+[**API-Referenz**](https://lingualogic.github.io/speech-angular/api/index.html)
 
 [**Roadmap**](./docs/roadmap/README.md)
 
