@@ -9,7 +9,6 @@ dist/
 dist-app/
 tmp/
 old/
-docs/api/
 docs/html/
 documentation/
 /cordova-app/app/
